@@ -1,0 +1,509 @@
+{
+  "siteUrl": "https://www.mammano.ch",
+  "locales": {
+    "default": "it",
+    "enabled": [
+      "it"
+    ],
+    "tags": {
+      "it": "it-CH",
+      "de": "de-CH",
+      "fr": "fr-CH"
+    }
+  },
+  "company": {
+    "name": "Mammano Traslochi e Trasporti",
+    "alternateNames": [
+      "Mammano Traslochi",
+      "Mammano Traslochi Lugano"
+    ],
+    "claim": {
+      "it": "Traslochi in Ticino, in Svizzera e all'estero dal 1986."
+    },
+    "founded": 1986,
+    "founder": {
+      "name": "Patrick Mammano",
+      "jobTitle": {
+        "it": "Titolare"
+      }
+    },
+    "address": {
+      "street": "Via al Fiume 4",
+      "zip": "6962",
+      "city": "Lugano-Viganello",
+      "region": "TI",
+      "country": "CH"
+    },
+    "geo": {
+      "lat": 46.0112,
+      "lng": 8.9536
+    },
+    "channels": {
+      "phone": {
+        "label": {
+          "it": "Ufficio (2 linee)"
+        },
+        "number": "+41919225024",
+        "display": "+41 91 922 50 24"
+      },
+      "mobile": {
+        "label": {
+          "it": "Mobile"
+        },
+        "number": "+41793338540",
+        "display": "+41 79 333 85 40"
+      },
+      "whatsapp": {
+        "number": "+41793338540"
+      },
+      "email": {
+        "address": "info@mammano.ch"
+      }
+    },
+    "hours": {
+      "it": "Lunedì–venerdì, 08:00–12:00 e 13:30–17:30"
+    },
+    "priceRange": {
+      "it": "Preventivo gratuito"
+    },
+    "zones": [
+      {
+        "it": "Lugano"
+      },
+      {
+        "it": "Malcantone"
+      },
+      {
+        "it": "Mendrisio"
+      },
+      {
+        "it": "Chiasso"
+      },
+      {
+        "it": "Bellinzona"
+      },
+      {
+        "it": "Locarno"
+      },
+      {
+        "it": "Svizzera"
+      },
+      {
+        "it": "Italia"
+      },
+      {
+        "it": "Europa"
+      }
+    ],
+    "social": [
+      {
+        "network": "facebook",
+        "url": "https://www.facebook.com/pages/Mammano-Traslochi-Lugano/101968863178462"
+      }
+    ],
+    "logoImage": "mammano-logo.png",
+    "image": "hero-mammano.jpg",
+    "languages": [
+      "it",
+      "de",
+      "fr"
+    ],
+    "areaServed": [
+      {
+        "type": "City",
+        "name": "Lugano"
+      },
+      {
+        "type": "City",
+        "name": "Mendrisio"
+      },
+      {
+        "type": "City",
+        "name": "Chiasso"
+      },
+      {
+        "type": "City",
+        "name": "Bellinzona"
+      },
+      {
+        "type": "City",
+        "name": "Locarno"
+      },
+      {
+        "type": "AdministrativeArea",
+        "name": "Canton Ticino"
+      },
+      {
+        "type": "Country",
+        "name": "Svizzera"
+      }
+    ]
+  },
+  "logo": {
+    "mark": "M",
+    "name": "Mammano",
+    "claim": {
+      "it": "Traslochi e Trasporti"
+    }
+  },
+  "nav": [
+    {
+      "label": {
+        "it": "Home"
+      },
+      "link": {
+        "type": "page",
+        "page": "home"
+      }
+    },
+    {
+      "label": {
+        "it": "Servizi"
+      },
+      "link": {
+        "type": "page",
+        "page": "servizi"
+      },
+      "children": [
+        {
+          "label": {
+            "it": "Traslochi privati"
+          },
+          "link": {
+            "type": "page",
+            "page": "traslochi-privati"
+          }
+        },
+        {
+          "label": {
+            "it": "Traslochi aziendali"
+          },
+          "link": {
+            "type": "page",
+            "page": "traslochi-aziendali"
+          }
+        },
+        {
+          "label": {
+            "it": "Traslochi internazionali"
+          },
+          "link": {
+            "type": "page",
+            "page": "traslochi-internazionali"
+          }
+        },
+        {
+          "label": {
+            "it": "Deposito, sgomberi e imballaggi"
+          },
+          "link": {
+            "type": "page",
+            "page": "deposito-sgomberi-imballaggi"
+          }
+        }
+      ]
+    },
+    {
+      "label": {
+        "it": "Chi siamo"
+      },
+      "link": {
+        "type": "page",
+        "page": "chi-siamo"
+      }
+    },
+    {
+      "label": {
+        "it": "Contatti"
+      },
+      "link": {
+        "type": "page",
+        "page": "contatti"
+      }
+    }
+  ],
+  "header": {
+    "cta": {
+      "label": {
+        "it": "Preventivo gratuito"
+      },
+      "link": {
+        "type": "page",
+        "page": "preventivo"
+      },
+      "style": "primary"
+    },
+    "showPhone": true
+  },
+  "footer": {
+    "claim": {
+      "it": "Traslochi in Ticino, in Svizzera e all'estero dal 1986."
+    },
+    "columns": [
+      {
+        "title": {
+          "it": "Servizi"
+        },
+        "items": [
+          {
+            "label": {
+              "it": "Traslochi privati"
+            },
+            "link": {
+              "type": "page",
+              "page": "traslochi-privati"
+            }
+          },
+          {
+            "label": {
+              "it": "Traslochi aziendali"
+            },
+            "link": {
+              "type": "page",
+              "page": "traslochi-aziendali"
+            }
+          },
+          {
+            "label": {
+              "it": "Traslochi internazionali"
+            },
+            "link": {
+              "type": "page",
+              "page": "traslochi-internazionali"
+            }
+          },
+          {
+            "label": {
+              "it": "Deposito, sgomberi e imballaggi"
+            },
+            "link": {
+              "type": "page",
+              "page": "deposito-sgomberi-imballaggi"
+            }
+          },
+          {
+            "label": {
+              "it": "Noleggio lift e camion"
+            },
+            "link": {
+              "type": "page",
+              "page": "servizi",
+              "anchor": "noleggio"
+            }
+          }
+        ]
+      },
+      {
+        "title": {
+          "it": "Azienda"
+        },
+        "items": [
+          {
+            "label": {
+              "it": "Chi siamo"
+            },
+            "link": {
+              "type": "page",
+              "page": "chi-siamo"
+            }
+          },
+          {
+            "label": {
+              "it": "Richiedi preventivo"
+            },
+            "link": {
+              "type": "page",
+              "page": "preventivo"
+            }
+          },
+          {
+            "label": {
+              "it": "Contatti"
+            },
+            "link": {
+              "type": "page",
+              "page": "contatti"
+            }
+          },
+          {
+            "label": {
+              "it": "WhatsApp"
+            },
+            "link": {
+              "type": "channel",
+              "channel": "whatsapp"
+            }
+          }
+        ]
+      },
+      {
+        "title": {
+          "it": "Zone"
+        },
+        "items": [
+          {
+            "label": {
+              "it": "Lugano e Luganese"
+            }
+          },
+          {
+            "label": {
+              "it": "Mendrisio e Chiasso"
+            }
+          },
+          {
+            "label": {
+              "it": "Bellinzona"
+            }
+          },
+          {
+            "label": {
+              "it": "Locarno"
+            }
+          },
+          {
+            "label": {
+              "it": "Svizzera ed estero"
+            }
+          }
+        ]
+      }
+    ],
+    "legal": [
+      {
+        "label": {
+          "it": "Privacy"
+        },
+        "link": {
+          "type": "page",
+          "page": "privacy"
+        }
+      },
+      {
+        "label": {
+          "it": "Note legali"
+        },
+        "link": {
+          "type": "page",
+          "page": "note-legali"
+        }
+      },
+      {
+        "label": {
+          "it": "Cookie"
+        },
+        "link": {
+          "type": "page",
+          "page": "cookie"
+        }
+      }
+    ],
+    "copyright": {
+      "it": "© 2026 Mammano Traslochi e Trasporti"
+    }
+  },
+  "quickbar": {
+    "buttons": [
+      {
+        "label": {
+          "it": "Chiama"
+        },
+        "link": {
+          "type": "channel",
+          "channel": "phone"
+        },
+        "style": "secondary"
+      },
+      {
+        "label": {
+          "it": "WhatsApp"
+        },
+        "link": {
+          "type": "channel",
+          "channel": "whatsapp"
+        },
+        "style": "whatsapp"
+      },
+      {
+        "label": {
+          "it": "Preventivo"
+        },
+        "link": {
+          "type": "page",
+          "page": "preventivo"
+        },
+        "style": "primary"
+      }
+    ],
+    "whatsappFloat": true
+  },
+  "consent": {
+    "provider": "builtin"
+  },
+  "strings": {
+    "skipLink": {
+      "it": "Vai al contenuto"
+    },
+    "menuOpen": {
+      "it": "Apri il menu"
+    },
+    "menuClose": {
+      "it": "Chiudi il menu"
+    },
+    "navLabel": {
+      "it": "Principale"
+    },
+    "langLabel": {
+      "it": "Lingua"
+    },
+    "quickbarLabel": {
+      "it": "Contatto rapido"
+    },
+    "breadcrumbHome": {
+      "it": "Home"
+    },
+    "breadcrumbLabel": {
+      "it": "Percorso"
+    },
+    "summaryTitle": {
+      "it": "In breve"
+    },
+    "optionalSuffix": {
+      "it": "(facoltativo)"
+    },
+    "selectPlaceholder": {
+      "it": "Seleziona"
+    },
+    "mapConsentText": {
+      "it": "Per vedere la mappa serve il vostro consenso: caricandola, Google riceve il vostro indirizzo IP e può salvare propri cookie."
+    },
+    "mapShowButton": {
+      "it": "Mostra la mappa"
+    },
+    "mapManageButton": {
+      "it": "Gestisci le preferenze"
+    },
+    "mapOpenLink": {
+      "it": "Apri in Google Maps"
+    },
+    "cookiePreferences": {
+      "it": "Preferenze cookie"
+    },
+    "formError": {
+      "it": "Non siamo riusciti a inviare la richiesta. Riprovate tra poco oppure chiamateci: siamo a vostra disposizione."
+    },
+    "whatsappFloatLabel": {
+      "it": "Scrivici su WhatsApp"
+    },
+    "callLabel": {
+      "it": "Chiama {number}"
+    },
+    "logoLabel": {
+      "it": "{name}, home"
+    }
+  },
+  "seo": {
+    "siteName": "Mammano Traslochi",
+    "favicon": "mammano-icon.jpg"
+  }
+}

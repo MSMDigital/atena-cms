@@ -1,0 +1,20 @@
+node_modules/
+dist/
+.dist-tmp*/
+*.old-*/
+.cache/
+.next/
+.env
+.env.local
+.DS_Store
+media/
+
+# ogni variante di .env (produzione, locale...) resta fuori; solo l'esempio si versiona
+.env.*
+!.env.example
+
+# stato dell'installazione e template caricati/scartati (i template inclusi nel repository sono templates/mammano e templates/starter)
+data/
+templates/.staging/
+templates/.trash/
+templates/node_modules/

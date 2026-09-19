@@ -1,0 +1,293 @@
+{
+  "blocks": [
+    {
+      "$id": "https://outsmart.cms/schema/blocks/hero.json",
+      "title": "Copertina",
+      "type": "object",
+      "properties": {
+        "id": {
+          "$ref": "https://outsmart.cms/schema/common.json#/$defs/blockId"
+        },
+        "type": {
+          "const": "hero"
+        },
+        "visible": {
+          "title": "Visibile",
+          "type": "boolean",
+          "default": true
+        },
+        "anchor": {
+          "$ref": "https://outsmart.cms/schema/common.json#/$defs/anchor"
+        },
+        "surface": {
+          "title": "Superficie",
+          "enum": [
+            "dark",
+            "brand",
+            "light"
+          ],
+          "default": "dark"
+        },
+        "title": {
+          "$ref": "https://outsmart.cms/schema/common.json#/$defs/text",
+          "title": "Titolo"
+        },
+        "lead": {
+          "$ref": "https://outsmart.cms/schema/common.json#/$defs/richInline",
+          "title": "Testo introduttivo"
+        },
+        "buttons": {
+          "title": "Pulsanti",
+          "type": "array",
+          "maxItems": 2,
+          "items": {
+            "type": "object",
+            "properties": {
+              "label": {
+                "$ref": "https://outsmart.cms/schema/common.json#/$defs/text",
+                "title": "Etichetta"
+              },
+              "link": {
+                "$ref": "https://outsmart.cms/schema/common.json#/$defs/link",
+                "title": "Link"
+              }
+            },
+            "required": [
+              "label",
+              "link"
+            ],
+            "additionalProperties": false
+          }
+        }
+      },
+      "required": [
+        "id",
+        "type",
+        "surface",
+        "title",
+        "lead"
+      ],
+      "additionalProperties": false
+    },
+    {
+      "$id": "https://outsmart.cms/schema/blocks/text.json",
+      "title": "Testo",
+      "type": "object",
+      "properties": {
+        "id": {
+          "$ref": "https://outsmart.cms/schema/common.json#/$defs/blockId"
+        },
+        "type": {
+          "const": "text"
+        },
+        "visible": {
+          "title": "Visibile",
+          "type": "boolean",
+          "default": true
+        },
+        "anchor": {
+          "$ref": "https://outsmart.cms/schema/common.json#/$defs/anchor"
+        },
+        "surface": {
+          "title": "Superficie",
+          "enum": [
+            "light",
+            "dark",
+            "brand"
+          ],
+          "default": "light"
+        },
+        "content": {
+          "$ref": "https://outsmart.cms/schema/common.json#/$defs/richBlock",
+          "title": "Contenuto",
+          "description": "Titoli, paragrafi, elenchi, link."
+        }
+      },
+      "required": [
+        "id",
+        "type",
+        "surface",
+        "content"
+      ],
+      "additionalProperties": false
+    },
+    {
+      "$id": "https://outsmart.cms/schema/blocks/form.json",
+      "title": "Modulo di contatto",
+      "type": "object",
+      "properties": {
+        "id": {
+          "$ref": "https://outsmart.cms/schema/common.json#/$defs/blockId"
+        },
+        "type": {
+          "const": "form"
+        },
+        "visible": {
+          "title": "Visibile",
+          "type": "boolean",
+          "default": true
+        },
+        "anchor": {
+          "$ref": "https://outsmart.cms/schema/common.json#/$defs/anchor"
+        },
+        "surface": {
+          "title": "Superficie",
+          "enum": [
+            "light",
+            "dark",
+            "brand"
+          ],
+          "default": "light"
+        },
+        "label": {
+          "$ref": "https://outsmart.cms/schema/common.json#/$defs/text",
+          "title": "Nome del modulo",
+          "description": "Letto dagli screen reader (es. \"Richiesta di preventivo\")."
+        },
+        "fields": {
+          "title": "Campi",
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "object",
+            "properties": {
+              "name": {
+                "title": "Nome interno",
+                "type": "string",
+                "pattern": "^[a-z][a-z0-9_]*$",
+                "description": "Chiave con cui il dato viene salvato."
+              },
+              "type": {
+                "title": "Tipo",
+                "enum": [
+                  "text",
+                  "email",
+                  "tel",
+                  "date",
+                  "select",
+                  "textarea",
+                  "consent"
+                ]
+              },
+              "label": {
+                "$ref": "https://outsmart.cms/schema/common.json#/$defs/richInline",
+                "title": "Etichetta",
+                "description": "Per il consenso può contenere il link all'informativa privacy."
+              },
+              "placeholder": {
+                "$ref": "https://outsmart.cms/schema/common.json#/$defs/text",
+                "title": "Segnaposto",
+                "x-when": {
+                  "type": [
+                    "text",
+                    "email",
+                    "tel",
+                    "textarea"
+                  ]
+                }
+              },
+              "autocomplete": {
+                "title": "Compilazione automatica",
+                "type": "string",
+                "description": "Valore HTML autocomplete (es. given-name, tel, email)."
+              },
+              "required": {
+                "title": "Obbligatorio",
+                "type": "boolean",
+                "default": false
+              },
+              "width": {
+                "title": "Larghezza",
+                "enum": [
+                  "half",
+                  "full"
+                ],
+                "default": "half"
+              },
+              "options": {
+                "title": "Opzioni",
+                "type": "array",
+                "minItems": 1,
+                "items": {
+                  "$ref": "https://outsmart.cms/schema/common.json#/$defs/text",
+                  "title": "Opzione"
+                },
+                "x-when": {
+                  "type": [
+                    "select"
+                  ]
+                }
+              }
+            },
+            "required": [
+              "name",
+              "type",
+              "label"
+            ],
+            "additionalProperties": false,
+            "if": {
+              "properties": {
+                "type": {
+                  "const": "select"
+                }
+              },
+              "required": [
+                "type"
+              ]
+            },
+            "then": {
+              "required": [
+                "options"
+              ]
+            }
+          }
+        },
+        "submitLabel": {
+          "$ref": "https://outsmart.cms/schema/common.json#/$defs/text",
+          "title": "Testo del pulsante"
+        },
+        "successMessage": {
+          "$ref": "https://outsmart.cms/schema/common.json#/$defs/text",
+          "title": "Messaggio di conferma"
+        },
+        "delivery": {
+          "title": "Invio",
+          "description": "Le richieste vengono sempre salvate nel database e inviate per email.",
+          "type": "object",
+          "properties": {
+            "recipients": {
+              "title": "Destinatari",
+              "type": "array",
+              "minItems": 1,
+              "items": {
+                "type": "string",
+                "format": "email"
+              }
+            },
+            "subject": {
+              "title": "Oggetto dell'email",
+              "type": "string",
+              "minLength": 1
+            }
+          },
+          "required": [
+            "recipients",
+            "subject"
+          ],
+          "additionalProperties": false
+        }
+      },
+      "required": [
+        "id",
+        "type",
+        "surface",
+        "label",
+        "fields",
+        "submitLabel",
+        "successMessage",
+        "delivery"
+      ],
+      "additionalProperties": false
+    }
+  ]
+}

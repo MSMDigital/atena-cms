@@ -1,0 +1,86 @@
+{
+  "key": "contatti",
+  "status": "published",
+  "slug": {
+    "it": "contatti"
+  },
+  "name": {
+    "it": "Contatti"
+  },
+  "title": {
+    "it": "Contatti | Studio Esempio"
+  },
+  "description": {
+    "it": "Scrivici usando il modulo: rispondiamo appena possibile."
+  },
+  "blocks": [
+    {
+      "id": "contatti-1-text",
+      "type": "text",
+      "surface": "light",
+      "content": {
+        "it": "<h2>Contatti</h2><p>Compila il modulo: ti rispondiamo appena possibile.</p>"
+      }
+    },
+    {
+      "id": "contatti-2-form",
+      "type": "form",
+      "surface": "light",
+      "label": {
+        "it": "Richiesta di contatto"
+      },
+      "fields": [
+        {
+          "name": "nome",
+          "type": "text",
+          "label": {
+            "it": "Nome"
+          },
+          "required": true,
+          "autocomplete": "name",
+          "width": "half"
+        },
+        {
+          "name": "email",
+          "type": "email",
+          "label": {
+            "it": "Email"
+          },
+          "required": true,
+          "autocomplete": "email",
+          "width": "half"
+        },
+        {
+          "name": "messaggio",
+          "type": "textarea",
+          "label": {
+            "it": "Messaggio"
+          },
+          "required": true,
+          "width": "full"
+        },
+        {
+          "name": "privacy",
+          "type": "consent",
+          "label": {
+            "it": "Ho letto l'<a href=\"page:privacy\">informativa sulla privacy</a> e acconsento al trattamento dei miei dati."
+          },
+          "required": true,
+          "width": "full"
+        }
+      ],
+      "submitLabel": {
+        "it": "Invia"
+      },
+      "successMessage": {
+        "it": "Grazie! Abbiamo ricevuto il messaggio."
+      },
+      "delivery": {
+        "recipients": [
+          "info@esempio.ch"
+        ],
+        "subject": "Nuovo messaggio dal sito"
+      }
+    }
+  ]
+}

@@ -1,0 +1,23 @@
+# Database di sviluppo. Le credenziali arrivano da .env (npm run env:init), mai scritte qui.
+services:
+  db:
+    image: mysql:8.4
+    container_name: outsmart-cms-db
+    restart: unless-stopped
+    ports:
+      - "127.0.0.1:${DB_PORT:-3307}:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: ${DB_ROOT_PASSWORD:?esegui npm run env:init}
+      MYSQL_DATABASE: ${DB_NAME:-outsmart_cms}
+      MYSQL_USER: ${DB_USER:-cms}
+      MYSQL_PASSWORD: ${DB_PASSWORD:?esegui npm run env:init}
+    command: ["--character-set-server=utf8mb4", "--collation-server=utf8mb4_unicode_ci"]
+    volumes:
+      - outsmart_cms_db:/var/lib/mysql
+    healthcheck:
+      test: ["CMD-SHELL", "mysqladmin ping -h 127.0.0.1 -u root -p$${MYSQL_ROOT_PASSWORD} --silent"]
+      interval: 5s
+      timeout: 5s
+      retries: 20
+volumes:
+  outsmart_cms_db:

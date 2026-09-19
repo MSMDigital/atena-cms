@@ -1,0 +1,1369 @@
+{
+  "blocks": [
+    {
+      "$id": "https://outsmart.cms/schema/blocks/hero.json",
+      "title": "Hero",
+      "type": "object",
+      "properties": {
+        "id": {
+          "$ref": "https://outsmart.cms/schema/common.json#/$defs/blockId"
+        },
+        "type": {
+          "const": "hero"
+        },
+        "visible": {
+          "title": "Visibile",
+          "type": "boolean",
+          "default": true
+        },
+        "anchor": {
+          "$ref": "https://outsmart.cms/schema/common.json#/$defs/anchor"
+        },
+        "surface": {
+          "title": "Superficie",
+          "enum": [
+            "dark"
+          ],
+          "default": "dark"
+        },
+        "image": {
+          "$ref": "https://outsmart.cms/schema/common.json#/$defs/image",
+          "title": "Immagine"
+        },
+        "titleLine1": {
+          "$ref": "https://outsmart.cms/schema/common.json#/$defs/text",
+          "title": "Titolo, riga 1"
+        },
+        "titleLine2": {
+          "$ref": "https://outsmart.cms/schema/common.json#/$defs/text",
+          "title": "Titolo, riga 2",
+          "description": "Colore accento, allineata a destra."
+        },
+        "claim": {
+          "$ref": "https://outsmart.cms/schema/common.json#/$defs/textLong",
+          "title": "Claim",
+          "description": "Una riga per a capo."
+        },
+        "badge": {
+          "title": "Badge circolare",
+          "type": "object",
+          "properties": {
+            "ring": {
+              "title": "Testi attorno al badge",
+              "type": "array",
+              "minItems": 1,
+              "maxItems": 4,
+              "items": {
+                "$ref": "https://outsmart.cms/schema/common.json#/$defs/text",
+                "title": "Testo"
+              }
+            },
+            "label": {
+              "$ref": "https://outsmart.cms/schema/common.json#/$defs/text",
+              "title": "Etichetta accessibile",
+              "description": "Letta dagli screen reader (es. \"Richiedi un preventivo gratuito\")."
+            },
+            "link": {
+              "$ref": "https://outsmart.cms/schema/common.json#/$defs/link",
+              "title": "Link"
+            }
+          },
+          "required": [
+            "ring",
+            "label",
+            "link"
+          ],
+          "additionalProperties": false
+        }
+      },
+      "required": [
+        "id",
+        "type",
+        "surface",
+        "image",
+        "titleLine1",
+        "titleLine2",
+        "claim"
+      ],
+      "additionalProperties": false
+    },
+    {
+      "$id": "https://outsmart.cms/schema/blocks/page-intro.json",
+      "title": "Intestazione pagina",
+      "type": "object",
+      "properties": {
+        "id": {
+          "$ref": "https://outsmart.cms/schema/common.json#/$defs/blockId"
+        },
+        "type": {
+          "const": "page-intro"
+        },
+        "visible": {
+          "title": "Visibile",
+          "type": "boolean",
+          "default": true
+        },
+        "anchor": {
+          "$ref": "https://outsmart.cms/schema/common.json#/$defs/anchor"
+        },
+        "surface": {
+          "title": "Superficie",
+          "enum": [
+            "dark",
+            "light"
+          ],
+          "default": "dark"
+        },
+        "title": {
+          "$ref": "https://outsmart.cms/schema/common.json#/$defs/text",
+          "title": "Titolo (h1)"
+        },
+        "lead": {
+          "$ref": "https://outsmart.cms/schema/common.json#/$defs/richInline",
+          "title": "Testo introduttivo"
+        },
+        "summary": {
+          "$ref": "https://outsmart.cms/schema/common.json#/$defs/richInline",
+          "title": "In breve",
+          "description": "Risposta diretta, pensata anche per i motori di ricerca AI. Consigliata su ogni pagina di servizio."
+        },
+        "buttons": {
+          "title": "Pulsanti",
+          "type": "array",
+          "minItems": 0,
+          "maxItems": 2,
+          "items": {
+            "$ref": "https://outsmart.cms/schema/common.json#/$defs/button"
+          }
+        }
+      },
+      "required": [
+        "id",
+        "type",
+        "surface",
+        "title",
+        "lead"
+      ],
+      "additionalProperties": false
+    },
+    {
+      "$id": "https://outsmart.cms/schema/blocks/marquee.json",
+      "title": "Nastro scorrevole",
+      "type": "object",
+      "properties": {
+        "id": {
+          "$ref": "https://outsmart.cms/schema/common.json#/$defs/blockId"
+        },
+        "type": {
+          "const": "marquee"
+        },
+        "visible": {
+          "title": "Visibile",
+          "type": "boolean",
+          "default": true
+        },
+        "anchor": {
+          "$ref": "https://outsmart.cms/schema/common.json#/$defs/anchor"
+        },
+        "surface": {
+          "title": "Superficie",
+          "enum": [
+            "brand",
+            "dark"
+          ],
+          "default": "brand"
+        },
+        "items": {
+          "title": "Voci",
+          "type": "array",
+          "minItems": 3,
+          "maxItems": 24,
+          "items": {
+            "$ref": "https://outsmart.cms/schema/common.json#/$defs/text",
+            "title": "Voce"
+          }
+        }
+      },
+      "required": [
+        "id",
+        "type",
+        "surface",
+        "items"
+      ],
+      "additionalProperties": false
+    },
+    {
+      "$id": "https://outsmart.cms/schema/blocks/facts.json",
+      "title": "Numeri",
+      "type": "object",
+      "properties": {
+        "id": {
+          "$ref": "https://outsmart.cms/schema/common.json#/$defs/blockId"
+        },
+        "type": {
+          "const": "facts"
+        },
+        "visible": {
+          "title": "Visibile",
+          "type": "boolean",
+          "default": true
+        },
+        "anchor": {
+          "$ref": "https://outsmart.cms/schema/common.json#/$defs/anchor"
+        },
+        "surface": {
+          "title": "Superficie",
+          "enum": [
+            "dark",
+            "light"
+          ],
+          "default": "dark"
+        },
+        "label": {
+          "$ref": "https://outsmart.cms/schema/common.json#/$defs/text",
+          "title": "Etichetta accessibile",
+          "description": "Letta dagli screen reader (es. \"Mammano in numeri\")."
+        },
+        "items": {
+          "title": "Numeri",
+          "type": "array",
+          "minItems": 4,
+          "maxItems": 4,
+          "items": {
+            "type": "object",
+            "properties": {
+              "value": {
+                "$ref": "https://outsmart.cms/schema/common.json#/$defs/text",
+                "title": "Valore",
+                "description": "Se inizia con una cifra parte il conteggio animato (es. 10'000+)."
+              },
+              "label": {
+                "$ref": "https://outsmart.cms/schema/common.json#/$defs/text",
+                "title": "Etichetta"
+              }
+            },
+            "required": [
+              "value",
+              "label"
+            ],
+            "additionalProperties": false
+          }
+        }
+      },
+      "required": [
+        "id",
+        "type",
+        "surface",
+        "label",
+        "items"
+      ],
+      "additionalProperties": false
+    },
+    {
+      "$id": "https://outsmart.cms/schema/blocks/wide-image.json",
+      "title": "Immagine larga",
+      "type": "object",
+      "properties": {
+        "id": {
+          "$ref": "https://outsmart.cms/schema/common.json#/$defs/blockId"
+        },
+        "type": {
+          "const": "wide-image"
+        },
+        "visible": {
+          "title": "Visibile",
+          "type": "boolean",
+          "default": true
+        },
+        "anchor": {
+          "$ref": "https://outsmart.cms/schema/common.json#/$defs/anchor"
+        },
+        "image": {
+          "$ref": "https://outsmart.cms/schema/common.json#/$defs/image",
+          "title": "Immagine",
+          "description": "Formato 21:9, ritagliata sul punto focale."
+        }
+      },
+      "required": [
+        "id",
+        "type",
+        "image"
+      ],
+      "additionalProperties": false
+    },
+    {
+      "$id": "https://outsmart.cms/schema/blocks/gallery.json",
+      "title": "Galleria",
+      "type": "object",
+      "properties": {
+        "id": {
+          "$ref": "https://outsmart.cms/schema/common.json#/$defs/blockId"
+        },
+        "type": {
+          "const": "gallery"
+        },
+        "visible": {
+          "title": "Visibile",
+          "type": "boolean",
+          "default": true
+        },
+        "anchor": {
+          "$ref": "https://outsmart.cms/schema/common.json#/$defs/anchor"
+        },
+        "surface": {
+          "title": "Superficie",
+          "enum": [
+            "dark"
+          ],
+          "default": "dark"
+        },
+        "label": {
+          "$ref": "https://outsmart.cms/schema/common.json#/$defs/text",
+          "title": "Etichetta verticale"
+        },
+        "items": {
+          "title": "Immagini",
+          "type": "array",
+          "minItems": 3,
+          "maxItems": 8,
+          "items": {
+            "type": "object",
+            "properties": {
+              "image": {
+                "$ref": "https://outsmart.cms/schema/common.json#/$defs/image",
+                "title": "Immagine"
+              },
+              "caption": {
+                "$ref": "https://outsmart.cms/schema/common.json#/$defs/text",
+                "title": "Didascalia"
+              }
+            },
+            "required": [
+              "image",
+              "caption"
+            ],
+            "additionalProperties": false
+          }
+        }
+      },
+      "required": [
+        "id",
+        "type",
+        "surface",
+        "label",
+        "items"
+      ],
+      "additionalProperties": false
+    },
+    {
+      "$id": "https://outsmart.cms/schema/blocks/cta.json",
+      "title": "CTA finale",
+      "type": "object",
+      "properties": {
+        "id": {
+          "$ref": "https://outsmart.cms/schema/common.json#/$defs/blockId"
+        },
+        "type": {
+          "const": "cta"
+        },
+        "visible": {
+          "title": "Visibile",
+          "type": "boolean",
+          "default": true
+        },
+        "anchor": {
+          "$ref": "https://outsmart.cms/schema/common.json#/$defs/anchor"
+        },
+        "surface": {
+          "title": "Superficie",
+          "enum": [
+            "dark",
+            "brand"
+          ],
+          "default": "dark"
+        },
+        "title": {
+          "$ref": "https://outsmart.cms/schema/common.json#/$defs/text",
+          "title": "Titolo"
+        },
+        "text": {
+          "$ref": "https://outsmart.cms/schema/common.json#/$defs/richInline",
+          "title": "Testo"
+        },
+        "buttons": {
+          "title": "Pulsanti",
+          "type": "array",
+          "minItems": 1,
+          "maxItems": 2,
+          "items": {
+            "$ref": "https://outsmart.cms/schema/common.json#/$defs/button"
+          }
+        },
+        "word": {
+          "$ref": "https://outsmart.cms/schema/common.json#/$defs/text",
+          "title": "Parola verticale",
+          "description": "Parola grande sullo sfondo, solo desktop."
+        }
+      },
+      "required": [
+        "id",
+        "type",
+        "surface",
+        "title",
+        "buttons"
+      ],
+      "additionalProperties": false
+    },
+    {
+      "$id": "https://outsmart.cms/schema/blocks/items.json",
+      "title": "Voci",
+      "type": "object",
+      "properties": {
+        "id": {
+          "$ref": "https://outsmart.cms/schema/common.json#/$defs/blockId"
+        },
+        "type": {
+          "const": "items"
+        },
+        "visible": {
+          "title": "Visibile",
+          "type": "boolean",
+          "default": true
+        },
+        "anchor": {
+          "$ref": "https://outsmart.cms/schema/common.json#/$defs/anchor"
+        },
+        "surface": {
+          "title": "Superficie",
+          "enum": [
+            "light",
+            "dark",
+            "brand"
+          ],
+          "default": "light"
+        },
+        "header": {
+          "$ref": "https://outsmart.cms/schema/common.json#/$defs/sectionHeader",
+          "title": "Testata della sezione"
+        },
+        "layout": {
+          "title": "Aspetto",
+          "enum": [
+            "points",
+            "steps",
+            "cards",
+            "rows"
+          ],
+          "default": "points",
+          "description": "points: punti numerati. steps: passi che si accendono. cards: card con immagine. rows: righe con anteprima."
+        },
+        "columns": {
+          "title": "Colonne",
+          "enum": [
+            2,
+            3,
+            4
+          ],
+          "default": 3,
+          "description": "Per points 2-4, per cards 2-3.",
+          "x-when": {
+            "layout": [
+              "points",
+              "cards"
+            ]
+          }
+        },
+        "numbered": {
+          "title": "Numerazione automatica",
+          "type": "boolean",
+          "default": true,
+          "x-when": {
+            "layout": [
+              "points"
+            ]
+          }
+        },
+        "items": {
+          "title": "Voci",
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "object",
+            "properties": {
+              "title": {
+                "$ref": "https://outsmart.cms/schema/common.json#/$defs/text",
+                "title": "Titolo",
+                "description": "Il livello si deduce da quello della testata (o h2 se manca)."
+              },
+              "text": {
+                "$ref": "https://outsmart.cms/schema/common.json#/$defs/richInline",
+                "title": "Testo"
+              },
+              "link": {
+                "$ref": "https://outsmart.cms/schema/common.json#/$defs/link",
+                "title": "Link",
+                "description": "Obbligatorio per cards e rows.",
+                "x-when": {
+                  "layout": [
+                    "cards",
+                    "rows"
+                  ]
+                }
+              },
+              "linkLabel": {
+                "$ref": "https://outsmart.cms/schema/common.json#/$defs/text",
+                "title": "Etichetta del link",
+                "description": "Es. \"Scopri il servizio\".",
+                "x-when": {
+                  "layout": [
+                    "cards"
+                  ]
+                }
+              },
+              "image": {
+                "$ref": "https://outsmart.cms/schema/common.json#/$defs/image",
+                "title": "Immagine",
+                "description": "Obbligatoria per cards.",
+                "x-when": {
+                  "layout": [
+                    "cards"
+                  ]
+                }
+              },
+              "previewImage": {
+                "$ref": "https://outsmart.cms/schema/common.json#/$defs/image",
+                "title": "Anteprima",
+                "description": "Segue il cursore su desktop.",
+                "x-when": {
+                  "layout": [
+                    "rows"
+                  ]
+                }
+              }
+            },
+            "required": [
+              "title"
+            ],
+            "additionalProperties": false
+          }
+        }
+      },
+      "required": [
+        "id",
+        "type",
+        "surface",
+        "layout",
+        "items"
+      ],
+      "additionalProperties": false,
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "layout": {
+                "const": "cards"
+              }
+            },
+            "required": [
+              "layout"
+            ]
+          },
+          "then": {
+            "properties": {
+              "items": {
+                "items": {
+                  "required": [
+                    "image",
+                    "link"
+                  ]
+                }
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "layout": {
+                "const": "rows"
+              }
+            },
+            "required": [
+              "layout"
+            ]
+          },
+          "then": {
+            "properties": {
+              "items": {
+                "items": {
+                  "required": [
+                    "link"
+                  ]
+                }
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "layout": {
+                "const": "cards"
+              }
+            },
+            "required": [
+              "layout"
+            ]
+          },
+          "then": {
+            "properties": {
+              "columns": {
+                "enum": [
+                  2,
+                  3
+                ]
+              }
+            }
+          }
+        }
+      ]
+    },
+    {
+      "$id": "https://outsmart.cms/schema/blocks/split.json",
+      "title": "Testo + immagine",
+      "type": "object",
+      "properties": {
+        "id": {
+          "$ref": "https://outsmart.cms/schema/common.json#/$defs/blockId"
+        },
+        "type": {
+          "const": "split"
+        },
+        "visible": {
+          "title": "Visibile",
+          "type": "boolean",
+          "default": true
+        },
+        "anchor": {
+          "$ref": "https://outsmart.cms/schema/common.json#/$defs/anchor"
+        },
+        "surface": {
+          "title": "Superficie",
+          "enum": [
+            "light",
+            "dark",
+            "brand"
+          ],
+          "default": "light"
+        },
+        "eyebrow": {
+          "$ref": "https://outsmart.cms/schema/common.json#/$defs/text",
+          "title": "Etichetta"
+        },
+        "title": {
+          "$ref": "https://outsmart.cms/schema/common.json#/$defs/text",
+          "title": "Titolo"
+        },
+        "level": {
+          "title": "Livello del titolo",
+          "enum": [
+            "h2",
+            "h3",
+            "h4"
+          ],
+          "default": "h2"
+        },
+        "body": {
+          "$ref": "https://outsmart.cms/schema/common.json#/$defs/richBlock",
+          "title": "Testo",
+          "description": "Uno o più paragrafi."
+        },
+        "mediaSide": {
+          "title": "Lato dell'immagine",
+          "enum": [
+            "left",
+            "right"
+          ],
+          "default": "left"
+        },
+        "mobileMedia": {
+          "title": "Immagine su mobile",
+          "enum": [
+            "top",
+            "bottom"
+          ],
+          "default": "top",
+          "description": "Sopra o sotto il testo quando le colonne si impilano."
+        },
+        "media": {
+          "title": "Immagine",
+          "discriminator": {
+            "propertyName": "type"
+          },
+          "oneOf": [
+            {
+              "type": "object",
+              "properties": {
+                "type": {
+                  "const": "image"
+                },
+                "image": {
+                  "$ref": "https://outsmart.cms/schema/common.json#/$defs/image",
+                  "title": "Immagine"
+                }
+              },
+              "required": [
+                "type",
+                "image"
+              ],
+              "additionalProperties": false
+            },
+            {
+              "type": "object",
+              "properties": {
+                "type": {
+                  "const": "quote"
+                },
+                "image": {
+                  "$ref": "https://outsmart.cms/schema/common.json#/$defs/image",
+                  "title": "Immagine"
+                },
+                "quote": {
+                  "$ref": "https://outsmart.cms/schema/common.json#/$defs/text",
+                  "title": "Citazione"
+                },
+                "author": {
+                  "$ref": "https://outsmart.cms/schema/common.json#/$defs/text",
+                  "title": "Autore"
+                }
+              },
+              "required": [
+                "type",
+                "image",
+                "quote",
+                "author"
+              ],
+              "additionalProperties": false
+            }
+          ]
+        },
+        "extra": {
+          "title": "Contenuto aggiuntivo",
+          "discriminator": {
+            "propertyName": "type"
+          },
+          "oneOf": [
+            {
+              "type": "object",
+              "properties": {
+                "type": {
+                  "const": "list"
+                },
+                "items": {
+                  "title": "Voci",
+                  "type": "array",
+                  "minItems": 1,
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "label": {
+                        "$ref": "https://outsmart.cms/schema/common.json#/$defs/text",
+                        "title": "Etichetta in grassetto"
+                      },
+                      "text": {
+                        "$ref": "https://outsmart.cms/schema/common.json#/$defs/richInline",
+                        "title": "Testo"
+                      }
+                    },
+                    "anyOf": [
+                      {
+                        "required": [
+                          "label"
+                        ]
+                      },
+                      {
+                        "required": [
+                          "text"
+                        ]
+                      }
+                    ],
+                    "additionalProperties": false
+                  }
+                }
+              },
+              "required": [
+                "type",
+                "items"
+              ],
+              "additionalProperties": false
+            },
+            {
+              "type": "object",
+              "properties": {
+                "type": {
+                  "const": "table"
+                },
+                "table": {
+                  "$ref": "https://outsmart.cms/schema/common.json#/$defs/specTable"
+                }
+              },
+              "required": [
+                "type",
+                "table"
+              ],
+              "additionalProperties": false
+            }
+          ]
+        },
+        "action": {
+          "title": "Link con freccia",
+          "description": "Sotto il testo e l'elenco (es. \"Noleggio mezzi\").",
+          "type": "object",
+          "properties": {
+            "label": {
+              "$ref": "https://outsmart.cms/schema/common.json#/$defs/text",
+              "title": "Etichetta"
+            },
+            "link": {
+              "$ref": "https://outsmart.cms/schema/common.json#/$defs/link",
+              "title": "Link"
+            }
+          },
+          "required": [
+            "label",
+            "link"
+          ],
+          "additionalProperties": false
+        }
+      },
+      "required": [
+        "id",
+        "type",
+        "surface",
+        "title",
+        "media"
+      ],
+      "additionalProperties": false
+    },
+    {
+      "$id": "https://outsmart.cms/schema/blocks/zones.json",
+      "title": "Zone servite",
+      "type": "object",
+      "properties": {
+        "id": {
+          "$ref": "https://outsmart.cms/schema/common.json#/$defs/blockId"
+        },
+        "type": {
+          "const": "zones"
+        },
+        "visible": {
+          "title": "Visibile",
+          "type": "boolean",
+          "default": true
+        },
+        "anchor": {
+          "$ref": "https://outsmart.cms/schema/common.json#/$defs/anchor"
+        },
+        "surface": {
+          "title": "Superficie",
+          "enum": [
+            "light",
+            "dark",
+            "brand"
+          ],
+          "default": "light"
+        },
+        "header": {
+          "$ref": "https://outsmart.cms/schema/common.json#/$defs/sectionHeader",
+          "title": "Testata della sezione"
+        },
+        "source": {
+          "title": "Origine",
+          "enum": [
+            "company",
+            "custom"
+          ],
+          "default": "company",
+          "description": "company: le zone dei dati azienda. custom: una lista propria."
+        },
+        "items": {
+          "title": "Zone",
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "https://outsmart.cms/schema/common.json#/$defs/text",
+            "title": "Zona"
+          },
+          "x-when": {
+            "source": [
+              "custom"
+            ]
+          }
+        }
+      },
+      "required": [
+        "id",
+        "type",
+        "surface",
+        "source"
+      ],
+      "additionalProperties": false,
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "source": {
+                "const": "custom"
+              }
+            },
+            "required": [
+              "source"
+            ]
+          },
+          "then": {
+            "required": [
+              "items"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "$id": "https://outsmart.cms/schema/blocks/faq.json",
+      "title": "Domande frequenti",
+      "type": "object",
+      "properties": {
+        "id": {
+          "$ref": "https://outsmart.cms/schema/common.json#/$defs/blockId"
+        },
+        "type": {
+          "const": "faq"
+        },
+        "visible": {
+          "title": "Visibile",
+          "type": "boolean",
+          "default": true
+        },
+        "anchor": {
+          "$ref": "https://outsmart.cms/schema/common.json#/$defs/anchor"
+        },
+        "surface": {
+          "title": "Superficie",
+          "enum": [
+            "light",
+            "dark",
+            "brand"
+          ],
+          "default": "light"
+        },
+        "header": {
+          "$ref": "https://outsmart.cms/schema/common.json#/$defs/sectionHeader",
+          "title": "Testata della sezione"
+        },
+        "firstOpen": {
+          "title": "Prima domanda aperta",
+          "type": "boolean",
+          "default": false
+        },
+        "items": {
+          "title": "Domande",
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "object",
+            "properties": {
+              "question": {
+                "$ref": "https://outsmart.cms/schema/common.json#/$defs/text",
+                "title": "Domanda"
+              },
+              "answer": {
+                "$ref": "https://outsmart.cms/schema/common.json#/$defs/richInline",
+                "title": "Risposta"
+              }
+            },
+            "required": [
+              "question",
+              "answer"
+            ],
+            "additionalProperties": false
+          }
+        }
+      },
+      "required": [
+        "id",
+        "type",
+        "surface",
+        "items"
+      ],
+      "additionalProperties": false
+    },
+    {
+      "$id": "https://outsmart.cms/schema/blocks/spec-table.json",
+      "title": "Tabella dati",
+      "type": "object",
+      "properties": {
+        "id": {
+          "$ref": "https://outsmart.cms/schema/common.json#/$defs/blockId"
+        },
+        "type": {
+          "const": "spec-table"
+        },
+        "visible": {
+          "title": "Visibile",
+          "type": "boolean",
+          "default": true
+        },
+        "anchor": {
+          "$ref": "https://outsmart.cms/schema/common.json#/$defs/anchor"
+        },
+        "surface": {
+          "title": "Superficie",
+          "enum": [
+            "light",
+            "dark",
+            "brand"
+          ],
+          "default": "light"
+        },
+        "header": {
+          "$ref": "https://outsmart.cms/schema/common.json#/$defs/sectionHeader",
+          "title": "Testata della sezione"
+        },
+        "table": {
+          "$ref": "https://outsmart.cms/schema/common.json#/$defs/specTable",
+          "title": "Tabella"
+        }
+      },
+      "required": [
+        "id",
+        "type",
+        "surface",
+        "table"
+      ],
+      "additionalProperties": false
+    },
+    {
+      "$id": "https://outsmart.cms/schema/blocks/form.json",
+      "title": "Modulo",
+      "type": "object",
+      "properties": {
+        "id": {
+          "$ref": "https://outsmart.cms/schema/common.json#/$defs/blockId"
+        },
+        "type": {
+          "const": "form"
+        },
+        "visible": {
+          "title": "Visibile",
+          "type": "boolean",
+          "default": true
+        },
+        "anchor": {
+          "$ref": "https://outsmart.cms/schema/common.json#/$defs/anchor"
+        },
+        "surface": {
+          "title": "Superficie",
+          "enum": [
+            "light",
+            "dark",
+            "brand"
+          ],
+          "default": "light"
+        },
+        "header": {
+          "$ref": "https://outsmart.cms/schema/common.json#/$defs/sectionHeader",
+          "title": "Testata della sezione"
+        },
+        "label": {
+          "$ref": "https://outsmart.cms/schema/common.json#/$defs/text",
+          "title": "Nome del modulo",
+          "description": "Letto dagli screen reader (es. \"Richiesta di preventivo\")."
+        },
+        "fields": {
+          "title": "Campi",
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "object",
+            "properties": {
+              "name": {
+                "title": "Nome interno",
+                "type": "string",
+                "pattern": "^[a-z][a-z0-9_]*$",
+                "description": "Chiave con cui il dato viene salvato."
+              },
+              "type": {
+                "title": "Tipo",
+                "enum": [
+                  "text",
+                  "email",
+                  "tel",
+                  "date",
+                  "select",
+                  "textarea",
+                  "consent"
+                ]
+              },
+              "label": {
+                "$ref": "https://outsmart.cms/schema/common.json#/$defs/richInline",
+                "title": "Etichetta",
+                "description": "Per il consenso può contenere il link all'informativa privacy."
+              },
+              "placeholder": {
+                "$ref": "https://outsmart.cms/schema/common.json#/$defs/text",
+                "title": "Segnaposto",
+                "x-when": {
+                  "type": [
+                    "text",
+                    "email",
+                    "tel",
+                    "textarea"
+                  ]
+                }
+              },
+              "autocomplete": {
+                "title": "Compilazione automatica",
+                "type": "string",
+                "description": "Valore HTML autocomplete (es. given-name, tel, email)."
+              },
+              "required": {
+                "title": "Obbligatorio",
+                "type": "boolean",
+                "default": false
+              },
+              "width": {
+                "title": "Larghezza",
+                "enum": [
+                  "half",
+                  "full"
+                ],
+                "default": "half"
+              },
+              "options": {
+                "title": "Opzioni",
+                "type": "array",
+                "minItems": 1,
+                "items": {
+                  "$ref": "https://outsmart.cms/schema/common.json#/$defs/text",
+                  "title": "Opzione"
+                },
+                "x-when": {
+                  "type": [
+                    "select"
+                  ]
+                }
+              }
+            },
+            "required": [
+              "name",
+              "type",
+              "label"
+            ],
+            "additionalProperties": false,
+            "if": {
+              "properties": {
+                "type": {
+                  "const": "select"
+                }
+              },
+              "required": [
+                "type"
+              ]
+            },
+            "then": {
+              "required": [
+                "options"
+              ]
+            }
+          }
+        },
+        "submitLabel": {
+          "$ref": "https://outsmart.cms/schema/common.json#/$defs/text",
+          "title": "Testo del pulsante"
+        },
+        "successMessage": {
+          "$ref": "https://outsmart.cms/schema/common.json#/$defs/text",
+          "title": "Messaggio di conferma"
+        },
+        "note": {
+          "$ref": "https://outsmart.cms/schema/common.json#/$defs/richInline",
+          "title": "Nota sotto il modulo"
+        },
+        "aside": {
+          "title": "Colonna laterale",
+          "type": "object",
+          "properties": {
+            "items": {
+              "title": "Contatti",
+              "type": "array",
+              "minItems": 1,
+              "items": {
+                "$ref": "https://outsmart.cms/schema/common.json#/$defs/contactItem"
+              }
+            }
+          },
+          "required": [
+            "items"
+          ],
+          "additionalProperties": false
+        },
+        "delivery": {
+          "title": "Invio",
+          "description": "Le richieste vengono sempre salvate nel database e inviate per email.",
+          "type": "object",
+          "properties": {
+            "recipients": {
+              "title": "Destinatari",
+              "type": "array",
+              "minItems": 1,
+              "items": {
+                "type": "string",
+                "format": "email"
+              }
+            },
+            "subject": {
+              "title": "Oggetto dell'email",
+              "type": "string",
+              "minLength": 1
+            }
+          },
+          "required": [
+            "recipients",
+            "subject"
+          ],
+          "additionalProperties": false
+        }
+      },
+      "required": [
+        "id",
+        "type",
+        "surface",
+        "label",
+        "fields",
+        "submitLabel",
+        "successMessage",
+        "delivery"
+      ],
+      "additionalProperties": false
+    },
+    {
+      "$id": "https://outsmart.cms/schema/blocks/contacts.json",
+      "title": "Contatti",
+      "type": "object",
+      "properties": {
+        "id": {
+          "$ref": "https://outsmart.cms/schema/common.json#/$defs/blockId"
+        },
+        "type": {
+          "const": "contacts"
+        },
+        "visible": {
+          "title": "Visibile",
+          "type": "boolean",
+          "default": true
+        },
+        "anchor": {
+          "$ref": "https://outsmart.cms/schema/common.json#/$defs/anchor"
+        },
+        "surface": {
+          "title": "Superficie",
+          "enum": [
+            "light",
+            "dark",
+            "brand"
+          ],
+          "default": "light"
+        },
+        "header": {
+          "$ref": "https://outsmart.cms/schema/common.json#/$defs/sectionHeader",
+          "title": "Testata della sezione"
+        },
+        "items": {
+          "title": "Contatti",
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "https://outsmart.cms/schema/common.json#/$defs/contactItem"
+          }
+        },
+        "map": {
+          "title": "Mappa",
+          "type": "object",
+          "properties": {
+            "query": {
+              "title": "Indirizzo o luogo",
+              "type": "string",
+              "minLength": 1
+            },
+            "title": {
+              "$ref": "https://outsmart.cms/schema/common.json#/$defs/text",
+              "title": "Titolo accessibile"
+            }
+          },
+          "required": [
+            "query",
+            "title"
+          ],
+          "additionalProperties": false
+        }
+      },
+      "required": [
+        "id",
+        "type",
+        "surface",
+        "items"
+      ],
+      "additionalProperties": false
+    },
+    {
+      "$id": "https://outsmart.cms/schema/blocks/rich-text.json",
+      "title": "Testo ricco",
+      "type": "object",
+      "properties": {
+        "id": {
+          "$ref": "https://outsmart.cms/schema/common.json#/$defs/blockId"
+        },
+        "type": {
+          "const": "rich-text"
+        },
+        "visible": {
+          "title": "Visibile",
+          "type": "boolean",
+          "default": true
+        },
+        "anchor": {
+          "$ref": "https://outsmart.cms/schema/common.json#/$defs/anchor"
+        },
+        "surface": {
+          "title": "Superficie",
+          "enum": [
+            "light",
+            "dark",
+            "brand"
+          ],
+          "default": "light"
+        },
+        "content": {
+          "$ref": "https://outsmart.cms/schema/common.json#/$defs/richBlock",
+          "title": "Contenuto",
+          "description": "Titoli h2-h6, paragrafi, elenchi, citazioni, link."
+        },
+        "width": {
+          "title": "Larghezza",
+          "enum": [
+            "narrow",
+            "wide"
+          ],
+          "default": "narrow"
+        }
+      },
+      "required": [
+        "id",
+        "type",
+        "surface",
+        "content"
+      ],
+      "additionalProperties": false
+    }
+  ]
+}

@@ -1,0 +1,27 @@
+{
+  "blockHints": {
+    "hero": "Titolo grande con testo e pulsanti, in testa alla pagina.",
+    "text": "Testo libero con titoli, elenchi e link.",
+    "form": "Modulo di contatto: le richieste si salvano e arrivano per email."
+  },
+  "siteSections": {
+    "brand": "Marchio",
+    "nav": "Menu",
+    "footer": "Piè di pagina",
+    "strings": "Testi fissi",
+    "seo": "SEO",
+    "consent": "Consenso ai contenuti di terzi",
+    "locales": "Lingue",
+    "siteUrl": "Indirizzo del sito"
+  },
+  "enumLabels": {},
+  "keyLabels": {
+    "tagline": "Slogan",
+    "skipLink": "Link «Vai al contenuto»",
+    "navLabel": "Etichetta del menu",
+    "optionalSuffix": "Suffisso «(facoltativo)»",
+    "selectPlaceholder": "Testo «Seleziona»",
+    "formError": "Errore di invio del modulo",
+    "legal": "Link legali"
+  }
+}

@@ -1,0 +1,9 @@
+{
+  "id": "starter",
+  "name": "Starter",
+  "version": "1.0.0",
+  "engine": 1,
+  "description": "Template minimo e commentato: copertina, testo e modulo di contatto. Serve da punto di partenza per creare un template nuovo.",
+  "author": "Outsmart",
+  "license": "MIT"
+}

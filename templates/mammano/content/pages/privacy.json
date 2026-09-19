@@ -1,0 +1,39 @@
+{
+  "key": "privacy",
+  "status": "published",
+  "slug": {
+    "it": "privacy",
+    "de": "datenschutz",
+    "fr": "confidentialite"
+  },
+  "name": {
+    "it": "Privacy"
+  },
+  "title": {
+    "it": "Informativa sulla privacy | Mammano Traslochi"
+  },
+  "description": {
+    "it": "Come Mammano Traslochi e Trasporti tratta i dati personali di chi visita il sito e invia una richiesta di preventivo: finalità, conservazione e diritti."
+  },
+  "blocks": [
+    {
+      "id": "privacy-1-page-intro",
+      "type": "page-intro",
+      "surface": "dark",
+      "title": {
+        "it": "Informativa sulla privacy."
+      },
+      "lead": {
+        "it": "Come trattiamo i dati personali che ci affidate visitando il sito e chiedendo un preventivo, e quali diritti avete."
+      }
+    },
+    {
+      "id": "privacy-2-rich-text",
+      "type": "rich-text",
+      "surface": "light",
+      "content": {
+        "it": "<h2>1. Chi è responsabile del trattamento</h2>\n<p>Il responsabile del trattamento dei dati è <strong>Mammano Traslochi e Trasporti</strong>, Via al Fiume 4, 6962 Lugano-Viganello (Svizzera), <strong>[DA COMPLETARE: forma giuridica e numero IDI/UID]</strong>.</p>\n<p>Per qualsiasi domanda sui vostri dati potete scriverci a <a href=\"channel:email\">info@mammano.ch</a> o telefonarci al <a href=\"channel:phone\">+41 91 922 50 24</a>.</p>\n<h2>2. Quali dati raccogliamo e perché</h2>\n<h3>Visita del sito</h3>\n<p>Quando visitate il sito, il server registra automaticamente alcuni dati tecnici (indirizzo IP, data e ora, pagina richiesta, tipo di browser e di dispositivo). Servono a mostrarvi le pagine, a garantire la sicurezza del sito e a individuare eventuali malfunzionamenti. <strong>[DA CONFERMARE: per quanto tempo si conservano questi registri, di norma poche settimane]</strong>.</p>\n<p>Il sito non usa cookie di profilazione né strumenti di analisi statistica: maggiori dettagli nell'<a href=\"page:cookie\">informativa sui cookie</a>.</p>\n<h3>Richiesta di preventivo</h3>\n<p>Se compilate il modulo di preventivo trattiamo i dati che inserite: nome, cognome, telefono, email, località di partenza e, se li indicate, il tipo di servizio, la data indicativa e il messaggio. Ci servono per rispondere alla vostra richiesta e prepararvi un preventivo. Inviare la richiesta è una vostra scelta; i campi obbligatori sono indicati nel modulo e senza di essi non potremmo ricontattarvi.</p>\n<p>La richiesta viene registrata nel sistema di gestione del sito e ci arriva per email. Per limitare gli abusi del modulo conserviamo anche un codice derivato dall'indirizzo IP (non l'indirizzo stesso), che non permette di risalire a una persona.</p>\n<h3>Contatti diretti</h3>\n<p>Se ci scrivete per email, ci telefonate o usate WhatsApp, trattiamo i dati che ci comunicate (per esempio il numero di telefono e il contenuto del messaggio) per rispondervi. Con WhatsApp lo scambio passa anche dal servizio di WhatsApp (Meta), che segue le proprie regole sulla privacy.</p>\n<h2>3. Su quale base trattiamo i dati</h2>\n<p>Trattiamo i dati per rispondere alle vostre richieste e per preparare, su vostra domanda, un preventivo; per rispettare gli obblighi di legge; e per il nostro interesse a far funzionare il sito e a proteggerlo da abusi. Quando il trattamento si fonda sul vostro consenso (la casella nel modulo), potete revocarlo in ogni momento, senza che ciò tocchi il trattamento già avvenuto.</p>\n<p>Il trattamento avviene nel rispetto della legge federale svizzera sulla protezione dei dati (LPD) e, dove si applica, del regolamento europeo (GDPR). <strong>[DA VERIFICARE: con il consulente legale se il riferimento al GDPR è necessario per questa attività]</strong>.</p>\n<h2>4. A chi comunichiamo i dati</h2>\n<p>I dati non vengono venduti. Li vedono solo le persone dell'azienda che devono rispondervi e i fornitori che ci aiutano a gestire il sito, tenuti alla riservatezza:</p>\n<ul>\n<li>fornitore di hosting e di posta elettronica: <strong>[DA COMPLETARE: nome e sede del fornitore]</strong>;</li>\n<li>chi si occupa della manutenzione tecnica del sito: <strong>[DA COMPLETARE: nome e sede]</strong>.</li>\n</ul>\n<p>Comunichiamo dati ad autorità soltanto se la legge lo richiede.</p>\n<h2>5. Trasferimento dei dati all'estero</h2>\n<p>I dati delle richieste sono conservati su server <strong>[DA CONFERMARE: in Svizzera]</strong>. Se scegliete di usare servizi di terzi come Google Maps o WhatsApp, i vostri dati possono raggiungere fornitori con sede fuori dalla Svizzera, anche negli Stati Uniti: succede solo quando li usate, e ne parliamo nell'<a href=\"page:cookie\">informativa sui cookie</a>.</p>\n<h2>6. Per quanto tempo conserviamo i dati</h2>\n<p>Le richieste di preventivo restano archiviate per il tempo necessario a trattarle e, se non seguono un incarico, per <strong>[DA CONFERMARE: 12 mesi]</strong> dall'ultimo contatto; poi le cancelliamo. I dati relativi a un incarico si conservano per il tempo richiesto dagli obblighi contabili e legali (in Svizzera, di regola dieci anni).</p>\n<h2>7. I vostri diritti</h2>\n<p>Potete chiederci in ogni momento di:</p>\n<ul>\n<li>sapere quali dati abbiamo su di voi e riceverne una copia;</li>\n<li>far correggere i dati inesatti;</li>\n<li>far cancellare i dati, o limitarne l'uso, quando la legge lo consente;</li>\n<li>opporvi a un trattamento e revocare il consenso dato.</li>\n</ul>\n<p>Scrivete a <a href=\"channel:email\">info@mammano.ch</a>: risponderemo entro 30 giorni. Se ritenete che il trattamento non rispetti la legge potete anche rivolgervi all'Incaricato federale della protezione dei dati e della trasparenza (IFPDT), Feldeggweg 1, 3003 Berna, <a href=\"https://www.edoeb.admin.ch\">www.edoeb.admin.ch</a>.</p>\n<h2>8. Sicurezza</h2>\n<p>Proteggiamo i dati con misure tecniche e organizzative adeguate: connessione cifrata (HTTPS), accesso al sistema di gestione riservato a persone autorizzate e protetto da password, aggiornamenti regolari. Nessuna trasmissione via internet può però essere sicura al cento per cento.</p>\n<h2>9. Modifiche a questa informativa</h2>\n<p>Possiamo aggiornare questa informativa, per esempio se cambiano i servizi o la legge. Vale la versione pubblicata su questa pagina.</p>\n<p><em>Ultimo aggiornamento: <strong>[DA COMPLETARE: data]</strong>.</em></p>"
+      }
+    }
+  ]
+}

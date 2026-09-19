@@ -1,0 +1,550 @@
+{
+  "properties": {
+    "company": {
+      "title": "Azienda",
+      "description": "Fonte unica: telefono, email, indirizzo e zone si scrivono qui e i blocchi li richiamano.",
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "minLength": 1
+        },
+        "alternateNames": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "claim": {
+          "$ref": "https://outsmart.cms/schema/common.json#/$defs/text",
+          "title": "Claim"
+        },
+        "founded": {
+          "type": "integer",
+          "minimum": 1800,
+          "maximum": 2100
+        },
+        "founder": {
+          "type": "object",
+          "properties": {
+            "name": {
+              "type": "string"
+            },
+            "jobTitle": {
+              "$ref": "https://outsmart.cms/schema/common.json#/$defs/text",
+              "title": "Ruolo"
+            }
+          },
+          "required": [
+            "name"
+          ],
+          "additionalProperties": false
+        },
+        "address": {
+          "type": "object",
+          "properties": {
+            "street": {
+              "type": "string"
+            },
+            "zip": {
+              "type": "string"
+            },
+            "city": {
+              "type": "string"
+            },
+            "region": {
+              "type": "string"
+            },
+            "country": {
+              "type": "string",
+              "minLength": 2,
+              "maxLength": 2
+            }
+          },
+          "required": [
+            "street",
+            "zip",
+            "city",
+            "country"
+          ],
+          "additionalProperties": false
+        },
+        "geo": {
+          "type": "object",
+          "properties": {
+            "lat": {
+              "type": "number"
+            },
+            "lng": {
+              "type": "number"
+            }
+          },
+          "required": [
+            "lat",
+            "lng"
+          ],
+          "additionalProperties": false
+        },
+        "channels": {
+          "type": "object",
+          "properties": {
+            "phone": {
+              "title": "Telefono",
+              "type": "object",
+              "properties": {
+                "label": {
+                  "$ref": "https://outsmart.cms/schema/common.json#/$defs/text",
+                  "title": "Etichetta"
+                },
+                "number": {
+                  "type": "string",
+                  "pattern": "^\\+[0-9]{8,15}$",
+                  "description": "Formato internazionale, senza spazi."
+                },
+                "display": {
+                  "type": "string",
+                  "minLength": 1,
+                  "description": "Come si legge sul sito."
+                }
+              },
+              "required": [
+                "number",
+                "display"
+              ],
+              "additionalProperties": false
+            },
+            "mobile": {
+              "title": "Mobile",
+              "type": "object",
+              "properties": {
+                "label": {
+                  "$ref": "https://outsmart.cms/schema/common.json#/$defs/text",
+                  "title": "Etichetta"
+                },
+                "number": {
+                  "type": "string",
+                  "pattern": "^\\+[0-9]{8,15}$",
+                  "description": "Formato internazionale, senza spazi."
+                },
+                "display": {
+                  "type": "string",
+                  "minLength": 1,
+                  "description": "Come si legge sul sito."
+                }
+              },
+              "required": [
+                "number",
+                "display"
+              ],
+              "additionalProperties": false
+            },
+            "whatsapp": {
+              "type": "object",
+              "properties": {
+                "number": {
+                  "type": "string",
+                  "pattern": "^\\+[0-9]{8,15}$"
+                }
+              },
+              "required": [
+                "number"
+              ],
+              "additionalProperties": false
+            },
+            "email": {
+              "type": "object",
+              "properties": {
+                "address": {
+                  "type": "string",
+                  "format": "email"
+                }
+              },
+              "required": [
+                "address"
+              ],
+              "additionalProperties": false
+            }
+          },
+          "required": [
+            "phone",
+            "email"
+          ],
+          "additionalProperties": false
+        },
+        "logoImage": {
+          "title": "Logo (file)",
+          "type": "string",
+          "pattern": "^(?!.*\\.\\.)(?!.*//)(?:[a-zA-Z0-9][a-zA-Z0-9_./-]*)?$",
+          "x-widget": "media",
+          "description": "Immagine della libreria, per i dati strutturati (JSON-LD)."
+        },
+        "image": {
+          "title": "Immagine principale (file)",
+          "type": "string",
+          "pattern": "^(?!.*\\.\\.)(?!.*//)(?:[a-zA-Z0-9][a-zA-Z0-9_./-]*)?$",
+          "x-widget": "media",
+          "description": "Immagine della libreria, per i dati strutturati (JSON-LD)."
+        },
+        "languages": {
+          "title": "Lingue parlate",
+          "type": "array",
+          "items": {
+            "enum": [
+              "it",
+              "de",
+              "fr"
+            ]
+          }
+        },
+        "areaServed": {
+          "title": "Area servita (JSON-LD)",
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "type": {
+                "enum": [
+                  "City",
+                  "AdministrativeArea",
+                  "Country"
+                ]
+              },
+              "name": {
+                "type": "string",
+                "minLength": 1
+              }
+            },
+            "required": [
+              "type",
+              "name"
+            ],
+            "additionalProperties": false
+          }
+        },
+        "hours": {
+          "$ref": "https://outsmart.cms/schema/common.json#/$defs/text",
+          "title": "Orari"
+        },
+        "priceRange": {
+          "$ref": "https://outsmart.cms/schema/common.json#/$defs/text",
+          "title": "Fascia di prezzo"
+        },
+        "zones": {
+          "title": "Zone servite",
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "https://outsmart.cms/schema/common.json#/$defs/text",
+            "title": "Zona"
+          }
+        },
+        "social": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "network": {
+                "type": "string"
+              },
+              "url": {
+                "type": "string",
+                "format": "uri"
+              }
+            },
+            "required": [
+              "network",
+              "url"
+            ],
+            "additionalProperties": false
+          }
+        }
+      },
+      "required": [
+        "name",
+        "claim",
+        "address",
+        "channels",
+        "zones"
+      ],
+      "additionalProperties": false
+    },
+    "logo": {
+      "title": "Logo",
+      "type": "object",
+      "properties": {
+        "mark": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 2
+        },
+        "name": {
+          "type": "string",
+          "minLength": 1
+        },
+        "claim": {
+          "$ref": "https://outsmart.cms/schema/common.json#/$defs/text",
+          "title": "Claim"
+        }
+      },
+      "required": [
+        "mark",
+        "name"
+      ],
+      "additionalProperties": false
+    },
+    "nav": {
+      "title": "Navigazione",
+      "description": "Albero a due livelli.",
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "properties": {
+          "label": {
+            "$ref": "https://outsmart.cms/schema/common.json#/$defs/text",
+            "title": "Etichetta"
+          },
+          "link": {
+            "$ref": "https://outsmart.cms/schema/common.json#/$defs/link",
+            "title": "Link"
+          },
+          "children": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "label": {
+                  "$ref": "https://outsmart.cms/schema/common.json#/$defs/text",
+                  "title": "Etichetta"
+                },
+                "link": {
+                  "$ref": "https://outsmart.cms/schema/common.json#/$defs/link",
+                  "title": "Link"
+                }
+              },
+              "required": [
+                "label",
+                "link"
+              ],
+              "additionalProperties": false
+            }
+          }
+        },
+        "required": [
+          "label",
+          "link"
+        ],
+        "additionalProperties": false
+      }
+    },
+    "header": {
+      "type": "object",
+      "properties": {
+        "cta": {
+          "$ref": "https://outsmart.cms/schema/common.json#/$defs/button",
+          "title": "Pulsante d'azione"
+        },
+        "showPhone": {
+          "type": "boolean",
+          "default": true
+        }
+      },
+      "required": [
+        "cta"
+      ],
+      "additionalProperties": false
+    },
+    "footer": {
+      "type": "object",
+      "properties": {
+        "claim": {
+          "$ref": "https://outsmart.cms/schema/common.json#/$defs/text",
+          "title": "Claim"
+        },
+        "columns": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "title": {
+                "$ref": "https://outsmart.cms/schema/common.json#/$defs/text",
+                "title": "Titolo"
+              },
+              "items": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "label": {
+                      "$ref": "https://outsmart.cms/schema/common.json#/$defs/text",
+                      "title": "Etichetta"
+                    },
+                    "link": {
+                      "$ref": "https://outsmart.cms/schema/common.json#/$defs/link",
+                      "title": "Link",
+                      "description": "Vuoto = solo testo."
+                    }
+                  },
+                  "required": [
+                    "label"
+                  ],
+                  "additionalProperties": false
+                }
+              }
+            },
+            "required": [
+              "title",
+              "items"
+            ],
+            "additionalProperties": false
+          }
+        },
+        "legal": {
+          "title": "Link legali",
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "label": {
+                "$ref": "https://outsmart.cms/schema/common.json#/$defs/text",
+                "title": "Etichetta"
+              },
+              "link": {
+                "$ref": "https://outsmart.cms/schema/common.json#/$defs/link",
+                "title": "Link"
+              }
+            },
+            "required": [
+              "label",
+              "link"
+            ],
+            "additionalProperties": false
+          }
+        },
+        "copyright": {
+          "$ref": "https://outsmart.cms/schema/common.json#/$defs/text",
+          "title": "Copyright"
+        }
+      },
+      "required": [
+        "claim",
+        "columns",
+        "legal",
+        "copyright"
+      ],
+      "additionalProperties": false
+    },
+    "quickbar": {
+      "title": "Contatto rapido",
+      "description": "Barra fissa su mobile e pulsante WhatsApp flottante su desktop.",
+      "type": "object",
+      "properties": {
+        "buttons": {
+          "type": "array",
+          "minItems": 1,
+          "maxItems": 3,
+          "items": {
+            "$ref": "https://outsmart.cms/schema/common.json#/$defs/button"
+          }
+        },
+        "whatsappFloat": {
+          "type": "boolean",
+          "default": true
+        }
+      },
+      "required": [
+        "buttons"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "required": [
+    "company",
+    "logo",
+    "nav",
+    "header",
+    "footer",
+    "quickbar"
+  ],
+  "strings": {
+    "properties": {
+      "skipLink": {
+        "$ref": "https://outsmart.cms/schema/common.json#/$defs/text",
+        "title": "skipLink"
+      },
+      "menuOpen": {
+        "$ref": "https://outsmart.cms/schema/common.json#/$defs/text",
+        "title": "menuOpen"
+      },
+      "menuClose": {
+        "$ref": "https://outsmart.cms/schema/common.json#/$defs/text",
+        "title": "menuClose"
+      },
+      "navLabel": {
+        "$ref": "https://outsmart.cms/schema/common.json#/$defs/text",
+        "title": "navLabel"
+      },
+      "langLabel": {
+        "$ref": "https://outsmart.cms/schema/common.json#/$defs/text",
+        "title": "langLabel"
+      },
+      "quickbarLabel": {
+        "$ref": "https://outsmart.cms/schema/common.json#/$defs/text",
+        "title": "quickbarLabel"
+      },
+      "breadcrumbHome": {
+        "$ref": "https://outsmart.cms/schema/common.json#/$defs/text",
+        "title": "breadcrumbHome"
+      },
+      "breadcrumbLabel": {
+        "$ref": "https://outsmart.cms/schema/common.json#/$defs/text",
+        "title": "breadcrumbLabel"
+      },
+      "summaryTitle": {
+        "$ref": "https://outsmart.cms/schema/common.json#/$defs/text",
+        "title": "summaryTitle"
+      },
+      "optionalSuffix": {
+        "$ref": "https://outsmart.cms/schema/common.json#/$defs/text",
+        "title": "optionalSuffix"
+      },
+      "selectPlaceholder": {
+        "$ref": "https://outsmart.cms/schema/common.json#/$defs/text",
+        "title": "selectPlaceholder"
+      },
+      "formError": {
+        "$ref": "https://outsmart.cms/schema/common.json#/$defs/text",
+        "title": "formError"
+      },
+      "whatsappFloatLabel": {
+        "$ref": "https://outsmart.cms/schema/common.json#/$defs/text",
+        "title": "whatsappFloatLabel"
+      },
+      "callLabel": {
+        "$ref": "https://outsmart.cms/schema/common.json#/$defs/text",
+        "title": "callLabel"
+      },
+      "logoLabel": {
+        "$ref": "https://outsmart.cms/schema/common.json#/$defs/text",
+        "title": "logoLabel"
+      }
+    },
+    "required": [
+      "skipLink",
+      "menuOpen",
+      "menuClose",
+      "navLabel",
+      "langLabel",
+      "quickbarLabel",
+      "breadcrumbHome",
+      "breadcrumbLabel",
+      "summaryTitle",
+      "optionalSuffix",
+      "selectPlaceholder",
+      "formError",
+      "whatsappFloatLabel",
+      "callLabel",
+      "logoLabel"
+    ]
+  }
+}

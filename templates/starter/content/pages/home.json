@@ -1,0 +1,48 @@
+{
+  "key": "home",
+  "status": "published",
+  "slug": {
+    "it": ""
+  },
+  "name": {
+    "it": "Home"
+  },
+  "title": {
+    "it": "Studio Esempio"
+  },
+  "description": {
+    "it": "Il template Starter: una base semplice per costruire un sito nuovo."
+  },
+  "blocks": [
+    {
+      "id": "home-1-hero",
+      "type": "hero",
+      "surface": "dark",
+      "title": {
+        "it": "Un sito semplice, fatto bene."
+      },
+      "lead": {
+        "it": "Questo è il template <strong>Starter</strong>: tre blocchi, un menu e un modulo. Servono come punto di partenza."
+      },
+      "buttons": [
+        {
+          "label": {
+            "it": "Scrivici"
+          },
+          "link": {
+            "type": "page",
+            "page": "contatti"
+          }
+        }
+      ]
+    },
+    {
+      "id": "home-2-text",
+      "type": "text",
+      "surface": "light",
+      "content": {
+        "it": "<h2>Cosa c'è dentro</h2><p>Una copertina, un blocco di testo e un modulo di contatto. Le richieste arrivano per email e restano nell'elenco delle <em>Richieste</em> dell'admin.</p><ul><li>colori e caratteri si cambiano da <strong>Stile</strong>;</li><li>i testi da <strong>Pagine</strong>;</li><li>le immagini dalla libreria.</li></ul>"
+      }
+    }
+  ]
+}

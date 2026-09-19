@@ -1,0 +1,147 @@
+{
+  "key": "contatti",
+  "status": "published",
+  "slug": {
+    "it": "contatti",
+    "de": "kontakt",
+    "fr": "contact"
+  },
+  "name": {
+    "it": "Contatti"
+  },
+  "title": {
+    "it": "Contatti Mammano Traslochi Lugano | Telefono e WhatsApp"
+  },
+  "description": {
+    "it": "Contatta Mammano Traslochi e Trasporti a Lugano: telefono +41 91 922 50 24, WhatsApp, email info@mammano.ch. Sede, orari e mappa."
+  },
+  "blocks": [
+    {
+      "id": "contatti-1-page-intro",
+      "type": "page-intro",
+      "surface": "dark",
+      "title": {
+        "it": "Parliamo del vostro trasloco."
+      },
+      "lead": {
+        "it": "Chiamateci, scriveteci su WhatsApp o per email. Per un preventivo potete anche usare il <a href=\"page:preventivo\">modulo online</a>."
+      }
+    },
+    {
+      "id": "contatti-2-marquee",
+      "type": "shared",
+      "ref": "marquee-servizi"
+    },
+    {
+      "id": "contatti-3-contacts",
+      "type": "contacts",
+      "surface": "light",
+      "items": [
+        {
+          "label": {
+            "it": "Ufficio (2 linee)"
+          },
+          "link": {
+            "type": "channel",
+            "channel": "phone"
+          }
+        },
+        {
+          "label": {
+            "it": "Mobile"
+          },
+          "link": {
+            "type": "channel",
+            "channel": "mobile"
+          }
+        },
+        {
+          "label": {
+            "it": "WhatsApp"
+          },
+          "link": {
+            "type": "channel",
+            "channel": "whatsapp"
+          },
+          "value": {
+            "it": "Scriveteci su WhatsApp"
+          }
+        },
+        {
+          "label": {
+            "it": "Email"
+          },
+          "link": {
+            "type": "channel",
+            "channel": "email"
+          }
+        },
+        {
+          "label": {
+            "it": "Indirizzo"
+          },
+          "value": {
+            "it": "Via al Fiume 4, 6962 Lugano-Viganello"
+          }
+        },
+        {
+          "label": {
+            "it": "Orari"
+          },
+          "value": {
+            "it": "Lunedì–venerdì, 08:00–12:00 e 13:30–17:30"
+          }
+        }
+      ],
+      "map": {
+        "query": "Mammano Traslochi Lugano",
+        "title": {
+          "it": "Mappa: sede di Mammano Traslochi"
+        }
+      }
+    },
+    {
+      "id": "contatti-4-zones",
+      "type": "zones",
+      "surface": "brand",
+      "header": {
+        "eyebrow": {
+          "it": "Zone servite"
+        },
+        "title": {
+          "it": "Dove lavoriamo."
+        }
+      },
+      "source": "custom",
+      "items": [
+        {
+          "it": "Lugano"
+        },
+        {
+          "it": "Mendrisio"
+        },
+        {
+          "it": "Chiasso"
+        },
+        {
+          "it": "Bellinzona"
+        },
+        {
+          "it": "Locarno"
+        },
+        {
+          "it": "Malcantone"
+        },
+        {
+          "it": "Svizzera"
+        },
+        {
+          "it": "Italia"
+        },
+        {
+          "it": "Europa"
+        }
+      ]
+    }
+  ]
+}

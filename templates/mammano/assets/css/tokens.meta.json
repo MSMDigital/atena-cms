@@ -1,0 +1,9 @@
+{
+  "fontsCss": "css/fonts.css",
+  "preload": [
+    "fonts/raleway-latin.woff2"
+  ],
+  "htmlAttrs": {
+    "data-btn-fx": "arrow"
+  }
+}

@@ -1,0 +1,313 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<title>Outsmart CMS — Prova in locale</title>
+<style>
+  @import url('https://api.fontshare.com/v2/css?f[]=satoshi@300,400,500,700,900,400i,700i&f[]=gambarino@400&display=swap');
+  @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@1,400;1,500;1,600;1,700&family=IBM+Plex+Mono:wght@400;500&display=swap');
+
+  :root {
+    --ivory: #F8F7F3; --charcoal: #262626; --signal: #E43A32; --sky: #92BAE4;
+    --line: rgba(38,38,38,.14); --soft: rgba(38,38,38,.68);
+  }
+  @page { size: A4; margin: 0; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  body { font-family: 'Satoshi', Arial, sans-serif; font-size: 9.6pt; line-height: 1.55; letter-spacing: -0.01em; color: var(--charcoal); background: var(--ivory); }
+
+  .page { width: 210mm; height: 297mm; position: relative; overflow: hidden; page-break-after: always; background: var(--ivory); padding: 20mm 20mm 24mm; }
+  .page:last-child { page-break-after: auto; }
+  .mono { font-family: 'IBM Plex Mono', monospace; text-transform: uppercase; letter-spacing: .2em; font-size: 7.4pt; font-weight: 500; }
+
+  /* ---- copertina e retro (scuri) ---- */
+  .dark { background: #000; color: var(--ivory); padding: 0; }
+  .dark::before { content: ''; position: absolute; inset: 0; background:
+      radial-gradient(60% 45% at 78% 22%, rgba(146,186,228,.34), transparent 70%),
+      radial-gradient(52% 42% at 18% 78%, rgba(228,58,50,.30), transparent 70%); }
+  .dark > * { position: relative; }
+  .cover-top { position: absolute; left: 20mm; right: 20mm; top: 20mm; display: flex; justify-content: space-between; align-items: center; }
+  .cover-top img { height: 13mm; }
+  .cover-top .mono, .cover-bottom .mono { color: rgba(248,247,243,.7); }
+  .cover-mid { position: absolute; left: 20mm; right: 20mm; top: 96mm; }
+  .cover-mid .mono { color: var(--sky); margin-bottom: 9mm; display: block; }
+  .brace { font-family: 'Gambarino', 'Cormorant Garamond', serif; font-style: italic; font-weight: 700; }
+  .cover-mid h1 { font-family: 'Gambarino', 'Cormorant Garamond', serif; font-style: italic; font-weight: 700; font-size: 58pt; line-height: 1.02; letter-spacing: -.01em; }
+  .cover-mid h1 .brace { margin: 0 3mm; }
+  .cover-mid p { margin-top: 12mm; font-weight: 300; font-size: 15pt; line-height: 1.4; max-width: 128mm; color: rgba(248,247,243,.92); }
+  .cover-bottom { position: absolute; left: 20mm; right: 20mm; bottom: 20mm; }
+  .bar { height: 2px; background: linear-gradient(90deg, #E43A32 0%, #92BAE4 100%); margin-bottom: 6mm; }
+  .cover-bottom .row { display: flex; justify-content: space-between; }
+
+  /* ---- pagine interne ---- */
+  .label { color: var(--soft); display: block; margin-bottom: 4mm; }
+  .label b { color: var(--signal); font-weight: 500; }
+  h2 { font-weight: 700; font-size: 25pt; line-height: 1.08; letter-spacing: -.02em; margin-bottom: 5mm; max-width: 150mm; }
+  h3 { font-weight: 700; font-size: 11.6pt; letter-spacing: -.012em; margin: 7mm 0 2.4mm; }
+  p { margin-bottom: 3mm; max-width: 160mm; }
+  p.lead { font-size: 11.4pt; line-height: 1.5; color: var(--charcoal); margin-bottom: 6mm; max-width: 150mm; }
+  code { font-family: 'IBM Plex Mono', monospace; font-size: 8.3pt; background: rgba(38,38,38,.07); padding: .3mm 1.3mm; border-radius: 1mm; letter-spacing: 0; white-space: nowrap; }
+  a { color: inherit; text-decoration: none; border-bottom: 1px solid var(--signal); }
+
+  pre { font-family: 'IBM Plex Mono', monospace; font-size: 8pt; line-height: 1.6; letter-spacing: 0; background: var(--charcoal); color: var(--ivory); padding: 4mm 5mm; border-radius: 1.4mm; margin: 2mm 0 4mm; white-space: pre-wrap; word-break: break-word; }
+  pre i { font-style: normal; color: rgba(248,247,243,.5); }
+  pre b { font-weight: 500; color: var(--sky); }
+
+  table { width: 100%; border-collapse: collapse; margin: 2mm 0 4mm; }
+  th { text-align: left; font-family: 'IBM Plex Mono', monospace; text-transform: uppercase; letter-spacing: .18em; font-size: 6.9pt; font-weight: 500; color: var(--soft); padding: 0 3mm 2mm 0; border-bottom: 1.2px solid var(--charcoal); }
+  td { vertical-align: top; padding: 2.4mm 3mm 2.4mm 0; border-bottom: 1px solid var(--line); font-size: 9.1pt; line-height: 1.45; }
+  td:first-child { font-weight: 700; white-space: nowrap; padding-right: 5mm; }
+  table.wrap td:first-child { white-space: normal; }
+
+  .two { display: grid; grid-template-columns: 1fr 1fr; gap: 6mm; margin: 4mm 0; }
+  .card { border: 1px solid var(--line); border-top: 2px solid var(--charcoal); padding: 4.5mm 5mm; background: rgba(255,255,255,.4); }
+  .card .mono { color: var(--signal); display: block; margin-bottom: 2.5mm; }
+  .card h4 { font-size: 12pt; font-weight: 700; letter-spacing: -.015em; margin-bottom: 1.8mm; }
+  .card p { font-size: 8.9pt; margin: 0; }
+
+  .note { border-left: 3px solid var(--signal); background: rgba(228,58,50,.06); padding: 3.4mm 5mm; margin: 4mm 0; max-width: 165mm; }
+  .note .mono { color: var(--signal); display: block; margin-bottom: 1.4mm; }
+  .note p { margin: 0; font-size: 9pt; }
+  .note.sky { border-left-color: var(--sky); background: rgba(146,186,228,.14); }
+  .note.sky .mono { color: #3f6b9a; }
+
+  ol.steps { list-style: none; counter-reset: s; margin: 2mm 0; }
+  ol.steps > li { counter-increment: s; position: relative; padding: 0 0 3.6mm 11mm; }
+  ol.steps > li::before { content: counter(s, decimal-leading-zero); position: absolute; left: 0; top: .6mm; font-family: 'IBM Plex Mono', monospace; font-size: 8.6pt; font-weight: 500; letter-spacing: .1em; color: var(--signal); }
+  ol.steps > li p { margin-bottom: 1.4mm; }
+  ol.steps > li pre { margin-bottom: 1.6mm; }
+  ul.dots { list-style: none; margin: 1mm 0 3mm; }
+  ul.dots li { position: relative; padding-left: 5mm; margin-bottom: 1.4mm; }
+  ul.dots li::before { content: ''; position: absolute; left: 0; top: 2.1mm; width: 1.7mm; height: 1.7mm; border-radius: 50%; background: var(--signal); }
+
+  .foot { position: absolute; left: 20mm; right: 20mm; bottom: 11mm; display: flex; justify-content: space-between; align-items: center; padding-top: 3mm; border-top: 1px solid var(--line); color: var(--soft); }
+  .foot .mono { font-size: 6.6pt; }
+  .foot .n { color: var(--charcoal); }
+
+  /* ---- retro ---- */
+  .back-logo { position: absolute; left: 20mm; top: 20mm; height: 13mm; }
+  .back-mid { position: absolute; left: 20mm; right: 20mm; top: 108mm; }
+  .back-mid .claim { font-family: 'Gambarino', 'Cormorant Garamond', serif; font-style: italic; font-weight: 600; font-size: 40pt; line-height: 1.08; letter-spacing: -.015em; }
+  .back-mid .claim span { color: var(--sky); }
+  .back-bottom { position: absolute; left: 20mm; right: 20mm; bottom: 20mm; }
+  .back-bottom .mono { color: rgba(248,247,243,.7); line-height: 2; display: block; }
+</style>
+</head>
+<body>
+
+<!-- ============ COPERTINA ============ -->
+<section class="page dark">
+  <div class="cover-top"><img src="{{LOGO_DARK}}" alt="Outsmart"><span class="mono">Guida · v1.0</span></div>
+  <div class="cover-mid">
+    <span class="mono">Outsmart CMS — Documentazione interna</span>
+    <h1><span class="brace">{</span>Prova in locale<span class="brace">}</span></h1>
+    <p>Installa il motore. Carica il template. Provalo tutto prima di pubblicare.</p>
+  </div>
+  <div class="cover-bottom">
+    <div class="bar"></div>
+    <div class="row"><span class="mono">Lugano · Settembre 2026</span><span class="mono">Outsmart Sagl</span></div>
+  </div>
+</section>
+
+<!-- ============ 01 ============ -->
+<section class="page">
+  <span class="mono label"><b>01</b> — Prima di iniziare</span>
+  <h2>Tre cose accese. Poi si parte.</h2>
+  <p class="lead">Il CMS è il <strong>motore</strong>: admin, database, login, immagini, moduli, pubblicazione. Il sito è un <strong>template</strong> che si installa a parte. Un'installazione, un sito, un database.</p>
+
+  <table>
+    <tr><th>Cosa</th><th>Perché</th></tr>
+    <tr><td>Node.js 22.12+</td><td>Il Mac usa di default una versione più vecchia. In ogni terminale nuovo: <code>. ~/.nvm/nvm.sh &amp;&amp; nvm use 22</code></td></tr>
+    <tr><td>Docker Desktop</td><td>Acceso. Ospita MySQL, sulla porta <code>3307</code>.</td></tr>
+    <tr><td>Cartella del progetto</td><td><code>outsmart-cms</code>. Ogni comando di questa guida parte da lì.</td></tr>
+  </table>
+
+  <h3>Il database</h3>
+  <pre><b>npm run</b> db:up      <i># avvia MySQL e aspetta che sia pronto</i>
+<b>npm run</b> db:down    <i># lo spegne, i dati restano nel volume</i></pre>
+
+  <h3>Due modi per provare</h3>
+  <div class="two">
+    <div class="card"><span class="mono">Modo A</span><h4>Istanza di sviluppo</h4><p>Quella già installata. Il modo più rapido per toccare admin, stile, immagini, moduli e template.</p></div>
+    <div class="card"><span class="mono">Modo B</span><h4>Installazione da zero</h4><p>Una copia separata, con il suo database. Serve a vedere la procedura guidata. Non tocca la A.</p></div>
+  </div>
+
+  <div class="note sky"><span class="mono">Regola</span><p>Le credenziali non si scrivono mai nei comandi né nei file del progetto. Stanno nel <code>.env</code> (ignorato da git) o nelle variabili d'ambiente.</p></div>
+
+  <div class="foot"><span class="mono">Outsmart CMS · Prova in locale</span><span class="mono n">02 / 07</span></div>
+</section>
+
+<!-- ============ 02 ============ -->
+<section class="page">
+  <span class="mono label"><b>02</b> — Modo A · Istanza di sviluppo</span>
+  <h2>Avvia. Accedi. Tocca tutto.</h2>
+
+  <ol class="steps">
+    <li>
+      <p><strong>Avvia l'app.</strong> L'admin si apre su <code>http://localhost:3000/admin</code>.</p>
+      <pre><b>npm run</b> dev</pre>
+    </li>
+    <li>
+      <p><strong>Accedi</strong> con <code>info@out-smart.ch</code> e la password che hai scelto. Se non la ricordi, se ne genera una nuova. Compare <em>una sola volta</em>, alla riga «Password (mostrata una sola volta…)».</p>
+      <pre>node scripts/create-user.mjs <b>--email</b> info@out-smart.ch \
+  <b>--name</b> Outsmart <b>--role</b> admin <b>--reset</b></pre>
+    </li>
+    <li>
+      <p><strong>Vedi il sito pubblico</strong>, in un secondo terminale. I moduli arrivano all'app sulla porta 3000, quindi l'invio funziona. Dopo ogni modifica ai contenuti usa <em>Pubblica</em> nell'admin: rigenera il sito.</p>
+      <pre><b>npm run</b> build     <i># genera il sito statico in dist/</i>
+<b>npm run</b> serve     <i># lo serve su http://localhost:4173</i></pre>
+    </li>
+  </ol>
+
+  <h3>Cosa provare</h3>
+  <table>
+    <tr><th>Dove</th><th>Cosa</th></tr>
+    <tr><td>Pagine</td><td>Modifica testi e blocchi: l'anteprima cambia subito. Riordina, duplica, nascondi, aggiungi.</td></tr>
+    <tr><td>Stile</td><td>Colori, dimensioni dei titoli, effetto dei pulsanti, con anteprima dal vivo.</td></tr>
+    <tr><td>Immagini</td><td>Carica (vengono ricodificate in WebP) e scegli il punto focale.</td></tr>
+    <tr><td>Dati del sito</td><td>Contatti, menu, consenso alla mappa (integrato o iubenda).</td></tr>
+    <tr><td>Email</td><td>Server SMTP ed email di prova. Senza SMTP le richieste si salvano lo stesso.</td></tr>
+    <tr><td>Richieste</td><td>Compila un modulo dal sito pubblico e ritrovalo nell'elenco.</td></tr>
+    <tr><td>Template</td><td>Attiva <strong>Starter</strong>, con blocchi propri. I contenuti si sostituiscono con quelli di esempio, con copia di sicurezza in <code>data/backups/</code>.</td></tr>
+    <tr><td>Utenti</td><td>Nessuna pagina di gestione: si creano da riga di comando, ruolo <code>editor</code> o <code>admin</code>. L'editor vede solo pagine e blocchi condivisi.</td></tr>
+  </table>
+
+  <div class="note"><span class="mono">Attenzione a .next</span><p><code>npm run dev</code> e <code>npm start</code> usano la stessa cartella <code>.next</code>. Se passi dall'uno all'altro l'admin si rompe: fermalo e rifai <code>npm run build:admin</code>.</p></div>
+
+  <div class="foot"><span class="mono">Outsmart CMS · Prova in locale</span><span class="mono n">03 / 07</span></div>
+</section>
+
+<!-- ============ 03 ============ -->
+<section class="page">
+  <span class="mono label"><b>03</b> — Modo B · Installazione da zero</span>
+  <h2>Una copia pulita. Zero rischi per la A.</h2>
+
+  <h3 style="margin-top:0">Il modo automatico</h3>
+  <p>Database e cartelle temporanei. Percorre tutti i passi: chiave, requisiti, database, primo admin, zip del template, template dall'admin, cambio di template, rimozione. Alla fine pulisce. Serve l'admin già compilato (<code>npm run build:admin</code>) e Docker acceso.</p>
+  <pre>node scripts/e2e-install.mjs</pre>
+
+  <h3>A mano, per vedere il wizard</h3>
+  <ol class="steps">
+    <li><p><strong>Ferma la A</strong> con Ctrl+C. Due copie in sviluppo nella stessa cartella non convivono.</p></li>
+    <li>
+      <p><strong>Crea un database vuoto.</strong> La password di root la legge il container: non va scritta.</p>
+      <pre>docker exec outsmart-cms-db sh -c 'mysql -uroot -p"$MYSQL_ROOT_PASSWORD" \
+  -e "CREATE DATABASE outsmart_cms_prova \
+      CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci; \
+      GRANT ALL ON outsmart_cms_prova.* TO \"cms\"@\"%\";"'</pre>
+    </li>
+    <li>
+      <p><strong>Prepara lo zip del template.</strong> Finisce nella cartella del progetto, per esempio <code>mammano-1.0.0.zip</code>.</p>
+      <pre><b>npm run</b> template:pack -- templates/mammano</pre>
+    </li>
+    <li>
+      <p><strong>Avvia una copia isolata.</strong> Cartelle a parte e variabili del <code>.env</code> di sviluppo svuotate: altrimenti la procedura vede il database già installato e si crede installata.</p>
+      <pre>P=/tmp/cms-prova
+env DB_HOST= DB_PORT= DB_NAME= DB_USER= DB_PASSWORD= DB_ROOT_PASSWORD= \
+    SETTINGS_SECRET= IP_HASH_SECRET= APP_ORIGIN= TRUST_PROXY= INSTALL_TOKEN= \
+    CMS_TEMPLATE= CMS_TEMPLATE_DIR= SMTP_HOST= MAIL_FROM= \
+    DATA_DIR=$P/data TEMPLATES_DIR=$P/templates ENV_FILE=$P/.env \
+    SITE_OUT_DIR=$P/dist MEDIA_DIR=$P/media \
+    npx next dev -p 3100</pre>
+    </li>
+  </ol>
+
+  <div class="foot"><span class="mono">Outsmart CMS · Prova in locale</span><span class="mono n">04 / 07</span></div>
+</section>
+
+<!-- ============ 03 bis ============ -->
+<section class="page">
+  <span class="mono label"><b>03</b> — Modo B · Il wizard</span>
+  <h2>Apri /install e segui i passi.</h2>
+  <p class="lead">Vai su <code>http://localhost:3100/install</code>. Cinque passi e il sito è pubblicato.</p>
+
+  <table>
+    <tr><th>Passo</th><th>Cosa fai</th></tr>
+    <tr><td>Chiave</td><td>La trovi nel terminale, alla riga «Chiave di installazione…», e in <code>/tmp/cms-prova/data/install-token</code>.</td></tr>
+    <tr><td>Requisiti</td><td>Devono essere tutti a posto: Node, immagini, permessi, cartelle scrivibili.</td></tr>
+    <tr><td>Database</td><td>Host <code>127.0.0.1</code>, porta <code>3307</code>, nome <code>outsmart_cms_prova</code>, utente <code>cms</code> e la <code>DB_PASSWORD</code> del tuo <code>.env</code>.</td></tr>
+    <tr><td>Primo admin</td><td>Nome, email, password di almeno 12 caratteri.</td></tr>
+    <tr><td>Template</td><td>Carica lo zip del passo 3 e indica l'indirizzo pubblico del sito. Si installano i contenuti di esempio e il sito viene pubblicato subito.</td></tr>
+  </table>
+
+  <p>Finito, <code>/install</code> si chiude per sempre e la chiave non serve più. Accedi da <code>http://localhost:3100/admin</code>.</p>
+
+  <div class="note"><span class="mono">Password del database</span><p>Non può contenere <code>$ ' " \ ` #</code>: il file <code>.env</code> non li conserva in modo affidabile.</p></div>
+
+  <h3>Pulizia</h3>
+  <pre>docker exec outsmart-cms-db sh -c 'mysql -uroot -p"$MYSQL_ROOT_PASSWORD" \
+  -e "DROP DATABASE outsmart_cms_prova"'
+rm -rf /tmp/cms-prova mammano-1.0.0.zip
+<b>npm run</b> build:admin   <i># la copia in sviluppo ha sovrascritto .next</i></pre>
+
+  <div class="foot"><span class="mono">Outsmart CMS · Prova in locale</span><span class="mono n">05 / 07</span></div>
+</section>
+
+<!-- ============ 04 ============ -->
+<section class="page">
+  <span class="mono label"><b>04</b> — Prove automatiche</span>
+  <h2>Il valore si dimostra, non si promette.</h2>
+  <p class="lead">184 test automatici e 55 attacchi all'app in esecuzione. Ripetibili in qualsiasi momento.</p>
+
+  <table class="wrap">
+    <tr><th style="width:34%">Comando</th><th style="width:30%">Cosa verifica</th><th>Serve</th></tr>
+    <tr><td><code>npm test</code></td><td>184 test: token, sessioni, contenuti, template, installazione, sicurezza</td><td>Docker (database di prova temporaneo)</td></tr>
+    <tr><td><code>e2e-install.mjs</code></td><td>Installazione da zero e gestione dei template</td><td>Admin compilato, Docker</td></tr>
+    <tr><td><code>e2e-admin</code>, <code>e2e-editor</code>, <code>e2e-media</code>, <code>e2e-forms</code></td><td>L'admin con un browser vero</td><td>App avviata con <code>npm start</code>, utente admin temporaneo, <code>E2E_URL</code>, <code>E2E_EMAIL</code>, <code>E2E_PASSWORD</code></td></tr>
+    <tr><td><code>e2e-consent.mjs</code></td><td>Consenso alla mappa sul sito statico</td><td>Niente</td></tr>
+    <tr><td><code>npm run probe:security</code></td><td>55 attacchi all'app in esecuzione</td><td>Come le prove nel browser</td></tr>
+  </table>
+
+  <div class="note"><span class="mono">Salvano e pubblicano davvero</span><p>Le prove nel browser modificano i contenuti e poi li ripristinano. Usale solo sul database di sviluppo.</p></div>
+
+  <h3>L'utente temporaneo</h3>
+  <pre>node scripts/create-user.mjs <b>--email</b> e2e@esempio.test \
+  <b>--name</b> E2E <b>--role</b> admin <b>--reset</b>
+<i># … prove …  poi lo elimini dal database:</i>
+docker exec outsmart-cms-db sh -c 'mysql -uroot -p"$MYSQL_ROOT_PASSWORD" outsmart_cms \
+  -e "DELETE FROM users WHERE email=\"e2e@esempio.test\""'</pre>
+
+  <div class="foot"><span class="mono">Outsmart CMS · Prova in locale</span><span class="mono n">06 / 07</span></div>
+</section>
+
+<!-- ============ 05 ============ -->
+<section class="page">
+  <span class="mono label"><b>05</b> — Se qualcosa non va</span>
+  <h2>Errori noti. Con la causa.</h2>
+
+  <table>
+    <tr><th>Messaggio in console</th><th>Cosa significa</th></tr>
+    <tr><td>«unsafe-eval» in sviluppo</td><td>Risolto. Con <code>npm run dev</code> la politica di sicurezza ammette <code>eval</code> solo in quella modalità: serve al refresh automatico di React. In produzione no.</td></tr>
+    <tr><td>«…from origin 'null' … _devMiddlewareManifest.json»</td><td>Una pagina dell'admin era finita dentro l'iframe dell'anteprima, che ha origine <code>null</code> perché isolato. Ora l'anteprima riceve HTML dall'editor e, senza sessione, <code>/admin/preview</code> risponde 401. Se lo rivedi: ricarica (la sessione può essere scaduta) e segnala pagina e browser.</td></tr>
+    <tr><td>«Failed to load resource» per <code>favicon.ico</code></td><td>Innocuo. L'admin non ha un'icona del sito.</td></tr>
+    <tr><td>L'admin si rompe passando da dev a start</td><td>Stessa cartella <code>.next</code>. Rifai <code>npm run build:admin</code>.</td></tr>
+  </table>
+
+  <h3>Cosa NON è stato provato</h3>
+  <p>Coerente con come lavoriamo: meglio dirlo prima che scoprirlo dopo.</p>
+  <ul class="dots">
+    <li>L'installazione su un server vero (Infomaniak).</li>
+    <li>L'invio email con un SMTP reale.</li>
+    <li>iubenda con un account vero: finora solo uno script finto.</li>
+  </ul>
+
+  <div class="note sky"><span class="mono">Sicurezza dei template</span><p>Un template è codice. Il suo isolamento ha limiti dichiarati (rete e segnali non sono limitati da Node; il JavaScript del template gira nel sito pubblico). Prima di installare template di terzi leggi «Template e sicurezza» in <code>docs/architettura.md</code>.</p></div>
+
+  <div class="foot"><span class="mono">Outsmart CMS · Prova in locale</span><span class="mono n">07 / 07</span></div>
+</section>
+
+<!-- ============ RETRO ============ -->
+<section class="page dark">
+  <img class="back-logo" src="{{LOGO_DARK}}" alt="Outsmart">
+  <div class="back-mid">
+    <div class="claim">Tu pensi in grande.<br><span>Noi mettiamo le mani.</span></div>
+  </div>
+  <div class="back-bottom">
+    <div class="bar"></div>
+    <span class="mono">Outsmart Sagl · Lugano, Svizzera</span>
+    <span class="mono">out-smart.ch · gabriele.marelli@out-smart.ch</span>
+  </div>
+</section>
+
+</body>
+</html>

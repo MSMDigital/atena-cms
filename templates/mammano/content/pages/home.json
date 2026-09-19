@@ -1,0 +1,522 @@
+{
+  "key": "home",
+  "status": "published",
+  "slug": {
+    "it": "",
+    "de": "",
+    "fr": ""
+  },
+  "name": {
+    "it": "Home"
+  },
+  "title": {
+    "it": "Traslochi Lugano e Ticino dal 1986 | Mammano Traslochi"
+  },
+  "description": {
+    "it": "Ditta di traslochi a Lugano dal 1986: traslochi privati, aziendali e internazionali, deposito mobili, sgomberi e lift esterno. Sopralluogo e preventivo gratuiti."
+  },
+  "blocks": [
+    {
+      "id": "home-1-hero",
+      "type": "hero",
+      "surface": "dark",
+      "image": {
+        "src": "hero-mammano.jpg",
+        "alt": {
+          "it": "Patrick Mammano, titolare di Mammano Traslochi e Trasporti a Lugano"
+        },
+        "focal": {
+          "x": 62,
+          "y": 25
+        },
+        "focalMobile": {
+          "x": 70,
+          "y": 20
+        }
+      },
+      "titleLine1": {
+        "it": "Traslochi"
+      },
+      "titleLine2": {
+        "it": "a Lugano"
+      },
+      "claim": {
+        "it": "Persone nostre, mezzi nostri.\nDa quarant'anni."
+      },
+      "badge": {
+        "ring": [
+          {
+            "it": "Preventivo gratuito"
+          },
+          {
+            "it": "Sopralluogo gratuito"
+          }
+        ],
+        "label": {
+          "it": "Richiedi un preventivo gratuito"
+        },
+        "link": {
+          "type": "page",
+          "page": "preventivo"
+        }
+      }
+    },
+    {
+      "id": "home-2-marquee",
+      "type": "shared",
+      "ref": "marquee-servizi"
+    },
+    {
+      "id": "home-3-facts",
+      "type": "facts",
+      "surface": "dark",
+      "label": {
+        "it": "Mammano in numeri"
+      },
+      "items": [
+        {
+          "value": {
+            "it": "1986"
+          },
+          "label": {
+            "it": "In attività dal"
+          }
+        },
+        {
+          "value": {
+            "it": "10'000+"
+          },
+          "label": {
+            "it": "Traslochi eseguiti"
+          }
+        },
+        {
+          "value": {
+            "it": "25 m"
+          },
+          "label": {
+            "it": "Lift esterno"
+          }
+        },
+        {
+          "value": {
+            "it": "Gratuito"
+          },
+          "label": {
+            "it": "Sopralluogo"
+          }
+        }
+      ]
+    },
+    {
+      "id": "home-4-items",
+      "type": "items",
+      "surface": "light",
+      "header": {
+        "eyebrow": {
+          "it": "Chi siamo"
+        },
+        "title": {
+          "it": "Una ditta ticinese, con persone e mezzi propri."
+        },
+        "text": {
+          "it": "Azienda familiare di Lugano dal 1986, oggi guidata da Patrick Mammano. Non subappaltiamo."
+        }
+      },
+      "layout": "points",
+      "columns": 3,
+      "numbered": true,
+      "items": [
+        {
+          "title": {
+            "it": "Personale assunto"
+          },
+          "text": {
+            "it": "Traslocatori qualificati, mai occasionali."
+          }
+        },
+        {
+          "title": {
+            "it": "Sopralluogo gratuito"
+          },
+          "text": {
+            "it": "Prima vediamo, poi facciamo il prezzo."
+          }
+        },
+        {
+          "title": {
+            "it": "Mezzi propri"
+          },
+          "text": {
+            "it": "Camion, furgoni e lift fino a 25 m."
+          }
+        }
+      ]
+    },
+    {
+      "id": "home-5-items",
+      "type": "items",
+      "surface": "dark",
+      "header": {
+        "eyebrow": {
+          "it": "Servizi"
+        },
+        "title": {
+          "it": "Tutto il trasloco, dall'imballaggio al deposito."
+        }
+      },
+      "layout": "rows",
+      "items": [
+        {
+          "title": {
+            "it": "Traslochi privati"
+          },
+          "link": {
+            "type": "page",
+            "page": "traslochi-privati"
+          },
+          "text": {
+            "it": "Case e appartamenti, chiavi in mano."
+          },
+          "previewImage": {
+            "src": "sito-attuale/trasloco-mammano.jpg",
+            "alt": {
+              "it": "Traslochi privati"
+            }
+          }
+        },
+        {
+          "title": {
+            "it": "Traslochi aziendali"
+          },
+          "link": {
+            "type": "page",
+            "page": "traslochi-aziendali"
+          },
+          "text": {
+            "it": "Uffici e negozi, anche fuori orario."
+          },
+          "previewImage": {
+            "src": "sito-attuale/operai-traslochi.jpg",
+            "alt": {
+              "it": "Traslochi aziendali"
+            }
+          }
+        },
+        {
+          "title": {
+            "it": "Traslochi internazionali"
+          },
+          "link": {
+            "type": "page",
+            "page": "traslochi-internazionali"
+          },
+          "text": {
+            "it": "Italia, Europa e mondo."
+          },
+          "previewImage": {
+            "src": "sito-attuale/traslochi-europa.jpg",
+            "alt": {
+              "it": "Traslochi internazionali"
+            }
+          }
+        },
+        {
+          "title": {
+            "it": "Deposito, sgomberi e imballaggi"
+          },
+          "link": {
+            "type": "page",
+            "page": "deposito-sgomberi-imballaggi"
+          },
+          "text": {
+            "it": "Custodiamo, liberiamo, imballiamo."
+          },
+          "previewImage": {
+            "src": "sito-attuale/elevatore-lugano.jpg",
+            "alt": {
+              "it": "Deposito, sgomberi e imballaggi"
+            }
+          }
+        },
+        {
+          "title": {
+            "it": "Noleggio lift e camion"
+          },
+          "link": {
+            "type": "page",
+            "page": "servizi",
+            "anchor": "noleggio"
+          },
+          "text": {
+            "it": "Sempre con il nostro operatore."
+          },
+          "previewImage": {
+            "src": "sito-attuale/traslochi-paradiso.jpg",
+            "alt": {
+              "it": "Noleggio lift e camion"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "home-6-split",
+      "type": "split",
+      "surface": "light",
+      "eyebrow": {
+        "it": "Lift esterno"
+      },
+      "title": {
+        "it": "Piani alti, scale strette? Passiamo dalla finestra."
+      },
+      "mediaSide": "left",
+      "mobileMedia": "top",
+      "media": {
+        "type": "image",
+        "image": {
+          "src": "sito-attuale/trasloco-mammano.jpg",
+          "alt": {
+            "it": "Traslocatore Mammano scarica uno scatolone dalla piattaforma del lift esterno"
+          }
+        }
+      },
+      "extra": {
+        "type": "list",
+        "items": [
+          {
+            "label": {
+              "it": "Altezza"
+            },
+            "text": {
+              "it": "fino a 25 m"
+            }
+          },
+          {
+            "label": {
+              "it": "Portata"
+            },
+            "text": {
+              "it": "400 kg"
+            }
+          },
+          {
+            "label": {
+              "it": "Operatore"
+            },
+            "text": {
+              "it": "Mammano, sempre"
+            }
+          }
+        ]
+      },
+      "action": {
+        "label": {
+          "it": "Noleggio mezzi"
+        },
+        "link": {
+          "type": "page",
+          "page": "servizi",
+          "anchor": "noleggio"
+        }
+      }
+    },
+    {
+      "id": "home-7-gallery",
+      "type": "gallery",
+      "surface": "dark",
+      "label": {
+        "it": "Mammano al lavoro"
+      },
+      "items": [
+        {
+          "image": {
+            "src": "sito-attuale/operai-traslochi.jpg",
+            "alt": {
+              "it": "Due traslocatori Mammano caricano mobili sul camion"
+            }
+          },
+          "caption": {
+            "it": "Squadre di personale assunto"
+          }
+        },
+        {
+          "image": {
+            "src": "sito-attuale/traslochi-paradiso.jpg",
+            "alt": {
+              "it": "Piattaforma del lift esterno Mammano vista dal basso lungo una facciata"
+            }
+          },
+          "caption": {
+            "it": "Lift esterno fino a 25 m"
+          }
+        },
+        {
+          "image": {
+            "src": "sito-attuale/mammano-svizzera.jpg",
+            "alt": {
+              "it": "Camion Mammano con lift esterno durante un trasloco nel centro di Lugano"
+            }
+          },
+          "caption": {
+            "it": "Nel centro di Lugano"
+          }
+        },
+        {
+          "image": {
+            "src": "sito-attuale/elevatore-lugano.jpg",
+            "alt": {
+              "it": "Furgone Mammano con scatoloni pronti davanti a un cancello"
+            }
+          },
+          "caption": {
+            "it": "Imballaggio e trasporto"
+          }
+        },
+        {
+          "image": {
+            "src": "sito-attuale/preventivo-trasloco.jpg",
+            "alt": {
+              "it": "Furgone Mammano davanti a una villa ticinese"
+            }
+          },
+          "caption": {
+            "it": "In tutto il Ticino"
+          }
+        }
+      ]
+    },
+    {
+      "id": "home-8-items",
+      "type": "items",
+      "surface": "light",
+      "header": {
+        "eyebrow": {
+          "it": "Come funziona"
+        },
+        "title": {
+          "it": "Quattro passaggi. Zero sorprese."
+        }
+      },
+      "layout": "steps",
+      "items": [
+        {
+          "title": {
+            "it": "Ci contattate"
+          },
+          "text": {
+            "it": "Modulo, telefono o WhatsApp."
+          }
+        },
+        {
+          "title": {
+            "it": "Sopralluogo"
+          },
+          "text": {
+            "it": "Gratuito, a casa vostra."
+          }
+        },
+        {
+          "title": {
+            "it": "Preventivo"
+          },
+          "text": {
+            "it": "Scritto, voce per voce."
+          }
+        },
+        {
+          "title": {
+            "it": "Trasloco"
+          },
+          "text": {
+            "it": "Nel giorno concordato."
+          }
+        }
+      ]
+    },
+    {
+      "id": "home-9-zones",
+      "type": "zones",
+      "surface": "brand",
+      "header": {
+        "eyebrow": {
+          "it": "Zone servite"
+        },
+        "title": {
+          "it": "Da Lugano, in tutto il Ticino e oltre."
+        }
+      },
+      "source": "company"
+    },
+    {
+      "id": "home-10-faq",
+      "type": "faq",
+      "surface": "light",
+      "header": {
+        "eyebrow": {
+          "it": "Domande frequenti"
+        },
+        "title": {
+          "it": "Traslochi a Lugano: le domande più frequenti."
+        }
+      },
+      "firstOpen": true,
+      "items": [
+        {
+          "question": {
+            "it": "Quanto costa un trasloco a Lugano?"
+          },
+          "answer": {
+            "it": "Dipende da volume, piani, accessi, distanza e servizi extra come imballaggio, lift o deposito. Per questo Mammano Traslochi fa prima un sopralluogo gratuito e poi invia un preventivo scritto e dettagliato, senza impegno."
+          }
+        },
+        {
+          "question": {
+            "it": "Con quanto anticipo devo prenotare il trasloco?"
+          },
+          "answer": {
+            "it": "Almeno 3–4 settimane prima, soprattutto per fine mese. Per urgenze chiamateci: verifichiamo subito la disponibilità."
+          }
+        },
+        {
+          "question": {
+            "it": "Fate traslochi anche fuori dal Ticino?"
+          },
+          "answer": {
+            "it": "Sì: in tutta la Svizzera e all'estero, verso Italia, Europa e resto del mondo, via strada, mare o aereo."
+          }
+        }
+      ]
+    },
+    {
+      "id": "home-11-cta",
+      "type": "cta",
+      "surface": "dark",
+      "title": {
+        "it": "Pronti a traslocare?"
+      },
+      "buttons": [
+        {
+          "link": {
+            "type": "page",
+            "page": "preventivo"
+          },
+          "style": "inverse",
+          "label": {
+            "it": "Richiedi un preventivo"
+          }
+        },
+        {
+          "link": {
+            "type": "channel",
+            "channel": "phone"
+          },
+          "style": "secondary"
+        }
+      ],
+      "word": {
+        "it": "Traslochi"
+      }
+    }
+  ]
+}

@@ -1,0 +1,49 @@
+/* Stile del template Starter. Colori, caratteri e dimensioni arrivano dai token (tokens.css, generato dal CMS): qui si usano le variabili. */
+*, *::before, *::after { box-sizing: border-box; }
+html { font-family: var(--font-body); font-size: var(--fs-body); line-height: var(--lh-body); }
+body { margin: 0; background: #fff; color: #0b0f17; }
+[data-surface] { background: var(--bg); color: var(--ink); }
+.wrap { width: min(var(--maxw), 100% - 2 * var(--gutter)); margin-inline: auto; }
+a { color: inherit; }
+h1, h2, h3, h4 { font-family: var(--font-heading); margin: 0 0 .5em; }
+h1 { font-size: var(--fs-h1); line-height: var(--lh-h1); letter-spacing: var(--ls-h1); font-weight: var(--fw-h1); }
+h2 { font-size: var(--fs-h2); line-height: var(--lh-h2); letter-spacing: var(--ls-h2); font-weight: var(--fw-h2); }
+h3 { font-size: var(--fs-h3); line-height: var(--lh-h3); }
+.lead { font-size: var(--fs-lead); line-height: var(--lh-lead); color: var(--ink-soft); max-width: 40rem; }
+.skip { position: absolute; left: -999px; } .skip:focus { left: 1rem; top: 1rem; background: #fff; color: #000; padding: .5rem 1rem; z-index: 10; }
+
+.site-header { min-height: var(--header-h); display: flex; align-items: center; border-bottom: 1px solid var(--line); }
+.site-header__in { display: flex; justify-content: space-between; align-items: center; gap: 1rem; }
+.brand { font-family: var(--font-heading); font-weight: 600; text-decoration: none; }
+.site-header ul { list-style: none; display: flex; gap: 1.5rem; margin: 0; padding: 0; }
+.site-header a { text-decoration: none; }
+
+.hero, .text, .form { padding-block: var(--section); }
+.prose { max-width: 46rem; }
+.prose ul { padding-left: 1.3em; }
+.actions { display: flex; gap: .75rem; flex-wrap: wrap; }
+
+.btn { display: inline-flex; align-items: center; min-height: var(--btn-height); padding: 0 1.75rem; border: 1px solid var(--fill); background: var(--fill); color: #fff; border-radius: var(--btn-radius); font: inherit; font-weight: var(--btn-weight); text-decoration: none; cursor: pointer; }
+.btn:hover { filter: brightness(1.1); }
+[data-btn-fx="none"] .btn:hover { filter: none; }
+
+.form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem 2rem; max-width: 46rem; }
+.form-grid .full { grid-column: 1 / -1; }
+@media (max-width: 600px) { .form-grid { grid-template-columns: 1fr; } }
+.field label { display: block; font-size: var(--fs-xs); text-transform: uppercase; letter-spacing: .12em; margin-bottom: .35rem; color: var(--ink-soft); }
+.field .opt { text-transform: none; letter-spacing: 0; }
+.field input, .field select, .field textarea { width: 100%; font: inherit; color: inherit; background: transparent; border: 0; border-bottom: 1px solid var(--line); padding: .6rem 0; }
+.field textarea { min-height: 7rem; }
+.field input:focus, .field select:focus, .field textarea:focus { outline: none; border-bottom: 2px solid var(--accent); }
+.check { display: flex; gap: .6rem; align-items: flex-start; font-size: var(--fs-small); }
+.form-success, .form-error { border-left: 2px solid var(--accent); padding: .6rem .9rem; margin-top: 1.5rem; }
+.form-grid[hidden] { display: none; }
+
+.site-footer { padding-block: 2.5rem; font-size: var(--fs-small); border-top: 1px solid var(--line); }
+.site-footer p { margin: 0; }
+
+/* Consenso alla mappa (se un blocco la usa): riquadro al posto dell'iframe finché non c'è il consenso */
+.map-consent { aspect-ratio: 4/3; background: #eee; display: grid; }
+.map-consent .map { height: 100%; width: 100%; border: 0; }
+.map-consent__box { align-self: center; justify-self: center; padding: 1.5rem; text-align: center; display: grid; gap: 1rem; }
+.map-consent [hidden] { display: none; }

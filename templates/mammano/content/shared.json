@@ -1,0 +1,30 @@
+{
+  "marquee-servizi": {
+    "id": "marquee-servizi",
+    "type": "marquee",
+    "surface": "brand",
+    "items": [
+      {
+        "it": "Traslochi privati"
+      },
+      {
+        "it": "Traslochi aziendali"
+      },
+      {
+        "it": "Traslochi internazionali"
+      },
+      {
+        "it": "Deposito mobili"
+      },
+      {
+        "it": "Sgomberi"
+      },
+      {
+        "it": "Lift esterno 25 m"
+      },
+      {
+        "it": "Dal 1986"
+      }
+    ]
+  }
+}

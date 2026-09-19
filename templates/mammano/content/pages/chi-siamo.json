@@ -1,0 +1,243 @@
+{
+  "key": "chi-siamo",
+  "status": "published",
+  "slug": {
+    "it": "chi-siamo",
+    "de": "ueber-uns",
+    "fr": "a-propos"
+  },
+  "name": {
+    "it": "Chi siamo"
+  },
+  "title": {
+    "it": "Chi siamo: ditta di traslochi ticinese dal 1986 | Mammano"
+  },
+  "description": {
+    "it": "Mammano Traslochi e Trasporti: azienda familiare di Lugano dal 1986, oggi guidata da Patrick Mammano. Personale assunto, mezzi propri, oltre 10'000 traslochi."
+  },
+  "blocks": [
+    {
+      "id": "chi-siamo-1-page-intro",
+      "type": "page-intro",
+      "surface": "dark",
+      "title": {
+        "it": "Una famiglia di traslocatori a Lugano dal 1986."
+      },
+      "lead": {
+        "it": "Da 40 anni aiutiamo privati e aziende del Ticino a cambiare casa e sede. Siamo cresciuti col passaparola, un trasloco dopo l'altro."
+      },
+      "summary": {
+        "it": "Mammano Traslochi e Trasporti è una ditta di traslochi familiare con sede a Lugano, attiva dal 1986 e oggi guidata dal titolare Patrick Mammano. Ha eseguito oltre 10'000 traslochi in Ticino, in Svizzera e all'estero, lavorando solo con personale assunto e con veicoli propri."
+      }
+    },
+    {
+      "id": "chi-siamo-2-marquee",
+      "type": "shared",
+      "ref": "marquee-servizi"
+    },
+    {
+      "id": "chi-siamo-3-wide-image",
+      "type": "wide-image",
+      "image": {
+        "src": "hero-mammano.jpg",
+        "alt": {
+          "it": "Patrick Mammano, titolare di Mammano Traslochi e Trasporti"
+        },
+        "focal": {
+          "x": 70,
+          "y": 35
+        }
+      }
+    },
+    {
+      "id": "chi-siamo-4-split",
+      "type": "split",
+      "surface": "light",
+      "eyebrow": {
+        "it": "La nostra storia"
+      },
+      "title": {
+        "it": "Quarant'anni di traslochi in Ticino."
+      },
+      "body": {
+        "it": "<p>Mammano Traslochi nasce a Lugano nel 1986 come azienda di famiglia. In quarant'anni abbiamo eseguito oltre 10'000 traslochi: appartamenti nel centro di Lugano, case nelle valli, uffici, negozi e traslochi verso l'estero.</p><p>Oggi l'azienda è guidata da Patrick Mammano, che ha portato nuovi mezzi e nuovi servizi mantenendo lo stesso metodo: un consulente che viene a vedere il lavoro, un preventivo chiaro e una squadra che lo esegue con cura.</p>"
+      },
+      "mediaSide": "right",
+      "mobileMedia": "bottom",
+      "media": {
+        "type": "quote",
+        "image": {
+          "src": "sito-attuale/personale-traslochi.jpg",
+          "alt": {
+            "it": "Collaboratore di Mammano Traslochi davanti al logo aziendale"
+          }
+        },
+        "quote": {
+          "it": "«Il cliente deve poter pensare alla sua nuova casa. Del trasloco ci occupiamo noi, come se fossero i nostri mobili.»"
+        },
+        "author": {
+          "it": "Patrick Mammano, titolare"
+        }
+      }
+    },
+    {
+      "id": "chi-siamo-5-items",
+      "type": "items",
+      "surface": "brand",
+      "header": {
+        "eyebrow": {
+          "it": "I nostri valori"
+        },
+        "title": {
+          "it": "Quello che ci chiedono, e che manteniamo."
+        }
+      },
+      "layout": "points",
+      "columns": 3,
+      "numbered": true,
+      "items": [
+        {
+          "title": {
+            "it": "Affidabilità"
+          },
+          "text": {
+            "it": "Rispettiamo date e orari concordati. Personale e veicoli sono nostri: nessun subappalto."
+          }
+        },
+        {
+          "title": {
+            "it": "Trasparenza"
+          },
+          "text": {
+            "it": "Preventivo scritto dopo il sopralluogo, con tutte le voci chiare fin dall'inizio."
+          }
+        },
+        {
+          "title": {
+            "it": "Personale qualificato"
+          },
+          "text": {
+            "it": "Solo collaboratori assunti e regolari, veloci, precisi e con anni di esperienza."
+          }
+        },
+        {
+          "title": {
+            "it": "Mezzi controllati"
+          },
+          "text": {
+            "it": "Veicoli e attrezzature lavati e controllati ogni settimana dai nostri tecnici."
+          }
+        },
+        {
+          "title": {
+            "it": "Attenzione all'ambiente"
+          },
+          "text": {
+            "it": "Motori Euro 4 e 5 con filtro antiparticolato e smaltimento tramite enti autorizzati."
+          }
+        },
+        {
+          "title": {
+            "it": "Puntualità e cortesia"
+          },
+          "text": {
+            "it": "Orari flessibili e rispetto per la vostra casa e i vostri mobili."
+          }
+        }
+      ]
+    },
+    {
+      "id": "chi-siamo-6-spec-table",
+      "type": "spec-table",
+      "surface": "light",
+      "header": {
+        "eyebrow": {
+          "it": "Mezzi e attrezzature"
+        },
+        "title": {
+          "it": "Il nostro parco veicoli."
+        }
+      },
+      "table": {
+        "caption": {
+          "it": "Parco veicoli Mammano Traslochi"
+        },
+        "rows": [
+          {
+            "label": {
+              "it": "Lift esterno Paus"
+            },
+            "value": {
+              "it": "Fino a 25 m di altezza, portata 400 kg"
+            }
+          },
+          {
+            "label": {
+              "it": "Nissan Cabstar"
+            },
+            "value": {
+              "it": "Camion, anche con sponda idraulica"
+            }
+          },
+          {
+            "label": {
+              "it": "Mercedes Sprinter e VW Transporter"
+            },
+            "value": {
+              "it": "Furgoni per traslochi e trasporti"
+            }
+          },
+          {
+            "label": {
+              "it": "Renault Kangoo"
+            },
+            "value": {
+              "it": "Piccoli trasporti e consegne"
+            }
+          },
+          {
+            "label": {
+              "it": "Rimorchio Humbaur"
+            },
+            "value": {
+              "it": "24 m³"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "chi-siamo-7-cta",
+      "type": "cta",
+      "surface": "dark",
+      "title": {
+        "it": "Conosciamoci al sopralluogo."
+      },
+      "text": {
+        "it": "È gratuito, senza impegno, e vi dà un prezzo reale."
+      },
+      "buttons": [
+        {
+          "link": {
+            "type": "page",
+            "page": "preventivo"
+          },
+          "style": "inverse",
+          "label": {
+            "it": "Richiedi un preventivo"
+          }
+        },
+        {
+          "link": {
+            "type": "channel",
+            "channel": "phone"
+          },
+          "style": "secondary"
+        }
+      ],
+      "word": {
+        "it": "Traslochi"
+      }
+    }
+  ]
+}

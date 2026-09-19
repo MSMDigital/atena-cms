@@ -1,0 +1,338 @@
+{
+  "key": "traslochi-privati",
+  "status": "published",
+  "slug": {
+    "it": "traslochi-privati",
+    "de": "privatumzuege",
+    "fr": "demenagements-prives"
+  },
+  "service": {
+    "name": {
+      "it": "Trasloco privato"
+    },
+    "areaServed": {
+      "it": "Canton Ticino, Svizzera"
+    }
+  },
+  "parent": "servizi",
+  "name": {
+    "it": "Traslochi privati"
+  },
+  "title": {
+    "it": "Traslochi privati Lugano e Ticino | Mammano Traslochi"
+  },
+  "description": {
+    "it": "Trasloco di casa a Lugano e in Ticino con imballaggio, smontaggio e rimontaggio mobili e lift esterno fino a 25 m. Sopralluogo e preventivo gratuiti."
+  },
+  "blocks": [
+    {
+      "id": "traslochi-privati-1-page-intro",
+      "type": "page-intro",
+      "surface": "dark",
+      "title": {
+        "it": "Traslochi privati a Lugano e in tutto il Ticino."
+      },
+      "lead": {
+        "it": "Cambiare casa è già abbastanza impegnativo. Al resto pensiamo noi: imballiamo, smontiamo, trasportiamo e rimontiamo, con personale nostro e i nostri mezzi."
+      },
+      "summary": {
+        "it": "Mammano Traslochi esegue traslochi di case e appartamenti a Lugano, nel resto del Ticino e in tutta la Svizzera dal 1986. Il servizio comprende sopralluogo gratuito, imballaggio, smontaggio e rimontaggio dei mobili, trasporto e, se serve, lift esterno fino a 25 m e deposito temporaneo."
+      },
+      "buttons": [
+        {
+          "link": {
+            "type": "page",
+            "page": "preventivo"
+          },
+          "style": "primary",
+          "label": {
+            "it": "Preventivo gratuito"
+          }
+        },
+        {
+          "link": {
+            "type": "channel",
+            "channel": "phone"
+          },
+          "style": "secondary"
+        }
+      ]
+    },
+    {
+      "id": "traslochi-privati-2-marquee",
+      "type": "shared",
+      "ref": "marquee-servizi"
+    },
+    {
+      "id": "traslochi-privati-3-split",
+      "type": "split",
+      "surface": "dark",
+      "eyebrow": {
+        "it": "Cosa comprende"
+      },
+      "title": {
+        "it": "Un trasloco di casa completo, chiavi in mano."
+      },
+      "body": {
+        "it": "<p>Ogni trasloco privato parte da un sopralluogo gratuito. Un consulente valuta volume, accessi e piani e vi propone la soluzione con il miglior rapporto tra qualità e costo.</p>"
+      },
+      "mediaSide": "left",
+      "mobileMedia": "top",
+      "media": {
+        "type": "image",
+        "image": {
+          "src": "sito-attuale/trasloco-mammano.jpg",
+          "alt": {
+            "it": "Traslocatore Mammano scarica uno scatolone dal lift esterno in un palazzo di Lugano"
+          }
+        }
+      },
+      "extra": {
+        "type": "list",
+        "items": [
+          {
+            "label": {
+              "it": "Imballaggio"
+            },
+            "text": {
+              "it": "di mobili, vestiti, stoviglie e oggetti fragili"
+            }
+          },
+          {
+            "label": {
+              "it": "Smontaggio e rimontaggio"
+            },
+            "text": {
+              "it": "di armadi, letti e mobili componibili"
+            }
+          },
+          {
+            "label": {
+              "it": "Trasporto"
+            },
+            "text": {
+              "it": "con furgoni e camion attrezzati, anche con sponda idraulica"
+            }
+          },
+          {
+            "label": {
+              "it": "Lift esterno"
+            },
+            "text": {
+              "it": "fino a 25 m per piani alti e mobili ingombranti"
+            }
+          },
+          {
+            "label": {
+              "it": "Deposito temporaneo"
+            },
+            "text": {
+              "it": "se la nuova casa non è ancora pronta"
+            }
+          },
+          {
+            "label": {
+              "it": "Sgombero"
+            },
+            "text": {
+              "it": "di cantina e solaio, con smaltimento"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "traslochi-privati-4-items",
+      "type": "items",
+      "surface": "light",
+      "header": {
+        "eyebrow": {
+          "it": "Per ogni esigenza"
+        },
+        "title": {
+          "it": "Traslochi di ogni dimensione."
+        }
+      },
+      "layout": "points",
+      "columns": 3,
+      "numbered": true,
+      "items": [
+        {
+          "title": {
+            "it": "Appartamenti e case"
+          },
+          "text": {
+            "it": "Dal monolocale alla villa, a Lugano o nelle valli."
+          }
+        },
+        {
+          "title": {
+            "it": "Piani alti e centri storici"
+          },
+          "text": {
+            "it": "Con il lift esterno evitiamo scale strette e ascensori piccoli."
+          }
+        },
+        {
+          "title": {
+            "it": "Piccoli trasporti"
+          },
+          "text": {
+            "it": "Pochi mobili o un singolo pezzo ingombrante, con furgone e personale."
+          }
+        },
+        {
+          "title": {
+            "it": "Traslochi per anziani"
+          },
+          "text": {
+            "it": "Tempi calmi, un referente unico e sgombero di ciò che non entra nella nuova casa."
+          }
+        },
+        {
+          "title": {
+            "it": "Trasloco con deposito"
+          },
+          "text": {
+            "it": "Mobili custoditi in un deposito videosorvegliato tra un contratto e l'altro."
+          }
+        },
+        {
+          "title": {
+            "it": "Da e verso il resto della Svizzera"
+          },
+          "text": {
+            "it": "Traslochi tra il Ticino e la Svizzera tedesca o romanda."
+          }
+        }
+      ]
+    },
+    {
+      "id": "traslochi-privati-5-zones",
+      "type": "zones",
+      "surface": "brand",
+      "header": {
+        "eyebrow": {
+          "it": "Zone servite"
+        },
+        "title": {
+          "it": "Dove facciamo traslochi privati."
+        }
+      },
+      "source": "custom",
+      "items": [
+        {
+          "it": "Lugano"
+        },
+        {
+          "it": "Paradiso"
+        },
+        {
+          "it": "Massagno"
+        },
+        {
+          "it": "Malcantone"
+        },
+        {
+          "it": "Mendrisio"
+        },
+        {
+          "it": "Chiasso"
+        },
+        {
+          "it": "Bellinzona"
+        },
+        {
+          "it": "Locarno"
+        },
+        {
+          "it": "Valli"
+        }
+      ]
+    },
+    {
+      "id": "traslochi-privati-6-faq",
+      "type": "faq",
+      "surface": "light",
+      "header": {
+        "eyebrow": {
+          "it": "Domande frequenti"
+        },
+        "title": {
+          "it": "Domande sul trasloco di casa."
+        }
+      },
+      "firstOpen": true,
+      "items": [
+        {
+          "question": {
+            "it": "Quanto costa traslocare un appartamento a Lugano?"
+          },
+          "answer": {
+            "it": "Dipende da volume, piani, accessi, distanza e servizi extra come imballaggio o lift esterno. Per darvi un prezzo reale e non una stima al buio facciamo un sopralluogo gratuito e vi inviamo un preventivo scritto e dettagliato, senza impegno."
+          }
+        },
+        {
+          "question": {
+            "it": "Quanto tempo richiede un trasloco di casa?"
+          },
+          "answer": {
+            "it": "Un appartamento di 3–4 locali nel Luganese si trasloca di norma in una giornata. Case più grandi o traslochi con molto imballaggio possono richiedere più giorni: lo definiamo insieme durante il sopralluogo."
+          }
+        },
+        {
+          "question": {
+            "it": "Devo preparare io gli scatoloni?"
+          },
+          "answer": {
+            "it": "Potete scegliere. Possiamo fornirvi scatoloni e materiale da imballaggio e lasciarvi preparare gli effetti personali, oppure imballare tutto noi."
+          }
+        },
+        {
+          "question": {
+            "it": "Quando serve il lift esterno?"
+          },
+          "answer": {
+            "it": "Il lift esterno è utile ai piani alti, con scale o ascensori stretti e per mobili che non passano dalla porta. Il nostro raggiunge 25 metri e porta fino a 400 kg."
+          }
+        }
+      ]
+    },
+    {
+      "id": "traslochi-privati-7-cta",
+      "type": "cta",
+      "surface": "dark",
+      "title": {
+        "it": "Traslocate a Lugano o in Ticino?"
+      },
+      "text": {
+        "it": "Fissate un sopralluogo gratuito: vi richiamiamo per trovare la data."
+      },
+      "buttons": [
+        {
+          "link": {
+            "type": "page",
+            "page": "preventivo"
+          },
+          "style": "inverse",
+          "label": {
+            "it": "Richiedi un preventivo"
+          }
+        },
+        {
+          "link": {
+            "type": "channel",
+            "channel": "whatsapp"
+          },
+          "style": "secondary",
+          "label": {
+            "it": "WhatsApp"
+          }
+        }
+      ],
+      "word": {
+        "it": "Traslochi"
+      }
+    }
+  ]
+}

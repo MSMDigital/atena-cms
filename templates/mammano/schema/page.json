@@ -1,0 +1,25 @@
+{
+  "properties": {
+    "service": {
+      "title": "Servizio",
+      "description": "Solo per le pagine di servizio: genera il JSON-LD Service.",
+      "type": "object",
+      "properties": {
+        "name": {
+          "$ref": "https://outsmart.cms/schema/common.json#/$defs/text",
+          "title": "Nome del servizio"
+        },
+        "areaServed": {
+          "$ref": "https://outsmart.cms/schema/common.json#/$defs/text",
+          "title": "Zona servita"
+        }
+      },
+      "required": [
+        "name",
+        "areaServed"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "required": []
+}

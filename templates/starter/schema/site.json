@@ -1,0 +1,118 @@
+{
+  "properties": {
+    "brand": {
+      "title": "Marchio",
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "minLength": 1,
+          "title": "Nome"
+        },
+        "tagline": {
+          "$ref": "https://outsmart.cms/schema/common.json#/$defs/text",
+          "title": "Slogan"
+        }
+      },
+      "required": [
+        "name"
+      ],
+      "additionalProperties": false
+    },
+    "nav": {
+      "title": "Menu",
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "properties": {
+          "label": {
+            "$ref": "https://outsmart.cms/schema/common.json#/$defs/text",
+            "title": "Etichetta"
+          },
+          "link": {
+            "$ref": "https://outsmart.cms/schema/common.json#/$defs/link",
+            "title": "Link"
+          }
+        },
+        "required": [
+          "label",
+          "link"
+        ],
+        "additionalProperties": false
+      }
+    },
+    "footer": {
+      "title": "Piè di pagina",
+      "type": "object",
+      "properties": {
+        "text": {
+          "$ref": "https://outsmart.cms/schema/common.json#/$defs/text",
+          "title": "Testo"
+        },
+        "legal": {
+          "title": "Link legali",
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "label": {
+                "$ref": "https://outsmart.cms/schema/common.json#/$defs/text",
+                "title": "Etichetta"
+              },
+              "link": {
+                "$ref": "https://outsmart.cms/schema/common.json#/$defs/link",
+                "title": "Link"
+              }
+            },
+            "required": [
+              "label",
+              "link"
+            ],
+            "additionalProperties": false
+          }
+        }
+      },
+      "required": [
+        "text"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "required": [
+    "brand",
+    "nav",
+    "footer"
+  ],
+  "strings": {
+    "properties": {
+      "skipLink": {
+        "$ref": "https://outsmart.cms/schema/common.json#/$defs/text",
+        "title": "skipLink"
+      },
+      "navLabel": {
+        "$ref": "https://outsmart.cms/schema/common.json#/$defs/text",
+        "title": "navLabel"
+      },
+      "optionalSuffix": {
+        "$ref": "https://outsmart.cms/schema/common.json#/$defs/text",
+        "title": "optionalSuffix"
+      },
+      "selectPlaceholder": {
+        "$ref": "https://outsmart.cms/schema/common.json#/$defs/text",
+        "title": "selectPlaceholder"
+      },
+      "formError": {
+        "$ref": "https://outsmart.cms/schema/common.json#/$defs/text",
+        "title": "formError"
+      }
+    },
+    "required": [
+      "skipLink",
+      "navLabel",
+      "optionalSuffix",
+      "selectPlaceholder",
+      "formError"
+    ]
+  }
+}
