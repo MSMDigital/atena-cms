@@ -70,7 +70,7 @@ Mentre prepari il sito, in **SEO & Geo → Crawling** lascia il sito **Chiuso** 
 | **Richieste** | messaggi inviati dai moduli del sito |
 | **Utenti** | chi può accedere e con quale ruolo |
 | **Aspetto** | stile, navigazione, header, footer, template |
-| **Impostazioni** | generali, lingue, pagina 404, dati del sito, SEO & Geo, email, login sicuro, backup |
+| **Impostazioni** | generali, lingue, pagina 404, dati del sito, SEO & Geo, email, API, login sicuro, backup |
 
 Il tuo nome in alto/nella barra apre il **profilo**, dove cambi nome, immagine e password.
 
@@ -100,6 +100,8 @@ Un blocco che compare in più pagine (per esempio un invito a contattarti) si sc
 - **Pianificato**: scegli data e ora intera di pubblicazione; esce da solo all'ora indicata.
 
 Categorie e tag si creano da **Articoli → Categorie / Tag**.
+
+**Articoli da Claude o da altri programmi**: in **Impostazioni → API** un amministratore crea un token (si vede una sola volta) e lo dà al programma. Gli articoli inviati con titolo, testo e immagine arrivano sempre come **bozze** in Articoli, a nome dell'utente scelto per il token; li controlli e li pubblichi tu. Un token si può revocare in qualsiasi momento.
 
 ### Media (immagini)
 

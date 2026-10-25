@@ -9,8 +9,10 @@ const lines = (s) => String(s).split('\n').flatMap((l, i) => (i ? [raw('<br>'), 
 const sec = (b, cls, inner) => html`<section class="${cls}"${surface(b)}${anchor(b)}${pad(b)}>${inner}</section>`;
 
 // Cornice dell'immagine: «arch» = ritratto (PNG ritagliato) su un arco colorato, «rounded» = foto con angoli morbidi, «plain» = così com'è.
-const frame = (ctx, im, shape = 'arch', { priority = false } = {}) => html`<div class="frame frame--${shape}">
-    ${shape === 'arch' ? raw('<span class="frame__arch"></span><span class="frame__dot frame__dot--a"></span><span class="frame__dot frame__dot--b"></span>') : ''}
+const SPARK = '<svg class="frame__spark" width="30" height="30" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 1.5c.7 5.6 3 8.4 9.5 10.5-6.5 2.1-8.8 4.9-9.5 10.5-.7-5.6-3-8.4-9.5-10.5C9 9.9 11.3 7.1 12 1.5z" fill="currentColor"/></svg>';
+const frame = (ctx, im, shape = 'arch', { priority = false, decor = 'dots' } = {}) => html`<div class="frame frame--${shape}">
+    ${shape === 'arch' ? raw(decor === 'sparkles' ? `<span class="frame__arch"></span><span class="frame__spark-a">${SPARK}</span><span class="frame__spark-b">${SPARK}</span>` : '<span class="frame__arch"></span><span class="frame__dot frame__dot--a"></span><span class="frame__dot frame__dot--b"></span>') : ''}
+    ${shape === 'arch-photo' ? raw('<span class="frame__back"></span><span class="frame__dot frame__dot--b"></span>') : ''}
     ${img(ctx, im, { priority })}
   </div>`;
 
@@ -19,7 +21,7 @@ const head = (ctx, h, id) => {
   const lvl = h.level ?? 'h2';
   return html`<header class="head">
     ${h.eyebrow ? html`<p class="eyebrow"><span class="eyebrow__bar"></span><span>${ctx.t(h.eyebrow)}</span></p>` : ''}
-    ${el(lvl, id ? { id } : {}, ctx.t(h.title))}
+    ${el(lvl, id ? { id } : {}, ctx.rich(h.title))}
     ${h.text ? html`<p class="lead">${ctx.rich(h.text)}</p>` : ''}
   </header>`;
 };
@@ -29,7 +31,7 @@ const maybeLink = (ctx, l, inner, cls = '') => (l ? html`<a${attr('class', cls)}
 
 // ---- copertina ---------------------------------------------------------------------------------------------------------------------------
 
-const heroPortrait = (ctx, b) => sec(b, `hero-p${b.image ? ' hero-p--img' : ''}`, html`<div class="wrap hero-p__in">
+const heroPortrait = (ctx, b) => sec(b, `hero-p${b.image ? ' hero-p--img' : ''}${b.split && !b.image ? ' hero-p--split' : ''}`, html`<div class="wrap hero-p__in">
   <div class="hero-p__text">
     ${b.eyebrow ? html`<p class="eyebrow"><span class="eyebrow__bar"></span><span>${ctx.rich(b.eyebrow)}</span></p>` : ''}
     <h1>${ctx.rich(b.title)}</h1>
@@ -37,7 +39,7 @@ const heroPortrait = (ctx, b) => sec(b, `hero-p${b.image ? ' hero-p--img' : ''}`
     ${(b.buttons ?? []).length || b.platform ? html`<div class="actions">${(b.buttons ?? []).map((x) => button(ctx, x))}${b.platform ? html`<a class="btn btn--platform" href="${ctx.link(b.platform.link)}"${newTab(b.platform.link)}><span>${ctx.t(b.platform.label)}</span>${b.platform.logo ? html`<img src="${ctx.assetImg(b.platform.logo.src)}" alt="${ctx.t(b.platform.logo.alt)}" loading="lazy">` : ''}${external()}</a>` : ''}</div>` : ''}
     ${b.brands ? html`<div class="brands"><p class="brands__label">${ctx.t(b.brands.label)}</p><div class="brands__list">${b.brands.items.map((x) => maybeLink(ctx, x.link, logoImg(ctx, x.image, 'brands__logo')))}</div></div>` : ''}
   </div>
-  ${b.image ? html`<div class="hero-p__media">${frame(ctx, b.image, b.shape ?? 'arch', { priority: true })}</div>` : ''}
+  ${b.image ? html`<div class="hero-p__media">${frame(ctx, b.image, b.shape ?? 'arch', { priority: true, decor: b.decor })}</div>` : ''}
 </div>`);
 
 const statement = (ctx, b) => sec(b, 'statement', html`<div class="wrap statement__in">
@@ -47,7 +49,7 @@ const statement = (ctx, b) => sec(b, 'statement', html`<div class="wrap statemen
 
 // ---- percorso a passi / punti / colonne -----------------------------------------------------------------------------------------
 
-const steps = (ctx, b) => sec(b, `section steps steps--${b.layout ?? 'row'}`, html`<div class="wrap">
+const steps = (ctx, b) => sec(b, `section steps steps--${b.layout ?? 'row'}${b.headerSplit ? ' steps--split' : ''}${b.titleCaps ? ' steps--caps' : ''}`, html`<div class="wrap">
   ${head(ctx, b.header, `${b.id}-t`)}
   <ol class="steps__list">${b.items.map((s, i) => html`<li><span class="steps__n">${String(i + 1)}</span><div><h3>${ctx.t(s.title)}</h3>${s.text ? html`<p>${ctx.rich(s.text)}</p>` : ''}</div></li>`)}</ol>
   ${b.note ? html`<p class="steps__note">${ctx.rich(b.note)}</p>` : ''}
@@ -73,7 +75,7 @@ const tiles = (ctx, b) => {
 const points = (ctx, b) => {
   const layout = b.layout ?? 'numbered';
   const cols = Math.min(4, Math.max(1, Number(b.columns) || 2));
-  const body = (it) => html`${it.title ? html`<h3>${ctx.t(it.title)}</h3>` : ''}${it.text ? html`<p>${ctx.rich(it.text)}</p>` : ''}`;
+  const body = (it) => html`${it.kicker ? html`<span class="pts__kicker">${ctx.t(it.kicker)}</span>` : ''}${it.title ? html`<h3>${ctx.t(it.title)}</h3>` : ''}${it.text ? html`<p>${ctx.rich(it.text)}</p>` : ''}`;
   const list = layout === 'tags'
     ? html`<ul class="tags">${b.items.map((it) => html`<li>${ctx.t(it.title ?? it.text)}</li>`)}</ul>`
     : layout === 'tiles' ? tiles(ctx, b)
@@ -81,13 +83,15 @@ const points = (ctx, b) => {
       ? html`<li><a class="pts__a" href="${ctx.link(it.link)}"><span>${body(it)}</span><span class="pts__go">${arrow()}</span></a></li>`
       : layout === 'numbered' ? html`<li><span class="pts__n">${num(i)}</span><div>${body(it)}</div></li>`
       : layout === 'checks' ? html`<li><span class="pts__ck">${check()}</span><div>${body(it)}</div></li>`
-      : html`<li>${body(it)}</li>`))}</ul>`;
+      : html`<li class="${it.tone && it.tone !== 'default' ? `pts__li--${it.tone}` : ''}">${body(it)}</li>`))}</ul>`;
   const aside = b.aside ? html`<div class="points__aside"><span class="points__aside-dot" aria-hidden="true"></span><p class="points__aside-fig">${ctx.t(b.aside.figure)}</p><p class="points__aside-text">${ctx.rich(b.aside.text)}</p></div>` : '';
-  return sec(b, `section points points--${layout}`, html`<div class="wrap">
-    ${aside ? html`<div class="points__top">${head(ctx, b.header, `${b.id}-t`)}${aside}</div>` : head(ctx, b.header, `${b.id}-t`)}
+  return sec(b, `section points points--${layout}${aside ? ' points--aside' : ''}`, html`<div class="wrap">
+    ${aside
+      ? html`<div class="points__split"><div class="points__side">${head(ctx, b.header, `${b.id}-t`)}${aside}</div><div class="points__main">${list}</div></div>`
+      : html`${head(ctx, b.header, `${b.id}-t`)}
     ${b.intro ? html`<p class="points__intro">${ctx.rich(b.intro)}</p>` : ''}
     ${list}
-    ${b.note ? html`<p class="points__note">${ctx.rich(b.note)}</p>` : ''}
+    ${b.note ? html`<p class="points__note">${ctx.rich(b.note)}</p>` : ''}`}
   </div>`);
 };
 
@@ -95,8 +99,9 @@ const columns = (ctx, b) => sec(b, 'section cols', html`<div class="wrap">
   ${head(ctx, b.header, `${b.id}-t`)}
   <div class="cols__grid cols__grid--${String(b.items.length)}">${b.items.map((c) => html`<div class="col col--${c.style ?? 'plain'}">
     ${c.eyebrow ? html`<p class="eyebrow"><span class="eyebrow__bar"></span><span>${ctx.t(c.eyebrow)}</span></p>` : ''}
-    <h3>${ctx.t(c.title)}</h3>
+    <h3>${ctx.rich(c.title)}</h3>
     ${c.content ? html`<div class="prose">${ctx.rich(c.content)}</div>` : ''}
+    ${(c.tags ?? []).length ? html`<ul class="tags">${c.tags.map((t) => html`<li>${ctx.t(t)}</li>`)}</ul>` : ''}
     ${(c.steps ?? []).length ? html`<ol class="mini-steps">${c.steps.map((s, i) => html`<li><span>${String(i + 1)}</span><p><strong>${ctx.t(s.title)}</strong>${s.text ? html` ${ctx.rich(s.text)}` : ''}</p></li>`)}</ol>` : ''}
   </div>`)}</div>
 </div>`);
@@ -108,43 +113,69 @@ const timeline = (ctx, b) => sec(b, 'section timeline', html`<div class="wrap">
 
 // ---- progetti, loghi, recensioni, inviti --------------------------------------------------------------------------------------------
 
-const feature = (ctx, b) => sec(b, `section feat feat--${b.side ?? 'right'}`, html`<div class="wrap feat__in">
-  <div class="feat__media">${frame(ctx, b.image, b.shape ?? 'arch')}</div>
+const feature = (ctx, b) => {
+  const wide = b.variant === 'wide';
+  const banner = b.variant === 'banner';
+  const side = b.side ?? 'right';
+  const cls = `section feat feat--${side}${banner ? ' feat--banner' : ''}${wide ? ` feat--wide feat--${b.palette ?? 'teal'}` : ''}`;
+  const heading = wide ? html`<h2 id="${b.id}-t">${ctx.rich(b.title)}</h2>` : el(b.level ?? 'h2', { id: `${b.id}-t` }, ctx.rich(b.title));
+  const frameCls = wide ? ` frame--${b.palette ?? 'teal'} frame--${side}` : '';
+  return sec(b, cls, html`<div class="wrap feat__in">
+  <div class="feat__media">${banner ? img(ctx, b.image) : wide ? html`<div class="frame frame--arch${frameCls}"><span class="frame__arch"></span><span class="frame__dot frame__dot--a"></span><span class="frame__dot frame__dot--b"></span>${img(ctx, b.image)}</div>` : frame(ctx, b.image, b.shape ?? 'arch')}</div>
   <div class="feat__text">
+    ${wide && b.logo ? logoImg(ctx, b.logo, 'feat__logo') : ''}
     ${b.kicker ? html`<p class="feat__kicker">${ctx.t(b.kicker)}</p>` : ''}
-    ${b.logo ? logoImg(ctx, b.logo, 'feat__logo') : ''}
+    ${!wide && b.logo ? logoImg(ctx, b.logo, 'feat__logo') : ''}
     ${b.eyebrow ? html`<p class="eyebrow"><span class="eyebrow__bar"></span><span>${ctx.t(b.eyebrow)}</span></p>` : ''}
-    ${el(b.level ?? 'h2', { id: `${b.id}-t` }, ctx.t(b.title))}
+    ${heading}
     ${b.body ? html`<div class="prose">${ctx.rich(b.body)}</div>` : ''}
     ${(b.tags ?? []).length ? html`<ul class="tags">${b.tags.map((t) => html`<li>${ctx.t(t)}</li>`)}</ul>` : ''}
     ${b.button ? actions(ctx, [b.button]) : ''}
   </div>
 </div>`);
+};
 
 const logos = (ctx, b) => {
   const group = (hidden) => html`<div class="logos__group"${hidden ? raw(' aria-hidden="true"') : ''}>${b.items.map((x) => html`<span class="logos__item">${hidden ? logoImg(ctx, { src: x.image.src, alt: { it: '' } }, 'logos__img') : maybeLink(ctx, x.link, logoImg(ctx, x.image, 'logos__img'))}</span>`)}</div>`;
-  return sec(b, 'logos', html`<div class="wrap">${b.title ? html`<h2 class="logos__title">${ctx.t(b.title)}</h2>` : ''}</div>
+  return sec(b, 'logos', html`<div class="wrap">${b.title ? html`<h2 class="logos__title">${ctx.t(b.title)}${b.accent ? html` <em>${ctx.t(b.accent)}</em>` : ''}</h2>` : ''}</div>
   <div class="logos__marquee"><div class="logos__track">${group(false)}${group(true)}</div></div>`);
 };
 
-const reviews = (ctx, b) => sec(b, 'section reviews', html`<div class="wrap">
-  ${head(ctx, b.header, `${b.id}-t`)}
-  ${b.rating ? html`<p class="reviews__rating"><span aria-hidden="true">★★★★★</span> ${ctx.t(b.rating)}</p>` : ''}
-  <div class="reviews__grid">${b.items.map((r) => html`<figure class="review">
+const stars = () => raw('<span class="stars" role="img" aria-label="5 / 5">★★★★★</span>');
+const reviews = (ctx, b) => {
+  const [score, ...rest] = b.rating ? ctx.t(b.rating).split(' · ') : [];
+  const h = b.header ?? {};
+  return sec(b, 'section reviews', html`<div class="wrap">
+  <div class="reviews__top">
+    <header class="head">
+      ${h.eyebrow ? html`<p class="eyebrow"><span class="eyebrow__bar"></span><span>${ctx.t(h.eyebrow)}</span></p>` : ''}
+      <h2 id="${b.id}-t">${ctx.t(h.title)}${b.accent ? html` <em>${ctx.t(b.accent)}</em>` : ''}</h2>
+    </header>
+    ${b.rating ? html`<p class="reviews__rating">${stars()}<span><strong>${score}</strong>${rest.length ? ` · ${rest.join(' · ')}` : ''}</span></p>` : ''}
+  </div>
+  <div class="reviews__grid">${b.items.map((r, i) => { const n = ctx.t(r.name); return html`<figure class="review">
+    ${stars()}
     <blockquote>“${ctx.t(r.quote)}”</blockquote>
-    <figcaption><span class="review__av" aria-hidden="true">${ctx.t(r.name).charAt(0)}</span><span><strong>${ctx.t(r.name)}</strong>${r.role ? html`<span>${ctx.t(r.role)}</span>` : ''}</span></figcaption>
-  </figure>`)}</div>
+    <figcaption><span class="review__av" aria-hidden="true">${/^[\p{L}\p{N}]/u.test(n) ? n.charAt(0) : String.fromCharCode(65 + i)}</span><span><strong>${n}</strong>${r.role ? html`<span>${ctx.t(r.role)}</span>` : ''}</span></figcaption>
+  </figure>`; })}</div>
   ${b.button ? actions(ctx, [b.button]) : ''}
 </div>`);
+};
 
 const cta = (ctx, b) => sec(b, 'cta', html`<div class="wrap cta__in"><p class="cta__text">${ctx.rich(b.text)}</p>${actions(ctx, b.buttons)}</div>`);
 
-const callout = (ctx, b) => sec(b, 'section callout', html`<div class="wrap callout__in">
-  ${b.eyebrow ? html`<p class="eyebrow"><span class="eyebrow__bar"></span><span>${ctx.t(b.eyebrow)}</span></p>` : ''}
-  <h2>${ctx.t(b.title)}</h2>
-  ${b.text ? html`<p class="lead">${ctx.rich(b.text)}</p>` : ''}
-  ${b.button ? actions(ctx, [b.button]) : ''}
-</div>`);
+const callout = (ctx, b) => {
+  const lay = b.layout ?? 'center';
+  const btn = b.button ? actions(ctx, [b.button]) : '';
+  const eyebrow = b.eyebrow ? html`<p class="eyebrow"><span class="eyebrow__bar"></span><span>${ctx.t(b.eyebrow)}</span></p>` : '';
+  const title = html`<h2>${ctx.rich(b.title)}</h2>`;
+  const text = b.text ? html`<p class="lead">${ctx.rich(b.text)}</p>` : '';
+  const inner = lay === 'row'
+    ? html`<div class="callout__main">${eyebrow}${title}${text}</div>${btn}`
+    : lay === 'duo' ? html`<div class="callout__head">${eyebrow}${title}</div><div class="callout__body">${text}${btn}</div>`
+    : html`${eyebrow}${title}${text}${btn}`;
+  return sec(b, `section callout callout--${lay}${b.box ? ' callout--box' : ''}`, html`<div class="wrap"><div class="callout__in">${inner}</div></div>`);
+};
 
 // ---- prenotazione online e partner ----------------------------------------------------------------------------------------------
 
@@ -173,6 +204,22 @@ const booking = (ctx, b) => {
         <div class="booking__cards">${b.items.map((c) => bookingCard(ctx, c))}</div>`}
   </div>`);
 };
+
+// Schede progetto: ritratto in arco in alto, poi logo, testo e pulsante.
+const projectCards = (ctx, b) => sec(b, 'section pcards', html`<div class="wrap">
+  ${head(ctx, b.header, `${b.id}-t`)}
+  <div class="pcards__grid">${b.items.map((c) => html`<article class="pcard pcard--${c.palette ?? 'teal'}">
+    <div class="pcard__media"><span class="pcard__arch"></span><span class="pcard__dot"></span>${img(ctx, c.image)}</div>
+    <div class="pcard__body">
+      ${c.logo ? logoImg(ctx, c.logo, 'pcard__logo') : ''}
+      ${c.kicker ? html`<p class="feat__kicker">${ctx.t(c.kicker)}</p>` : ''}
+      <h3>${ctx.rich(c.title)}</h3>
+      ${c.body ? html`<div class="prose">${ctx.rich(c.body)}</div>` : ''}
+      ${(c.tags ?? []).length ? html`<ul class="tags">${c.tags.map((t) => html`<li>${ctx.t(t)}</li>`)}</ul>` : ''}
+      ${c.button ? actions(ctx, [c.button]) : ''}
+    </div>
+  </article>`)}</div>
+</div>`);
 
 // Riquadro con testo e loghi di partner o piattaforme (per esempio il welfare aziendale).
 const partners = (ctx, b) => sec(b, 'partners', html`<div class="wrap"><div class="partners__box">
@@ -207,19 +254,20 @@ const form = (ctx, b) => {
   };
   const p = b.profile;
   const profile = p ? html`<aside class="profile">
-    <h1>${ctx.t(p.title)}</h1>
+    <h1>${ctx.rich(p.title)}</h1>
     ${p.lead ? html`<div class="prose">${ctx.rich(p.lead)}</div>` : ''}
     ${p.image ? html`<div class="profile__card"><div class="profile__img">${img(ctx, p.image, { priority: true })}</div><div><p class="profile__name">${p.name ? ctx.t(p.name) : ''}</p>${p.role ? html`<p class="profile__role">${lines(ctx.t(p.role))}</p>` : ''}</div></div>` : ''}
     ${(p.socials ?? []).length ? html`<ul class="socials">${p.socials.map((s) => html`<li><a href="${ctx.link(s.link)}" aria-label="${ctx.t(s.label)}">${network(s.network)}</a></li>`)}</ul>` : ''}
   </aside>` : '';
-  return sec(b, 'section form', html`<div class="wrap${p ? ' form__split' : ''}">
+  return sec(b, `section form${b.headSplit ? ' form--head-split' : ''}`, html`<div class="wrap${p ? ' form__split' : ''}">
     ${profile}
+    ${b.headSplit ? html`<div class="form__head">${head(ctx, b.header, `${b.id}-t`)}</div>` : ''}
     <div class="form__box">
-    ${head(ctx, b.header, `${b.id}-t`)}
+    ${b.headSplit ? '' : head(ctx, b.header, `${b.id}-t`)}
     <form data-form="${b.id}" data-endpoint="${ctx.site.formsEndpoint ?? '/api/forms'}" data-locale="${ctx.locale}" aria-label="${ctx.t(b.label)}">
       <div class="form-grid">
         ${b.fields.map((f) => (f.type === 'consent'
-          ? html`<div class="full"><label class="check${f.cssClass ? ` ${f.cssClass}` : ''}"${attr('title', f.title ? ctx.t(f.title) : null)}><input type="checkbox"${attr('name', f.name)}${attr('required', f.required)}> <span>${raw(f.target === '_blank' ? ctx.richStr(f.label).replace(/<a /g, '<a target="_blank" rel="noopener noreferrer" ') : ctx.richStr(f.label))}</span></label></div>`
+          ? html`<div class="full"><label class="check${f.cssClass ? ` ${f.cssClass}` : ''}"${attr('title', f.title ? ctx.t(f.title) : null)}><input type="checkbox"${attr('name', f.name)}${attr('required', f.required)}> <span>${raw(f.target === '_blank' ? ctx.richStr(ctx.t(f.label)).replace(/<a /g, '<a target="_blank" rel="noopener noreferrer" ') : ctx.richStr(ctx.t(f.label)))}</span></label></div>`
           : cell(f)))}
         <div class="full"><button class="btn btn--primary" type="submit">${ctx.t(b.submitLabel)}</button></div>
       </div>
@@ -271,6 +319,7 @@ export const blocks = {
   columns,
   booking,
   partners,
+  'project-cards': projectCards,
   cta,
   callout,
   text,

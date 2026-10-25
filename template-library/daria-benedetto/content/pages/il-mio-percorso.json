@@ -22,7 +22,7 @@
         "it": "Il mio percorso"
       },
       "title": {
-        "it": "Sono arrivata al coaching attraversando 25 anni di cambiamento."
+        "it": "Sono arrivata al coaching attraversando <em>25 anni di cambiamento.</em>"
       },
       "lead": {
         "it": "<p>Il mio percorso professionale nasce nella comunicazione e nel marketing, cresce dentro le aziende e attraversa la trasformazione digitale fino all’Intelligenza Artificiale.</p><p>Per 25 anni ho lavorato accanto a imprenditori, manager, team e professionisti mentre costruivano progetti, affrontavano crisi, ridefinivano strategie e cercavano il modo giusto per evolvere senza perdere la propria identità.</p>"
@@ -53,7 +53,7 @@
             },
             "link": {
               "type": "anchor",
-              "anchor": "tiaiuto"
+              "anchor": "msm"
             }
           }
         ]
@@ -69,9 +69,9 @@
     {
       "id": "percorso-2-timeline",
       "type": "timeline",
-      "surface": "brand",
+      "surface": "dark",
       "lead": {
-        "it": "Sono cambiati gli strumenti, i canali e le tecnologie. Il filo conduttore è rimasto lo stesso: le persone."
+        "it": "Sono cambiati gli strumenti, <br>i canali e le tecnologie. <br><em>Il filo conduttore è rimasto lo stesso: le persone.</em>"
       },
       "items": [
         {
@@ -123,10 +123,10 @@
       "items": [
         {
           "title": {
-            "it": "Prima delle strategie, le persone"
+            "it": "Prima delle strategie, <br><em>le persone</em>"
           },
           "content": {
-            "it": "<p>Per molto tempo il mio lavoro è stato tradurre complessità in strategie. Analizzare un mercato, comprendere un pubblico, costruire un posizionamento, scegliere priorità e trasformare idee in progetti sostenibili.</p><p>Poi ho riconosciuto qualcosa che era sempre stato davanti a me: nessuna strategia prende vita da sola. Dietro ogni decisione c’è una persona. Con le sue risorse, le sue paure, il suo modo di interpretare ciò che sta accadendo e la responsabilità di scegliere cosa fare dopo.</p><p>Questa consapevolezza non ha cancellato il mio percorso. Gli ha dato un significato più profondo.</p>"
+            "it": "<p>Per molto tempo il mio lavoro è stato tradurre complessità in strategie. Analizzare un mercato, comprendere un pubblico, costruire un posizionamento, scegliere priorità e trasformare idee in progetti sostenibili.</p><p>Poi ho riconosciuto qualcosa che era sempre stato davanti a me: nessuna strategia prende vita da sola. Dietro ogni decisione c’è una persona. Con le sue risorse, le sue paure, il suo modo di interpretare ciò che sta accadendo e la responsabilità di scegliere cosa fare dopo.</p><p><strong>Questa consapevolezza non ha cancellato il mio percorso.<br>Gli ha dato un significato più profondo.</strong></p>"
           }
         },
         {
@@ -149,7 +149,7 @@
           "it": "Competenze"
         },
         "title": {
-          "it": "Le competenze che porto con me"
+          "it": "Le competenze <em>che porto con me</em>"
         }
       },
       "items": [
@@ -210,7 +210,7 @@
         }
       ],
       "showNumbers": false,
-      "tileMin": 240,
+      "tileMin": 190,
       "aside": {
         "figure": {
           "it": "25"
@@ -228,116 +228,113 @@
         "it": "I miei progetti"
       },
       "title": {
-        "it": "Due realtà, una stessa visione: il cambiamento parte dalle persone."
-      }
+        "it": "Due realtà, una stessa visione: <br><em>il cambiamento parte dalle persone.</em>"
+      },
+      "anchor": "progetti"
     },
     {
-      "id": "percorso-6-msm",
-      "type": "feature",
-      "surface": "brand",
-      "side": "right",
-      "anchor": "msm",
-      "kicker": {
-        "it": "CEO e Founder · Consulenza strategica e digitale"
-      },
-      "logo": {
-        "src": "logo-msm-digital.png",
-        "alt": {
-          "it": "MSM Digital"
-        }
-      },
-      "title": {
-        "it": "Strategia, comunicazione e trasformazione digitale."
-      },
-      "level": "h2",
-      "body": {
-        "it": "<p>MSM Digital è la realtà attraverso cui da anni affianco aziende e imprenditori nella strategia, nella comunicazione e nella trasformazione digitale.</p><p>È il luogo in cui la mia esperienza consulenziale continua a misurarsi con mercati, obiettivi, risultati e cambiamenti concreti.</p>"
-      },
-      "tags": [
-        {
-          "it": "Strategia"
-        },
-        {
-          "it": "Marketing"
-        },
-        {
-          "it": "Comunicazione"
-        },
-        {
-          "it": "Digitale e AI"
-        }
-      ],
-      "button": {
-        "label": {
-          "it": "Scopri MSM Digital"
-        },
-        "link": {
-          "type": "url",
-          "url": "https://msmdigital.it/"
-        },
-        "style": "primary"
-      },
-      "image": {
-        "src": "ritratto-msm-digital.png",
-        "alt": {
-          "it": "Daria Benedetto, CEO di MSM Digital"
-        }
-      },
-      "shape": "arch"
-    },
-    {
-      "id": "percorso-7-tiaiuto",
-      "type": "feature",
+      "id": "percorso-6-progetti",
+      "type": "project-cards",
       "surface": "light",
-      "side": "left",
-      "anchor": "tiaiuto",
-      "kicker": {
-        "it": "Founder · Coaching e formazione"
-      },
-      "logo": {
-        "src": "logo-tiaiuto-payoff.png",
-        "alt": {
-          "it": "TIAIUTO — Coaching per la tua vita lavorativa"
-        }
-      },
-      "title": {
-        "it": "Chiarezza personale. Direzione professionale."
-      },
-      "level": "h2",
-      "body": {
-        "it": "<p>Ho fondato TIAIUTO quando ho compreso che il cambiamento professionale aveva bisogno di uno spazio nuovo: capace di unire ascolto, coaching, formazione e conoscenza del mondo del lavoro.</p><p>TIAIUTO non nasce per dire alle persone chi devono diventare. Nasce per aiutarle a riconoscere ciò che stanno vivendo, dare un nome al cambiamento e costruire il proprio modo di attraversarlo.</p>"
-      },
-      "tags": [
+      "items": [
         {
-          "it": "Coaching"
+          "image": {
+            "src": "ritratto-msm-digital.png",
+            "alt": {
+              "it": "Daria Benedetto, CEO di MSM Digital"
+            }
+          },
+          "palette": "terra",
+          "logo": {
+            "src": "logo-msm-digital.png",
+            "alt": {
+              "it": "MSM Digital"
+            }
+          },
+          "kicker": {
+            "it": "CEO e Founder · Consulenza strategica e digitale"
+          },
+          "title": {
+            "it": "Strategia, comunicazione e<br><em>trasformazione digitale.</em>"
+          },
+          "body": {
+            "it": "<p>MSM Digital è la realtà attraverso cui da anni affianco aziende e imprenditori nella strategia, nella comunicazione e nella trasformazione digitale.</p><p>È il luogo in cui la mia esperienza consulenziale continua a misurarsi con mercati, obiettivi, risultati e cambiamenti concreti.</p>"
+          },
+          "button": {
+            "label": {
+              "it": "Scopri MSM Digital"
+            },
+            "link": {
+              "type": "url",
+              "url": "https://msmdigital.it/"
+            },
+            "style": "primary"
+          },
+          "tags": [
+            {
+              "it": "Strategia"
+            },
+            {
+              "it": "Marketing"
+            },
+            {
+              "it": "Comunicazione"
+            },
+            {
+              "it": "Digitale e AI"
+            }
+          ]
         },
         {
-          "it": "Formazione"
-        },
-        {
-          "it": "Persone"
-        },
-        {
-          "it": "Organizzazioni"
+          "image": {
+            "src": "ritratto-tiaiuto.png",
+            "alt": {
+              "it": "Daria Benedetto, Founder di TIAIUTO"
+            }
+          },
+          "palette": "teal",
+          "logo": {
+            "src": "logo-tiaiuto-payoff.png",
+            "alt": {
+              "it": "TIAIUTO — Coaching per la tua vita lavorativa"
+            }
+          },
+          "kicker": {
+            "it": "Founder · Coaching e formazione"
+          },
+          "title": {
+            "it": "Chiarezza personale. <br><em>Direzione professionale.</em>"
+          },
+          "body": {
+            "it": "<p>Ho fondato TIAIUTO quando ho compreso che il cambiamento professionale aveva bisogno di uno spazio nuovo: capace di unire ascolto, coaching, formazione e conoscenza del mondo del lavoro.</p><p>TIAIUTO non nasce per dire alle persone chi devono diventare. Nasce per aiutarle a riconoscere ciò che stanno vivendo, dare un nome al cambiamento e costruire il proprio modo di attraversarlo.</p>"
+          },
+          "button": {
+            "label": {
+              "it": "Scopri TIAIUTO"
+            },
+            "link": {
+              "type": "url",
+              "url": "https://tiaiuto.app/"
+            },
+            "style": "primary"
+          },
+          "tags": [
+            {
+              "it": "Coaching"
+            },
+            {
+              "it": "Formazione"
+            },
+            {
+              "it": "Persone"
+            },
+            {
+              "it": "Organizzazioni"
+            }
+          ]
         }
       ],
-      "button": {
-        "label": {
-          "it": "Scopri TIAIUTO"
-        },
-        "link": {
-          "type": "url",
-          "url": "https://tiaiuto.app/"
-        },
-        "style": "primary"
-      },
-      "image": {
-        "src": "ritratto-tiaiuto.png",
-        "alt": {
-          "it": "Daria Benedetto, Founder di TIAIUTO"
-        }
-      },
-      "shape": "arch"
+      "anchor": "msm"
     },
     {
       "id": "percorso-8-credo",
@@ -347,7 +344,7 @@
       "columns": 1,
       "header": {
         "title": {
-          "it": "Ciò in cui credo"
+          "it": "Ciò in cui <em>credo</em>"
         }
       },
       "items": [
@@ -417,7 +414,7 @@
           "it": "Recensioni Google"
         },
         "title": {
-          "it": "Dicono di me"
+          "it": "Dicono"
         }
       },
       "rating": {
@@ -466,7 +463,10 @@
           "type": "url",
           "url": "https://www.google.com/search?q=msm+digital+srl+-+daria+benedetto"
         },
-        "style": "secondary"
+        "style": "primary"
+      },
+      "accent": {
+        "it": "di me"
       }
     }
   ]

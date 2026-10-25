@@ -18,7 +18,8 @@
     "html": "Codice HTML libero (widget, embed). Solo un admin.",
     "shared": "Un blocco definito una volta e usato in più pagine.",
     "booking": "Prenotazione online: sessioni in schede che aprono il calendario esterno (Calendly e simili); con i punti con spunta il testo sta a sinistra.",
-    "partners": "Riquadro con testo e loghi di partner o piattaforme (per esempio il welfare aziendale)."
+    "partners": "Riquadro con testo e loghi di partner o piattaforme (per esempio il welfare aziendale).",
+    "project-cards": "Due o tre schede con ritratto in arco, logo, testo, parole chiave e pulsante (per esempio i progetti)."
   },
   "siteSections": {
     "brand": "Marchio",
@@ -64,7 +65,7 @@
     "top": "Sopra il testo",
     "bottom": "Sotto il testo",
     "narrow": "Colonna di lettura",
-    "wide": "Larga",
+    "wide": "Larga (sezione a tutta altezza)",
     "custom": "Lista propria",
     "h2": "Titolo 2 (h2)",
     "h3": "Titolo 3 (h3)",
@@ -79,7 +80,7 @@
     "never": "Mai",
     "rounded": "Arrotondata",
     "plain": "Libera",
-    "row": "In fila",
+    "row": "Testo a sinistra, pulsante a destra",
     "numbered": "Righe numerate",
     "checks": "Con spunta",
     "tags": "Etichette",
@@ -91,9 +92,18 @@
     "tiles": "Riquadri con icona o numero",
     "night": "Verde petrolio scuro",
     "accent": "Colore del marchio (terracotta)",
-    "sky": "Azzurro tenue",
+    "sky": "Azzurro acceso",
     "peach": "Pesca tenue",
-    "ink": "Scuro con icona chiara"
+    "ink": "Scuro con icona chiara",
+    "standard": "Standard",
+    "teal": "Azzurro petrolio",
+    "terra": "Terracotta",
+    "duo": "Titolo a sinistra, testo a destra",
+    "center": "Centrato",
+    "arch-photo": "Foto ad arco con riquadro",
+    "sparkles": "Stelle",
+    "dots": "Cerchi",
+    "banner": "Banner scuro con foto"
   },
   "keyLabels": {
     "tagline": "Sottotitolo",

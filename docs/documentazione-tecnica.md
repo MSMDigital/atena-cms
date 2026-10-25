@@ -52,7 +52,7 @@ app/                  admin (Next.js App Router), /install, /api/forms, /api/pri
 lib/                  logica del motore: db, auth, sessioni, permessi, documenti, media, moduli, email, backup, template…
 schema/               schemi JSON dei dati (pagina, sito, blog, SEO…) e validazione
 render/               generazione dell'HTML: contesto, kit per i template, SEO, processo isolato (host.mjs / child.mjs)
-migrations/           001_init.sql … 012_media_i18n.sql
+migrations/           001_init.sql … 013_api_tokens.sql
 scripts/              riga di comando (migrazioni, utenti, build, pubblicazione pianificata, pulizia, pacchetti template)
 public/               file serviti dall'admin (script dell'anteprima, marchio)
 templates/            template installati. Nell'installer: solo starter/
@@ -96,6 +96,7 @@ Connessione: `DB_HOST`, `DB_PORT`, `DB_NAME`, `DB_USER`, `DB_PASSWORD` (nel `.en
 | `010_media_meta` | metadati delle immagini |
 | `011_users` | profilo utenti, ruoli |
 | `012_media_i18n` | testi alternativi delle immagini per lingua |
+| `013_api_tokens` | token dell'API degli articoli |
 
 Dopo un aggiornamento del CMS eseguire sempre `npm run db:migrate`.
 
@@ -142,6 +143,7 @@ Il file `.env` sta nella cartella del progetto (o dove indica `ENV_FILE`), non v
 | `CMS_RENDER_WRAPPER` | comando che avvolge il processo isolato, lista JSON (es. `["unshare","-Urn"]`) | — |
 | `CMS_TEMPLATE`, `CMS_TEMPLATE_DIR`, `CMS_RENDER=inline` | solo per script e sviluppo di template (`inline` disattiva l'isolamento) | — |
 | `SITE_PASSWORD`, `SITE_PASSWORD_USER` | protezione HTTP Basic di **tutto** il sito durante i test; da togliere prima di andare online | utente `preview` |
+| `API_POSTS_PER_HOUR` | massimo di articoli che l'API può creare in un'ora per utente | 20 |
 | `PORT` | porta dell'app (la imposta il pannello di hosting) | 3000 |
 
 ## 7. Sicurezza
@@ -238,3 +240,19 @@ Ripristino su un altro server: installare il CMS, aprire `/install`, dopo il pas
 ## 11. Prove automatiche
 
 `npm test` esegue le prove con `node:test` (`tests/*.test.mjs`, in sequenza) usando il template `templates/starter` come contenuto di prova e il database configurato in `.env`: usare un database di sviluppo, non quello di un sito vero. Le prove nel browser (`scripts/e2e-*.mjs`) richiedono Chrome e `puppeteer-core`.
+
+## 12. API per inviare articoli (bozze)
+
+`POST /api/posts` crea un articolo **in bozza**; non pubblica mai (un admin lo controlla e lo pubblica da Articoli). È pensata per un programma esterno, per esempio Claude.
+
+```sh
+curl -X POST https://admin.cliente.ch/api/posts \
+  -H "Authorization: Bearer atn_…" -H "Content-Type: application/json" \
+  -d '{"title":"Titolo","text":"Testo in **markdown** semplice.","image":{"data":"<base64>","filename":"foto.jpg","alt":"Descrizione"}}'
+# 201 {"ok":true,"key":"titolo","status":"draft"}
+```
+
+- **Dati**: `title` (3–200 caratteri) e `text` (fino a 100.000) obbligatori; `image` facoltativa (JPG, PNG o WebP in base64, peso massimo `MAX_UPLOAD_MB`; l'SVG è rifiutato). Il testo è markdown semplice (paragrafi, `#` titoli, elenchi, citazioni, grassetto, corsivo, link http/https/mailto); l'HTML grezzo non esiste (tutto è escapato) e il risultato passa dalla sanificazione dei testi ricchi. Il template deve avere il blocco `text`. Non si scarica nessuna immagine da un indirizzo (niente SSRF): l'immagine arriva nel corpo.
+- **Token** (Admin → Impostazioni → API, solo admin): casuale a 256 bit (`atn_` + 43 caratteri), visibile **una volta** alla creazione; nel database c'è solo lo SHA-256 (`api_tokens`). Appartiene a un utente attivo admin o autore, che risulta autore e proprietario degli articoli; scadenza facoltativa (1–730 giorni); revocabile. Se l'utente è disattivato o eliminato il token smette di funzionare. Creazione e revoca vanno in `audit_log`.
+- **Difese**: solo `Authorization: Bearer` (nessun cookie, quindi nessun CSRF) e nessun CORS; una sola risposta 401 per token mancante, errato, scaduto o revocato; 10 tentativi sbagliati ogni 15 minuti per indirizzo (poi 429); `API_POSTS_PER_HOUR` articoli all'ora per utente; `Content-Type: application/json` e `Content-Length` obbligatori, corpo limitato; con `ADMIN_HOSTS` l'API esiste solo su quegli indirizzi (404 altrove); l'immagine passa dalla stessa elaborazione dei caricamenti (ricodifica in WebP, niente metadati). La route è fuori dal middleware (come gli upload): con `SITE_PASSWORD` attiva l'API non chiede la password del sito, solo il token.
+- **Rete**: usare sempre HTTPS (il token viaggia nell'intestazione). Dietro un proxy impostare `TRUST_PROXY=1`, altrimenti il blocco per indirizzo vale per tutti insieme. Il proxy deve lasciar passare corpi fino a circa 14 MB (`client_max_body_size 15m;` in Nginx).

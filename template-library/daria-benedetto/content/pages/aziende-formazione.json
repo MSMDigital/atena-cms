@@ -22,7 +22,7 @@
         "it": "Aziende & Formazione"
       },
       "title": {
-        "it": "Ogni trasformazione aziendale diventa reale quando le persone riescono ad attraversarla."
+        "it": "Ogni trasformazione aziendale diventa reale quando le persone <em>riescono ad attraversarla.</em>"
       },
       "lead": {
         "it": "<p>Strategie, tecnologie e processi possono indicare una direzione. Sono le persone, però, a darle forma ogni giorno.</p><p>Da 25 anni lavoro con aziende e imprenditori nei momenti in cui serve comprendere un cambiamento, renderlo leggibile e tradurlo in nuove competenze, comportamenti e decisioni. Oggi integro esperienza strategica, coaching e formazione per accompagnare organizzazioni e figure chiave in modo concreto e sostenibile.</p>"
@@ -45,14 +45,14 @@
           "it": "Daria Benedetto con giacca rossa"
         }
       },
-      "shape": "rounded"
+      "shape": "arch-photo"
     },
     {
       "id": "aziende-1b-logos",
       "type": "logos",
       "surface": "light",
       "title": {
-        "it": "Aziende che hanno già lavorato con me"
+        "it": "Aziende che hanno"
       },
       "items": [
         {
@@ -287,7 +287,10 @@
             }
           }
         }
-      ]
+      ],
+      "accent": {
+        "it": "già lavorato con me"
+      }
     },
     {
       "id": "aziende-2-aree",
@@ -299,7 +302,7 @@
           "it": "Per le aziende"
         },
         "title": {
-          "it": "Aree di intervento"
+          "it": "Aree di <em>intervento</em>"
         }
       },
       "items": [
@@ -439,11 +442,12 @@
       "type": "callout",
       "surface": "dark",
       "title": {
-        "it": "Non basta introdurre uno strumento."
+        "it": "Non basta introdurre <br><em>uno strumento.</em>"
       },
       "text": {
         "it": "L’adozione dell’AI rende evidente una dinamica che conosco da tempo: un cambiamento deciso dall’alto non coincide automaticamente con un cambiamento vissuto dalle persone. Quando manca uno spazio di comprensione, aumentano resistenza, uso superficiale, confusione e delega non consapevole. Per questo la formazione tecnica funziona meglio quando viene accompagnata da ascolto, pensiero critico, senso del ruolo e capacità di integrare il nuovo nei processi reali."
-      }
+      },
+      "layout": "duo"
     },
     {
       "id": "aziende-4-steps",
@@ -452,7 +456,7 @@
       "layout": "row",
       "header": {
         "title": {
-          "it": "Come costruisco gli interventi"
+          "it": "<em>Come costruisco gli interventi</em>"
         }
       },
       "items": [
@@ -496,68 +500,45 @@
             "it": "Restituzione, feedback e indicazioni per sostenere il cambiamento nel tempo."
           }
         }
-      ]
-    },
-    {
-      "id": "aziende-5-perchi",
-      "type": "points",
-      "surface": "brand",
-      "layout": "tags",
-      "header": {
-        "title": {
-          "it": "Per chi"
-        }
-      },
-      "intro": {
-        "it": "Lavoro con realtà che stanno affrontando un’evoluzione organizzativa, digitale o professionale."
-      },
-      "items": [
-        {
-          "title": {
-            "it": "Imprenditori"
-          }
-        },
-        {
-          "title": {
-            "it": "PMI"
-          }
-        },
-        {
-          "title": {
-            "it": "Direzioni marketing e comunicazione"
-          }
-        },
-        {
-          "title": {
-            "it": "HR e People & Culture"
-          }
-        },
-        {
-          "title": {
-            "it": "Responsabili formazione"
-          }
-        },
-        {
-          "title": {
-            "it": "Manager e team"
-          }
-        }
       ],
-      "padding": {
-        "bottom": "none"
-      }
+      "titleCaps": true
     },
     {
       "id": "aziende-6-patrimonio",
       "type": "columns",
-      "surface": "brand",
-      "padding": {
-        "top": "sm"
-      },
+      "surface": "light",
       "items": [
         {
           "title": {
-            "it": "Un patrimonio costruito sul campo"
+            "it": "Per chi"
+          },
+          "content": {
+            "it": "Lavoro con realtà che stanno affrontando un’evoluzione organizzativa, digitale o professionale."
+          },
+          "tags": [
+            {
+              "it": "Imprenditori"
+            },
+            {
+              "it": "PMI"
+            },
+            {
+              "it": "Direzioni marketing e comunicazione"
+            },
+            {
+              "it": "HR e People & Culture"
+            },
+            {
+              "it": "Responsabili formazione"
+            },
+            {
+              "it": "Manager e team"
+            }
+          ]
+        },
+        {
+          "title": {
+            "it": "Un patrimonio costruito <br><em>sul campo</em>"
           },
           "content": {
             "it": "<p>La mia esperienza non nasce da un unico settore. In 25 anni ho lavorato con realtà e mercati differenti, imparando a leggere rapidamente contesti, linguaggi, obiettivi e resistenze.</p><p>Questa varietà mi permette di non applicare modelli rigidi e di costruire interventi aderenti alla cultura e alla maturità dell’organizzazione.</p>"
@@ -568,7 +549,7 @@
     {
       "id": "aziende-7-cta",
       "type": "cta",
-      "surface": "dark",
+      "surface": "sky",
       "text": {
         "it": "L’esperienza strategica mi permette di leggere il sistema. <em>Il coaching di lavorare con le persone che lo rendono vivo.</em>"
       },

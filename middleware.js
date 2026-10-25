@@ -97,7 +97,7 @@ export function middleware(req) {
 }
 
 // runtime Node: il middleware legge data/admin-path.json.
-// Le route che ricevono file grandi (immagini, template, backup) NON passano dal middleware: Next ne copia il corpo in memoria e, a seconda dei tempi,
+// Le route che ricevono file grandi (immagini, template, backup, API articoli) NON passano dal middleware: Next ne copia il corpo in memoria e, a seconda dei tempi,
 // lo tronca (il caricamento fallisce con «Failed to parse body as FormData», o un backup arriva incompleto). Ognuna controlla da sé sessione, origine
 // e indirizzo ammesso (ADMIN_HOSTS); la Content-Security-Policy non serve a una risposta JSON.
-export const config = { matcher: ['/((?!admin/media/upload|admin/templates/upload|admin/backup/upload|install/template-upload|install/restore-upload).*)'], runtime: 'nodejs' };
+export const config = { matcher: ['/((?!api/posts|admin/media/upload|admin/templates/upload|admin/backup/upload|install/template-upload|install/restore-upload).*)'], runtime: 'nodejs' };

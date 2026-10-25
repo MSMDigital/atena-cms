@@ -62,7 +62,7 @@
       "type": "logos",
       "surface": "light",
       "title": {
-        "it": "Con chi ho avuto il piacere di lavorare"
+        "it": "Con chi ho avuto il piacere"
       },
       "items": [
         {
@@ -297,7 +297,10 @@
             }
           }
         }
-      ]
+      ],
+      "accent": {
+        "it": "di lavorare"
+      }
     },
     {
       "id": "home-2-statement",
@@ -322,7 +325,7 @@
         }
       },
       "title": {
-        "it": "Chiarezza personale. Direzione professionale."
+        "it": "Chiarezza personale.<br><em>Direzione professionale.</em>"
       },
       "level": "h2",
       "body": {
@@ -358,7 +361,9 @@
           "it": "Daria Benedetto seduta, in abito bianco"
         }
       },
-      "shape": "arch"
+      "shape": "arch",
+      "variant": "wide",
+      "palette": "teal"
     },
     {
       "id": "home-5-msm",
@@ -375,7 +380,7 @@
         }
       },
       "title": {
-        "it": "Strategia, comunicazione e trasformazione digitale."
+        "it": "Strategia, comunicazione<br><em>e trasformazione digitale.</em>"
       },
       "level": "h2",
       "body": {
@@ -411,7 +416,9 @@
           "it": "Daria Benedetto, CEO di MSM Digital"
         }
       },
-      "shape": "arch"
+      "shape": "arch",
+      "variant": "wide",
+      "palette": "terra"
     },
     {
       "id": "home-7-reviews",
@@ -422,7 +429,7 @@
           "it": "Recensioni Google"
         },
         "title": {
-          "it": "Dicono di me"
+          "it": "Dicono"
         }
       },
       "rating": {
@@ -471,7 +478,10 @@
           "type": "url",
           "url": "https://www.google.com/search?q=msm+digital+srl+-+daria+benedetto"
         },
-        "style": "secondary"
+        "style": "primary"
+      },
+      "accent": {
+        "it": "di me"
       }
     }
   ]

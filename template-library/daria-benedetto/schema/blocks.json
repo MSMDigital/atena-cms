@@ -131,7 +131,8 @@
           "enum": [
             "arch",
             "rounded",
-            "plain"
+            "plain",
+            "arch-photo"
           ],
           "default": "arch",
           "description": "Ad arco: ritratto con sfondo ad arco (adatto ai PNG ritagliati). Arrotondata: foto con angoli morbidi. Libera: immagine com'è."
@@ -159,6 +160,25 @@
             "link"
           ],
           "additionalProperties": false
+        },
+        "decor": {
+          "title": "Decorazione",
+          "enum": [
+            "dots",
+            "sparkles"
+          ],
+          "default": "dots",
+          "x-when": {
+            "shape": [
+              "arch"
+            ]
+          }
+        },
+        "split": {
+          "title": "Titolo a sinistra e testo a destra",
+          "type": "boolean",
+          "default": false,
+          "description": "Solo senza immagine."
         }
       },
       "required": [
@@ -273,7 +293,8 @@
           "enum": [
             "light",
             "brand",
-            "dark"
+            "dark",
+            "sky"
           ],
           "default": "light"
         },
@@ -348,6 +369,16 @@
           ],
           "default": "row",
           "description": "In fila (cinque colonne) oppure in elenco verticale con numeri grandi."
+        },
+        "headerSplit": {
+          "title": "Titolo a sinistra e testo a destra",
+          "type": "boolean",
+          "default": false
+        },
+        "titleCaps": {
+          "title": "Titoli in maiuscolo piccolo",
+          "type": "boolean",
+          "default": false
         }
       },
       "required": [
@@ -431,8 +462,9 @@
           "title": "Sopra il titolo (facoltativo)"
         },
         "title": {
-          "$ref": "https://atena.cms/schema/common.json#/$defs/text",
-          "title": "Titolo"
+          "$ref": "https://atena.cms/schema/common.json#/$defs/richInline",
+          "title": "Titolo",
+          "description": "Con la variante «Larga» il testo tra <em> prende il colore d'accento e <br> manda a capo."
         },
         "level": {
           "title": "Livello del titolo",
@@ -482,6 +514,29 @@
             "left"
           ],
           "default": "right"
+        },
+        "variant": {
+          "title": "Variante",
+          "enum": [
+            "standard",
+            "wide",
+            "banner"
+          ],
+          "default": "standard",
+          "description": "Larga: sezione a tutta altezza con ritratto in arco, logo grande in alto e titolo con accento. Banner: riquadro arrotondato scuro con la foto a sinistra a tutta altezza."
+        },
+        "palette": {
+          "title": "Colori del ritratto",
+          "enum": [
+            "teal",
+            "terra"
+          ],
+          "default": "teal",
+          "x-when": {
+            "variant": [
+              "wide"
+            ]
+          }
         }
       },
       "required": [
@@ -578,6 +633,10 @@
             ],
             "additionalProperties": false
           }
+        },
+        "accent": {
+          "$ref": "https://atena.cms/schema/common.json#/$defs/text",
+          "title": "Parte del titolo in colore (facoltativa)"
         }
       },
       "required": [
@@ -687,6 +746,10 @@
         "button": {
           "$ref": "https://atena.cms/schema/common.json#/$defs/button",
           "title": "Link a tutte le recensioni (facoltativo)"
+        },
+        "accent": {
+          "$ref": "https://atena.cms/schema/common.json#/$defs/text",
+          "title": "Parte del titolo in colore (facoltativa)"
         }
       },
       "required": [
@@ -721,7 +784,8 @@
           "enum": [
             "light",
             "brand",
-            "dark"
+            "dark",
+            "sky"
           ],
           "default": "light"
         },
@@ -819,7 +883,8 @@
           "enum": [
             "light",
             "brand",
-            "dark"
+            "dark",
+            "sky"
           ],
           "default": "light"
         },
@@ -946,6 +1011,10 @@
                 "title": "Riquadro grande (solo riquadri)",
                 "type": "boolean",
                 "default": false
+              },
+              "kicker": {
+                "$ref": "https://atena.cms/schema/common.json#/$defs/text",
+                "title": "Etichetta sopra il titolo (facoltativa)"
               }
             },
             "required": [],
@@ -1048,7 +1117,8 @@
           "enum": [
             "light",
             "brand",
-            "dark"
+            "dark",
+            "sky"
           ],
           "default": "light"
         },
@@ -1139,6 +1209,14 @@
                 ],
                 "default": "plain",
                 "description": "Testo libero oppure scheda in evidenza."
+              },
+              "tags": {
+                "title": "Parole chiave (facoltative)",
+                "type": "array",
+                "maxItems": 10,
+                "items": {
+                  "$ref": "https://atena.cms/schema/common.json#/$defs/text"
+                }
               }
             },
             "required": [
@@ -1506,6 +1584,134 @@
       "additionalProperties": false
     },
     {
+      "$id": "https://atena.cms/schema/blocks/project-cards.json",
+      "title": "Schede progetto",
+      "type": "object",
+      "properties": {
+        "id": {
+          "$ref": "https://atena.cms/schema/common.json#/$defs/blockId"
+        },
+        "visible": {
+          "title": "Visibile",
+          "type": "boolean",
+          "default": true
+        },
+        "anchor": {
+          "$ref": "https://atena.cms/schema/common.json#/$defs/anchor"
+        },
+        "padding": {
+          "title": "Spaziatura della sezione (padding)",
+          "description": "Spazio interno della sezione. Sopra e sotto: «Medio» è il valore standard del sito (si adatta da solo allo schermo).",
+          "type": "object",
+          "properties": {
+            "top": {
+              "title": "Sopra",
+              "enum": [
+                "none",
+                "xs",
+                "sm",
+                "md",
+                "lg",
+                "xl"
+              ],
+              "default": "md"
+            },
+            "bottom": {
+              "title": "Sotto",
+              "enum": [
+                "none",
+                "xs",
+                "sm",
+                "md",
+                "lg",
+                "xl"
+              ],
+              "default": "md"
+            }
+          },
+          "additionalProperties": false
+        },
+        "type": {
+          "const": "project-cards"
+        },
+        "surface": {
+          "title": "Superficie",
+          "enum": [
+            "light",
+            "brand"
+          ],
+          "default": "light"
+        },
+        "header": {
+          "$ref": "https://atena.cms/schema/common.json#/$defs/sectionHeader",
+          "title": "Testata della sezione"
+        },
+        "items": {
+          "title": "Schede",
+          "type": "array",
+          "minItems": 1,
+          "maxItems": 3,
+          "items": {
+            "type": "object",
+            "properties": {
+              "image": {
+                "$ref": "https://atena.cms/schema/common.json#/$defs/image",
+                "title": "Ritratto"
+              },
+              "palette": {
+                "title": "Colori del ritratto",
+                "enum": [
+                  "teal",
+                  "terra"
+                ],
+                "default": "teal"
+              },
+              "logo": {
+                "$ref": "https://atena.cms/schema/common.json#/$defs/image",
+                "title": "Logo"
+              },
+              "kicker": {
+                "$ref": "https://atena.cms/schema/common.json#/$defs/text",
+                "title": "Sopratitolo"
+              },
+              "title": {
+                "$ref": "https://atena.cms/schema/common.json#/$defs/richInline",
+                "title": "Titolo"
+              },
+              "body": {
+                "$ref": "https://atena.cms/schema/common.json#/$defs/richBlock",
+                "title": "Testo"
+              },
+              "tags": {
+                "title": "Parole chiave",
+                "type": "array",
+                "maxItems": 8,
+                "items": {
+                  "$ref": "https://atena.cms/schema/common.json#/$defs/text"
+                }
+              },
+              "button": {
+                "$ref": "https://atena.cms/schema/common.json#/$defs/button",
+                "title": "Pulsante"
+              }
+            },
+            "required": [
+              "image",
+              "title"
+            ],
+            "additionalProperties": false
+          }
+        }
+      },
+      "required": [
+        "id",
+        "type",
+        "surface",
+        "items"
+      ],
+      "additionalProperties": false
+    },
+    {
       "$id": "https://atena.cms/schema/blocks/cta.json",
       "title": "Invito finale",
       "type": "object",
@@ -1529,7 +1735,8 @@
           "enum": [
             "dark",
             "brand",
-            "light"
+            "light",
+            "sky"
           ],
           "default": "dark"
         },
@@ -1613,7 +1820,8 @@
           "enum": [
             "light",
             "brand",
-            "dark"
+            "dark",
+            "sky"
           ],
           "default": "light"
         },
@@ -1654,7 +1862,7 @@
           "title": "Etichetta (facoltativa)"
         },
         "title": {
-          "$ref": "https://atena.cms/schema/common.json#/$defs/text",
+          "$ref": "https://atena.cms/schema/common.json#/$defs/richInline",
           "title": "Titolo"
         },
         "text": {
@@ -1664,6 +1872,21 @@
         "button": {
           "$ref": "https://atena.cms/schema/common.json#/$defs/button",
           "title": "Pulsante (facoltativo)"
+        },
+        "layout": {
+          "title": "Disposizione",
+          "enum": [
+            "center",
+            "row",
+            "duo"
+          ],
+          "default": "center",
+          "description": "center: tutto centrato. row: testo a sinistra e pulsante a destra. duo: titolo a sinistra e testo (con pulsante) a destra."
+        },
+        "box": {
+          "title": "Dentro un riquadro arrotondato",
+          "type": "boolean",
+          "default": false
         }
       },
       "required": [
@@ -1890,7 +2113,8 @@
           "enum": [
             "light",
             "dark",
-            "brand"
+            "brand",
+            "sky"
           ],
           "default": "light"
         },
@@ -2137,6 +2361,11 @@
           ],
           "additionalProperties": false,
           "title": "Presentazione accanto al modulo (facoltativa)"
+        },
+        "headSplit": {
+          "title": "Testata a sinistra, modulo a destra",
+          "type": "boolean",
+          "default": false
         }
       },
       "required": [

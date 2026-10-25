@@ -22,7 +22,7 @@
         "it": "Coaching professionale"
       },
       "title": {
-        "it": "Per capire dove sei. E scegliere dove andare."
+        "it": "Per capire dove sei. <br><em>E scegliere dove andare.</em>"
       },
       "lead": {
         "it": "<p>Il coaching professionale è uno spazio di ascolto, consapevolezza e azione dedicato a chi sta attraversando un cambiamento nel lavoro e vuole affrontarlo con maggiore chiarezza.</p><p>Non riceverai una soluzione pronta. Costruiremo le condizioni perché tu possa vedere meglio la situazione, riconoscere le tue risorse, mettere a fuoco ciò che vuoi e trasformarlo in scelte concrete.</p>"
@@ -60,12 +60,13 @@
             "it": "TIAIUTO"
           }
         }
-      }
+      },
+      "decor": "sparkles"
     },
     {
       "id": "coaching-2-quando",
       "type": "points",
-      "surface": "brand",
+      "surface": "light",
       "layout": "tiles",
       "header": {
         "title": {
@@ -262,7 +263,7 @@
       "layout": "row",
       "header": {
         "title": {
-          "it": "Dall’ascolto al cambiamento"
+          "it": "<em>Dall’ascolto al cambiamento</em>"
         },
         "text": {
           "it": "Ogni percorso parte dall’ascolto, ma non si ferma lì. Ascoltare serve a vedere con maggiore chiarezza. La chiarezza aiuta a scegliere. La scelta diventa azione. E l’azione, quando è coerente e sostenibile, produce cambiamento."
@@ -312,7 +313,8 @@
       ],
       "note": {
         "it": "Questo è anche il principio che ha dato vita a TIAIUTO: dall’ascolto al cambiamento."
-      }
+      },
+      "headerSplit": true
     },
     {
       "id": "coaching-3-come",
@@ -334,7 +336,7 @@
           "title": {
             "it": "Il mio approccio"
           },
-          "style": "card",
+          "style": "plain",
           "steps": [
             {
               "title": {
@@ -383,18 +385,20 @@
     {
       "id": "coaching-5-aziende",
       "type": "callout",
-      "surface": "dark",
+      "surface": "light",
       "title": {
-        "it": "Un approccio nato nelle aziende"
+        "it": "Un approccio nato <br><em>nelle aziende</em>"
       },
       "text": {
         "it": "Porto nel coaching 25 anni di esperienza in strategia, marketing, comunicazione e trasformazione digitale. Questo non significa sostituire il coaching con la consulenza: significa comprendere in profondità il mondo reale in cui le tue scelte devono vivere."
-      }
+      },
+      "layout": "duo",
+      "box": true
     },
     {
       "id": "coaching-6-differenze",
       "type": "points",
-      "surface": "brand",
+      "surface": "light",
       "layout": "cards",
       "columns": 3,
       "header": {
@@ -407,27 +411,37 @@
       },
       "items": [
         {
-          "title": {
+          "kicker": {
             "it": "Coaching"
           },
+          "title": {
+            "it": "Sei tu a costruire la risposta"
+          },
           "text": {
-            "it": "Sei tu a costruire la risposta attraverso un processo che sviluppa consapevolezza, autonomia e responsabilità."
-          }
+            "it": "attraverso un processo che sviluppa consapevolezza, autonomia e responsabilità."
+          },
+          "tone": "night"
         },
         {
-          "title": {
+          "kicker": {
             "it": "Consulenza"
           },
+          "title": {
+            "it": "Ricevi analisi e indicazioni"
+          },
           "text": {
-            "it": "Ricevi analisi e indicazioni specialistiche su un problema."
+            "it": "specialistiche su un problema."
           }
         },
         {
-          "title": {
+          "kicker": {
             "it": "Mentoring"
           },
+          "title": {
+            "it": "Ti confronti con l’esperienza"
+          },
           "text": {
-            "it": "Ti confronti con l’esperienza di chi ha già attraversato un determinato percorso."
+            "it": "di chi ha già attraversato un determinato percorso."
           }
         }
       ],
@@ -481,7 +495,7 @@
     {
       "id": "coaching-9-passo",
       "type": "callout",
-      "surface": "light",
+      "surface": "sky",
       "eyebrow": {
         "it": "Il primo passo"
       },
@@ -500,7 +514,9 @@
           "page": "contatti"
         },
         "style": "primary"
-      }
+      },
+      "layout": "row"
     }
-  ]
+  ],
+  "header": "coaching"
 }

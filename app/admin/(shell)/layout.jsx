@@ -64,6 +64,7 @@ export default async function Shell({ children }) {
         { label: 'SEO & Geo', href: '/admin/site?gruppo=seo-geo' },
         { label: 'Email', href: '/admin/email' },
         { label: 'Login sicuro', href: '/admin/security' },
+        { label: 'API', href: '/admin/api' },
         { label: 'Backup', href: '/admin/backup' },
       ] },
     ] : []),

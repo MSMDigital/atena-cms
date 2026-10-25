@@ -23,22 +23,23 @@
         "it": "Pensiero"
       },
       "title": {
-        "it": "Idee per comprendere il lavoro che cambia."
+        "it": "Idee per comprendere <em>il lavoro che cambia.</em>"
       },
       "lead": {
         "it": "<p>Uno spazio dedicato a ciò che osservo, studio e imparo lavorando con persone e aziende: cambiamento professionale, identità, leadership, marketing, comunicazione, competenze, digitale e Intelligenza Artificiale.</p><p>Non cerco risposte facili a fenomeni complessi. Cerco connessioni utili, domande capaci di aprire possibilità e strumenti che possano entrare nel lavoro reale.</p>"
-      }
+      },
+      "split": true
     },
     {
       "id": "pensiero-2-manifesto",
       "type": "feature",
-      "surface": "brand",
+      "surface": "light",
       "side": "left",
       "eyebrow": {
         "it": "In evidenza · Manifesto"
       },
       "title": {
-        "it": "Il cambiamento comincia dall’ascolto."
+        "it": "Il cambiamento comincia <em>dall’ascolto.</em>"
       },
       "level": "h2",
       "body": {
@@ -60,7 +61,8 @@
           "it": "Daria Benedetto"
         }
       },
-      "shape": "rounded"
+      "shape": "rounded",
+      "variant": "banner"
     },
     {
       "id": "pensiero-3-posts",
@@ -81,9 +83,65 @@
       }
     },
     {
-      "id": "pensiero-4-dove",
+      "id": "pensiero-3b-aree",
       "type": "points",
       "surface": "brand",
+      "layout": "tiles",
+      "showNumbers": false,
+      "tileMin": 170,
+      "header": {
+        "title": {
+          "it": "Le aree editoriali"
+        }
+      },
+      "items": [
+        {
+          "title": {
+            "it": "Cambiamento professionale"
+          },
+          "text": {
+            "it": "Transizioni, scelte, identità e direzione."
+          }
+        },
+        {
+          "title": {
+            "it": "Persone e organizzazioni"
+          },
+          "text": {
+            "it": "Leadership, cultura, collaborazione e sviluppo."
+          }
+        },
+        {
+          "title": {
+            "it": "AI e lavoro"
+          },
+          "text": {
+            "it": "Adozione consapevole, competenze, pensiero critico e valore umano."
+          }
+        },
+        {
+          "title": {
+            "it": "Strategia e comunicazione"
+          },
+          "text": {
+            "it": "Posizionamento, mercati, brand e comportamenti."
+          }
+        },
+        {
+          "title": {
+            "it": "Dal campo"
+          },
+          "text": {
+            "it": "Lezioni, casi, osservazioni e domande nate dall’esperienza."
+          },
+          "tone": "night"
+        }
+      ]
+    },
+    {
+      "id": "pensiero-4-dove",
+      "type": "points",
+      "surface": "light",
       "layout": "links",
       "columns": 3,
       "header": {
@@ -91,7 +149,7 @@
           "it": "Dove pubblico"
         },
         "title": {
-          "it": "Il pensiero continua sui miei canali."
+          "it": "Il pensiero continua <br><em>sui miei canali.</em>"
         }
       },
       "items": [
@@ -172,7 +230,7 @@
     {
       "id": "pensiero-5-newsletter",
       "type": "form",
-      "surface": "dark",
+      "surface": "sky",
       "header": {
         "eyebrow": {
           "it": "Newsletter"
@@ -226,7 +284,8 @@
           "info@dariabenedetto.it"
         ],
         "subject": "Nuova iscrizione alla newsletter"
-      }
+      },
+      "headSplit": true
     }
   ]
 }
