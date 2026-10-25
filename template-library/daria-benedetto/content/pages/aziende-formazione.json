@@ -312,7 +312,7 @@
             "it": "Adozione dell’AI"
           },
           "text": {
-            "it": "Adozione consapevole dell’AI e sviluppo di competenze realmente utilizzabili."
+            "it": "Adozione <strong>consapevole dell’AI</strong> e sviluppo di <strong>competenze realmente utilizzabili</strong>."
           },
           "tone": "night",
           "featured": true
@@ -323,7 +323,7 @@
             "it": "Formazione digitale"
           },
           "text": {
-            "it": "Formazione su marketing, cultura digitale e Intelligenza Artificiale."
+            "it": "Formazione su <strong>marketing, cultura digitale e Intelligenza Artificiale</strong>."
           },
           "tone": "accent",
           "featured": true
@@ -334,7 +334,7 @@
             "it": "Coaching"
           },
           "text": {
-            "it": "Coaching per imprenditori, manager e figure chiave."
+            "it": "Coaching per <strong>imprenditori, manager e figure chiave</strong>."
           }
         },
         {
@@ -343,7 +343,7 @@
             "it": "Leadership"
           },
           "text": {
-            "it": "Percorsi di sviluppo professionale e leadership."
+            "it": "Percorsi di sviluppo professionale e <strong>leadership</strong>."
           }
         },
         {
@@ -352,7 +352,7 @@
             "it": "Transizioni"
           },
           "text": {
-            "it": "Accompagnamento nei passaggi di ruolo e nelle fasi di trasformazione."
+            "it": "Accompagnamento nei <strong>passaggi di ruolo</strong> e nelle fasi di trasformazione."
           }
         },
         {
@@ -361,7 +361,7 @@
             "it": "Workshop"
           },
           "text": {
-            "it": "Workshop su cambiamento, comunicazione e collaborazione."
+            "it": "Workshop su <strong>cambiamento, comunicazione e collaborazione</strong>."
           }
         },
         {
@@ -370,7 +370,7 @@
             "it": "Su misura"
           },
           "text": {
-            "it": "Interventi personalizzati per team, academy interne ed eventi aziendali."
+            "it": "Interventi <strong>personalizzati</strong> per team, academy interne ed eventi aziendali."
           }
         }
       ],

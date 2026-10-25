@@ -79,7 +79,7 @@
             "it": "AI e digitale"
           },
           "text": {
-            "it": "Ti senti disorientato davanti ai cambiamenti portati dal digitale o dall’AI."
+            "it": "Ti senti <strong>disorientato</strong> davanti ai cambiamenti portati dal <strong>digitale o dall’AI</strong>."
           },
           "tone": "night"
         },
@@ -88,7 +88,7 @@
             "it": "Cambio di rotta"
           },
           "text": {
-            "it": "Stai valutando un cambiamento di ruolo, azienda o percorso professionale."
+            "it": "Stai valutando un <strong>cambiamento di ruolo, azienda o percorso</strong> professionale."
           }
         },
         {
@@ -96,7 +96,7 @@
             "it": "Nuova direzione"
           },
           "text": {
-            "it": "Hai raggiunto risultati importanti, ma non ti riconosci più nella direzione attuale."
+            "it": "Hai raggiunto risultati importanti, ma <strong>non ti riconosci più</strong> nella direzione attuale."
           }
         },
         {
@@ -104,7 +104,7 @@
             "it": "Decisioni"
           },
           "text": {
-            "it": "Devi prendere una decisione complessa e continui a rimandarla."
+            "it": "Devi prendere una <strong>decisione complessa</strong> e continui a rimandarla."
           }
         },
         {
@@ -112,7 +112,7 @@
             "it": "Nuovi progetti"
           },
           "text": {
-            "it": "Vuoi costruire o ridefinire un progetto professionale o imprenditoriale."
+            "it": "Vuoi <strong>costruire o ridefinire</strong> un progetto professionale o imprenditoriale."
           }
         },
         {
@@ -120,7 +120,7 @@
             "it": "Posizionamento"
           },
           "text": {
-            "it": "Desideri riposizionarti e rendere più chiaro il tuo valore."
+            "it": "Desideri riposizionarti e rendere più <strong>chiaro il tuo valore</strong>."
           }
         },
         {
@@ -128,7 +128,7 @@
             "it": "Equilibrio"
           },
           "text": {
-            "it": "Vuoi integrare ambizione, sostenibilità, identità e risultati."
+            "it": "Vuoi <strong>integrare</strong> ambizione, sostenibilità, identità e risultati."
           }
         },
         {
@@ -136,7 +136,7 @@
             "it": "Azione"
           },
           "text": {
-            "it": "Hai bisogno di passare dalla riflessione all’azione."
+            "it": "Hai bisogno di passare <strong>dalla riflessione all’azione</strong>."
           }
         }
       ],

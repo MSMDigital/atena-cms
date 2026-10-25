@@ -215,8 +215,11 @@
         "figure": {
           "it": "25"
         },
+        "unit": {
+          "it": "anni"
+        },
         "text": {
-          "it": "anni di esperienza con aziende, imprenditori e professionisti"
+          "it": "di esperienza con aziende, imprenditori e professionisti"
         }
       }
     },
@@ -339,7 +342,7 @@
     {
       "id": "percorso-8-credo",
       "type": "points",
-      "surface": "dark",
+      "surface": "light",
       "layout": "numbered",
       "columns": 1,
       "header": {
@@ -373,12 +376,13 @@
             "it": "Che una direzione autentica debba essere anche concreta e sostenibile."
           }
         }
-      ]
+      ],
+      "headerSide": true
     },
     {
       "id": "percorso-9-cta",
       "type": "cta",
-      "surface": "brand",
+      "surface": "sky",
       "text": {
         "it": "Non porto risposte standard. <em>Porto domande, metodo e ascolto.</em>"
       },
@@ -401,7 +405,7 @@
             "type": "page",
             "page": "contatti"
           },
-          "style": "secondary"
+          "style": "inverse"
         }
       ]
     },

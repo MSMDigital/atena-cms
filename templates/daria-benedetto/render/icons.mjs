@@ -15,6 +15,7 @@ const NETWORKS = {
   amazon: svg('<path d="M4 16.5c4.8 3.2 11.2 3.2 16 0M17.5 14.5l2.5 2-.7 3"/><path d="M8 11.5V9.8c0-2.2 1.8-3.3 4-3.3s3.7 1 3.7 3v5.4M8 12.4c0 1.4 1 2.1 2.2 2.1 1.9 0 2.9-1.2 2.9-3"/>'),
   google: svg('<path d="M20.5 12.2c0-.6-.1-1.1-.2-1.6H12v3h4.8a4.1 4.1 0 01-1.8 2.7v2.2h2.9c1.7-1.6 2.6-3.9 2.6-6.3z" fill="currentColor" stroke="none"/><path d="M12 21c2.4 0 4.5-.8 5.9-2.2L15 16.6c-.8.5-1.8.9-3 .9-2.3 0-4.3-1.6-5-3.7H4v2.3A9 9 0 0012 21z" fill="currentColor" stroke="none"/><path d="M7 13.8a5.4 5.4 0 010-3.6V7.9H4a9 9 0 000 8.2z" fill="currentColor" stroke="none"/><path d="M12 6.6c1.3 0 2.5.5 3.4 1.3l2.6-2.5A9 9 0 004 7.9l3 2.3c.7-2.100 2.700-3.600 5-3.600z" fill="currentColor" stroke="none"/>'),
   facebook: svg('<path d="M14 8.5V7c0-.8.4-1.2 1.3-1.2H17V3h-2.6C11.800 3 10.500 4.500 10.500 6.800v1.700H8V11.500h2.500V21H14v-9.500h2.600L17 8.500z" fill="currentColor" stroke="none"/>'),
+  star: svg('<path d="M12 3.5l2.6 5.3 5.8.8-4.2 4.1 1 5.8L12 16.8l-5.2 2.7 1-5.8-4.2-4.1 5.8-.8z"/>'),
   email: svg('<rect x="3" y="5.5" width="18" height="13" rx="3"/><path d="M4 8l8 5.500L20 8"/>'),
 };
 export const network = (name) => NETWORKS[name] ?? '';

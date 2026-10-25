@@ -163,7 +163,8 @@
           "link": {
             "type": "url",
             "url": "https://www.linkedin.com/in/dariabenedetto/"
-          }
+          },
+          "network": "linkedin"
         },
         {
           "title": {
@@ -175,7 +176,8 @@
           "link": {
             "type": "url",
             "url": "https://www.youtube.com/@dariabenedetto"
-          }
+          },
+          "network": "youtube"
         },
         {
           "title": {
@@ -187,7 +189,8 @@
           "link": {
             "type": "url",
             "url": "https://www.instagram.com/daria_benedetto/"
-          }
+          },
+          "network": "instagram"
         },
         {
           "title": {
@@ -199,7 +202,8 @@
           "link": {
             "type": "url",
             "url": "https://www.tiktok.com/@daria_benedetto"
-          }
+          },
+          "network": "tiktok"
         },
         {
           "title": {
@@ -211,7 +215,8 @@
           "link": {
             "type": "url",
             "url": "https://www.amazon.it/shop/daria_benedetto"
-          }
+          },
+          "network": "amazon"
         },
         {
           "title": {
@@ -223,7 +228,8 @@
           "link": {
             "type": "url",
             "url": "https://www.google.com/search?q=msm+digital+srl+-+daria+benedetto"
-          }
+          },
+          "network": "star"
         }
       ]
     },

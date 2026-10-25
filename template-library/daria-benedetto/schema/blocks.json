@@ -1015,6 +1015,19 @@
               "kicker": {
                 "$ref": "https://atena.cms/schema/common.json#/$defs/text",
                 "title": "Etichetta sopra il titolo (facoltativa)"
+              },
+              "network": {
+                "title": "Icona del canale (solo schede con link)",
+                "enum": [
+                  "linkedin",
+                  "instagram",
+                  "tiktok",
+                  "youtube",
+                  "amazon",
+                  "google",
+                  "star",
+                  "facebook"
+                ]
               }
             },
             "required": [],
@@ -1076,6 +1089,10 @@
             "text": {
               "$ref": "https://atena.cms/schema/common.json#/$defs/richInline",
               "title": "Frase"
+            },
+            "unit": {
+              "$ref": "https://atena.cms/schema/common.json#/$defs/text",
+              "title": "Unità accanto al numero (facoltativa)"
             }
           },
           "required": [
@@ -1083,6 +1100,17 @@
             "text"
           ],
           "additionalProperties": false
+        },
+        "headerSide": {
+          "title": "Titolo a sinistra e voci a destra",
+          "type": "boolean",
+          "default": false,
+          "x-when": {
+            "layout": [
+              "numbered",
+              "links"
+            ]
+          }
         }
       },
       "required": [

@@ -56,12 +56,18 @@ const steps = (ctx, b) => sec(b, `section steps steps--${b.layout ?? 'row'}${b.h
 </div>`);
 
 // Riquadri («tiles»): schede con icona e/o numero, titolo e testo. `featured` = scheda grande (prima riga), `tone` = colore della scheda.
-const tile = (ctx, it, i, showNumbers) => html`<li class="tile tile--${it.tone ?? 'default'}${it.featured ? ' tile--lg' : ''}">
+const tile = (ctx, it, i, showNumbers) => (it.icon || it.featured
+  ? html`<li class="tile tile--${it.tone ?? 'default'}${it.featured ? ' tile--lg' : ''}">
     ${it.featured ? raw('<span class="tile__dot" aria-hidden="true"></span>') : ''}
-    ${it.icon || showNumbers ? html`<span class="tile__top">${it.icon ? html`<span class="tile__ic">${icon(it.icon, it.featured ? 30 : 26)}</span>` : ''}${showNumbers ? html`<span class="tile__n">${num(i)}</span>` : ''}</span>` : ''}
+    <span class="tile__top">${it.icon ? html`<span class="tile__ic">${icon(it.icon, it.featured ? 30 : 26)}</span>` : ''}${showNumbers ? html`<span class="tile__n">${num(i)}</span>` : ''}</span>
     ${it.title ? html`<h3>${ctx.t(it.title)}</h3>` : ''}
     ${it.text ? html`<p>${ctx.rich(it.text)}</p>` : ''}
-  </li>`;
+  </li>`
+  : html`<li class="tile tile--plain tile--${it.tone ?? 'default'}">
+    <span class="tile__bar" aria-hidden="true"></span>
+    ${it.title || showNumbers ? html`<span class="tile__head">${showNumbers ? html`<span class="tile__n">${num(i)}</span>` : ''}${it.title ? html`<h3>${ctx.t(it.title)}</h3>` : ''}</span>` : ''}
+    ${it.text ? html`<p>${ctx.rich(it.text)}</p>` : ''}
+  </li>`);
 
 const tiles = (ctx, b) => {
   const showNumbers = b.showNumbers !== false;
@@ -80,12 +86,14 @@ const points = (ctx, b) => {
     ? html`<ul class="tags">${b.items.map((it) => html`<li>${ctx.t(it.title ?? it.text)}</li>`)}</ul>`
     : layout === 'tiles' ? tiles(ctx, b)
     : html`<ul class="pts pts--${layout} pts--c${String(cols)}">${b.items.map((it, i) => (layout === 'links' && it.link
-      ? html`<li><a class="pts__a" href="${ctx.link(it.link)}"><span>${body(it)}</span><span class="pts__go">${arrow()}</span></a></li>`
+      ? (it.network
+        ? html`<li><a class="pts__a pts__a--net" href="${ctx.link(it.link)}"${newTab(it.link)}><span class="pts__net">${network(it.network)}</span><span>${body(it)}</span></a></li>`
+        : html`<li><a class="pts__a" href="${ctx.link(it.link)}"${newTab(it.link)}><span>${body(it)}</span><span class="pts__go">${arrow()}</span></a></li>`)
       : layout === 'numbered' ? html`<li><span class="pts__n">${num(i)}</span><div>${body(it)}</div></li>`
       : layout === 'checks' ? html`<li><span class="pts__ck">${check()}</span><div>${body(it)}</div></li>`
       : html`<li class="${it.tone && it.tone !== 'default' ? `pts__li--${it.tone}` : ''}">${body(it)}</li>`))}</ul>`;
-  const aside = b.aside ? html`<div class="points__aside"><span class="points__aside-dot" aria-hidden="true"></span><p class="points__aside-fig">${ctx.t(b.aside.figure)}</p><p class="points__aside-text">${ctx.rich(b.aside.text)}</p></div>` : '';
-  return sec(b, `section points points--${layout}${aside ? ' points--aside' : ''}`, html`<div class="wrap">
+  const aside = b.aside ? html`<div class="points__aside"><span class="points__aside-dot" aria-hidden="true"></span><p class="points__aside-fig">${ctx.t(b.aside.figure)}${b.aside.unit ? html`<span class="points__aside-unit">${ctx.t(b.aside.unit)}</span>` : ''}</p><p class="points__aside-text">${ctx.rich(b.aside.text)}</p></div>` : '';
+  return sec(b, `section points points--${layout}${aside ? ' points--aside' : ''}${b.headerSide ? ' points--side' : ''}`, html`<div class="wrap">
     ${aside
       ? html`<div class="points__split"><div class="points__side">${head(ctx, b.header, `${b.id}-t`)}${aside}</div><div class="points__main">${list}</div></div>`
       : html`${head(ctx, b.header, `${b.id}-t`)}
@@ -256,8 +264,7 @@ const form = (ctx, b) => {
   const profile = p ? html`<aside class="profile">
     <h1>${ctx.rich(p.title)}</h1>
     ${p.lead ? html`<div class="prose">${ctx.rich(p.lead)}</div>` : ''}
-    ${p.image ? html`<div class="profile__card"><div class="profile__img">${img(ctx, p.image, { priority: true })}</div><div><p class="profile__name">${p.name ? ctx.t(p.name) : ''}</p>${p.role ? html`<p class="profile__role">${lines(ctx.t(p.role))}</p>` : ''}</div></div>` : ''}
-    ${(p.socials ?? []).length ? html`<ul class="socials">${p.socials.map((s) => html`<li><a href="${ctx.link(s.link)}" aria-label="${ctx.t(s.label)}">${network(s.network)}</a></li>`)}</ul>` : ''}
+    ${p.image ? html`<div class="profile__card"><div class="profile__img">${img(ctx, p.image, { priority: true })}</div><div><p class="profile__name">${p.name ? ctx.t(p.name) : ''}</p>${p.role ? html`<p class="profile__role">${lines(ctx.t(p.role))}</p>` : ''}${(p.socials ?? []).length ? html`<ul class="socials profile__socials">${p.socials.map((s) => html`<li><a href="${ctx.link(s.link)}" aria-label="${ctx.t(s.label)}"${newTab(s.link)}>${network(s.network)}</a></li>`)}</ul>` : ''}</div></div>` : ''}
   </aside>` : '';
   return sec(b, `section form${b.headSplit ? ' form--head-split' : ''}`, html`<div class="wrap${p ? ' form__split' : ''}">
     ${profile}

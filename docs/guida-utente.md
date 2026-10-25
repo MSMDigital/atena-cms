@@ -63,7 +63,7 @@ Mentre prepari il sito, in **SEO & Geo → Crawling** lascia il sito **Chiuso** 
 
 | Voce del menu | A cosa serve |
 |---|---|
-| **Bacheca** | stato della pubblicazione, numero di pagine, articoli e richieste degli ultimi 7 giorni, informazioni sul CMS, riepilogo di cosa puoi fare |
+| **Bacheca** | stato della pubblicazione, numero di pagine, articoli e richieste degli ultimi 7 giorni, informazioni sul CMS (versione, template, **lingue del sito** con i loro nomi, indirizzo), riepilogo di cosa puoi fare |
 | **Articoli** | blog: articoli, categorie, tag (se il template ha il blog) |
 | **Media** | libreria delle immagini |
 | **Pagine** | tutte le pagine, creazione di nuove, blocchi condivisi |
@@ -78,7 +78,7 @@ Il tuo nome in alto/nella barra apre il **profilo**, dove cambi nome, immagine e
 
 ### Pagine
 
-1. **Pagine → Aggiungi pagina**: scegli un nome e l'indirizzo (l'indirizzo identifica la pagina nei link e **non si cambia** dopo).
+1. **Pagine → Aggiungi pagina**: scegli un nome e l'indirizzo (l'indirizzo identifica la pagina nei link e **non si cambia** dopo). Con più lingue, nelle impostazioni della pagina ogni scheda di lingua ha il suo campo **Indirizzo · lingua**.
 2. La pagina è una **lista di blocchi**. **Aggiungi** un blocco (copertina, testo, galleria, modulo…), compila i campi, **sposta su/giù**, **duplica** o **elimina** i blocchi.
 3. A fianco vedi l'**anteprima della pagina con le modifiche non ancora salvate**, anche in versione desktop e mobile.
 4. **Salva bozza** salva senza pubblicare. Se esci con modifiche non salvate, il pannello te lo ricorda.
@@ -101,7 +101,7 @@ Un blocco che compare in più pagine (per esempio un invito a contattarti) si sc
 
 Categorie e tag si creano da **Articoli → Categorie / Tag**.
 
-**Articoli da Claude o da altri programmi**: in **Impostazioni → API** un amministratore crea un token (si vede una sola volta) e lo dà al programma. Gli articoli inviati con titolo, testo e immagine arrivano sempre come **bozze** in Articoli, a nome dell'utente scelto per il token; li controlli e li pubblichi tu. Un token si può revocare in qualsiasi momento.
+**Articoli da Claude o da altri programmi**: possono arrivare da fuori come bozze, tramite l'API (vedi la sezione 10).
 
 ### Media (immagini)
 
@@ -116,6 +116,7 @@ Categorie e tag si creano da **Articoli → Categorie / Tag**.
 - **Aspetto → Stile**: colori, scala dei testi, caratteri e pulsanti valgono per tutto il sito.
 - **Navigazione**: voci del menu e struttura dei link.
 - **Header / Footer**: puoi averne più d'uno (per esempio uno completo e uno minimale) e scegliere quale usa ogni pagina.
+- **Logo**: nell'header puoi caricare un logo e scegliere **dove porta un clic** (una pagina del sito, un indirizzo esterno o un contatto). Se non indichi nulla, porta alla home.
 
 ### Cestino
 
@@ -136,6 +137,7 @@ I moduli del sito (per esempio «Contatti») salvano ogni messaggio in **Richies
 - Stati: **Nuova**, **Letta**, **Archiviata**. La Bacheca conta quelle arrivate negli ultimi 7 giorni.
 - Aprendo una richiesta vedi i campi, il consenso privacy e se l'email è partita (**Inviata**, **Non inviata**, **Non configurata**).
 - I destinatari si impostano nel blocco modulo della pagina; mittente e server in **Impostazioni → Email**.
+- Nei campi del modulo, la **casella di consenso** (per esempio l'informativa privacy) ha, oltre all'etichetta con il link, un **titolo** (il suggerimento che compare al passaggio del mouse), una **classe CSS** facoltativa per lo stile e la scelta se i link dell'etichetta si aprono **nella stessa scheda o in una nuova**.
 - Se le email non arrivano: rifai **Email di prova**, controlla lo spam e verifica che il mittente appartenga al dominio autorizzato dal server di posta.
 - Per tutela della privacy, il tecnico può far eliminare automaticamente le richieste più vecchie di un certo numero di mesi.
 
@@ -164,6 +166,63 @@ Puoi disattivare un account senza eliminarlo («Account attivo»). Eliminando un
 - **Aggiornamenti del CMS**: li fa il tecnico (sostituisce i file, aggiorna il database, riavvia). I tuoi contenuti non vengono toccati.
 - **Cambiare template**: **Aspetto → Template**. Puoi attivarne un altro mantenendo i contenuti attuali oppure sostituendoli con quelli di esempio; la copia precedente viene salvata sul server.
 
+### API: inviare articoli da Claude o da altri programmi
+
+Un programma esterno (per esempio Claude, se ha uno strumento per fare richieste web, come Claude Code) può inviare un articolo con titolo, testo e immagine. L'articolo arriva sempre come **bozza**: non va mai online da solo. Un amministratore lo controlla in **Articoli** e lo pubblica.
+
+**Attivarla (una volta)**
+
+1. Il tecnico aggiorna il CMS (vedi la documentazione tecnica) ed esegue `npm run db:migrate`.
+2. Come amministratore vai in **Impostazioni → API**.
+3. In **Nuovo token** scegli un nome (per esempio «Claude»), l'utente che comparirà come **autore degli articoli** e la scadenza (consigliati 90 giorni).
+4. Premi **Crea token** e **copialo subito**: non si vedrà più. Tienilo in un posto privato (un gestore di password o una variabile d'ambiente), mai in pagine pubbliche o nel repository.
+5. Prova che risponda: l'indirizzo `https://<indirizzo-admin>/api/posts` aperto senza token deve dare «Non autorizzato».
+
+Se l'admin è su un indirizzo separato (`admin.tuosito.ch`), l'API sta lì, non sul dominio del sito.
+
+**Le istruzioni da dare a Claude** (sostituisci l'indirizzo; il token mettilo in una variabile `ATENA_API_TOKEN`, non nel testo):
+
+```
+Per pubblicare un articolo sul blog usa l'API di Atena CMS. L'articolo arriva sempre come BOZZA:
+non si pubblica da qui, lo controlla una persona.
+
+Endpoint: POST https://admin.tuosito.ch/api/posts
+Intestazioni: Authorization: Bearer $ATENA_API_TOKEN  e  Content-Type: application/json
+
+Corpo JSON:
+- title (obbligatorio, 3-200 caratteri)
+- text (obbligatorio, max 100.000 caratteri), in markdown semplice:
+  paragrafi separati da una riga vuota, # o ## per i titoli, ### per i sottotitoli,
+  elenchi con "- " o "1. ", citazioni con "> ", **grassetto**, *corsivo*, [testo](https://...).
+  Niente HTML. Non ripetere il titolo dentro il testo.
+- image (facoltativa): { "data": "<immagine in base64>", "filename": "nome.jpg", "alt": "descrizione dell'immagine" }
+  Solo JPG, PNG o WebP, massimo 10 MB. Non SVG. Non si possono passare indirizzi di immagini: va inviato il file in base64.
+
+Risposta: 201 {"ok":true,"key":"...","status":"draft"}.
+Errori: 401 token non valido, 422 dati non validi (il campo "error" spiega cosa correggere),
+429 troppe richieste (massimo 20 articoli all'ora).
+Dopo l'invio riporta la chiave dell'articolo e ricorda che va controllato e pubblicato da Admin → Articoli.
+```
+
+Una prova a mano, da terminale:
+
+```sh
+curl -X POST https://admin.tuosito.ch/api/posts \
+  -H "Authorization: Bearer IL_TUO_TOKEN" -H "Content-Type: application/json" \
+  -d '{"title":"Prova API","text":"Primo paragrafo.\n\n## Un titolo\n\nTesto con **grassetto**."}'
+```
+
+Per convertire un'immagine in base64: `base64 -i foto.jpg | tr -d '\n'` (Mac) oppure `base64 -w0 foto.jpg` (Linux).
+
+**Dopo l'invio.** Apri **Articoli**: la bozza è lì, a nome dell'utente del token. Aggiungi categorie e tag, controlla il testo e l'immagine, poi pubblica come per ogni altro articolo.
+
+**Sicurezza.**
+
+- Il token non si può rivedere. Se si perde, si crea un altro; se finisce dove non deve, **Revoca** in Impostazioni → API e smette di funzionare subito.
+- Se l'utente del token viene disattivato o eliminato, il token non funziona più.
+- Dopo troppi tentativi con un token sbagliato l'indirizzo viene bloccato per un po'; ogni utente può inviare al massimo 20 articoli all'ora.
+- Nessuna immagine viene scaricata da un indirizzo: l'immagine deve essere inviata insieme all'articolo.
+
 ## 11. Domande frequenti
 
 **Ho pubblicato ma il sito non cambia.** Svuota la cache del browser (ricarica forzata). Controlla in Bacheca che «Nessuna modifica in attesa» e l'ora dell'ultima pubblicazione siano quelle attese.
@@ -173,6 +232,10 @@ Puoi disattivare un account senza eliminarlo («Account attivo»). Eliminando un
 **Ho perso la password.** Un altro amministratore può reimpostarla da **Utenti**; altrimenti il tecnico può farlo da terminale.
 
 **Non riesco più ad accedere all'admin.** Se hai impostato un indirizzo di accesso personalizzato, usa quello: `/admin/login` non funziona più per chi non è già dentro. Il tecnico può ripristinarlo da terminale.
+
+**L'API risponde «Non autorizzato».** Controlla che il token sia scritto per intero (`atn_…`), che non sia scaduto o revocato (Impostazioni → API) e che l'utente del token sia attivo.
+
+**L'admin dà «non trovato» da `www`.** Se il tecnico ha limitato l'admin a un indirizzo (per esempio `admin.tuosito.ch`), `/admin` esiste solo lì. Se hai un indirizzo di accesso personalizzato, l'accesso è `https://admin.tuosito.ch/<tuo-indirizzo>/login`.
 
 **Voglio un sito diverso.** Cambia template da **Aspetto → Template** o installane un altro: il pannello resta lo stesso.
 

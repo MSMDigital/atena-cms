@@ -235,6 +235,9 @@ Ripristino su un altro server: installare il CMS, aprire `/install`, dopo il pas
 | Le richieste dei moduli arrivano ma non le email | controllare Admin → Email (server, mittente, email di prova); l'esito è nella scheda di ogni richiesta |
 | Gli IP dei visitatori risultano sconosciuti | manca `TRUST_PROXY=1` dietro il proxy |
 | Password SMTP «illeggibile» dopo un ripristino | `SETTINGS_SECRET` diversa da quella originale |
+| L'admin o l'API danno 404 dopo aver impostato `ADMIN_HOSTS` | si sta usando l'indirizzo sbagliato: con `ADMIN_HOSTS=admin.cliente.ch` `/admin`, `/install` e `/api/posts` esistono solo su quell'indirizzo (e con un indirizzo di accesso personalizzato l'accesso è `https://admin.cliente.ch/<indirizzo>/login`). Mettere anche `APP_ORIGIN=https://admin.cliente.ch` e riavviare il servizio |
+| L'API degli articoli risponde 413 | il proxy taglia il corpo: in Nginx `client_max_body_size 15m;` (o più) nel blocco `server` |
+| L'API degli articoli risponde 401 | token errato, scaduto o revocato, oppure utente del token disattivato (Impostazioni → API) |
 | Un template non si installa | leggere l'elenco di errori della prova di esecuzione; se importa moduli non ammessi usare solo `@cms/kit` |
 
 ## 11. Prove automatiche
