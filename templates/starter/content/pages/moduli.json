@@ -1,0 +1,1136 @@
+{
+  "key": "moduli",
+  "status": "published",
+  "slug": {
+    "it": "moduli"
+  },
+  "name": {
+    "it": "Moduli"
+  },
+  "title": {
+    "it": "Libreria dei moduli | Studio Esempio"
+  },
+  "description": {
+    "it": "Campionario di tutti i moduli del template Starter."
+  },
+  "noindex": true,
+  "blocks": [
+    {
+      "id": "moduli-1-text",
+      "type": "text",
+      "surface": "light",
+      "content": {
+        "it": "<h2>Libreria dei moduli</h2><p>Questa pagina mostra tutti i moduli del template, uno dopo l'altro: servono come campionario. Ogni modulo si aggiunge, si sposta e si modifica dall'editor; <strong>spaziatura</strong> e <strong>angoli delle immagini</strong> si scelgono modulo per modulo.</p>"
+      },
+      "padding": {
+        "bottom": "sm"
+      }
+    },
+    {
+      "id": "moduli-2-hero-slides",
+      "type": "hero-slides",
+      "surface": "dark",
+      "kicker": {
+        "it": "Copertina con scene"
+      },
+      "titleLine1": {
+        "it": "Immagini che si alternano,"
+      },
+      "titleLine2": {
+        "it": "parole che restano."
+      },
+      "sub": {
+        "it": "Da due a sei scene, ciascuna con la sua etichetta: si cambiano da sole ogni sei secondi."
+      },
+      "primaryButton": {
+        "label": {
+          "it": "Scrivici"
+        },
+        "link": {
+          "type": "page",
+          "page": "contatti"
+        },
+        "style": "primary"
+      },
+      "secondaryLink": {
+        "label": {
+          "it": "Scopri i moduli"
+        },
+        "link": {
+          "type": "anchor",
+          "anchor": "slider"
+        }
+      },
+      "slides": [
+        {
+          "image": {
+            "src": "demo-lago.jpg",
+            "alt": {
+              "it": "Lago al mattino"
+            }
+          },
+          "caption": {
+            "it": "Lago"
+          }
+        },
+        {
+          "image": {
+            "src": "demo-neve.jpg",
+            "alt": {
+              "it": "Pista innevata"
+            }
+          },
+          "caption": {
+            "it": "Neve"
+          }
+        },
+        {
+          "image": {
+            "src": "demo-notte.jpg",
+            "alt": {
+              "it": "Paesaggio di notte"
+            }
+          },
+          "caption": {
+            "it": "Notte"
+          }
+        }
+      ],
+      "corners": "square"
+    },
+    {
+      "id": "moduli-3-the-need",
+      "type": "the-need",
+      "surface": "dark",
+      "eyebrow": {
+        "it": "Il punto di partenza"
+      },
+      "title": {
+        "it": "Spiega il bisogno"
+      },
+      "lead": {
+        "it": "Un testo introduttivo che mette a fuoco il problema in due o tre righe, prima di entrare nei dettagli."
+      },
+      "wideImage": {
+        "src": "demo-ampia.jpg",
+        "alt": {
+          "it": "Paesaggio ampio"
+        }
+      },
+      "columns": [
+        {
+          "it": "La prima colonna approfondisce un aspetto del bisogno, con un tono chiaro e diretto."
+        },
+        {
+          "it": "La seconda colonna ne aggiunge un altro, così il lettore si fa un'idea completa."
+        }
+      ],
+      "quoteText": {
+        "it": "Una frase breve, da ricordare."
+      },
+      "quoteCite": {
+        "it": "Chi la dice"
+      },
+      "corners": "square"
+    },
+    {
+      "id": "moduli-4-manifesto",
+      "type": "manifesto",
+      "surface": "light",
+      "eyebrow": {
+        "it": "Una lettera"
+      },
+      "opener": {
+        "it": "Una frase di apertura, grande, che dà il tono a tutta la lettera."
+      },
+      "paragraphs": [
+        {
+          "it": "Il primo paragrafo riceve il capolettera in automatico. Racconta perché fate quello che fate, con parole semplici."
+        },
+        {
+          "it": "Il secondo paragrafo aggiunge un dettaglio, un impegno, una promessa."
+        }
+      ],
+      "signoff": {
+        "it": "Studio Esempio"
+      },
+      "image": {
+        "src": "demo-lettera.jpg",
+        "alt": {
+          "it": "Immagine in cornice"
+        }
+      },
+      "corners": "square"
+    },
+    {
+      "id": "moduli-5-services",
+      "type": "services",
+      "surface": "dark",
+      "showSign": true,
+      "eyebrow": {
+        "it": "Cosa facciamo"
+      },
+      "title": {
+        "it": "Tre schede con immagine"
+      },
+      "lead": {
+        "it": "Da una a sei schede, di base con la sagoma ad arco. Gli angoli si cambiano dal campo «Angoli delle immagini»."
+      },
+      "items": [
+        {
+          "image": {
+            "src": "demo-1.jpg",
+            "alt": {
+              "it": "Primo servizio"
+            }
+          },
+          "title": {
+            "it": "Primo servizio"
+          },
+          "text": {
+            "it": "Una breve descrizione del servizio, in due righe."
+          }
+        },
+        {
+          "image": {
+            "src": "demo-2.jpg",
+            "alt": {
+              "it": "Secondo servizio"
+            }
+          },
+          "title": {
+            "it": "Secondo servizio"
+          },
+          "text": {
+            "it": "Una breve descrizione del servizio, in due righe."
+          }
+        },
+        {
+          "image": {
+            "src": "demo-3.jpg",
+            "alt": {
+              "it": "Terzo servizio"
+            }
+          },
+          "title": {
+            "it": "Terzo servizio"
+          },
+          "text": {
+            "it": "Una breve descrizione del servizio, in due righe."
+          }
+        }
+      ],
+      "corners": "arch"
+    },
+    {
+      "id": "moduli-6-services",
+      "type": "services",
+      "surface": "light",
+      "showSign": false,
+      "eyebrow": {
+        "it": "Stessa scheda"
+      },
+      "title": {
+        "it": "Con angoli arrotondati"
+      },
+      "items": [
+        {
+          "image": {
+            "src": "demo-4.jpg",
+            "alt": {
+              "it": "Immagine"
+            }
+          },
+          "title": {
+            "it": "Angoli morbidi"
+          },
+          "text": {
+            "it": "Con «Arrotondati» le immagini perdono lo spigolo."
+          }
+        },
+        {
+          "image": {
+            "src": "demo-5.jpg",
+            "alt": {
+              "it": "Immagine"
+            }
+          },
+          "title": {
+            "it": "Spaziatura ridotta"
+          },
+          "text": {
+            "it": "Questa sezione ha meno spazio sopra e sotto."
+          }
+        }
+      ],
+      "corners": "round-md",
+      "padding": {
+        "top": "sm",
+        "bottom": "sm"
+      }
+    },
+    {
+      "id": "moduli-7-seasons",
+      "type": "seasons",
+      "eyebrow": {
+        "it": "Due facce"
+      },
+      "title": {
+        "it": "Il dittico"
+      },
+      "halves": [
+        {
+          "tone": "cool",
+          "kicker": {
+            "it": "Prima metà"
+          },
+          "title": {
+            "it": "Inverno"
+          },
+          "image": {
+            "src": "demo-fredda.jpg",
+            "alt": {
+              "it": "Immagine fredda"
+            }
+          },
+          "focus": {
+            "it": "Una riga di apertura per questa metà."
+          },
+          "items": [
+            {
+              "it": "Voce uno"
+            },
+            {
+              "it": "Voce due"
+            },
+            {
+              "it": "Voce tre"
+            }
+          ],
+          "whereText": {
+            "it": "Dove: in montagna"
+          }
+        },
+        {
+          "tone": "warm",
+          "kicker": {
+            "it": "Seconda metà"
+          },
+          "title": {
+            "it": "Estate"
+          },
+          "image": {
+            "src": "demo-calda.jpg",
+            "alt": {
+              "it": "Immagine calda"
+            }
+          },
+          "focus": {
+            "it": "Una riga di apertura per questa metà."
+          },
+          "items": [
+            {
+              "it": "Voce uno"
+            },
+            {
+              "it": "Voce due"
+            },
+            {
+              "it": "Voce tre"
+            }
+          ],
+          "whereText": {
+            "it": "Dove: sul lago"
+          }
+        }
+      ],
+      "placesIntro": {
+        "it": "Da qui al mondo"
+      },
+      "placesList": [
+        {
+          "it": "Lugano"
+        },
+        {
+          "it": "Zurigo"
+        },
+        {
+          "it": "Milano"
+        }
+      ],
+      "corners": "square"
+    },
+    {
+      "id": "moduli-8-protocols",
+      "type": "protocols",
+      "surface": "light",
+      "eyebrow": {
+        "it": "Il metodo"
+      },
+      "title": {
+        "it": "Tre colonne con elenco"
+      },
+      "lead": {
+        "it": "Immagine, etichetta, testo e un elenco puntato in ogni colonna."
+      },
+      "items": [
+        {
+          "image": {
+            "src": "demo-6.jpg",
+            "alt": {
+              "it": "Immagine"
+            }
+          },
+          "tag": {
+            "it": "Di base"
+          },
+          "title": {
+            "it": "Primo passo"
+          },
+          "text": {
+            "it": "Cosa succede in questa fase."
+          },
+          "points": [
+            {
+              "it": "Punto uno"
+            },
+            {
+              "it": "Punto due"
+            },
+            {
+              "it": "Punto tre"
+            }
+          ]
+        },
+        {
+          "image": {
+            "src": "demo-7.jpg",
+            "alt": {
+              "it": "Immagine"
+            }
+          },
+          "tag": {
+            "it": "Su richiesta"
+          },
+          "title": {
+            "it": "Secondo passo"
+          },
+          "text": {
+            "it": "Cosa succede in questa fase."
+          },
+          "points": [
+            {
+              "it": "Punto uno"
+            },
+            {
+              "it": "Punto due"
+            },
+            {
+              "it": "Punto tre"
+            }
+          ]
+        },
+        {
+          "image": {
+            "src": "demo-1.jpg",
+            "alt": {
+              "it": "Immagine"
+            }
+          },
+          "tag": {
+            "it": "Dedicato"
+          },
+          "title": {
+            "it": "Terzo passo"
+          },
+          "text": {
+            "it": "Cosa succede in questa fase."
+          },
+          "points": [
+            {
+              "it": "Punto uno"
+            },
+            {
+              "it": "Punto due"
+            },
+            {
+              "it": "Punto tre"
+            }
+          ]
+        }
+      ],
+      "corners": "round-lg"
+    },
+    {
+      "id": "moduli-9-technical-direction",
+      "type": "technical-direction",
+      "surface": "dark",
+      "lockedImage": {
+        "src": "demo-ritratto.jpg",
+        "alt": {
+          "it": "Teaser sfocato"
+        }
+      },
+      "lockedLabel": {
+        "it": "Area riservata"
+      },
+      "lockedText": {
+        "it": "Un teaser che porta a un'altra pagina."
+      },
+      "lockedLinkLabel": {
+        "it": "Entra"
+      },
+      "lockedLink": {
+        "type": "page",
+        "page": "contatti"
+      },
+      "eyebrow": {
+        "it": "Il profilo"
+      },
+      "title": {
+        "it": "Profilo con certificazioni"
+      },
+      "lead": {
+        "it": "Un testo introduttivo, qualche riga."
+      },
+      "bio": {
+        "it": "Una breve biografia, con i fatti essenziali."
+      },
+      "certifications": [
+        {
+          "title": {
+            "it": "Certificazione A"
+          },
+          "text": {
+            "it": "Breve descrizione."
+          }
+        },
+        {
+          "title": {
+            "it": "Certificazione B"
+          },
+          "text": {
+            "it": "Breve descrizione."
+          }
+        }
+      ],
+      "languages": {
+        "it": "Italiano | English | Deutsch"
+      },
+      "pillars": [
+        {
+          "title": {
+            "it": "Primo pilastro"
+          },
+          "text": {
+            "it": "Una riga di spiegazione."
+          }
+        },
+        {
+          "title": {
+            "it": "Secondo pilastro"
+          },
+          "text": {
+            "it": "Una riga di spiegazione."
+          }
+        },
+        {
+          "title": {
+            "it": "Terzo pilastro"
+          },
+          "text": {
+            "it": "Una riga di spiegazione."
+          }
+        },
+        {
+          "title": {
+            "it": "Quarto pilastro"
+          },
+          "text": {
+            "it": "Una riga di spiegazione."
+          }
+        }
+      ],
+      "corners": "arch"
+    },
+    {
+      "id": "moduli-10-heritage",
+      "type": "heritage",
+      "surface": "dark",
+      "eyebrow": {
+        "it": "Le radici"
+      },
+      "image": {
+        "src": "demo-archivio.jpg",
+        "alt": {
+          "it": "Fotografia d'archivio"
+        }
+      },
+      "caption": {
+        "it": "Archivio di famiglia"
+      },
+      "quote": {
+        "it": "Una citazione che racconta da dove si viene."
+      },
+      "text": {
+        "it": "Un testo breve che accompagna la fotografia."
+      },
+      "corners": "arch"
+    },
+    {
+      "id": "moduli-11-discretion",
+      "type": "discretion",
+      "surface": "brand",
+      "eyebrow": {
+        "it": "Una promessa"
+      },
+      "lead": {
+        "it": "Una domanda o un'affermazione che introduce la risposta."
+      },
+      "answer": {
+        "it": "Ecco la risposta."
+      },
+      "lines": [
+        {
+          "it": "Una riga di dettaglio, a sinistra."
+        },
+        {
+          "it": "Una riga di dettaglio, a destra."
+        }
+      ]
+    },
+    {
+      "id": "moduli-12-faq",
+      "type": "faq",
+      "surface": "light",
+      "eyebrow": {
+        "it": "Domande"
+      },
+      "title": {
+        "it": "Domande frequenti"
+      },
+      "firstOpen": true,
+      "items": [
+        {
+          "question": {
+            "it": "Come funziona?"
+          },
+          "answer": {
+            "it": "Si apre e si chiude con un clic."
+          }
+        },
+        {
+          "question": {
+            "it": "Posso aggiungere altre domande?"
+          },
+          "answer": {
+            "it": "Sì, quante ne servono."
+          }
+        }
+      ]
+    },
+    {
+      "id": "moduli-13-partners",
+      "type": "partners",
+      "surface": "dark",
+      "eyebrow": {
+        "it": "Rete"
+      },
+      "title": {
+        "it": "Partner"
+      },
+      "lead": {
+        "it": "Oltre i cinque partner l'elenco diventa scorrevole."
+      },
+      "items": [
+        {
+          "name": {
+            "it": "Partner 1"
+          },
+          "url": "https://www.esempio.ch",
+          "domainLabel": {
+            "it": "esempio.ch"
+          }
+        },
+        {
+          "name": {
+            "it": "Partner 2"
+          },
+          "url": "https://www.esempio.ch",
+          "domainLabel": {
+            "it": "esempio.ch"
+          }
+        },
+        {
+          "name": {
+            "it": "Partner 3"
+          },
+          "url": "https://www.esempio.ch",
+          "domainLabel": {
+            "it": "esempio.ch"
+          }
+        }
+      ]
+    },
+    {
+      "id": "moduli-14-slider",
+      "type": "slider",
+      "surface": "light",
+      "eyebrow": {
+        "it": "Galleria"
+      },
+      "title": {
+        "it": "Slider di immagini"
+      },
+      "lead": {
+        "it": "Scegli quante immagini vedere insieme su desktop, tablet e mobile."
+      },
+      "perView": {
+        "desktop": 3,
+        "tablet": 2,
+        "mobile": 1
+      },
+      "gap": "md",
+      "aspect": "4/3",
+      "corners": "round-md",
+      "arrows": true,
+      "dots": true,
+      "autoplay": false,
+      "interval": 5,
+      "items": [
+        {
+          "image": {
+            "src": "demo-1.jpg",
+            "alt": {
+              "it": "Immagine di esempio"
+            }
+          },
+          "caption": {
+            "it": "Didascalia 1"
+          }
+        },
+        {
+          "image": {
+            "src": "demo-2.jpg",
+            "alt": {
+              "it": "Immagine di esempio"
+            }
+          },
+          "caption": {
+            "it": "Didascalia 2"
+          }
+        },
+        {
+          "image": {
+            "src": "demo-3.jpg",
+            "alt": {
+              "it": "Immagine di esempio"
+            }
+          },
+          "caption": {
+            "it": "Didascalia 3"
+          }
+        },
+        {
+          "image": {
+            "src": "demo-4.jpg",
+            "alt": {
+              "it": "Immagine di esempio"
+            }
+          },
+          "caption": {
+            "it": "Didascalia 4"
+          }
+        },
+        {
+          "image": {
+            "src": "demo-5.jpg",
+            "alt": {
+              "it": "Immagine di esempio"
+            }
+          },
+          "caption": {
+            "it": "Didascalia 5"
+          }
+        },
+        {
+          "image": {
+            "src": "demo-6.jpg",
+            "alt": {
+              "it": "Immagine di esempio"
+            }
+          },
+          "caption": {
+            "it": "Didascalia 6"
+          }
+        }
+      ],
+      "anchor": "slider"
+    },
+    {
+      "id": "moduli-15-slider",
+      "type": "slider",
+      "surface": "dark",
+      "gap": "sm",
+      "aspect": "1/1",
+      "corners": "round-lg",
+      "perView": {
+        "desktop": 5,
+        "tablet": 3,
+        "mobile": 2
+      },
+      "arrows": true,
+      "dots": false,
+      "autoplay": true,
+      "interval": 4,
+      "items": [
+        {
+          "image": {
+            "src": "demo-7.jpg",
+            "alt": {
+              "it": "Immagine di esempio"
+            }
+          }
+        },
+        {
+          "image": {
+            "src": "demo-6.jpg",
+            "alt": {
+              "it": "Immagine di esempio"
+            }
+          }
+        },
+        {
+          "image": {
+            "src": "demo-5.jpg",
+            "alt": {
+              "it": "Immagine di esempio"
+            }
+          }
+        },
+        {
+          "image": {
+            "src": "demo-4.jpg",
+            "alt": {
+              "it": "Immagine di esempio"
+            }
+          }
+        },
+        {
+          "image": {
+            "src": "demo-3.jpg",
+            "alt": {
+              "it": "Immagine di esempio"
+            }
+          }
+        },
+        {
+          "image": {
+            "src": "demo-2.jpg",
+            "alt": {
+              "it": "Immagine di esempio"
+            }
+          }
+        },
+        {
+          "image": {
+            "src": "demo-1.jpg",
+            "alt": {
+              "it": "Immagine di esempio"
+            }
+          }
+        }
+      ],
+      "padding": {
+        "top": "sm",
+        "bottom": "sm"
+      }
+    },
+    {
+      "id": "moduli-16-founder",
+      "type": "founder",
+      "surface": "dark",
+      "portraitImage": {
+        "src": "demo-ritratto.jpg",
+        "alt": {
+          "it": "Ritratto"
+        }
+      },
+      "eyebrow": {
+        "it": "Chi siamo"
+      },
+      "name": {
+        "it": "Nome Cognome"
+      },
+      "role": {
+        "it": "Ruolo e una riga di presentazione."
+      },
+      "credentials": [
+        {
+          "it": "Credenziale uno"
+        },
+        {
+          "it": "Credenziale due"
+        },
+        {
+          "it": "Credenziale tre"
+        }
+      ],
+      "corners": "arch"
+    },
+    {
+      "id": "moduli-17-story",
+      "type": "story",
+      "surface": "light",
+      "eyebrow": {
+        "it": "La storia"
+      },
+      "title": {
+        "it": "Storia con linea del tempo"
+      },
+      "paragraphs": [
+        {
+          "it": "Un paragrafo che racconta il percorso."
+        },
+        {
+          "it": "Un secondo paragrafo, se serve."
+        }
+      ],
+      "timeline": [
+        {
+          "label": {
+            "it": "2010"
+          },
+          "text": {
+            "it": "Inizio dell'attività"
+          }
+        },
+        {
+          "label": {
+            "it": "2018"
+          },
+          "text": {
+            "it": "Nuova sede"
+          }
+        },
+        {
+          "label": {
+            "it": "2026"
+          },
+          "text": {
+            "it": "Oggi"
+          }
+        }
+      ]
+    },
+    {
+      "id": "moduli-18-certifications-full",
+      "type": "certifications-full",
+      "surface": "dark",
+      "eyebrow": {
+        "it": "Riconoscimenti"
+      },
+      "title": {
+        "it": "Certificazioni"
+      },
+      "lead": {
+        "it": "Ogni voce può avere un link."
+      },
+      "items": [
+        {
+          "title": {
+            "it": "Certificazione A"
+          },
+          "text": {
+            "it": "Breve descrizione."
+          },
+          "linkLabel": {
+            "it": "Vedi"
+          },
+          "link": {
+            "type": "url",
+            "url": "https://www.esempio.ch"
+          }
+        },
+        {
+          "title": {
+            "it": "Certificazione B"
+          },
+          "text": {
+            "it": "Breve descrizione."
+          },
+          "linkLabel": {
+            "it": "Vedi"
+          },
+          "link": {
+            "type": "url",
+            "url": "https://www.esempio.ch"
+          }
+        },
+        {
+          "title": {
+            "it": "Certificazione C"
+          },
+          "text": {
+            "it": "Breve descrizione."
+          },
+          "linkLabel": {
+            "it": "Vedi"
+          },
+          "link": {
+            "type": "url",
+            "url": "https://www.esempio.ch"
+          }
+        },
+        {
+          "title": {
+            "it": "Certificazione D"
+          },
+          "text": {
+            "it": "Breve descrizione."
+          },
+          "linkLabel": {
+            "it": "Vedi"
+          },
+          "link": {
+            "type": "url",
+            "url": "https://www.esempio.ch"
+          }
+        }
+      ]
+    },
+    {
+      "id": "moduli-19-bespoke-services",
+      "type": "bespoke-services",
+      "surface": "light",
+      "eyebrow": {
+        "it": "Su misura"
+      },
+      "title": {
+        "it": "Griglia di servizi"
+      },
+      "items": [
+        {
+          "title": {
+            "it": "Servizio 1"
+          },
+          "text": {
+            "it": "Breve descrizione."
+          }
+        },
+        {
+          "title": {
+            "it": "Servizio 2"
+          },
+          "text": {
+            "it": "Breve descrizione."
+          }
+        },
+        {
+          "title": {
+            "it": "Servizio 3"
+          },
+          "text": {
+            "it": "Breve descrizione."
+          }
+        },
+        {
+          "title": {
+            "it": "Servizio 4"
+          },
+          "text": {
+            "it": "Breve descrizione."
+          }
+        },
+        {
+          "title": {
+            "it": "Servizio 5"
+          },
+          "text": {
+            "it": "Breve descrizione."
+          }
+        }
+      ],
+      "darkItem": {
+        "visible": true,
+        "title": {
+          "it": "Servizio speciale"
+        },
+        "text": {
+          "it": "La casella scura in evidenza."
+        }
+      },
+      "giftFrom": {
+        "it": "Da Studio Esempio a te"
+      },
+      "giftSeason": {
+        "it": "Edizione 2026"
+      }
+    },
+    {
+      "id": "moduli-20-contact",
+      "type": "contact",
+      "eyebrow": {
+        "it": "Parliamone"
+      },
+      "title": {
+        "it": "Contatto con foto"
+      },
+      "lead": {
+        "it": "Un invito a scrivere, e un pulsante."
+      },
+      "backgroundImage": {
+        "src": "demo-notte.jpg",
+        "alt": {
+          "it": "Sfondo"
+        }
+      },
+      "button": {
+        "label": {
+          "it": "Scrivici"
+        },
+        "link": {
+          "type": "page",
+          "page": "contatti"
+        },
+        "style": "primary"
+      },
+      "languages": {
+        "it": "Italiano | English"
+      },
+      "noteLines": [
+        {
+          "it": "Rispondiamo entro un giorno lavorativo."
+        }
+      ],
+      "showSign": true,
+      "corners": "square"
+    },
+    {
+      "id": "moduli-21-direct-line",
+      "type": "direct-line",
+      "eyebrow": {
+        "it": "Contatto diretto"
+      },
+      "title": {
+        "it": "Senza foto"
+      },
+      "lead": {
+        "it": "Stessa composizione del contatto, ma su fondo pieno."
+      },
+      "button": {
+        "label": {
+          "it": "Scrivici"
+        },
+        "link": {
+          "type": "page",
+          "page": "contatti"
+        },
+        "style": "primary"
+      },
+      "email": "info@esempio.ch",
+      "showSign": true
+    }
+  ],
+  "footer": "minimale"
+}

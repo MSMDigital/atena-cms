@@ -1,0 +1,187 @@
+{
+  "title": "Footer",
+  "type": "object",
+  "properties": {
+    "surface": {
+      "title": "Superficie",
+      "enum": [
+        "light",
+        "dark",
+        "brand"
+      ],
+      "default": "dark",
+      "description": "Colore di fondo: chiaro, scuro o colore del marchio (si cambiano da Stile)."
+    },
+    "text": {
+      "$ref": "https://atena.cms/schema/common.json#/$defs/text",
+      "title": "Testo"
+    },
+    "columns": {
+      "title": "Colonne di link (facoltative)",
+      "type": "array",
+      "maxItems": 4,
+      "items": {
+        "type": "object",
+        "properties": {
+          "title": {
+            "$ref": "https://atena.cms/schema/common.json#/$defs/text",
+            "title": "Titolo della colonna"
+          },
+          "links": {
+            "title": "Link",
+            "type": "array",
+            "minItems": 1,
+            "maxItems": 10,
+            "items": {
+              "type": "object",
+              "properties": {
+                "label": {
+                  "$ref": "https://atena.cms/schema/common.json#/$defs/text",
+                  "title": "Etichetta"
+                },
+                "link": {
+                  "$ref": "https://atena.cms/schema/common.json#/$defs/link",
+                  "title": "Link"
+                },
+                "cssClass": {
+                  "type": "string",
+                  "title": "Classe CSS (facoltativa)",
+                  "description": "Una o più classi (separate da spazio) aggiunte alla voce, per darle uno stile o un comportamento particolare. Solo lettere, numeri, trattini e underscore.",
+                  "pattern": "^[A-Za-z0-9_ -]{1,120}$",
+                  "maxLength": 120
+                }
+              },
+              "required": [
+                "label",
+                "link"
+              ],
+              "additionalProperties": false
+            }
+          }
+        },
+        "required": [
+          "links"
+        ],
+        "additionalProperties": false
+      }
+    },
+    "legal": {
+      "title": "Link legali (privacy, note legali…)",
+      "type": "array",
+      "maxItems": 8,
+      "items": {
+        "type": "object",
+        "properties": {
+          "label": {
+            "$ref": "https://atena.cms/schema/common.json#/$defs/text",
+            "title": "Etichetta"
+          },
+          "link": {
+            "$ref": "https://atena.cms/schema/common.json#/$defs/link",
+            "title": "Link"
+          },
+          "cssClass": {
+            "type": "string",
+            "title": "Classe CSS (facoltativa)",
+            "description": "Una o più classi (separate da spazio) aggiunte alla voce, per darle uno stile o un comportamento particolare. Solo lettere, numeri, trattini e underscore.",
+            "pattern": "^[A-Za-z0-9_ -]{1,120}$",
+            "maxLength": 120
+          }
+        },
+        "required": [
+          "label",
+          "link"
+        ],
+        "additionalProperties": false
+      }
+    },
+    "showCookiePreferences": {
+      "title": "Mostra «Preferenze cookie»",
+      "type": "boolean",
+      "default": true
+    },
+    "brandTitle": {
+      "$ref": "https://atena.cms/schema/common.json#/$defs/text",
+      "title": "Nome grande (facoltativo)"
+    },
+    "intro": {
+      "$ref": "https://atena.cms/schema/common.json#/$defs/textLong",
+      "title": "Presentazione (facoltativa)"
+    },
+    "logos": {
+      "title": "Loghi (facoltativi)",
+      "type": "array",
+      "maxItems": 4,
+      "items": {
+        "type": "object",
+        "properties": {
+          "image": {
+            "$ref": "https://atena.cms/schema/common.json#/$defs/image",
+            "title": "Logo"
+          },
+          "link": {
+            "$ref": "https://atena.cms/schema/common.json#/$defs/link",
+            "title": "Link (facoltativo)"
+          }
+        },
+        "required": [
+          "image"
+        ],
+        "additionalProperties": false
+      }
+    },
+    "tagline": {
+      "$ref": "https://atena.cms/schema/common.json#/$defs/text",
+      "title": "Frase sotto i loghi (facoltativa)"
+    },
+    "socialTitle": {
+      "$ref": "https://atena.cms/schema/common.json#/$defs/text",
+      "title": "Titolo dei social (es. «Seguimi»)"
+    },
+    "socials": {
+      "title": "Social",
+      "type": "array",
+      "maxItems": 8,
+      "items": {
+        "type": "object",
+        "properties": {
+          "label": {
+            "$ref": "https://atena.cms/schema/common.json#/$defs/text",
+            "title": "Nome del social"
+          },
+          "network": {
+            "title": "Icona",
+            "enum": [
+              "linkedin",
+              "instagram",
+              "tiktok",
+              "youtube",
+              "amazon",
+              "google",
+              "facebook",
+              "email"
+            ]
+          },
+          "link": {
+            "$ref": "https://atena.cms/schema/common.json#/$defs/link",
+            "title": "Link"
+          }
+        },
+        "required": [
+          "label",
+          "network",
+          "link"
+        ],
+        "additionalProperties": false
+      }
+    },
+    "signature": {
+      "$ref": "https://atena.cms/schema/common.json#/$defs/textLong",
+      "title": "Firma sotto i social (a capo con Invio, facoltativa)"
+    }
+  },
+  "required": [
+    "text"
+  ],
+  "additionalProperties": false
+}

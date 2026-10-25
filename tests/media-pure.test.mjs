@@ -3,6 +3,7 @@ import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import os from 'node:os';
 import path from 'node:path';
+import { fileURLToPath } from 'node:url';
 import sharp from 'sharp';
 import { imageSize } from '../render/image-size.mjs';
 import { collectImageRefs } from '../render/images.mjs';
@@ -10,9 +11,8 @@ import { buildSite, BuildError } from '../render/build.mjs';
 import { loadData } from '../render/context.mjs';
 import { isSameOrigin } from '../lib/origin.mjs';
 
-const ROOT = path.resolve(new URL('..', import.meta.url).pathname);
-const TPL = path.join(ROOT, 'templates/mammano');
-const PAGES = fs.readdirSync(path.join(TPL, 'content/pages')).filter((f) => f.endsWith('.json')).length;
+const ROOT = path.resolve(fileURLToPath(new URL('..', import.meta.url)));
+const TPL = path.join(ROOT, 'templates/starter');
 const tmp = () => fs.mkdtempSync(path.join(os.tmpdir(), 'cms-media-'));
 const px = (w, h) => ({ create: { width: w, height: h, channels: 3, background: { r: 200, g: 80, b: 40 } } });
 
@@ -67,10 +67,12 @@ test('controllo dell\'origine: solo la stessa origine dell\'app', () => {
 
 const withBlock = (data, block, status = 'published') => {
   const d = structuredClone(data);
-  d.pages.find((p) => p.key === 'chi-siamo').blocks.push(block);
-  d.pages.find((p) => p.key === 'chi-siamo').status = status;
+  d.pages.find((p) => p.key === 'contatti').blocks.push(block);
+  d.pages.find((p) => p.key === 'contatti').status = status;
   return d;
 };
+// Quante pagine produce il sito di starter così com'è (pagine pubblicate, articoli, tag...): il riferimento per i conti qui sotto.
+const baseline = async () => (await buildSite(loadData(TPL), { outDir: path.join(tmp(), 'dist'), assetsDir: path.join(TPL, 'assets'), mediaDir: tmp() })).pages;
 const wide = (src) => ({ id: 'wide-test', type: 'wide-image', image: { src, alt: { it: 'Prova' } } });
 
 test('build: si pubblicano solo i caricamenti usati, con le dimensioni nell\'HTML', async () => {
@@ -79,10 +81,10 @@ test('build: si pubblicano solo i caricamenti usati, con le dimensioni nell\'HTM
   fs.writeFileSync(path.join(media, 'uploads/usata-abc.webp'), await sharp(px(640, 360)).webp().toBuffer());
   fs.writeFileSync(path.join(media, 'uploads/non-usata-def.webp'), await sharp(px(50, 50)).webp().toBuffer());
   const r = await buildSite(withBlock(loadData(TPL), wide('uploads/usata-abc.webp')), { outDir: out, assetsDir: path.join(TPL, 'assets'), mediaDir: media });
-  assert.equal(r.pages, PAGES);
+  assert.equal(r.pages, await baseline());
   assert.ok(fs.existsSync(path.join(out, 'assets/img/uploads/usata-abc.webp')), 'l\'immagine usata viene copiata');
   assert.equal(fs.existsSync(path.join(out, 'assets/img/uploads/non-usata-def.webp')), false, 'quella non usata no: non deve essere pubblica');
-  const html = fs.readFileSync(path.join(out, 'chi-siamo/index.html'), 'utf8');
+  const html = fs.readFileSync(path.join(out, 'contatti/index.html'), 'utf8');
   assert.match(html, /src="\/assets\/img\/uploads\/usata-abc\.webp"[^>]*width="640" height="360"/);
 });
 
@@ -100,7 +102,7 @@ test('build: un\'immagine mancante blocca la pubblicazione e non tocca l\'output
 test('build: un\'immagine mancante in una pagina in bozza non blocca il resto del sito', async () => {
   const out = path.join(tmp(), 'dist');
   const r = await buildSite(withBlock(loadData(TPL), wide('uploads/mancante-in-bozza.webp'), 'draft'), { outDir: out, assetsDir: path.join(TPL, 'assets'), mediaDir: tmp() });
-  assert.equal(r.pages, PAGES - 1, 'la pagina in bozza non viene costruita');
+  assert.equal(r.pages, (await baseline()) - 1, 'la pagina in bozza non viene costruita');
 });
 
 test('build: un percorso che tenta di uscire dalla cartella dei caricamenti è considerato mancante', async () => {

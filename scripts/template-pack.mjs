@@ -4,9 +4,11 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { packTemplate, validateTemplateDir } from '../lib/template-install.mjs';
 import { stopRenderers } from '../render/host.mjs';
+import { ensureKit } from '../lib/template-kit.mjs';
 
 const dir = process.argv[2];
 if (!dir) { console.error('uso: node scripts/template-pack.mjs <cartella-del-template> [file.zip]'); process.exit(1); }
+ensureKit(path.resolve(dir));   // il template può stare fuori da templates/ (es. template-library/): serve il suo @cms/kit
 const check = await validateTemplateDir(path.resolve(dir));
 stopRenderers();
 if (check.errors.length) { console.error(`Il template non è valido:\n - ${check.errors.join('\n - ')}`); process.exit(1); }

@@ -1,0 +1,142 @@
+{
+  "properties": {
+    "brand": {
+      "title": "Marchio",
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "minLength": 1,
+          "title": "Nome"
+        },
+        "logo": {
+          "title": "Logo (facoltativo)",
+          "type": "string",
+          "pattern": "^(?!.*\\.\\.)(?!.*//)(?:[a-zA-Z0-9][a-zA-Z0-9_./-]*)?$",
+          "x-widget": "media",
+          "description": "Se c'è, compare nell'header e nel footer al posto del nome e dello slogan. Meglio un PNG o un SVG con sfondo trasparente."
+        },
+        "tagline": {
+          "$ref": "https://atena.cms/schema/common.json#/$defs/text",
+          "title": "Slogan"
+        },
+        "sign": {
+          "title": "Segno/icona separatore (facoltativo)",
+          "type": "string",
+          "pattern": "^(?!.*\\.\\.)(?!.*//)(?:[a-zA-Z0-9][a-zA-Z0-9_./-]*)?$",
+          "x-widget": "media",
+          "description": "Piccola icona usata come separatore tra capitoli da alcuni moduli (Schede con immagine, Lettera, Contatto...). Se vuota, i moduli la omettono."
+        }
+      },
+      "required": [
+        "name"
+      ],
+      "additionalProperties": false
+    },
+    "nav": {
+      "title": "Menu (usato solo se non ci sono header)",
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "properties": {
+          "label": {
+            "$ref": "https://atena.cms/schema/common.json#/$defs/text",
+            "title": "Etichetta"
+          },
+          "link": {
+            "$ref": "https://atena.cms/schema/common.json#/$defs/link",
+            "title": "Link"
+          }
+        },
+        "required": [
+          "label",
+          "link"
+        ],
+        "additionalProperties": false
+      }
+    },
+    "footer": {
+      "title": "Piè di pagina (usato solo se non ci sono footer)",
+      "type": "object",
+      "properties": {
+        "text": {
+          "$ref": "https://atena.cms/schema/common.json#/$defs/text",
+          "title": "Testo"
+        },
+        "legal": {
+          "title": "Link legali",
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "label": {
+                "$ref": "https://atena.cms/schema/common.json#/$defs/text",
+                "title": "Etichetta"
+              },
+              "link": {
+                "$ref": "https://atena.cms/schema/common.json#/$defs/link",
+                "title": "Link"
+              }
+            },
+            "required": [
+              "label",
+              "link"
+            ],
+            "additionalProperties": false
+          }
+        }
+      },
+      "required": [
+        "text"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "required": [
+    "brand"
+  ],
+  "strings": {
+    "properties": {
+      "skipLink": {
+        "$ref": "https://atena.cms/schema/common.json#/$defs/text",
+        "title": "skipLink"
+      },
+      "navLabel": {
+        "$ref": "https://atena.cms/schema/common.json#/$defs/text",
+        "title": "navLabel"
+      },
+      "optionalSuffix": {
+        "$ref": "https://atena.cms/schema/common.json#/$defs/text",
+        "title": "optionalSuffix"
+      },
+      "selectPlaceholder": {
+        "$ref": "https://atena.cms/schema/common.json#/$defs/text",
+        "title": "selectPlaceholder"
+      },
+      "formError": {
+        "$ref": "https://atena.cms/schema/common.json#/$defs/text",
+        "title": "formError"
+      },
+      "breadcrumbHome": {
+        "$ref": "https://atena.cms/schema/common.json#/$defs/text",
+        "title": "breadcrumbHome"
+      },
+      "breadcrumbLabel": {
+        "$ref": "https://atena.cms/schema/common.json#/$defs/text",
+        "title": "breadcrumbLabel"
+      },
+      "summaryTitle": {
+        "$ref": "https://atena.cms/schema/common.json#/$defs/text",
+        "title": "summaryTitle"
+      }
+    },
+    "required": [
+      "skipLink",
+      "navLabel",
+      "optionalSuffix",
+      "selectPlaceholder",
+      "formError"
+    ]
+  }
+}

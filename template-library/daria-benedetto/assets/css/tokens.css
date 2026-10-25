@@ -1,0 +1,103 @@
+/* GENERATO da scripts/build-tokens.mjs a partire da tokens.json. Non modificare a mano. */
+
+:root {
+  --c-brand: #B9472B;
+  --c-brand-hover: color-mix(in srgb, var(--c-brand) 74%, #000);
+  --c-brand-tint: #D45C3E;
+  --c-whatsapp: #1fa855;
+  --on-brand: #123A42;
+  --on-brand-soft: #2B4E55;
+
+  --font-body: "DM Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-heading: "Outfit", system-ui, -apple-system, "Segoe UI", sans-serif;
+
+  --fs-h1: clamp(2.375rem, 1.7714rem + 2.4762vw, 4.25rem);
+  --fw-h1: 500;
+  --lh-h1: 1.05;
+  --ls-h1: -0.02em;
+  --fs-h2: clamp(1.875rem, 1.5036rem + 1.5238vw, 3.125rem);
+  --fw-h2: 500;
+  --lh-h2: 1.1;
+  --ls-h2: -0.015em;
+  --fs-h3: clamp(1.375rem, 1.1893rem + 0.7619vw, 2rem);
+  --fw-h3: 500;
+  --lh-h3: 1.18;
+  --ls-h3: -0.01em;
+  --fs-h4: clamp(1.1875rem, 1.0946rem + 0.381vw, 1.4375rem);
+  --fw-h4: 500;
+  --lh-h4: 1.25;
+  --ls-h4: -0.005em;
+  --fs-h5: clamp(1.0625rem, 1.0161rem + 0.1905vw, 1.1875rem);
+  --fw-h5: 600;
+  --lh-h5: 1.3;
+  --ls-h5: 0em;
+  --fs-h6: clamp(0.9375rem, 0.9143rem + 0.0952vw, 1rem);
+  --fw-h6: 700;
+  --lh-h6: 1.3;
+  --ls-h6: 0.12em;
+  --fs-lead: clamp(1.125rem, 1.0554rem + 0.2857vw, 1.3125rem);
+  --fw-lead: 400;
+  --lh-lead: 1.55;
+  --ls-lead: 0em;
+  --fs-body: clamp(1.0625rem, 1.0393rem + 0.0952vw, 1.125rem);
+  --fw-body: 400;
+  --lh-body: 1.65;
+  --ls-body: 0em;
+  --fs-small: 0.9375rem;
+  --fs-xs: 0.8125rem;
+  --fs-micro: 0.75rem;
+
+  --fs-display-hero: clamp(2.375rem, 1.7714rem + 2.4762vw, 4.25rem);
+  --fs-display-marquee: clamp(1.5rem, 1.1286rem + 1.5238vw, 2.5rem);
+  --fs-display-list: clamp(1.375rem, 1.1893rem + 0.7619vw, 2rem);
+  --fs-display-split: clamp(1.75rem, 1.425rem + 1.3333vw, 2.625rem);
+  --fs-display-cta: clamp(1.75rem, 1.3321rem + 1.7143vw, 3.125rem);
+  --fs-display-cta-word: clamp(6rem, 3.7714rem + 9.1429vw, 15rem);
+  --fs-display-zones: clamp(1.75rem, 1.2393rem + 2.0952vw, 3.125rem);
+  --fs-display-quote: clamp(1.5rem, 1.2214rem + 1.1429vw, 2.25rem);
+  --fs-display-footer: clamp(1.625rem, 1.5321rem + 0.381vw, 1.875rem);
+  --fs-display-number: clamp(5.5rem, 4.5714rem + 3.8095vw, 8.5rem);
+  --fs-display-point-number: clamp(1.875rem, 1.55rem + 1.3333vw, 2.75rem);
+
+  --btn-radius: 999px;
+  --btn-height: 52px;
+  --btn-weight: 600;
+
+  --maxw: 1280px;
+  --gutter: clamp(1.25rem, .5rem + 2.5vw, 2rem);
+  --section: clamp(3.5rem, 2rem + 6vw, 7rem);
+  --header-h: 84px;
+}
+@media (max-width: 1024px) { :root { --header-h: 72px; } }
+
+:root,
+[data-surface="dark"] {
+  --bg: #123A42;
+  --ink: #FFFFFF;
+  --ink-soft: #D7EEF1;
+  --muted: #9CC4CB;
+  --line: rgba(255,255,255,.16);
+  --rule: #FFFFFF;
+  --accent: #4FB2C2;
+  --fill: var(--c-brand);
+}
+[data-surface="light"] {
+  --bg: #FFFFFF;
+  --ink: #123A42;
+  --ink-soft: #2B4E55;
+  --muted: #3D5F66;
+  --line: rgba(18,58,66,.12);
+  --rule: #123A42;
+  --accent: var(--c-brand);
+  --fill: #123A42;
+}
+[data-surface="brand"] {
+  --bg: #D7EEF1;
+  --ink: #123A42;
+  --ink-soft: #2B4E55;
+  --muted: #3D5F66;
+  --line: rgba(18,58,66,.14);
+  --rule: #123A42;
+  --accent: var(--c-brand);
+  --fill: #123A42;
+}

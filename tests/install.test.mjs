@@ -97,7 +97,7 @@ test('database: connessione, messaggi chiari, tabelle create e ripetibile', { sk
   for (const [k, v] of Object.entries(REAL_DB)) { if (v === undefined) delete process.env[k]; else process.env[k] = v; }
   await setupTestDb();                                  // crea il database di prova e applica le migrazioni
   const { DB_HOST, DB_PORT, DB_USER, DB_PASSWORD } = process.env;
-  const good = { host: DB_HOST ?? '127.0.0.1', port: +DB_PORT, name: 'outsmart_cms_test', user: DB_USER, password: DB_PASSWORD };
+  const good = { host: DB_HOST ?? '127.0.0.1', port: +DB_PORT, name: 'atena_cms_test', user: DB_USER, password: DB_PASSWORD };
   try {
     const again = await I.testAndMigrateDb(good);
     assert.deepEqual([again.ok, again.applied.length], [true, 0], 'database già aggiornato: nulla da applicare');

@@ -1,0 +1,191 @@
+{
+  "title": "Header",
+  "type": "object",
+  "properties": {
+    "brandName": {
+      "type": "string",
+      "title": "Nome / marchio",
+      "minLength": 1,
+      "maxLength": 120,
+      "description": "Testo del marchio a sinistra. Con un logo, resta come testo alternativo."
+    },
+    "logo": {
+      "$ref": "https://atena.cms/schema/common.json#/$defs/image",
+      "title": "Logo (facoltativo)"
+    },
+    "logoLink": {
+      "$ref": "https://atena.cms/schema/common.json#/$defs/link",
+      "title": "Link del logo (facoltativo)",
+      "description": "Dove porta un clic sul logo o sul nome del marchio. Vuoto: la home."
+    },
+    "nav": {
+      "title": "Menu",
+      "type": "array",
+      "maxItems": 12,
+      "items": {
+        "type": "object",
+        "properties": {
+          "label": {
+            "$ref": "https://atena.cms/schema/common.json#/$defs/text",
+            "title": "Etichetta"
+          },
+          "link": {
+            "$ref": "https://atena.cms/schema/common.json#/$defs/link",
+            "title": "Link"
+          },
+          "cssClass": {
+            "type": "string",
+            "title": "Classe CSS (facoltativa)",
+            "description": "Una o più classi (separate da spazio) aggiunte alla voce, per darle uno stile o un comportamento particolare. Solo lettere, numeri, trattini e underscore.",
+            "pattern": "^[A-Za-z0-9_ -]{1,120}$",
+            "maxLength": 120
+          },
+          "menu": {
+            "title": "Tendina (facoltativa)",
+            "description": "Apre un pannello sotto la voce: un link alla pagina e un elenco di voci con icona (per esempio le sessioni prenotabili).",
+            "type": "object",
+            "properties": {
+              "lead": {
+                "$ref": "https://atena.cms/schema/common.json#/$defs/text",
+                "title": "Testo del link in cima",
+                "description": "Vuoto: si usa l'etichetta della voce."
+              },
+              "groupTitle": {
+                "$ref": "https://atena.cms/schema/common.json#/$defs/text",
+                "title": "Titolo del gruppo"
+              },
+              "items": {
+                "title": "Voci",
+                "type": "array",
+                "maxItems": 6,
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "title": {
+                      "$ref": "https://atena.cms/schema/common.json#/$defs/text",
+                      "title": "Titolo"
+                    },
+                    "icon": {
+                      "title": "Icona",
+                      "enum": [
+                        "target",
+                        "sparkle",
+                        "chip",
+                        "graduation",
+                        "people",
+                        "compass",
+                        "flag",
+                        "swap",
+                        "briefcase",
+                        "calendar",
+                        "video",
+                        "moon",
+                        "sun",
+                        "clock",
+                        "gift",
+                        "heart"
+                      ]
+                    },
+                    "duration": {
+                      "$ref": "https://atena.cms/schema/common.json#/$defs/text",
+                      "title": "Durata"
+                    },
+                    "badge": {
+                      "$ref": "https://atena.cms/schema/common.json#/$defs/text",
+                      "title": "Etichetta"
+                    },
+                    "tone": {
+                      "title": "Colori",
+                      "enum": [
+                        "accent",
+                        "sky",
+                        "night",
+                        "ink"
+                      ],
+                      "default": "sky"
+                    },
+                    "link": {
+                      "$ref": "https://atena.cms/schema/common.json#/$defs/link",
+                      "title": "Link"
+                    }
+                  },
+                  "required": [
+                    "title",
+                    "link"
+                  ],
+                  "additionalProperties": false
+                }
+              }
+            },
+            "additionalProperties": false
+          }
+        },
+        "required": [
+          "label",
+          "link"
+        ],
+        "additionalProperties": false
+      }
+    },
+    "mobileMenu": {
+      "title": "Menu a hamburger",
+      "description": "Quando il menu diventa un pulsante a tre righe che apre l'elenco.",
+      "type": "object",
+      "properties": {
+        "mode": {
+          "title": "Quando",
+          "enum": [
+            "breakpoint",
+            "always",
+            "never"
+          ],
+          "default": "breakpoint",
+          "description": "«Sotto una certa larghezza»: hamburger sugli schermi stretti. «Sempre»: hamburger anche su desktop. «Mai»: il menu resta sempre visibile."
+        },
+        "breakpoint": {
+          "title": "Larghezza (px)",
+          "type": "integer",
+          "minimum": 320,
+          "maximum": 1920,
+          "default": 900,
+          "description": "Sotto questa larghezza lo schermo mostra l'hamburger (per esempio 768 per i tablet, 1024 per i portatili piccoli).",
+          "x-when": {
+            "mode": [
+              "breakpoint"
+            ]
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "cta": {
+      "$ref": "https://atena.cms/schema/common.json#/$defs/button",
+      "title": "Pulsante (facoltativo)"
+    },
+    "surface": {
+      "title": "Superficie",
+      "enum": [
+        "light",
+        "dark",
+        "brand"
+      ],
+      "default": "dark",
+      "description": "Colore di fondo: chiaro, scuro o colore del marchio (si cambiano da Stile)."
+    },
+    "sticky": {
+      "title": "Resta in alto mentre si scorre",
+      "type": "boolean",
+      "default": false
+    },
+    "tagline": {
+      "$ref": "https://atena.cms/schema/common.json#/$defs/text",
+      "title": "Sottotitolo (facoltativo)",
+      "description": "Riga piccola in maiuscolo sotto il nome."
+    }
+  },
+  "required": [
+    "brandName",
+    "nav"
+  ],
+  "additionalProperties": false
+}

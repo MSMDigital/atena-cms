@@ -1,3 +1,4 @@
-// Le prove usano il template di Mammano come "contenuto di prova" del motore: si attiva prima di ogni file di test.
+// Le prove usano il template starter come "contenuto di prova" del motore: si attiva prima di ogni file di test.
 import path from 'node:path';
-process.env.CMS_TEMPLATE_DIR = path.resolve(new URL('../templates/mammano', import.meta.url).pathname);
+import { fileURLToPath } from 'node:url';
+process.env.CMS_TEMPLATE_DIR = path.resolve(fileURLToPath(new URL('../templates/starter', import.meta.url)));

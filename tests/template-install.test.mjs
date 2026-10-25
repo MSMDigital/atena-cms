@@ -4,22 +4,28 @@ import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import os from 'node:os';
 import path from 'node:path';
+import { fileURLToPath } from 'node:url';
 import { unzipSync, zipSync, strToU8 } from 'fflate';
 
-const ROOT = path.resolve(new URL('..', import.meta.url).pathname);
+const ROOT = path.resolve(fileURLToPath(new URL('..', import.meta.url)));
 // Cartelle di prova, separate da quelle vere.
 const SANDBOX = fs.mkdtempSync(path.join(os.tmpdir(), 'cms-inst-'));
 process.env.TEMPLATES_DIR = path.join(SANDBOX, 'templates');
 process.env.DATA_DIR = path.join(SANDBOX, 'data');
-delete process.env.CMS_TEMPLATE_DIR;          // qui il template attivo è quello di prova, non Mammano
+delete process.env.CMS_TEMPLATE_DIR;          // qui il template attivo è quello di prova, non quello di starter
 
 const I = await import('../lib/template-install.mjs');
 const T = await import('../lib/template.mjs');
 const { stopRenderers } = await import('../render/host.mjs');
-test.after(() => { stopRenderers(); fs.rmSync(SANDBOX, { recursive: true, force: true }); process.env.CMS_TEMPLATE_DIR = path.join(ROOT, 'templates/mammano'); });
+test.after(() => { stopRenderers(); fs.rmSync(SANDBOX, { recursive: true, force: true }); process.env.CMS_TEMPLATE_DIR = path.join(ROOT, 'templates/starter'); });
 
-// Pacchetto di riferimento: quello vero di Mammano, come mappa percorso → contenuto.
-const BASE = (() => { const { zip } = I.packTemplate(path.join(ROOT, 'templates/mammano')); return Object.fromEntries(Object.entries(unzipSync(zip))); })();
+// Pacchetto di riferimento: quello vero di starter, come mappa percorso → contenuto.
+const STARTER = path.join(ROOT, 'templates/starter');
+const MANIFEST = JSON.parse(fs.readFileSync(path.join(STARTER, 'template.json'), 'utf8'));
+const ID = MANIFEST.id;
+const VERSION = MANIFEST.version;
+const NEWER = '99.1.0';   // sempre più recente di qualunque versione di starter
+const BASE = (() => { const { zip } = I.packTemplate(STARTER); return Object.fromEntries(Object.entries(unzipSync(zip))); })();
 const clone = () => ({ ...BASE });
 const zip = (files) => Buffer.from(zipSync(files, { level: 1 }));
 const json = (o) => strToU8(JSON.stringify(o));
@@ -31,7 +37,7 @@ async function rejects(files, re, msg) {
   const r = await I.installTemplateZip(Buffer.isBuffer(files) ? files : zip(files));
   assert.equal(r.ok, false, `${msg}: doveva essere rifiutato`);
   assert.match(`${r.error} ${(r.details ?? []).join(' ')}`, re, `${msg}: ${r.error} ${(r.details ?? []).join(' | ')}`);
-  assert.deepEqual(installed(), installed().filter((n) => n === 'mammano'), `${msg}: non deve installare nulla di nuovo`);
+  assert.deepEqual(installed(), installed().filter((n) => n === ID), `${msg}: non deve installare nulla di nuovo`);
   assert.deepEqual(leftovers(), [], `${msg}: la cartella di prova va ripulita`);
   return r;
 }
@@ -39,25 +45,25 @@ async function rejects(files, re, msg) {
 test('un pacchetto buono si installa: controllo completo e prova di esecuzione nel processo isolato', async () => {
   const r = await I.installTemplateZip(zip(BASE));
   assert.equal(r.ok, true, JSON.stringify(r));
-  assert.deepEqual([r.manifest.id, r.manifest.version, r.smoke.pages >= 12], ['mammano', '1.0.0', true]);
-  assert.deepEqual(installed(), ['mammano']);
+  assert.deepEqual([r.manifest.id, r.manifest.version, r.smoke.pages >= 6], [ID, VERSION, true]);
+  assert.deepEqual(installed(), [ID]);
   const [t] = T.listTemplates();
-  assert.deepEqual([t.id, t.name, t.active, t.broken], ['mammano', 'Mammano Traslochi', false, undefined]);
-  const loaded = T.loadTemplateFrom(path.join(T.templatesDir(), 'mammano'));
-  assert.equal(loaded.schema.blocks.blocks.length, 15);
-  for (const f of ['tools', '.DS_Store']) assert.equal(fs.existsSync(path.join(T.templatesDir(), 'mammano', f)), false, `${f} non entra nel pacchetto`);
+  assert.deepEqual([t.id, t.name, t.active, t.broken], [ID, MANIFEST.name, false, undefined]);
+  const loaded = T.loadTemplateFrom(path.join(T.templatesDir(), ID));
+  assert.equal(loaded.schema.blocks.blocks.length, JSON.parse(Buffer.from(BASE['schema/blocks.json']).toString('utf8')).blocks.length);
+  for (const f of ['tools', '.DS_Store']) assert.equal(fs.existsSync(path.join(T.templatesDir(), ID, f)), false, `${f} non entra nel pacchetto`);
 });
 
 test('versioni: la stessa o una precedente si rifiuta; una nuova sostituisce e la vecchia va nel cestino', async () => {
   await rejects(zip(BASE), /già installato/, 'stessa versione');
   const older = patchJson(clone(), 'template.json', (m) => { m.version = '0.9.0'; });
   await rejects(zip(older), /già installato/, 'versione precedente');
-  const newer = patchJson(clone(), 'template.json', (m) => { m.version = '1.1.0'; });
+  const newer = patchJson(clone(), 'template.json', (m) => { m.version = NEWER; });
   const r = await I.installTemplateZip(zip(newer));
   assert.equal(r.ok, true, JSON.stringify(r));
-  assert.equal(r.upgradedFrom, '1.0.0');
-  assert.equal(T.readManifest(path.join(T.templatesDir(), 'mammano')).version, '1.1.0');
-  assert.ok(fs.readdirSync(path.join(T.templatesDir(), '.trash')).some((n) => n.startsWith('mammano-1.0.0-')), 'la vecchia versione è nel cestino');
+  assert.equal(r.upgradedFrom, VERSION);
+  assert.equal(T.readManifest(path.join(T.templatesDir(), ID)).version, NEWER);
+  assert.ok(fs.readdirSync(path.join(T.templatesDir(), '.trash')).some((n) => n.startsWith(`${ID}-${VERSION}-`)), 'la vecchia versione è nel cestino');
   assert.equal((await I.installTemplateZip(zip(newer), { allowSameVersion: true })).ok, true, 'reinstallazione voluta');
 });
 
@@ -123,19 +129,26 @@ test('codice del template: importazioni, eval e process si rifiutano; un errore 
 });
 
 test('pacchetto creato con packTemplate: senza strumenti di sviluppo e a prova di rilettura', () => {
-  const { zip: z, skipped } = I.packTemplate(path.join(ROOT, 'templates/mammano'));
+  // starter non ha strumenti di sviluppo: se ne aggiungono a una copia, per vedere che restano fuori
+  const copy = fs.mkdtempSync(path.join(os.tmpdir(), 'cms-pack-'));
+  fs.cpSync(STARTER, copy, { recursive: true });
+  fs.mkdirSync(path.join(copy, 'tools')); fs.writeFileSync(path.join(copy, 'tools/shots.mjs'), 'export {};');
+  fs.writeFileSync(path.join(copy, '.DS_Store'), 'x');
+  const { zip: z, skipped } = I.packTemplate(copy);
+  fs.rmSync(copy, { recursive: true, force: true });
   assert.ok(skipped.some((s) => s.startsWith('tools/')), 'tools/ non entra');
+  assert.ok(skipped.some((s) => s.endsWith('.DS_Store')), 'i file nascosti non entrano');
   const names = Object.keys(unzipSync(z));
   assert.ok(names.includes('template.json') && names.includes('render/index.mjs') && names.includes('content/pages/home.json'));
   assert.ok(names.every((n) => I.safeEntry(n) && I.allowedPath(n)), 'tutto ciò che è nel pacchetto è ammesso');
 });
 
 test('il template attivo non si toglie; uno inesistente o con id ostile nemmeno', () => {
-  T.setActiveTemplate('mammano');
-  assert.throws(() => I.removeTemplate('mammano'), /attivo/);
-  assert.throws(() => I.removeTemplate('../mammano'), /non valido/);
+  T.setActiveTemplate(ID);
+  assert.throws(() => I.removeTemplate(ID), /attivo/);
+  assert.throws(() => I.removeTemplate(`../${ID}`), /non valido/);
   assert.throws(() => I.removeTemplate('non-esiste'), /non trovato/);
-  assert.equal(JSON.parse(fs.readFileSync(path.join(T.dataDir(), 'active-template.json'), 'utf8')).id, 'mammano');
+  assert.equal(JSON.parse(fs.readFileSync(path.join(T.dataDir(), 'active-template.json'), 'utf8')).id, ID);
   assert.throws(() => T.setActiveTemplate('../../etc'), /non valido/);
   assert.throws(() => T.setActiveTemplate('mai-installato'), /template\.json/);
 });
@@ -146,7 +159,7 @@ test('schemi con espressioni regolari rischiose: rifiutati prima di essere esegu
   }
   for (const ok of ['^[a-z0-9-]*$', '^https?:\\/\\/[^\\s"<>]+$', '^(?:page:[a-z0-9-]+|channel:[a-z]+)$', '^\\+[0-9]{8,15}$']) assert.equal(I.riskyPattern(ok), null, ok);
   await rejects(patchJson(clone(), 'schema/blocks.json', (b) => { b.blocks[1].properties.title = { type: 'string', pattern: '(a+)+$' }; }), /quantificatori annidati/, 'pattern catastrofico');
-  await rejects(patchJson(clone(), 'schema/site.json', (b) => { b.properties.company.properties.name = { type: 'string', patternProperties: { '(x*)*y': { type: 'string' } } }; }), /patternProperties/, 'patternProperties');
+  await rejects(patchJson(clone(), 'schema/site.json', (b) => { b.properties.brand.properties.name = { type: 'string', patternProperties: { '(x*)*y': { type: 'string' } } }; }), /patternProperties/, 'patternProperties');
 });
 
 test('espressioni regolari: le aggiramenti trovati nella revisione (alternative, gruppi annidati) ora si rifiutano', () => {
@@ -159,8 +172,17 @@ test('espressioni regolari: le aggiramenti trovati nella revisione (alternative,
 test('il template non può ridefinire i campi del motore, e i JSON grandi si rifiutano', async () => {
   await rejects(patchJson(clone(), 'schema/site.json', (s) => { s.properties.siteUrl = { type: 'string' }; }), /"siteUrl" è un campo del motore/, 'siteUrl');
   await rejects(patchJson(clone(), 'schema/site.json', (s) => { s.properties.consent = { type: 'string' }; }), /"consent" è un campo del motore/, 'consent');
-  await rejects(patchJson(clone(), 'schema/page.json', (s) => { s.properties.slug = { type: 'string' }; }), /"slug" è un campo del motore/, 'slug');
+  await rejects(patchJson(clone(), 'schema/site.json', (s) => { s.properties.geo = { type: 'string' }; }), /"geo" è un campo del motore/, 'geo');
+  await rejects(patchJson(clone(), 'schema/site.json', (s) => { s.properties.tracking = { type: 'string' }; }), /"tracking" è un campo del motore/, 'tracking');
+  await rejects(patchJson(clone(), 'schema/page.json', (s) => { (s.properties ??= {}).slug = { type: 'string' }; }), /"slug" è un campo del motore/, 'slug');
+  await rejects(patchJson(clone(), 'schema/page.json', (s) => { (s.properties ??= {}).noai = { type: 'string' }; }), /"noai" è un campo del motore/, 'noai');
   await rejects({ ...clone(), 'content/pages/enorme.json': strToU8('{"k":"' + 'x'.repeat(2_100_000) + '"}') }, /troppo grande|rapporto di compressione/, 'JSON da 2 MB');
+});
+
+test('il template non può definire un blocco con un tipo del motore ("shared", "html")', async () => {
+  const rename = (type) => patchJson(clone(), 'schema/blocks.json', (b) => { b.blocks[0].$id = b.blocks[0].$id.replace(/blocks\/[a-z0-9-]+\.json$/, `blocks/${type}.json`); b.blocks[0].properties.type.const = type; });
+  await rejects(rename('html'), /"html" è un tipo di blocco del motore/, 'tipo "html"');
+  await rejects(rename('shared'), /"shared" è un tipo di blocco del motore/, 'tipo "shared"');
 });
 
 test('ui.json del template: solo stringhe semplici, niente chiavi da prototipo', () => {
@@ -171,23 +193,23 @@ test('ui.json del template: solo stringhe semplici, niente chiavi da prototipo',
 });
 
 test('un controllo prima dell\'installazione può rifiutare (es. contenuti incompatibili con il template attivo)', async () => {
-  const newer = patchJson(clone(), 'template.json', (m) => { m.version = '3.0.0'; });
+  const newer = patchJson(clone(), 'template.json', (m) => { m.version = '99.2.0'; });
   const r = await I.installTemplateZip(zip(newer), { precheck: async () => ({ error: 'I contenuti attuali non sono compatibili.', details: ['x'] }) });
   assert.deepEqual([r.ok, r.error, r.details], [false, 'I contenuti attuali non sono compatibili.', ['x']]);
-  assert.equal(T.readManifest(path.join(T.templatesDir(), 'mammano')).version, '1.1.0', 'la versione installata non è cambiata');
+  assert.equal(T.readManifest(path.join(T.templatesDir(), ID)).version, NEWER, 'la versione installata non è cambiata');
   assert.deepEqual(leftovers(), []);
 });
 
 test('cestino: si tengono le ultime 5 copie di QUESTO template, senza confonderlo con uno che ne condivide il prefisso', async () => {
   const trash = path.join(T.templatesDir(), '.trash'); fs.mkdirSync(trash, { recursive: true });
   const now = Date.now();
-  for (let i = 0; i < 4; i++) fs.mkdirSync(path.join(trash, `mammano-0.${i}.0-${now - 100000 + i}`));
-  for (let i = 0; i < 3; i++) fs.mkdirSync(path.join(trash, `mammano-bis-1.0.${i}-${now - 900000 + i}`));   // altro template: non si tocca
-  const v = ['4.0.0', '4.1.0', '4.2.0'];
+  for (let i = 0; i < 4; i++) fs.mkdirSync(path.join(trash, `${ID}-0.${i}.0-${now - 100000 + i}`));
+  for (let i = 0; i < 3; i++) fs.mkdirSync(path.join(trash, `${ID}-bis-1.0.${i}-${now - 900000 + i}`));   // altro template: non si tocca
+  const v = ['100.0.0', '100.1.0', '100.2.0'];
   for (const ver of v) assert.equal((await I.installTemplateZip(zip(patchJson(clone(), 'template.json', (m) => { m.version = ver; })))).ok, true);
   const left = fs.readdirSync(trash);
-  assert.equal(left.filter((n) => /^mammano-\d/.test(n)).length, 5, left.join(','));
-  assert.equal(left.filter((n) => n.startsWith('mammano-bis-')).length, 3, 'le copie dell\'altro template restano');
+  assert.equal(left.filter((n) => n.startsWith(`${ID}-`) && /^\d/.test(n.slice(ID.length + 1))).length, 5, left.join(','));
+  assert.equal(left.filter((n) => n.startsWith(`${ID}-bis-`)).length, 3, 'le copie dell\'altro template restano');
 });
 
 test('caricamento da zip: si spegne con ALLOW_TEMPLATE_UPLOAD=0', () => {

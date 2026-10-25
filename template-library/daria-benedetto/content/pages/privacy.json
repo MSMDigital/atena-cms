@@ -1,0 +1,26 @@
+{
+  "key": "privacy",
+  "status": "draft",
+  "slug": {
+    "it": "privacy"
+  },
+  "name": {
+    "it": "Privacy"
+  },
+  "title": {
+    "it": "Privacy | Daria Benedetto"
+  },
+  "description": {
+    "it": "Informativa sulla privacy."
+  },
+  "blocks": [
+    {
+      "id": "privacy-1-text",
+      "type": "rich-text",
+      "surface": "light",
+      "content": {
+        "it": "<h2>Privacy</h2><p><strong>[DA COMPLETARE: informativa sulla privacy]</strong></p>"
+      }
+    }
+  ]
+}

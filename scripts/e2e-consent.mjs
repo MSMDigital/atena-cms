@@ -27,10 +27,10 @@ const FAKE_IUBENDA = `(function () {
 })();`;
 
 async function serve(consent) {
-  const data = structuredClone(loadData(path.join(ROOT, 'templates/mammano')));
+  const data = structuredClone(loadData(path.join(ROOT, 'templates/starter')));
   data.site.consent = consent;
   const dir = path.join(fs.mkdtempSync(path.join(os.tmpdir(), 'cms-e2e-consent-')), 'dist');
-  await buildSite(data, { outDir: dir, assetsDir: path.join(ROOT, 'templates/mammano/assets') });
+  await buildSite(data, { outDir: dir, assetsDir: path.join(ROOT, 'templates/starter/assets') });
   const server = http.createServer((req, res) => {
     let f = path.join(dir, decodeURIComponent(new URL(req.url, 'http://x').pathname));
     if (f.endsWith('/') || (fs.existsSync(f) && fs.statSync(f).isDirectory())) f = path.join(f, 'index.html');
@@ -75,7 +75,7 @@ const box = (page, sel) => page.$eval(sel, (e) => { const r = e.getBoundingClien
 // ---- modalità integrata ---------------------------------------------------------------------------------------------------
 const builtin = await serve({ provider: 'builtin' });
 {
-  const { page, seen } = await open(`${builtin.url}/contatti/`);
+  const { page, seen } = await open(`${builtin.url}/moduli-interni/`);
   let before;
 
   await step('integrata: aprendo la pagina Google non riceve nessuna richiesta, e al posto della mappa c\'è il riquadro', async () => {
@@ -93,7 +93,7 @@ const builtin = await serve({ provider: 'builtin' });
 
   await step('integrata: il link "Apri in Google Maps" esiste ed è un collegamento normale (nessun caricamento)', async () => {
     const a = await page.$eval('.map-consent__actions a', (e) => ({ href: e.href, target: e.target, rel: e.rel, text: e.textContent }));
-    assert.equal(a.href, 'https://www.google.com/maps/search/?api=1&query=Mammano+Traslochi+Lugano');
+    assert.equal(a.href, 'https://www.google.com/maps/search/?api=1&query=Studio+Esempio+Lugano');
     assert.deepEqual([a.target, a.rel, a.text], ['_blank', 'noopener noreferrer', 'Apri in Google Maps']);
     assert.deepEqual(seen.google, []);
   });
@@ -105,7 +105,7 @@ const builtin = await serve({ provider: 'builtin' });
     await page.waitForFunction(() => document.querySelector('.map-consent iframe')?.hasAttribute('src'));
     await pause(500);
     assert.equal(seen.google.length, 1);
-    assert.match(seen.google[0], /^https:\/\/www\.google\.com\/maps\?q=Mammano\+Traslochi\+Lugano&output=embed$/);
+    assert.match(seen.google[0], /^https:\/\/www\.google\.com\/maps\?q=Studio\+Esempio\+Lugano&output=embed$/);
     assert.equal(await page.$eval('[data-map-box]', (e) => e.hidden), true);
     assert.equal(await page.$eval('.map-consent iframe', (e) => e.hidden), false);
     const after = await box(page, '.map-consent');
@@ -118,7 +118,7 @@ const builtin = await serve({ provider: 'builtin' });
   await page.close();
 
   await step('integrata su telefono: il riquadro sta nello schermo, niente scorrimento orizzontale', async () => {
-    const m = await open(`${builtin.url}/contatti/`, { viewport: { width: 390, height: 800 } });
+    const m = await open(`${builtin.url}/moduli-interni/`, { viewport: { width: 390, height: 800 } });
     assert.deepEqual(m.seen.google, []);
     assert.ok(await m.page.evaluate(() => document.documentElement.scrollWidth <= 390), 'nessuno scorrimento orizzontale');
     await m.page.$eval('.map-consent', (e) => e.scrollIntoView({ block: 'center' }));
@@ -139,7 +139,7 @@ await builtin.close();
 // ---- modalità iubenda ------------------------------------------------------------------------------------------------------
 const iub = await serve({ provider: 'iubenda', iubendaSiteId: '1234567', iubendaCookiePolicyId: '7654321' });
 {
-  const { page, seen } = await open(`${iub.url}/contatti/`);
+  const { page, seen } = await open(`${iub.url}/moduli-interni/`);
 
   await step('iubenda: lo script viene chiesto a iubenda con la configurazione giusta; fino al consenso la mappa è bloccata', async () => {
     assert.equal(seen.iubenda.length, 1);
@@ -167,7 +167,7 @@ const iub = await serve({ provider: 'iubenda', iubendaSiteId: '1234567', iubenda
   await page.close();
 
   await step('iubenda: il link "Preferenze cookie" c\'è nel footer di ogni pagina', async () => {
-    for (const p of ['/', '/privacy/', '/preventivo-trasloco/']) {
+    for (const p of ['/', '/contatti/', '/moduli-interni/']) {
       const h = await open(`${iub.url}${p}`);
       assert.equal(await h.page.$eval('.footer a.iubenda-cs-preferences-link', (a) => a.textContent), 'Preferenze cookie', p);
       assert.deepEqual(h.seen.google, [], p);
@@ -176,12 +176,12 @@ const iub = await serve({ provider: 'iubenda', iubendaSiteId: '1234567', iubenda
   });
 
   await step('iubenda bloccato (ad blocker o rete): la mappa non si carica mai, il riquadro resta e il collegamento esterno funziona', async () => {
-    const b = await open(`${iub.url}/contatti/`, { iubenda: 'block' });
+    const b = await open(`${iub.url}/moduli-interni/`, { iubenda: 'block' });
     await b.page.click('.map-consent .iubenda-cs-preferences-link');   // non succede nulla: nessuno ascolta il clic
     await pause(600);
     assert.deepEqual(b.seen.google, []);
     assert.equal(await b.page.$eval('[data-map-box]', (e) => e.hidden), false);
-    assert.equal(await b.page.$eval('.map-consent__actions a', (a) => a.href), 'https://www.google.com/maps/search/?api=1&query=Mammano+Traslochi+Lugano');
+    assert.equal(await b.page.$eval('.map-consent__actions a', (a) => a.href), 'https://www.google.com/maps/search/?api=1&query=Studio+Esempio+Lugano');
     assert.deepEqual(b.seen.errors, [], 'nessun errore JavaScript anche senza iubenda');
     await b.page.close();
   });

@@ -1,5 +1,5 @@
-// Genera il PDF della guida «Prova in locale» con il brand Outsmart (HTML → Chrome).
-// Uso: node docs/guida/build.mjs [--png]   →  docs/guida/Outsmart-CMS-Prova-in-locale.pdf (con --png anche le pagine in docs/guida/anteprima/)
+// Genera il PDF della guida «Prova in locale» con il brand Atena (HTML → Chrome).
+// Uso: node docs/guida/build.mjs [--png]   →  docs/guida/Atena-CMS-Prova-in-locale.pdf (con --png anche le pagine in docs/guida/anteprima/)
 // Serve la connessione a internet: i font (Satoshi, Gambarino, IBM Plex Mono) si caricano da Fontshare e Google Fonts.
 import puppeteer from 'puppeteer-core';
 import fs from 'node:fs';
@@ -26,7 +26,7 @@ try {
     return foot && last && last.getBoundingClientRect().bottom > foot.getBoundingClientRect().top - 4 ? i + 1 : 0;
   }).filter(Boolean));
   if (overflow.length) throw new Error(`il contenuto tocca il piè di pagina nelle pagine: ${overflow.join(', ')}`);
-  const pdf = path.join(HERE, 'Outsmart-CMS-Prova-in-locale.pdf');
+  const pdf = path.join(HERE, 'Atena-CMS-Prova-in-locale.pdf');
   await page.pdf({ path: pdf, format: 'A4', printBackground: true, preferCSSPageSize: true });
   console.log('PDF:', path.relative(process.cwd(), pdf));
   if (process.argv.includes('--png')) {

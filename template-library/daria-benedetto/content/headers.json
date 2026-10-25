@@ -1,0 +1,186 @@
+{
+  "default": {
+    "brandName": "Daria Benedetto",
+    "tagline": {
+      "it": "Business Strategist · Coach professionista"
+    },
+    "nav": [
+      {
+        "label": {
+          "it": "Il mio percorso"
+        },
+        "link": {
+          "type": "page",
+          "page": "il-mio-percorso"
+        }
+      },
+      {
+        "label": {
+          "it": "Coaching professionale"
+        },
+        "link": {
+          "type": "page",
+          "page": "coaching-professionale"
+        },
+        "menu": {
+          "lead": {
+            "it": "Scopri il coaching professionale"
+          },
+          "groupTitle": {
+            "it": "Prenota una sessione"
+          },
+          "items": [
+            {
+              "title": {
+                "it": "Sessione preliminare"
+              },
+              "icon": "calendar",
+              "duration": {
+                "it": "30 minuti"
+              },
+              "badge": {
+                "it": "Gratuita"
+              },
+              "tone": "accent",
+              "link": {
+                "type": "url",
+                "url": "https://calendly.com/daria-benedetto/prenota-la-sessione-di-coaching-clone"
+              }
+            },
+            {
+              "title": {
+                "it": "Sessione di Coaching"
+              },
+              "icon": "video",
+              "duration": {
+                "it": "60 minuti"
+              },
+              "badge": {
+                "it": "Online 1:1"
+              },
+              "tone": "sky",
+              "link": {
+                "type": "url",
+                "url": "https://calendly.com/daria-benedetto/sessione-coaching"
+              }
+            },
+            {
+              "title": {
+                "it": "Sessione di Coaching serale"
+              },
+              "icon": "moon",
+              "duration": {
+                "it": "60 minuti"
+              },
+              "badge": {
+                "it": "20:00–22:00"
+              },
+              "tone": "night",
+              "link": {
+                "type": "url",
+                "url": "https://calendly.com/daria-benedetto/prenota-la-sessione-di-coaching-serale"
+              }
+            }
+          ]
+        }
+      },
+      {
+        "label": {
+          "it": "Aziende & Formazione"
+        },
+        "link": {
+          "type": "page",
+          "page": "aziende-formazione"
+        },
+        "menu": {
+          "lead": {
+            "it": "Scopri Aziende & Formazione"
+          },
+          "groupTitle": {
+            "it": "Parliamo del tuo progetto"
+          },
+          "items": [
+            {
+              "title": {
+                "it": "Richiedi una consulenza"
+              },
+              "icon": "briefcase",
+              "duration": {
+                "it": "30 minuti"
+              },
+              "badge": {
+                "it": "Aziende"
+              },
+              "tone": "ink",
+              "link": {
+                "type": "url",
+                "url": "https://calendly.com/daria-benedetto/consulenza-30-min"
+              }
+            }
+          ]
+        }
+      },
+      {
+        "label": {
+          "it": "MSM Digital"
+        },
+        "link": {
+          "type": "url",
+          "url": "https://msmdigital.it/"
+        }
+      },
+      {
+        "label": {
+          "it": "TIAIUTO"
+        },
+        "link": {
+          "type": "url",
+          "url": "https://tiaiuto.app/"
+        }
+      },
+      {
+        "label": {
+          "it": "Pensiero"
+        },
+        "link": {
+          "type": "page",
+          "page": "blog"
+        }
+      },
+      {
+        "label": {
+          "it": "Contatti"
+        },
+        "link": {
+          "type": "page",
+          "page": "contatti"
+        }
+      }
+    ],
+    "cta": {
+      "label": {
+        "it": "Parliamone"
+      },
+      "link": {
+        "type": "page",
+        "page": "contatti"
+      },
+      "style": "primary"
+    },
+    "surface": "light",
+    "sticky": false,
+    "mobileMenu": {
+      "mode": "breakpoint",
+      "breakpoint": 1360
+    }
+  },
+  "minimale": {
+    "brandName": "Daria Benedetto",
+    "nav": [],
+    "surface": "light",
+    "sticky": false,
+    "mobileMenu": {
+      "mode": "never"
+    }
+  }
+}

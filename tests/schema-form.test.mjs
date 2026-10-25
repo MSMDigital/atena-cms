@@ -40,7 +40,7 @@ test('ogni blocco ha una variante nell\'elenco dei blocchi e un titolo', () => {
 
 // Riempie i testi vuoti come farebbe chi compila il form.
 const fill = (node, key = '') => {
-  if (node === '') return key === 'recipients' || key === 'email' ? 'a@b.ch' : key === 'src' ? 'x.jpg' : 'x';
+  if (node === '') return key === 'recipients' || key === 'email' ? 'a@b.ch' : key === 'src' ? 'x.jpg' : key === 'url' ? 'https://x.example' : 'x';
   if (Array.isArray(node)) return node.map((n) => fill(n, key));
   if (node && typeof node === 'object') return Object.fromEntries(Object.entries(node).map(([k, v]) => [k, fill(v, k)]));
   return node;

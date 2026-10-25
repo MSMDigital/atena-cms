@@ -17,8 +17,8 @@ const slug = (s) => s.toLowerCase().replace(/\s+/g, '-');
 // sourceDirs / sourceCss: file già scaricati da riusare (es. gli asset del progetto). cacheDir: cache persistente, alimentata dai nuovi download.
 // Si va in rete solo se le famiglie, i pesi o i sottoinsiemi non sono già disponibili in locale.
 // Restituisce { note, preload } (preload: percorsi relativi ad assets/ del font del corpo, sottoinsieme latin).
-export async function ensureFonts(t, { fontsDir, cssPath, sourceDirs = [], sourceCss = [], cacheDir }) {
-  const spec = fontSpec(t);
+export async function ensureFonts(t, { fontsDir, cssPath, sourceDirs = [], sourceCss = [], cacheDir, spec: givenSpec }) {
+  const spec = givenSpec ?? fontSpec(t);   // spec: per l'anteprima dell'admin, che conosce solo famiglie e pesi, non i token interi
   const key = crypto.createHash('sha1').update(JSON.stringify([spec.families, spec.wMin, spec.wMax, spec.subsets])).digest('hex').slice(0, 12);
   const dirs = [fontsDir, ...sourceDirs, ...(cacheDir ? [cacheDir] : [])];
   const cssCache = cacheDir ? path.join(cacheDir, `css-${key}.css`) : null;

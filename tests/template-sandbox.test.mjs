@@ -5,12 +5,14 @@ import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import os from 'node:os';
 import path from 'node:path';
+import { fileURLToPath } from 'node:url';
 import { loadTemplateFrom, requireTemplate } from '../lib/template.mjs';
 import { renderPages, stopRenderers, RenderError } from '../render/host.mjs';
 import { loadData } from '../render/context.mjs';
+import { htmlAttrs } from '../render/tokens.mjs';
 
-const ROOT = path.resolve(new URL('..', import.meta.url).pathname);
-const TPL = path.join(ROOT, 'templates/mammano');
+const ROOT = path.resolve(fileURLToPath(new URL('..', import.meta.url)));
+const TPL = path.join(ROOT, 'templates/starter');
 test.after(() => stopRenderers());
 
 const DATA = () => ({
@@ -33,6 +35,7 @@ const run = async (tpl, opts) => (await renderPages(tpl, { data: DATA(), jobs: [
 test('template onesto: viene reso nel processo isolato con lo stesso risultato che nel processo principale', async () => {
   const tpl = requireTemplate();
   const data = loadData(tpl.dir);
+  data.meta = { fontsCss: 'css/fonts.css', preload: [], htmlAttrs: htmlAttrs(data.tokens) };   // come fa la pubblicazione: starter non ha un tokens.meta.json già pronto
   const job = [{ locale: 'it', keys: ['privacy', 'contatti', 'home'] }];
   const sandbox = await renderPages(tpl, { data, jobs: job, images: {} });
   process.env.CMS_RENDER = 'inline';

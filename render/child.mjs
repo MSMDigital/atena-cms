@@ -21,7 +21,7 @@ process.on('message', async (msg) => {
       for (const job of msg.jobs) {
         const ctx = createContext(msg.data, job.locale, { images: msg.images ?? {} });
         for (const key of job.keys) {
-          const page = msg.data.pages.find((p) => p.key === key);
+          const page = ctx.pageOf(key);
           const html = renderer.renderPage(ctx, page);
           if (typeof html !== 'string') throw new Error(`renderPage non ha restituito una stringa per "${key}"`);
           total += html.length;

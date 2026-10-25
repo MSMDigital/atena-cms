@@ -1,0 +1,26 @@
+{
+  "novita": {
+    "name": {
+      "it": "Novità"
+    },
+    "description": {
+      "it": "Aggiornamenti e annunci."
+    }
+  },
+  "smart-working": {
+    "name": {
+      "it": "Smart working"
+    },
+    "description": {
+      "it": "Lavorare da remoto, in modo semplice."
+    }
+  },
+  "guide-pratiche": {
+    "name": {
+      "it": "Guide pratiche"
+    },
+    "description": {
+      "it": "Istruzioni passo passo."
+    }
+  }
+}

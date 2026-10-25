@@ -1,0 +1,478 @@
+{
+  "key": "home",
+  "status": "published",
+  "slug": {
+    "it": ""
+  },
+  "name": {
+    "it": "Home"
+  },
+  "title": {
+    "it": "Daria Benedetto · Business Strategist e Coach professionista"
+  },
+  "description": {
+    "it": "Daria Benedetto, Business Strategist e Coach professionista, CEO di MSM Digital e Founder di TIAIUTO. Da 25 anni accompagno persone e aziende nei momenti in cui è necessario cambiare."
+  },
+  "blocks": [
+    {
+      "id": "home-1-hero",
+      "type": "hero-portrait",
+      "surface": "light",
+      "eyebrow": {
+        "it": "Daria Benedetto · Business Strategist, Coach professionista<br>CEO MSM Digital e Founder di TIAIUTO"
+      },
+      "title": {
+        "it": "Accompagno persone e aziende nei momenti in cui è necessario <em>cambiare.</em>"
+      },
+      "lead": {
+        "it": "<p>Da 25 anni lavoro accanto ad aziende, imprenditori e professionisti. Ho attraversato marketing, comunicazione, trasformazione digitale e Intelligenza Artificiale osservando una cosa molto semplice: ogni trasformazione, prima di diventare strategia, passa dalle persone.</p><p>Oggi porto questa esperienza nel coaching professionale, per aiutare chi sta vivendo un passaggio, una scelta o una ridefinizione del proprio lavoro a ritrovare consapevolezza, direzione e capacità di agire.</p>"
+      },
+      "buttons": [
+        {
+          "label": {
+            "it": "Scopri come posso accompagnarti"
+          },
+          "link": {
+            "type": "page",
+            "page": "coaching-professionale"
+          },
+          "style": "primary"
+        },
+        {
+          "label": {
+            "it": "Il mio percorso"
+          },
+          "link": {
+            "type": "page",
+            "page": "il-mio-percorso"
+          },
+          "style": "secondary"
+        }
+      ],
+      "image": {
+        "src": "ritratto-home.png",
+        "alt": {
+          "it": "Ritratto di Daria Benedetto"
+        }
+      },
+      "shape": "arch"
+    },
+    {
+      "id": "home-2-logos",
+      "type": "logos",
+      "surface": "light",
+      "title": {
+        "it": "Con chi ho avuto il piacere di lavorare"
+      },
+      "items": [
+        {
+          "image": {
+            "src": "cliente-abbazia.png",
+            "alt": {
+              "it": "Abbazia"
+            }
+          }
+        },
+        {
+          "image": {
+            "src": "cliente-amilon.png",
+            "alt": {
+              "it": "Amilon"
+            }
+          }
+        },
+        {
+          "image": {
+            "src": "cliente-belotti.png",
+            "alt": {
+              "it": "Belotti"
+            }
+          }
+        },
+        {
+          "image": {
+            "src": "cliente-bestwestern.png",
+            "alt": {
+              "it": "Best Western"
+            }
+          }
+        },
+        {
+          "image": {
+            "src": "cliente-binda.png",
+            "alt": {
+              "it": "G. Binda"
+            }
+          }
+        },
+        {
+          "image": {
+            "src": "cliente-bios-management.png",
+            "alt": {
+              "it": "Bios Management"
+            }
+          }
+        },
+        {
+          "image": {
+            "src": "cliente-blitz.png",
+            "alt": {
+              "it": "Blitz"
+            }
+          }
+        },
+        {
+          "image": {
+            "src": "cliente-borsaris.png",
+            "alt": {
+              "it": "Borsari"
+            }
+          }
+        },
+        {
+          "image": {
+            "src": "cliente-celeste-italia.png",
+            "alt": {
+              "it": "Celeste Italia"
+            }
+          }
+        },
+        {
+          "image": {
+            "src": "cliente-claind.png",
+            "alt": {
+              "it": "Claind"
+            }
+          }
+        },
+        {
+          "image": {
+            "src": "cliente-ctr.png",
+            "alt": {
+              "it": "CTR"
+            }
+          }
+        },
+        {
+          "image": {
+            "src": "cliente-effegilab.png",
+            "alt": {
+              "it": "Effegilab"
+            }
+          }
+        },
+        {
+          "image": {
+            "src": "cliente-estetispa.png",
+            "alt": {
+              "it": "Estetispa"
+            }
+          }
+        },
+        {
+          "image": {
+            "src": "cliente-ferrero.png",
+            "alt": {
+              "it": "Ferrero"
+            }
+          }
+        },
+        {
+          "image": {
+            "src": "cliente-gds2.png",
+            "alt": {
+              "it": "GDS2"
+            }
+          }
+        },
+        {
+          "image": {
+            "src": "cliente-gloriamed.png",
+            "alt": {
+              "it": "Gloriamed"
+            }
+          }
+        },
+        {
+          "image": {
+            "src": "cliente-greentribu.png",
+            "alt": {
+              "it": "Green Tribù"
+            }
+          }
+        },
+        {
+          "image": {
+            "src": "cliente-isostad.png",
+            "alt": {
+              "it": "Isostad"
+            }
+          }
+        },
+        {
+          "image": {
+            "src": "cliente-labor-project.png",
+            "alt": {
+              "it": "Labor Project"
+            }
+          }
+        },
+        {
+          "image": {
+            "src": "cliente-luigi-verga.png",
+            "alt": {
+              "it": "Luigi Verga"
+            }
+          }
+        },
+        {
+          "image": {
+            "src": "cliente-nutman.png",
+            "alt": {
+              "it": "Nutman"
+            }
+          }
+        },
+        {
+          "image": {
+            "src": "cliente-paracas.png",
+            "alt": {
+              "it": "Paracas"
+            }
+          }
+        },
+        {
+          "image": {
+            "src": "cliente-revitalash.png",
+            "alt": {
+              "it": "RevitaLash"
+            }
+          }
+        },
+        {
+          "image": {
+            "src": "cliente-scuola-studio-lavoro.png",
+            "alt": {
+              "it": "Scuola Studio Lavoro"
+            }
+          }
+        },
+        {
+          "image": {
+            "src": "cliente-snb-immobiliare.png",
+            "alt": {
+              "it": "SNB Immobiliare"
+            }
+          }
+        },
+        {
+          "image": {
+            "src": "cliente-spazio-lineare-for-kids.png",
+            "alt": {
+              "it": "Spazio Lineare for Kids"
+            }
+          }
+        },
+        {
+          "image": {
+            "src": "cliente-vediamoci-bene.png",
+            "alt": {
+              "it": "Vediamoci Bene"
+            }
+          }
+        },
+        {
+          "image": {
+            "src": "cliente-vitale.png",
+            "alt": {
+              "it": "Vitale"
+            }
+          }
+        },
+        {
+          "image": {
+            "src": "cliente-vocalcare.png",
+            "alt": {
+              "it": "Vocalcare"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "home-2-statement",
+      "type": "statement",
+      "surface": "dark",
+      "figure": {
+        "it": "25"
+      },
+      "text": {
+        "it": "anni nel cambiamento delle aziende.<br><em>Oggi accompagno il cambiamento delle persone.</em>"
+      }
+    },
+    {
+      "id": "home-4-tiaiuto",
+      "type": "feature",
+      "surface": "light",
+      "side": "left",
+      "logo": {
+        "src": "logo-tiaiuto-payoff.png",
+        "alt": {
+          "it": "TIAIUTO — Coaching per la tua vita lavorativa"
+        }
+      },
+      "title": {
+        "it": "Chiarezza personale. Direzione professionale."
+      },
+      "level": "h2",
+      "body": {
+        "it": "<p>Uno spazio professionale dedicato a te e al tuo lavoro per capire dove sei oggi, cosa vuoi cambiare e quale futuro vuoi costruire.</p><p>Ho fondato TIAIUTO per portare questa visione più lontano. Nasce dall’incontro tra la mia esperienza nel mondo del lavoro e la mia evoluzione nel coaching: coaching e formazione diventano due strumenti dello stesso percorso.</p>"
+      },
+      "tags": [
+        {
+          "it": "Coaching"
+        },
+        {
+          "it": "Formazione"
+        },
+        {
+          "it": "Persone"
+        },
+        {
+          "it": "Organizzazioni"
+        }
+      ],
+      "button": {
+        "label": {
+          "it": "Prenota una sessione gratuita"
+        },
+        "link": {
+          "type": "url",
+          "url": "https://calendly.com/daria-benedetto/prenota-la-sessione-di-coaching-clone"
+        },
+        "style": "primary"
+      },
+      "image": {
+        "src": "ritratto-tiaiuto-seduta.png",
+        "alt": {
+          "it": "Daria Benedetto seduta, in abito bianco"
+        }
+      },
+      "shape": "arch"
+    },
+    {
+      "id": "home-5-msm",
+      "type": "feature",
+      "surface": "light",
+      "side": "right",
+      "kicker": {
+        "it": "Consulenza strategica e digitale · Como, dal 2020"
+      },
+      "logo": {
+        "src": "logo-msm-digital.png",
+        "alt": {
+          "it": "MSM Digital"
+        }
+      },
+      "title": {
+        "it": "Strategia, comunicazione e trasformazione digitale."
+      },
+      "level": "h2",
+      "body": {
+        "it": "<p>La realtà attraverso cui da anni affianco aziende e imprenditori nella strategia, nella comunicazione e nella trasformazione digitale.</p><p>Come CEO di MSM Digital porto nelle imprese una lettura strategica del contesto e la capacità di tradurla in progetti concreti. È il luogo in cui la mia esperienza consulenziale continua a misurarsi con mercati, obiettivi, risultati e cambiamenti reali, oggi anche nell’adozione consapevole dell’Intelligenza Artificiale.</p>"
+      },
+      "tags": [
+        {
+          "it": "Strategia di business e marketing"
+        },
+        {
+          "it": "Comunicazione e brand"
+        },
+        {
+          "it": "Trasformazione digitale"
+        },
+        {
+          "it": "Consulenza e formazione AI per PMI"
+        }
+      ],
+      "button": {
+        "label": {
+          "it": "Scopri MSM Digital"
+        },
+        "link": {
+          "type": "url",
+          "url": "https://msmdigital.it/"
+        },
+        "style": "primary"
+      },
+      "image": {
+        "src": "ritratto-abito-nero.png",
+        "alt": {
+          "it": "Daria Benedetto, CEO di MSM Digital"
+        }
+      },
+      "shape": "arch"
+    },
+    {
+      "id": "home-7-reviews",
+      "type": "reviews",
+      "surface": "brand",
+      "header": {
+        "eyebrow": {
+          "it": "Recensioni Google"
+        },
+        "title": {
+          "it": "Dicono di me"
+        }
+      },
+      "rating": {
+        "it": "[5,0] · [N] recensioni su Google"
+      },
+      "items": [
+        {
+          "quote": {
+            "it": "[Testo della recensione Google: due o tre frasi che raccontano l’esperienza di lavoro con Daria.]"
+          },
+          "name": {
+            "it": "[Nome Cognome]"
+          },
+          "role": {
+            "it": "[Ruolo / Azienda] · Recensione Google"
+          }
+        },
+        {
+          "quote": {
+            "it": "[Testo della recensione Google: due o tre frasi che raccontano l’esperienza di lavoro con Daria.]"
+          },
+          "name": {
+            "it": "[Nome Cognome]"
+          },
+          "role": {
+            "it": "[Ruolo / Azienda] · Recensione Google"
+          }
+        },
+        {
+          "quote": {
+            "it": "[Testo della recensione Google: due o tre frasi che raccontano l’esperienza di lavoro con Daria.]"
+          },
+          "name": {
+            "it": "[Nome Cognome]"
+          },
+          "role": {
+            "it": "[Ruolo / Azienda] · Recensione Google"
+          }
+        }
+      ],
+      "button": {
+        "label": {
+          "it": "Leggi tutte le recensioni su Google"
+        },
+        "link": {
+          "type": "url",
+          "url": "https://www.google.com/search?q=msm+digital+srl+-+daria+benedetto"
+        },
+        "style": "secondary"
+      }
+    }
+  ]
+}

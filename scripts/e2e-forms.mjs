@@ -29,9 +29,10 @@ const bodyOf = (raw) => {
 const { loadEnv, assertLocalDatabase } = await import('../lib/env.mjs'); loadEnv(); assertLocalDatabase('Questa prova');
 const { query, one, closeDb } = await import('../lib/db.mjs');
 const D = await import('../lib/docs.mjs');
-const reset = async () => { await D.seedFromFiles({ force: true }); const r = await D.publishAll(null, { force: true }); assert.equal(r.ok, true, JSON.stringify(r)); };
+const { putPreventivo } = await import('../tests/fixtures/preventivo-page.mjs');   // starter non ha un modulo con tutti i campi: la pagina «preventivo» si aggiunge
+const reset = async () => { await D.seedFromFiles({ force: true }); await putPreventivo(query); const r = await D.publishAll(null, { force: true }); assert.equal(r.ok, true, JSON.stringify(r)); };
 await query('DELETE FROM login_attempts WHERE email = ?', [E2E_EMAIL.toLowerCase()]);
-const KEEP_KEYS = fs.readdirSync(path.join(ROOT, 'templates/mammano/content/pages')).filter((f) => f.endsWith('.json')).map((f) => f.slice(0, -5));   // le pagine dei contenuti; le altre sono avanzi di prove
+const KEEP_KEYS = [...fs.readdirSync(path.join(ROOT, 'templates/starter/content/pages')).filter((f) => f.endsWith('.json')).map((f) => f.slice(0, -5)), 'preventivo'];   // le pagine dei contenuti; le altre sono avanzi di prove
 await query("DELETE FROM docs WHERE kind = 'page' AND doc_key NOT IN (?)", [KEEP_KEYS]);
 await reset();
 await query('DELETE FROM form_submissions');
@@ -79,7 +80,7 @@ const fillForm = async () => {
   await type('textarea[name=messaggio]', 'Appartamento al 4° piano, senza ascensore.');
   await page.click('input[name=privacy]');
 };
-const openForm = async () => { await page.goto(`${SITE}/preventivo-trasloco/`, { waitUntil: 'networkidle0' }); await page.waitForSelector(FORM); };
+const openForm = async () => { await page.goto(`${SITE}/preventivo/`, { waitUntil: 'networkidle0' }); await page.waitForSelector(FORM); };
 const click = async (text) => {
   let b;
   for (let i = 0; i < 60; i++) { [b] = await page.$$(`xpath/.//button[normalize-space()="${text}"]`); if (b && !(await b.evaluate((el) => el.disabled))) break; await pause(150); }
@@ -99,7 +100,7 @@ await step('accesso', async () => {
 await step('impostazioni email: vuote all\'inizio, con avviso; la voce sta nel menu', async () => {
   await page.goto(`${E2E_URL}/admin/email`, { waitUntil: 'networkidle0' });
   assert.match(await page.$eval('.mailset .notice', (e) => e.textContent), /Nessun server email configurato/);
-  assert.ok((await page.$$eval('.topbar__nav a', (as) => as.map((a) => a.textContent))).includes('Email'));
+  assert.ok((await page.$$eval('.sidebar a', (as) => as.map((a) => a.textContent.trim()))).includes('Email'));
   assert.equal(await page.$eval('input[name=host]', (e) => e.value), '');
   await shot(page, 'e1-vuote');
 });
@@ -119,10 +120,10 @@ await step('salvataggio: compilo il server di prova, la password resta nascosta 
   await page.select('select[name=security]', 'none');
   assert.equal(await page.$eval('input[name=port]', (e) => e.value), '25', 'la porta si adegua al tipo di connessione');
   await type('input[name=port]', '2525');
-  await type('input[name=user]', 'sito@mammano.ch');
+  await type('input[name=user]', 'sito@esempio.ch');
   await type('input[name=password]', SECRET_PW);
-  await type('input[name=from]', 'sito@mammano.ch');
-  await type('input[name=fromName]', 'Sito Mammano Traslochi');
+  await type('input[name=from]', 'sito@esempio.ch');
+  await type('input[name=fromName]', 'Sito Studio Esempio');
   await click('Salva impostazioni');
   await page.waitForFunction(() => /Impostazioni salvate/.test(document.querySelector('.mailset form .ok')?.textContent ?? ''), { timeout: 15000 });
   assert.equal(await page.$eval('input[name=password]', (e) => e.value), '', 'dopo il salvataggio il campo password è vuoto');
@@ -137,17 +138,17 @@ await step('salvataggio: compilo il server di prova, la password resta nascosta 
 await step('dopo il ricaricamento i valori ci sono, la password non compare da nessuna parte nella pagina', async () => {
   await page.goto(`${E2E_URL}/admin/email`, { waitUntil: 'networkidle0' });
   const v = await page.evaluate(() => Object.fromEntries(['host', 'port', 'security', 'user', 'from', 'fromName', 'password'].map((n) => [n, document.querySelector(`[name=${n}]`).value])));
-  assert.deepEqual(v, { host: '127.0.0.1', port: '2525', security: 'none', user: 'sito@mammano.ch', from: 'sito@mammano.ch', fromName: 'Sito Mammano Traslochi', password: '' });
+  assert.deepEqual(v, { host: '127.0.0.1', port: '2525', security: 'none', user: 'sito@esempio.ch', from: 'sito@esempio.ch', fromName: 'Sito Studio Esempio', password: '' });
   assert.equal((await page.content()).includes(SECRET_PW), false);
   assert.match(await page.$eval('.mailset form .hint', (e) => e.textContent), /Ultima modifica/);
 });
 
 await step('modifica: cambio il nome del mittente lasciando vuota la password, che resta quella di prima', async () => {
-  await type('input[name=fromName]', 'Mammano Traslochi');
+  await type('input[name=fromName]', 'Studio Esempio');
   await click('Salva impostazioni');
   await page.waitForFunction(() => document.querySelector('.mailset form .ok')?.textContent?.includes('salvate'), { timeout: 15000 });
   const row = JSON.parse((await one("SELECT value FROM settings WHERE name = 'mail'")).value);
-  assert.equal(row.fromName, 'Mammano Traslochi');
+  assert.equal(row.fromName, 'Studio Esempio');
   assert.ok(row.passwordEnc, 'la password c\'è ancora');
 });
 
@@ -158,8 +159,8 @@ await step('email di prova: arriva, con le credenziali salvate usate per l\'acce
   await page.waitForFunction(() => /Email inviata a prova@example.ch/.test(document.querySelector('.mailset section .ok')?.textContent ?? ''), { timeout: 20000 });
   await waitFor(async () => inbox.length === 1, 'la prova non è arrivata al server SMTP');
   assert.deepEqual(inbox[0].to, ['prova@example.ch']);
-  assert.match(inbox[0].raw, /^From: "?Mammano Traslochi"? <sito@mammano\.ch>$/m);
-  assert.deepEqual(authSeen, { user: 'sito@mammano.ch', pass: SECRET_PW });
+  assert.match(inbox[0].raw, /^From: "?Studio Esempio"? <sito@esempio\.ch>$/m);
+  assert.deepEqual(authSeen, { user: 'sito@esempio.ch', pass: SECRET_PW });
   inbox.length = 0;
   await shot(page, 'e3-prova');
 });
@@ -202,8 +203,8 @@ await step('invio corretto: messaggio di conferma con focus, campi nascosti, ric
 await step('email: arriva ai destinatari del modulo, con Reply-To di chi ha scritto e i dati leggibili', async () => {
   await waitFor(async () => inbox.length === 1, 'nessuna email ricevuta dal server SMTP di prova');
   const m = inbox[0];
-  assert.deepEqual(m.to, ['info@mammano.ch']);
-  assert.equal(m.from, 'sito@mammano.ch');
+  assert.deepEqual(m.to, ['info@esempio.ch']);
+  assert.equal(m.from, 'sito@esempio.ch');
   assert.match(m.raw, /^Subject: Richiesta di preventivo$/m);
   assert.match(m.raw, /^Reply-To: anna@example\.ch$/m);
   const text = bodyOf(m.raw);
@@ -223,7 +224,7 @@ await step('esca compilata e invio troppo rapido: la conferma appare (il bot non
   await fillForm();
   await click('Invia la richiesta');
   await waitFor(async () => !(await page.$eval('.form-success', (e) => e.hidden)), 'la conferma dovrebbe comparire');
-  await page.goto(`${SITE}/preventivo-trasloco/`, { waitUntil: 'domcontentloaded' });   // invio immediato, senza aspettare
+  await page.goto(`${SITE}/preventivo/`, { waitUntil: 'domcontentloaded' });   // invio immediato, senza aspettare
   await page.waitForSelector('input[name=website]');
   await page.evaluate(() => {
     const f = (n, v) => { document.querySelector(`[name=${n}]`).value = v; };
@@ -299,7 +300,7 @@ await step('dettaglio: etichette del modulo, link email e telefono, pagina di or
   await page.click('.table tbody tr a');
   await page.waitForSelector('.req');
   const text = await page.$eval('main', (e) => e.textContent);
-  for (const s of ['Richiesta di preventivo', 'Città di partenza', 'Mendrisio', 'Appartamento al 4° piano', 'Consenso', 'info@mammano.ch', 'Inviata']) assert.ok(text.includes(s), `manca "${s}"`);
+  for (const s of ['Richiesta di preventivo', 'Città di partenza', 'Mendrisio', 'Appartamento al 4° piano', 'Consenso', 'info@esempio.ch', 'Inviata']) assert.ok(text.includes(s), `manca "${s}"`);
   assert.equal(await page.$eval('a[href^="mailto:"]', (a) => a.getAttribute('href')), 'mailto:anna@example.ch');
   assert.equal(await page.$eval('a[href^="tel:"]', (a) => a.getAttribute('href')), 'tel:+41791234567');
   await shot(page, 'f6-dettaglio');

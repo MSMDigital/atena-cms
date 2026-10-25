@@ -1,0 +1,18 @@
+{
+  "leadership": {
+    "name": {
+      "it": "Leadership"
+    },
+    "description": {
+      "it": "Guidare le persone nel cambiamento."
+    }
+  },
+  "ascolto": {
+    "name": {
+      "it": "Ascolto"
+    },
+    "description": {
+      "it": "Domande, presenza e comprensione."
+    }
+  }
+}

@@ -3,14 +3,16 @@ import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import os from 'node:os';
 import path from 'node:path';
+import { fileURLToPath } from 'node:url';
 import { buildSite } from '../render/build.mjs';
 import { loadData } from '../render/context.mjs';
 import { providerOf } from '../render/consent.mjs';
 import { validateData } from '../schema/validate.mjs';
 import { toPreviewHtml } from '../lib/preview.mjs';
 
-const ROOT = path.resolve(new URL('..', import.meta.url).pathname);
-const TPL = path.join(ROOT, 'templates/mammano');
+const ROOT = path.resolve(fileURLToPath(new URL('..', import.meta.url)));
+const TPL = path.join(ROOT, 'templates/starter');
+const MAP_PAGE = 'moduli-interni';   // la pagina di starter con il blocco «contacts» e la mappa
 const IUBENDA = { provider: 'iubenda', iubendaSiteId: '1234567', iubendaCookiePolicyId: '7654321' };
 const withConsent = (consent) => { const d = structuredClone(loadData(TPL)); if (consent === undefined) delete d.site.consent; else d.site.consent = consent; return d; };
 const errorsOf = (consent) => validateData(withConsent(consent)).errors;
@@ -24,25 +26,25 @@ const eagerGoogle = (html) => [...html.matchAll(/\s(?:src|data-preview)="(https?
 
 test('integrata: la mappa non ha un indirizzo finché non si clicca, e non c\'è traccia di iubenda', async () => {
   const page = await build({ provider: 'builtin' });
-  const html = page('contatti');
+  const html = page(MAP_PAGE);
   assert.deepEqual(eagerGoogle(html), [], 'nessun caricamento da Google all\'apertura della pagina');
   assert.match(html, /<div class="map-consent" data-map-consent="builtin">/);
-  assert.match(html, /<iframe class="map"[^>]* data-src="https:\/\/www\.google\.com\/maps\?q=Mammano\+Traslochi\+Lugano&amp;output=embed"[^>]* hidden><\/iframe>/);
+  assert.match(html, /<iframe class="map"[^>]* data-src="https:\/\/www\.google\.com\/maps\?q=Studio\+Esempio\+Lugano&amp;output=embed"[^>]* hidden><\/iframe>/);
   assert.doesNotMatch(html.match(/<iframe[^>]*>/)[0], /\ssrc=/);
   assert.match(html, /<button type="button" class="btn btn--secondary" data-map-show>Mostra la mappa<\/button>/);
-  assert.match(html, /href="https:\/\/www\.google\.com\/maps\/search\/\?api=1&amp;query=Mammano\+Traslochi\+Lugano" target="_blank" rel="noopener noreferrer">Apri in Google Maps/);
-  for (const p of ['', 'contatti', 'privacy']) assert.doesNotMatch(page(p), /iubenda|_iub|data-cms-consent/i, `pagina "${p || 'home'}"`);
+  assert.match(html, /href="https:\/\/www\.google\.com\/maps\/search\/\?api=1&amp;query=Studio\+Esempio\+Lugano" target="_blank" rel="noopener noreferrer">Apri in Google Maps/);
+  for (const p of ['', 'contatti', MAP_PAGE]) assert.doesNotMatch(page(p), /iubenda|_iub|data-cms-consent/i, `pagina "${p || 'home'}"`);
 });
 
 test('senza l\'impostazione (siti già esistenti) vale l\'integrata', async () => {
   const page = await build(undefined);
-  assert.match(page('contatti'), /data-map-consent="builtin"/);
+  assert.match(page(MAP_PAGE), /data-map-consent="builtin"/);
   assert.doesNotMatch(page(''), /iubenda/i);
 });
 
 test('iubenda: script in testa con i soli numeri validati, mappa bloccata secondo la guida di iubenda, link alle preferenze', async () => {
   const page = await build(IUBENDA);
-  const html = page('contatti');
+  const html = page(MAP_PAGE);
   const head = html.slice(0, html.indexOf('</head>'));
   assert.match(head, /<script data-cms-consent>var _iub = _iub \|\| \[\]; _iub\.csConfiguration = \{"siteId":1234567,"cookiePolicyId":7654321,"lang":"it","storage":\{"useSiteId":true\}\};<\/script>/);
   assert.match(head, /<script data-cms-consent src="https:\/\/cdn\.iubenda\.com\/cs\/iubenda_cs\.js" charset="UTF-8" async><\/script>/);
@@ -52,12 +54,12 @@ test('iubenda: script in testa con i soli numeri validati, mappa bloccata second
   const frame = html.match(/<iframe[^>]*>/)[0];
   assert.match(frame, /class="map _iub_cs_activate"/);
   assert.match(frame, /data-iub-purposes="3"/, 'categoria "Esperienza"');
-  assert.match(frame, /suppressedsrc="https:\/\/www\.google\.com\/maps\?q=Mammano\+Traslochi\+Lugano&amp;output=embed"/);
+  assert.match(frame, /suppressedsrc="https:\/\/www\.google\.com\/maps\?q=Studio\+Esempio\+Lugano&amp;output=embed"/);
   assert.match(frame, / src="about:blank"/);
   assert.deepEqual(eagerGoogle(html), [], 'nessun caricamento da Google prima del consenso');
   assert.match(html, /<button type="button" class="btn btn--secondary iubenda-cs-preferences-link">Gestisci le preferenze<\/button>/);
   assert.doesNotMatch(html, /data-map-show/);
-  for (const p of ['', 'contatti', 'privacy', 'preventivo-trasloco']) assert.match(page(p), /<a href="#" class="iubenda-cs-preferences-link">Preferenze cookie<\/a>/, `footer di "${p || 'home'}"`);
+  for (const p of ['', 'contatti', MAP_PAGE]) assert.match(page(p), /<a href="#" class="iubenda-cs-preferences-link">Preferenze cookie<\/a>/, `footer di "${p || 'home'}"`);
 });
 
 test('schema: con iubenda servono i due numeri, e solo numeri (niente codice incollato)', () => {
@@ -84,7 +86,7 @@ test('se i dati di iubenda mancano, il sito ricade sull\'integrata (mai un banne
 });
 
 test('anteprima dell\'admin: gli script di iubenda si tolgono, il resto della pagina no', async () => {
-  const html = (await build(IUBENDA))('contatti');
+  const html = (await build(IUBENDA))(MAP_PAGE);
   const preview = toPreviewHtml(html, loadData(TPL).tokens);
   assert.doesNotMatch(preview, /_iub\.csConfiguration|cdn\.iubenda\.com|data-cms-consent/);
   assert.match(preview, /suppressedsrc=/, 'la mappa resta bloccata anche nell\'anteprima');

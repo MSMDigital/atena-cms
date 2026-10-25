@@ -3,11 +3,16 @@ import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import { tokensToCss, validateTokens, fluid, fontSpec } from '../render/tokens.mjs';
 
-const tokens = JSON.parse(fs.readFileSync(new URL('../templates/mammano/tokens.json', import.meta.url), 'utf8'));
+const tokens = JSON.parse(fs.readFileSync(new URL('../templates/starter/tokens.json', import.meta.url), 'utf8'));
 const clone = () => structuredClone(tokens);
 
-test('il CSS generato coincide con assets/css/tokens.css', () => {
-  assert.equal(tokensToCss(tokens), fs.readFileSync(new URL('../templates/mammano/assets/css/tokens.css', import.meta.url), 'utf8'));
+test('il CSS generato riflette i token del template, sempre uguale a sé stesso', () => {
+  const css = tokensToCss(tokens);
+  assert.equal(css, tokensToCss(structuredClone(tokens)), 'stessi token, stesso CSS');
+  assert.match(css, /^\/\* GENERATO .*\*\/\n\n:root \{/);
+  assert.ok(css.includes(`--c-brand: ${tokens.colors.brand};`));
+  assert.ok(css.includes(`--c-brand-tint: ${tokens.colors.brandTint};`));
+  for (const h of ['h1', 'h2', 'h3', 'h4']) assert.ok(css.includes(`--fs-${h}: clamp(`), `manca la dimensione di ${h}`);
 });
 
 test('i token del sito sono validi', () => assert.deepEqual(validateTokens(tokens), []));

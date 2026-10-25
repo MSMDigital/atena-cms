@@ -17,6 +17,10 @@ h3 { font-size: var(--fs-h3); line-height: var(--lh-h3); }
 .brand { font-family: var(--font-heading); font-weight: 600; text-decoration: none; }
 .site-header ul { list-style: none; display: flex; gap: 1.5rem; margin: 0; padding: 0; }
 .site-header a { text-decoration: none; }
+.site-header--sticky { position: sticky; top: 0; z-index: 30; }
+.brand__logo { height: 2.25rem; width: auto; display: block; }
+.site-header__in nav { margin-left: auto; }
+.site-header__cta { min-height: 2.75rem; padding: 0 1.25rem; }
 
 .hero, .text, .form { padding-block: var(--section); }
 .prose { max-width: 46rem; }
@@ -41,9 +45,44 @@ h3 { font-size: var(--fs-h3); line-height: var(--lh-h3); }
 
 .site-footer { padding-block: 2.5rem; font-size: var(--fs-small); border-top: 1px solid var(--line); }
 .site-footer p { margin: 0; }
+.site-footer__cols { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 2rem; margin-bottom: 2.5rem; }
+.site-footer__title { font-weight: 600; margin-bottom: .75rem !important; }
+.site-footer__cols ul { list-style: none; margin: 0; padding: 0; display: grid; gap: .4rem; }
 
 /* Consenso alla mappa (se un blocco la usa): riquadro al posto dell'iframe finché non c'è il consenso */
 .map-consent { aspect-ratio: 4/3; background: #eee; display: grid; }
 .map-consent .map { height: 100%; width: 100%; border: 0; }
 .map-consent__box { align-self: center; justify-self: center; padding: 1.5rem; text-align: center; display: grid; gap: 1rem; }
 .map-consent [hidden] { display: none; }
+
+/* Blocco "Codice HTML": contenuto libero (widget, embed di terzi...), niente stile imposto oltre a non far scappare la pagina in orizzontale. */
+.html-block { max-width: 100%; overflow-x: auto; }
+.html-block img, .html-block video, .html-block iframe { max-width: 100%; }
+
+/* Menu a hamburger: il pulsante compare con la modalità scelta nell'header (sempre, o sotto la larghezza indicata: @media scritta dal template). */
+.site-header { position: relative; }
+.menu-toggle { display: none; margin-left: auto; width: 2.75rem; height: 2.75rem; padding: 0; border: 0; border-radius: 50%; background: transparent; color: inherit; cursor: pointer; align-items: center; justify-content: center; }
+.menu-toggle:hover { background: color-mix(in srgb, currentColor 12%, transparent); }
+.menu-toggle span, .menu-toggle span::before, .menu-toggle span::after { display: block; width: 1.4rem; height: 2px; background: currentColor; border-radius: 2px; transition: transform .25s, opacity .2s; }
+.menu-toggle span { position: relative; }
+.menu-toggle span::before, .menu-toggle span::after { content: ""; position: absolute; left: 0; }
+.menu-toggle span::before { top: -.45rem; } .menu-toggle span::after { top: .45rem; }
+.site-header.is-open .menu-toggle span { background: transparent; }
+.site-header.is-open .menu-toggle span::before { transform: translateY(.45rem) rotate(45deg); }
+.site-header.is-open .menu-toggle span::after { transform: translateY(-.45rem) rotate(-45deg); }
+.site-header.is-burger .menu-toggle { display: inline-flex; }
+.site-header.is-burger .site-header__nav { display: none; }
+.site-header.is-burger.is-open .site-header__nav { display: block; }
+/* Elenco aperto: pannello sotto l'header, voci una sotto l'altra */
+.site-header.is-open .site-header__nav { position: absolute; left: 0; right: 0; top: 100%; z-index: 40; padding: 1rem var(--gutter) 1.5rem; background: var(--bg); border-bottom: 1px solid var(--line); margin: 0; }
+.site-header.is-open .site-header__nav ul { flex-direction: column; gap: .25rem; }
+.site-header.is-open .site-header__nav a { display: block; padding: .6rem 0; font-size: 1.1rem; }
+.site-header.is-burger .site-header__in, .site-header.is-open .site-header__in { gap: .75rem; }
+
+/* Testo dell'editor visuale: immagini, video, codice, separatori */
+.prose img { max-width: 100%; height: auto; border-radius: var(--radius, 8px); }
+.prose iframe { display: block; width: 100%; max-width: 100%; aspect-ratio: 16 / 9; border: 0; border-radius: var(--radius, 8px); margin: 1.25em 0; }
+.prose pre { overflow: auto; padding: 1rem; background: rgba(0, 0, 0, .06); border-radius: 8px; font-size: .9em; }
+.prose code { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: .92em; }
+.prose hr { border: 0; border-top: 1px solid currentColor; opacity: .2; margin: 2em 0; }
+.prose sub, .prose sup { font-size: .75em; line-height: 0; }

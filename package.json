@@ -1,26 +1,25 @@
 {
-  "name": "outsmart-cms",
+  "name": "atena-cms",
+  "version": "1.0.0",
   "private": true,
   "type": "module",
-  "description": "CMS interno Outsmart: stile globale a token + pagine a blocchi. Prima prova: sito Mammano Traslochi.",
+  "description": "CMS Atena: motore (admin, database, pubblicazione) separato dai template del sito. Il template di partenza è templates/starter.",
   "scripts": {
     "tokens": "node scripts/build-tokens.mjs",
-    "shots": "node templates/mammano/tools/shots.mjs",
-    "diff": "node templates/mammano/tools/diff.mjs",
-    "import": "node templates/mammano/tools/import-prototype.mjs",
     "validate": "node scripts/validate-content.mjs",
     "build": "node scripts/build-site.mjs",
     "serve": "node scripts/serve.mjs",
-    "compare": "node templates/mammano/tools/compare-html.mjs",
     "env:init": "node scripts/init-env.mjs",
+    "admin:path": "node scripts/admin-path.mjs",
     "db:up": "docker compose up -d --wait db",
     "db:down": "docker compose down",
     "db:migrate": "node scripts/db-migrate.mjs",
     "db:seed": "node scripts/db-seed.mjs",
     "admin:user": "node scripts/create-user.mjs",
+    "publish:due": "node scripts/publish-due.mjs",
     "test": "node --import ./tests/setup.mjs --test --test-concurrency=1 tests/*.test.mjs",
     "dev": "next dev -p 3000",
-    "start": "next start -p 3000",
+    "start": "next start -p ${PORT:-3000}",
     "build:admin": "next build",
     "probe:security": "node scripts/probe-security.mjs",
     "purge": "node scripts/purge-data.mjs",
@@ -43,6 +42,6 @@
     "sharp": "^0.35.4"
   },
   "engines": {
-    "node": ">=20.9"
+    "node": ">=22.12"
   }
 }

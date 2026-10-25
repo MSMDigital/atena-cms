@@ -1,0 +1,37 @@
+{
+  "key": "domande-prima-delle-risposte",
+  "status": "published",
+  "slug": {
+    "it": "domande-prima-delle-risposte"
+  },
+  "title": {
+    "it": "Le domande prima delle risposte"
+  },
+  "excerpt": {
+    "it": "Perché nel coaching non si portano risposte standard: si portano domande, metodo e ascolto. (Articolo di esempio.)"
+  },
+  "image": {
+    "src": "ritratto-bianco-nero.jpg",
+    "alt": {
+      "it": "Ritratto in bianco e nero di Daria Benedetto"
+    }
+  },
+  "categories": [
+    "dal-campo"
+  ],
+  "date": "2026-07-28",
+  "author": "Daria Benedetto",
+  "blocks": [
+    {
+      "id": "testo-1",
+      "type": "text",
+      "surface": "light",
+      "content": {
+        "it": "<p><em>Articolo di esempio: sostituiscilo con un tuo testo.</em></p><p>Non porto nel coaching risposte standard. Porto domande, metodo, ascolto e la capacità di leggere il contesto professionale maturata in 25 anni di esperienza sul campo.</p>"
+      }
+    }
+  ],
+  "tags": [
+    "ascolto"
+  ]
+}

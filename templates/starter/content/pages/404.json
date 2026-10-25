@@ -1,0 +1,50 @@
+{
+  "key": "404",
+  "status": "published",
+  "noindex": true,
+  "slug": {
+    "it": "404"
+  },
+  "name": {
+    "it": "Pagina non trovata"
+  },
+  "title": {
+    "it": "Pagina non trovata (404) | Studio Esempio"
+  },
+  "description": {
+    "it": "La pagina che cerchi non esiste o è stata spostata."
+  },
+  "blocks": [
+    {
+      "id": "404-1-hero",
+      "type": "hero",
+      "surface": "dark",
+      "title": {
+        "it": "Questa pagina non c’è."
+      },
+      "lead": {
+        "it": "Errore 404. L’indirizzo che hai aperto non esiste, oppure è stato spostato. Puoi tornare alla home o scriverci."
+      },
+      "buttons": [
+        {
+          "label": {
+            "it": "Torna alla home"
+          },
+          "link": {
+            "type": "page",
+            "page": "home"
+          }
+        },
+        {
+          "label": {
+            "it": "Contatti"
+          },
+          "link": {
+            "type": "page",
+            "page": "contatti"
+          }
+        }
+      ]
+    }
+  ]
+}

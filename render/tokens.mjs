@@ -125,10 +125,13 @@ export function fontSpec(t) {
   return { families, weights: sorted, wMin: sorted[0], wMax: sorted.at(-1), subsets: fonts.subsets, body: fonts.body };
 }
 
-// Solo per l'anteprima dell'admin: le famiglie scelte da Google Fonts, senza averle scaricate. Il sito pubblicato usa i file locali.
-export function googleFontsHref(t) {
-  const { families, wMin, wMax } = fontSpec(t);
-  return 'https://fonts.googleapis.com/css2?' + families.map((f) => `family=${f.replace(/ /g, '+')}:wght@${wMin}..${wMax}`).join('&') + '&display=swap';
+// Solo per l'anteprima dell'admin: il CSS dei font lo serve il nostro server (/admin/preview-fonts), che scarica i file una volta e li tiene in
+// locale. Il browser non contatta mai Google. `token` (firmato dal server) serve all'anteprima senza cookie; senza, la route chiede la sessione.
+export function previewFontsHref(t, token) {
+  const { families, wMin, wMax, subsets } = fontSpec(t);
+  const q = new URLSearchParams({ f: families.join(','), w: `${wMin}..${wMax}`, s: subsets.join(',') });
+  if (token) q.set('t', token);
+  return `/admin/preview-fonts/fonts.css?${q}`;
 }
 
 export const htmlAttrs = (t) => ({ 'data-btn-fx': t.buttons.effect });

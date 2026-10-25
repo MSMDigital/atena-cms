@@ -1,11 +1,12 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
+import { fileURLToPath } from 'node:url';
 import { toPreviewHtml } from '../lib/preview.mjs';
 import { signPreviewPath, verifyPreviewToken } from '../lib/preview-token.mjs';
 import { loadData } from '../render/context.mjs';
 
 process.env.SETTINGS_SECRET = 'chiave-di-prova-per-i-token-1234';
-const tokens = loadData(new URL('../templates/mammano', import.meta.url).pathname).tokens;
+const tokens = loadData(fileURLToPath(new URL('../templates/starter', import.meta.url))).tokens;
 
 test('token dell\'anteprima: valido per quel file, a scadenza, non falsificabile', () => {
   const t = signPreviewPath('uploads/foto-abc.webp');
@@ -28,10 +29,10 @@ test('senza chiavi non si emettono token (le immagini caricate non si vedono, ma
 });
 
 test('anteprima: le immagini caricate ricevono il token, quelle del template no', () => {
-  const html = '<!doctype html><html><head><link rel="stylesheet" href="/assets/css/tokens.css"><link rel="stylesheet" href="/assets/css/fonts.css"></head><body><img src="/assets/img/uploads/foto-abc.webp"><img src="/assets/img/hero-mammano.jpg"></body></html>';
+  const html = '<!doctype html><html><head><link rel="stylesheet" href="/assets/css/tokens.css"><link rel="stylesheet" href="/assets/css/fonts.css"></head><body><img src="/assets/img/uploads/foto-abc.webp"><img src="/assets/img/demo-1.jpg"></body></html>';
   const out = toPreviewHtml(html, tokens);
   assert.match(out, /src="\/admin\/preview-assets\/img\/uploads\/foto-abc\.webp\?t=\d{13}\.[0-9a-f]{32}"/);
-  assert.match(out, /src="\/admin\/preview-assets\/img\/hero-mammano\.jpg"/);
+  assert.match(out, /src="\/admin\/preview-assets\/img\/demo-1\.jpg"/);
   const t = out.match(/foto-abc\.webp\?t=([^"]+)"/)[1];
   assert.equal(verifyPreviewToken('uploads/foto-abc.webp', t), true);
 });

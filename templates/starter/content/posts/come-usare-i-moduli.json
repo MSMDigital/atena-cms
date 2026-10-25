@@ -1,0 +1,39 @@
+{
+  "key": "come-usare-i-moduli",
+  "status": "published",
+  "slug": {
+    "it": "come-usare-i-moduli"
+  },
+  "title": {
+    "it": "Come usare i moduli"
+  },
+  "excerpt": {
+    "it": "Una guida breve ai moduli di Starter: da dove cominciare e dove trovare le opzioni."
+  },
+  "image": {
+    "src": "demo-neve.jpg",
+    "alt": {
+      "it": "Come usare i moduli"
+    }
+  },
+  "categories": [
+    "guide",
+    "novita"
+  ],
+  "tags": [
+    "smart-working",
+    "guide-pratiche"
+  ],
+  "date": "2026-10-10",
+  "author": "Studio Esempio",
+  "blocks": [
+    {
+      "id": "testo-1",
+      "type": "text",
+      "surface": "light",
+      "content": {
+        "it": "<h2>Da dove cominciare</h2><p>Apri una pagina, aggiungi un blocco e scegli tra i moduli disponibili. Spaziatura e angoli delle immagini si regolano modulo per modulo.</p>"
+      }
+    }
+  ]
+}

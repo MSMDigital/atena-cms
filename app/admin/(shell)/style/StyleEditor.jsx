@@ -1,10 +1,11 @@
 'use client';
 
 import { useCallback, useEffect, useMemo, useRef, useState, useTransition } from 'react';
-import { tokensToCss, validateTokens, googleFontsHref, htmlAttrs, HEADINGS, TEXT, DISPLAY, EFFECTS } from '@/render/tokens.mjs';
+import { tokensToCss, validateTokens, previewFontsHref, htmlAttrs, HEADINGS, TEXT, DISPLAY, EFFECTS } from '@/render/tokens.mjs';
 import { resolveToken, contrast, overBackground, grade, parseColor } from '@/lib/color.mjs';
 import { saveTokensAction } from './actions';
 import { publishAction } from '../actions';
+import { useT } from '@/app/admin/_i18n/I18nProvider';
 
 // ---- etichette --------------------------------------------------------------------------------
 
@@ -28,18 +29,18 @@ const SUGGEST = [
   [/tracking/, 'la spaziatura è un numero in em (es. -0.02).'],
   [/radius/, 'il raggio è una misura (es. 999px, 12px, 0px).'],
 ];
-function humanize(e) {
+function humanize(e, t) {
   const [path, ...rest] = e.split(': ');
   const text = rest.join(': ');
-  const hint = SUGGEST.find(([re]) => re.test(e))?.[1] ?? text;
+  const hint = t(SUGGEST.find(([re]) => re.test(e))?.[1] ?? text);
   let m;
-  if ((m = path.match(/^typography\.scale\.(\w+)/))) return `${SCALE_LABELS[m[1]]}: ${hint}`;
-  if ((m = path.match(/^typography\.display\.(\w+)/))) return `${DISPLAY_LABELS[m[1]]}: ${hint}`;
-  if ((m = path.match(/^surfaces\.(\w+)\.(\w+)/))) return `Superficie ${SURFACE_NAMES[m[1]].toLowerCase()}, ${SURFACE_FIELDS.find((f) => f[0] === m[2])?.[1].toLowerCase() ?? m[2]}: ${hint}`;
-  if ((m = path.match(/^colors\.(\w+)/))) return `Colore ${{ brand: 'brand', brandTint: 'brand su scuro', whatsapp: 'WhatsApp' }[m[1]]}: ${hint}`;
-  if (path.startsWith('typography.fonts')) return `Font: ${text}`;
-  if (path.startsWith('buttons')) return `Pulsanti: ${hint}`;
-  if (path.startsWith('layout')) return `Layout: ${text}`;
+  if ((m = path.match(/^typography\.scale\.(\w+)/))) return `${t(SCALE_LABELS[m[1]])}: ${hint}`;
+  if ((m = path.match(/^typography\.display\.(\w+)/))) return `${t(DISPLAY_LABELS[m[1]])}: ${hint}`;
+  if ((m = path.match(/^surfaces\.(\w+)\.(\w+)/))) return `${t('Superficie')} ${t(SURFACE_NAMES[m[1]]).toLowerCase()}, ${t(SURFACE_FIELDS.find((f) => f[0] === m[2])?.[1] ?? m[2]).toLowerCase()}: ${hint}`;
+  if ((m = path.match(/^colors\.(\w+)/))) return `${t('Colore')} ${t({ brand: 'brand', brandTint: 'brand su scuro', whatsapp: 'WhatsApp' }[m[1]])}: ${hint}`;
+  if (path.startsWith('typography.fonts')) return `Font: ${t(text)}`;
+  if (path.startsWith('buttons')) return `${t('Pulsanti')}: ${hint}`;
+  if (path.startsWith('layout')) return `Layout: ${t(text)}`;
   return e;
 }
 
@@ -72,21 +73,22 @@ function Num({ value, onChange, placeholder, label }) {
 }
 
 function ColorInput({ value, onChange, refs, resolved, label }) {
+  const t = useT();
   const isRef = typeof value === 'string' && value.startsWith('@');
   const c = parseColor(isRef ? (resolved ?? '#000000') : value);
   const picker = c ? '#' + c.slice(0, 3).map((n) => Math.round(n).toString(16).padStart(2, '0')).join('') : '#000000';
   return (
     <div className="color">
       {refs && (
-        <select aria-label={`${label}: origine`} value={isRef ? value : ''} onChange={(e) => onChange(e.target.value || picker)}>
-          <option value="">Personalizzato</option>
-          {refs.map((r) => <option key={r} value={r}>{REF_LABELS[r]}</option>)}
+        <select aria-label={`${label}: ${t('origine')}`} value={isRef ? value : ''} onChange={(e) => onChange(e.target.value || picker)}>
+          <option value="">{t('Personalizzato')}</option>
+          {refs.map((r) => <option key={r} value={r}>{t(REF_LABELS[r])}</option>)}
         </select>
       )}
       {!isRef && (
         <>
           <input type="color" aria-label={label} value={picker} onChange={(e) => onChange(e.target.value)} />
-          <input className="hex" type="text" aria-label={`${label}: valore`} value={value} spellCheck={false} onChange={(e) => onChange(e.target.value)} />
+          <input className="hex" type="text" aria-label={`${label}: ${t('valore')}`} value={value} spellCheck={false} onChange={(e) => onChange(e.target.value)} />
         </>
       )}
     </div>
@@ -108,6 +110,7 @@ const Row = ({ label, children }) => <label className="row"><span>{label}</span>
 // ---- editor ------------------------------------------------------------------------------------
 
 export default function StyleEditor({ initial, published, state, rev: initialRev, pages }) {
+  const tr = useT();
   const [rev, setRev] = useState(initialRev);
   const [t, setT] = useState(initial);
   const [saved, setSaved] = useState(JSON.stringify(initial));
@@ -127,17 +130,20 @@ export default function StyleEditor({ initial, published, state, rev: initialRev
   const [device, setDevice] = useState('desktop');
   const [path, setPath] = useState('/');
   const [box, setBox] = useState({ w: 800, h: 600 });
-  const payload = useMemo(() => (errors.length ? null : { type: 'cms-live-style', css: tokensToCss(t), fontsHref: googleFontsHref(t), htmlAttrs: htmlAttrs(t) }), [t, errors.length]);
+  const payload = useMemo(() => (errors.length ? null : { type: 'cms-live-style', css: tokensToCss(t), fontsHref: previewFontsHref(t), htmlAttrs: htmlAttrs(t) }), [t, errors.length]);
   const send = useCallback(() => { if (payload) frame.current?.contentWindow?.postMessage(payload, '*'); }, [payload]);   // l'anteprima ha un'origine opaca (sandbox): il bersaglio non si può indicare
   useEffect(send, [send]);
+  // Un font nuovo lo scarica il server (serve la sessione): si chiede qui, con il cookie, poi l'anteprima lo legge dalla cache locale.
+  const fontsHref = payload?.fontsHref;
+  useEffect(() => { if (fontsHref) fetch(fontsHref, { credentials: 'same-origin' }).then(send, () => {}); }, [fontsHref, send]);
   // L'HTML dell'anteprima lo scarica questa pagina (con la sessione) e lo passa all'iframe in srcdoc: l'iframe, sandboxed, non deve dipendere
   // dal cookie né poter caricare al suo interno una pagina dell'admin (per esempio il login).
   useEffect(() => {
     let stale = false;
-    const note = (t) => `<!doctype html><meta charset="utf-8"><body style="font:16px system-ui;padding:2rem;color:#444">${t}</body>`;
+    const note = (msg) => `<!doctype html><meta charset="utf-8"><body style="font:16px system-ui;padding:2rem;color:#444">${msg}</body>`;
     fetch(`/admin/preview${path === '/' ? '' : path}`, { credentials: 'same-origin', cache: 'no-store' })
-      .then(async (r) => (r.ok ? r.text() : note(r.status === 401 ? 'Sessione scaduta: ricarica la pagina e accedi di nuovo.' : 'Anteprima non disponibile per questa pagina.')))
-      .catch(() => note('Anteprima non raggiungibile.'))
+      .then(async (r) => (r.ok ? r.text() : note(r.status === 401 ? tr('Sessione scaduta: ricarica la pagina e accedi di nuovo.') : tr('Anteprima non disponibile per questa pagina.'))))
+      .catch(() => note(tr('Anteprima non raggiungibile.')))
       .then((html) => { if (!stale && frame.current) frame.current.srcdoc = html; });
     return () => { stale = true; };
   }, [path]);
@@ -172,22 +178,22 @@ export default function StyleEditor({ initial, published, state, rev: initialRev
 
   const save = () => start(async () => {
     const r = await saveTokensAction(t, rev);
-    if (r.ok) { setSaved(JSON.stringify(t)); setRev(r.rev); setMsg({ tone: 'ok', text: r.changed ? 'Bozza salvata.' : 'Nessuna modifica da salvare.' }); }
-    else setMsg({ tone: 'bad', text: 'Non salvato: ' + r.errors.map(humanize).join(' ') });
+    if (r.ok) { setSaved(JSON.stringify(t)); setRev(r.rev); setMsg({ tone: 'ok', text: r.changed ? tr('Bozza salvata.') : tr('Nessuna modifica da salvare.') }); }
+    else setMsg({ tone: 'bad', text: tr('Non salvato:') + ' ' + r.errors.map((e) => humanize(e, tr)).join(' ') });
   });
   const publish = () => start(async () => {
     const r = await publishAction();
-    if (r.ok) { setLive(saved); setMsg({ tone: 'ok', text: r.nothing ? 'Niente da pubblicare.' : `Pubblicato: ${r.pages} pagine.` }); }
-    else setMsg({ tone: 'bad', text: `${r.error}. Il sito online non è cambiato. ${r.details?.join('; ') ?? ''}` });
+    if (r.ok) { setLive(saved); setMsg({ tone: 'ok', text: r.nothing ? tr('Niente da pubblicare.') : tr('Pubblicato: {n} pagine.', { n: r.pages }) }); }
+    else setMsg({ tone: 'bad', text: `${tr(r.error)}. ${tr('Il sito online non è cambiato.')} ${r.details?.join('; ') ?? ''}` });
   });
 
   // Contrasto testo/sfondo della superficie scelta.
   const bgC = resolveToken(t.surfaces[surface].bg, t, surface);
-  const contrastRows = [['ink', 'Testo'], ['inkSoft', 'Testo secondario'], ['muted', 'Testo attenuato'], ['accent', 'Accento']].map(([k, label]) => {
+  const contrastRows = [['ink', tr('Testo')], ['inkSoft', tr('Testo secondario')], ['muted', tr('Testo attenuato')], ['accent', tr('Accento')]].map(([k, label]) => {
     const fg = resolveToken(t.surfaces[surface][k], t, surface);
     if (!fg || !bgC) return { label, ratio: null };
     const ratio = contrast(overBackground(fg, bgC), bgC.slice(0, 3));
-    return { label, ratio, grade: grade(ratio) };
+    return { label, ratio, grade: tr(grade(ratio)) };
   });
 
   const scaleRow = (k, withType) => {
@@ -196,15 +202,15 @@ export default function StyleEditor({ initial, published, state, rev: initialRev
     const trackNum = s.tracking != null ? parseFloat(s.tracking) : undefined;
     return (
       <tr key={k}>
-        <th scope="row">{SCALE_LABELS[k]}</th>
-        <td><Num value={s.size[0]} label={`${SCALE_LABELS[k]}: mobile`} onChange={(v) => set([...p, 'size'], [v, s.size[1]])} /></td>
-        <td><Num value={s.size[1]} label={`${SCALE_LABELS[k]}: desktop`} onChange={(v) => set([...p, 'size'], [s.size[0], v])} /></td>
-        <td><Num value={s.max} placeholder="—" label={`${SCALE_LABELS[k]}: tetto`} onChange={(v) => set([...p, 'max'], v)} /></td>
+        <th scope="row">{tr(SCALE_LABELS[k])}</th>
+        <td><Num value={s.size[0]} label={`${tr(SCALE_LABELS[k])}: ${tr('mobile')}`} onChange={(v) => set([...p, 'size'], [v, s.size[1]])} /></td>
+        <td><Num value={s.size[1]} label={`${tr(SCALE_LABELS[k])}: ${tr('desktop')}`} onChange={(v) => set([...p, 'size'], [s.size[0], v])} /></td>
+        <td><Num value={s.max} placeholder="—" label={`${tr(SCALE_LABELS[k])}: ${tr('tetto')}`} onChange={(v) => set([...p, 'max'], v)} /></td>
         {withType && (
           <>
-            <td>{s.weight != null ? <select aria-label={`${SCALE_LABELS[k]}: peso`} value={s.weight} onChange={(e) => set([...p, 'weight'], +e.target.value)}>{[...new Set([...WEIGHTS, s.weight])].sort().map((w) => <option key={w}>{w}</option>)}</select> : null}</td>
-            <td>{s.lineHeight != null ? <Num value={s.lineHeight} label={`${SCALE_LABELS[k]}: interlinea`} onChange={(v) => set([...p, 'lineHeight'], v)} /> : null}</td>
-            <td>{s.tracking != null ? <Num value={trackNum} label={`${SCALE_LABELS[k]}: spaziatura`} onChange={(v) => set([...p, 'tracking'], v === undefined ? undefined : `${v}em`)} /> : null}</td>
+            <td>{s.weight != null ? <select aria-label={`${tr(SCALE_LABELS[k])}: ${tr('peso')}`} value={s.weight} onChange={(e) => set([...p, 'weight'], +e.target.value)}>{[...new Set([...WEIGHTS, s.weight])].sort().map((w) => <option key={w}>{w}</option>)}</select> : null}</td>
+            <td>{s.lineHeight != null ? <Num value={s.lineHeight} label={`${tr(SCALE_LABELS[k])}: ${tr('interlinea')}`} onChange={(v) => set([...p, 'lineHeight'], v)} /> : null}</td>
+            <td>{s.tracking != null ? <Num value={trackNum} label={`${tr(SCALE_LABELS[k])}: ${tr('spaziatura')}`} onChange={(v) => set([...p, 'tracking'], v === undefined ? undefined : `${v}em`)} /> : null}</td>
           </>
         )}
       </tr>
@@ -215,28 +221,28 @@ export default function StyleEditor({ initial, published, state, rev: initialRev
     <div className="editor">
       <div className="editor__panel">
         <div className="editor__scroll">
-          <h1>Stile</h1>
-          <p className="hint">Le modifiche si vedono subito nell&apos;anteprima. Il sito online cambia solo quando le pubblichi.</p>
+          <h1>{tr('Stile')}</h1>
+          <p className="hint">{tr('Le modifiche si vedono subito nell\'anteprima. Il sito online cambia solo quando le pubblichi.')}</p>
 
-          <Section title="Colori del marchio">
-            <Row label="Brand"><ColorInput label="Brand" value={t.colors.brand} onChange={(v) => set(['colors', 'brand'], v)} /></Row>
-            <Row label="Brand su scuro"><ColorInput label="Brand su scuro" value={t.colors.brandTint} onChange={(v) => set(['colors', 'brandTint'], v)} /></Row>
+          <Section title={tr('Colori del marchio')}>
+            <Row label={tr('Brand')}><ColorInput label={tr('Brand')} value={t.colors.brand} onChange={(v) => set(['colors', 'brand'], v)} /></Row>
+            <Row label={tr('Brand su scuro')}><ColorInput label={tr('Brand su scuro')} value={t.colors.brandTint} onChange={(v) => set(['colors', 'brandTint'], v)} /></Row>
             <Row label="WhatsApp"><ColorInput label="WhatsApp" value={t.colors.whatsapp} onChange={(v) => set(['colors', 'whatsapp'], v)} /></Row>
           </Section>
 
-          <Section title="Superfici" hint="Ogni sezione della pagina ha una superficie: chiara, scura o brand.">
+          <Section title={tr('Superfici')} hint={tr('Ogni sezione della pagina ha una superficie: chiara, scura o brand.')}>
             <div className="seg" role="tablist">
-              {Object.keys(SURFACE_NAMES).map((s) => <button key={s} role="tab" aria-selected={surface === s} className={surface === s ? 'on' : ''} onClick={() => setSurface(s)}>{SURFACE_NAMES[s]}</button>)}
+              {Object.keys(SURFACE_NAMES).map((s) => <button key={s} role="tab" aria-selected={surface === s} className={surface === s ? 'on' : ''} onClick={() => setSurface(s)}>{tr(SURFACE_NAMES[s])}</button>)}
             </div>
             {SURFACE_FIELDS.map(([k, label, refs]) => (
-              <Row key={k} label={label}>
-                <ColorInput label={`${SURFACE_NAMES[surface]}: ${label}`} value={t.surfaces[surface][k]} refs={refs ? ['@brand', '@brandTint', '@ink'].filter((r) => !(r === '@ink' && k === 'ink')) : null}
+              <Row key={k} label={tr(label)}>
+                <ColorInput label={`${tr(SURFACE_NAMES[surface])}: ${tr(label)}`} value={t.surfaces[surface][k]} refs={refs ? ['@brand', '@brandTint', '@ink'].filter((r) => !(r === '@ink' && k === 'ink')) : null}
                   resolved={(() => { const c = resolveToken(t.surfaces[surface][k], t, surface); return c ? '#' + c.slice(0, 3).map((n) => Math.round(n).toString(16).padStart(2, '0')).join('') : undefined; })()}
                   onChange={(v) => set(['surfaces', surface, k], v)} />
               </Row>
             ))}
-            <div className="contrast" aria-label="Contrasto sullo sfondo">
-              <strong>Leggibilità sullo sfondo</strong>
+            <div className="contrast" aria-label={tr('Contrasto sullo sfondo')}>
+              <strong>{tr('Leggibilità sullo sfondo')}</strong>
               {contrastRows.map((c) => (
                 <div key={c.label} className={`contrast__row ${c.ratio == null ? '' : c.ratio >= 4.5 ? 'ok' : c.ratio >= 3 ? 'warn' : 'bad'}`}>
                   <span>{c.label}</span>
@@ -246,16 +252,16 @@ export default function StyleEditor({ initial, published, state, rev: initialRev
             </div>
           </Section>
 
-          <Section title="Font" hint="Vengono scaricati e serviti dal sito alla pubblicazione (nessuna richiesta a Google dai visitatori).">
+          <Section title="Font" hint={tr('Vengono scaricati e serviti dal sito alla pubblicazione (nessuna richiesta a Google dai visitatori).')}>
             <datalist id="fonts">{FONTS.map((f) => <option key={f} value={f} />)}</datalist>
-            <Row label="Testi"><input list="fonts" value={t.typography.fonts.body} onChange={(e) => set(['typography', 'fonts', 'body'], e.target.value)} aria-label="Font dei testi" /></Row>
-            <Row label="Titoli"><input list="fonts" value={t.typography.fonts.heading} onChange={(e) => set(['typography', 'fonts', 'heading'], e.target.value)} aria-label="Font dei titoli" /></Row>
+            <Row label={tr('Testi')}><input list="fonts" value={t.typography.fonts.body} onChange={(e) => set(['typography', 'fonts', 'body'], e.target.value)} aria-label={tr('Font dei testi')} /></Row>
+            <Row label={tr('Titoli')}><input list="fonts" value={t.typography.fonts.heading} onChange={(e) => set(['typography', 'fonts', 'heading'], e.target.value)} aria-label={tr('Font dei titoli')} /></Row>
           </Section>
 
-          <Section title="Titoli e paragrafi" hint="Dimensioni in px su mobile (390) e su desktop (1440); in mezzo crescono in modo fluido. Il tetto è la misura massima su schermi più larghi.">
+          <Section title={tr('Titoli e paragrafi')} hint={tr('Dimensioni in px su mobile (390) e su desktop (1440); in mezzo crescono in modo fluido. Il tetto è la misura massima su schermi più larghi.')}>
             <div className="tablewrap">
               <table className="scale">
-                <thead><tr><th /><th>Mobile</th><th>Desktop</th><th>Tetto</th><th>Peso</th><th>Interlinea</th><th>Spazio (em)</th></tr></thead>
+                <thead><tr><th /><th>{tr('Mobile')}</th><th>{tr('Desktop')}</th><th>{tr('Tetto')}</th><th>{tr('Peso')}</th><th>{tr('Interlinea')}</th><th>{tr('Spazio (em)')}</th></tr></thead>
                 <tbody>
                   {HEADINGS.map((k) => scaleRow(k, true))}
                   {['lead', 'body'].map((k) => scaleRow(k, true))}
@@ -265,20 +271,20 @@ export default function StyleEditor({ initial, published, state, rev: initialRev
             </div>
           </Section>
 
-          <Section title="Testi grandi" hint="Titoli e numeri dei componenti (home, nastro, CTA...).">
+          <Section title={tr('Testi grandi')} hint={tr('Titoli e numeri dei componenti (home, nastro, CTA...).')}>
             <div className="tablewrap">
               <table className="scale">
-                <thead><tr><th /><th>Mobile</th><th>Desktop</th><th>Tetto</th></tr></thead>
+                <thead><tr><th /><th>{tr('Mobile')}</th><th>{tr('Desktop')}</th><th>{tr('Tetto')}</th></tr></thead>
                 <tbody>
                   {DISPLAY.map((k) => {
                     const s = t.typography.display[k];
                     const p = ['typography', 'display', k];
                     return (
                       <tr key={k}>
-                        <th scope="row">{DISPLAY_LABELS[k]}</th>
-                        <td><Num value={s.size[0]} label={`${DISPLAY_LABELS[k]}: mobile`} onChange={(v) => set([...p, 'size'], [v, s.size[1]])} /></td>
-                        <td><Num value={s.size[1]} label={`${DISPLAY_LABELS[k]}: desktop`} onChange={(v) => set([...p, 'size'], [s.size[0], v])} /></td>
-                        <td><Num value={s.max} placeholder="—" label={`${DISPLAY_LABELS[k]}: tetto`} onChange={(v) => set([...p, 'max'], v)} /></td>
+                        <th scope="row">{tr(DISPLAY_LABELS[k])}</th>
+                        <td><Num value={s.size[0]} label={`${tr(DISPLAY_LABELS[k])}: ${tr('mobile')}`} onChange={(v) => set([...p, 'size'], [v, s.size[1]])} /></td>
+                        <td><Num value={s.size[1]} label={`${tr(DISPLAY_LABELS[k])}: ${tr('desktop')}`} onChange={(v) => set([...p, 'size'], [s.size[0], v])} /></td>
+                        <td><Num value={s.max} placeholder="—" label={`${tr(DISPLAY_LABELS[k])}: ${tr('tetto')}`} onChange={(v) => set([...p, 'max'], v)} /></td>
                       </tr>
                     );
                   })}
@@ -287,62 +293,62 @@ export default function StyleEditor({ initial, published, state, rev: initialRev
             </div>
           </Section>
 
-          <Section title="Pulsanti">
+          <Section title={tr('Pulsanti')}>
             <fieldset className="effects">
-              <legend>Effetto al passaggio</legend>
+              <legend>{tr('Effetto al passaggio')}</legend>
               {EFFECTS.map((e) => (
                 <label key={e} className={t.buttons.effect === e ? 'on' : ''}>
                   <input type="radio" name="effect" checked={t.buttons.effect === e} onChange={() => set(['buttons', 'effect'], e)} />
-                  <strong>{EFFECT_LABELS[e][0]}</strong><span>{EFFECT_LABELS[e][1]}</span>
+                  <strong>{tr(EFFECT_LABELS[e][0])}</strong><span>{tr(EFFECT_LABELS[e][1])}</span>
                 </label>
               ))}
             </fieldset>
-            <Row label="Angoli">
+            <Row label={tr('Angoli')}>
               <div className="chips">
-                {RADII.map(([n, v]) => <button key={v} className={t.buttons.radius === v ? 'on' : ''} onClick={() => set(['buttons', 'radius'], v)}>{n}</button>)}
-                <input className="hex" value={t.buttons.radius} aria-label="Raggio degli angoli" onChange={(e) => set(['buttons', 'radius'], e.target.value)} />
+                {RADII.map(([n, v]) => <button key={v} className={t.buttons.radius === v ? 'on' : ''} onClick={() => set(['buttons', 'radius'], v)}>{tr(n)}</button>)}
+                <input className="hex" value={t.buttons.radius} aria-label={tr('Raggio degli angoli')} onChange={(e) => set(['buttons', 'radius'], e.target.value)} />
               </div>
             </Row>
-            <Row label="Altezza minima (px)"><Num value={t.buttons.minHeight} label="Altezza minima" onChange={(v) => set(['buttons', 'minHeight'], v)} /></Row>
-            <Row label="Peso del testo"><select value={t.buttons.weight} onChange={(e) => set(['buttons', 'weight'], +e.target.value)}>{WEIGHTS.map((w) => <option key={w}>{w}</option>)}</select></Row>
+            <Row label={tr('Altezza minima (px)')}><Num value={t.buttons.minHeight} label={tr('Altezza minima')} onChange={(v) => set(['buttons', 'minHeight'], v)} /></Row>
+            <Row label={tr('Peso del testo')}><select value={t.buttons.weight} onChange={(e) => set(['buttons', 'weight'], +e.target.value)}>{WEIGHTS.map((w) => <option key={w}>{w}</option>)}</select></Row>
           </Section>
 
           <Section title="Layout" open={false}>
-            <Row label="Larghezza massima (px)"><Num value={t.layout.maxWidth} label="Larghezza massima" onChange={(v) => set(['layout', 'maxWidth'], v)} /></Row>
-            <Row label="Altezza header (px)"><Num value={t.layout.headerHeight} label="Altezza header" onChange={(v) => set(['layout', 'headerHeight'], v)} /></Row>
-            <Row label="Altezza header mobile (px)"><Num value={t.layout.headerHeightMobile} label="Altezza header mobile" onChange={(v) => set(['layout', 'headerHeightMobile'], v)} /></Row>
-            <Row label="Margini laterali"><input className="hex" value={t.layout.gutter} onChange={(e) => set(['layout', 'gutter'], e.target.value)} /></Row>
-            <Row label="Spazio tra sezioni"><input className="hex" value={t.layout.section} onChange={(e) => set(['layout', 'section'], e.target.value)} /></Row>
+            <Row label={tr('Larghezza massima (px)')}><Num value={t.layout.maxWidth} label={tr('Larghezza massima')} onChange={(v) => set(['layout', 'maxWidth'], v)} /></Row>
+            <Row label={tr('Altezza header (px)')}><Num value={t.layout.headerHeight} label={tr('Altezza header')} onChange={(v) => set(['layout', 'headerHeight'], v)} /></Row>
+            <Row label={tr('Altezza header mobile (px)')}><Num value={t.layout.headerHeightMobile} label={tr('Altezza header mobile')} onChange={(v) => set(['layout', 'headerHeightMobile'], v)} /></Row>
+            <Row label={tr('Margini laterali')}><input className="hex" value={t.layout.gutter} onChange={(e) => set(['layout', 'gutter'], e.target.value)} /></Row>
+            <Row label={tr('Spazio tra sezioni')}><input className="hex" value={t.layout.section} onChange={(e) => set(['layout', 'section'], e.target.value)} /></Row>
           </Section>
         </div>
 
         <div className="editor__bar">
-          {errors.length > 0 && <ul className="errors" role="alert">{errors.slice(0, 3).map((e) => <li key={e}>{humanize(e)}</li>)}{errors.length > 3 && <li>…e altri {errors.length - 3}</li>}</ul>}
+          {errors.length > 0 && <ul className="errors" role="alert">{errors.slice(0, 3).map((e) => <li key={e}>{humanize(e, tr)}</li>)}{errors.length > 3 && <li>{tr('…e altri {n}', { n: errors.length - 3 })}</li>}</ul>}
           {msg && <p className={`notice notice--${msg.tone}`} role="status">{msg.text}</p>}
           <div className="editor__actions">
-            <span className="muted">{dirty ? 'Modifiche non salvate' : unpublished ? 'Bozza salvata, non pubblicata' : 'Uguale alla versione online'}</span>
-            <button className="btn" disabled={!dirty || busy} onClick={() => { setT(JSON.parse(saved)); setMsg(null); }}>Annulla</button>
-            {live && saved !== live && <button className="btn" disabled={busy} onClick={() => setT(JSON.parse(live))} title="Carica i valori attualmente online (poi salva)">Torna all&apos;online</button>}
-            <button className="btn" disabled={!dirty || busy || errors.length > 0} onClick={save}>Salva bozza</button>
-            <button className="btn btn--primary" disabled={dirty || busy || !unpublished} onClick={publish} title={dirty ? 'Salva prima la bozza' : ''}>Pubblica</button>
+            <span className="muted">{dirty ? tr('Modifiche non salvate') : unpublished ? tr('Bozza salvata, non pubblicata') : tr('Uguale alla versione online')}</span>
+            <button className="btn" disabled={!dirty || busy} onClick={() => { setT(JSON.parse(saved)); setMsg(null); }}>{tr('Annulla')}</button>
+            {live && saved !== live && <button className="btn" disabled={busy} onClick={() => setT(JSON.parse(live))} title={tr('Carica i valori attualmente online (poi salva)')}>{tr('Torna all\'online')}</button>}
+            <button className="btn" disabled={!dirty || busy || errors.length > 0} onClick={save}>{tr('Salva bozza')}</button>
+            <button className="btn btn--primary" disabled={dirty || busy || !unpublished} onClick={publish} title={dirty ? tr('Salva prima la bozza') : ''}>{tr('Pubblica')}</button>
           </div>
         </div>
       </div>
 
       <div className="editor__preview">
         <div className="preview__bar">
-          <select value={path} onChange={(e) => setPath(e.target.value)} aria-label="Pagina in anteprima">
+          <select value={path} onChange={(e) => setPath(e.target.value)} aria-label={tr('Pagina in anteprima')}>
             {pages.map((p) => <option key={p.key} value={p.path}>{p.name}</option>)}
           </select>
           <div className="seg">
-            {Object.keys(DEVICES).map((d) => <button key={d} className={device === d ? 'on' : ''} onClick={() => setDevice(d)}>{d === 'desktop' ? 'Desktop' : 'Mobile'}</button>)}
+            {Object.keys(DEVICES).map((d) => <button key={d} className={device === d ? 'on' : ''} onClick={() => setDevice(d)}>{d === 'desktop' ? tr('Desktop') : tr('Mobile')}</button>)}
           </div>
           <span className="muted">{Math.round(scale * 100)}%</span>
         </div>
         <div className="preview__stage" ref={stage}>
           <div style={{ width: W * scale, height: (box.h - 24) , margin: '0 auto', position: 'relative' }}>
             <iframe
-              ref={frame} title="Anteprima del sito" sandbox="allow-scripts" onLoad={send}
+              ref={frame} title={tr('Anteprima del sito')} sandbox="allow-scripts" onLoad={send}
               style={{ width: W, height: (box.h - 24) / scale, transform: `scale(${scale})`, transformOrigin: 'top left' }}
             />
           </div>

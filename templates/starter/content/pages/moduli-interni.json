@@ -1,0 +1,793 @@
+{
+  "key": "moduli-interni",
+  "status": "published",
+  "slug": {
+    "it": "moduli-interni"
+  },
+  "name": {
+    "it": "Moduli interni"
+  },
+  "title": {
+    "it": "Moduli interni | Studio Esempio"
+  },
+  "description": {
+    "it": "Campionario dei blocchi con immagine, numeri, passi e zone."
+  },
+  "noindex": true,
+  "blocks": [
+    {
+      "id": "mi-1-page-intro",
+      "type": "page-intro",
+      "surface": "dark",
+      "title": {
+        "it": "Una famiglia di traslocatori a Lugano dal 1986."
+      },
+      "lead": {
+        "it": "Da 40 anni aiutiamo privati e aziende del Ticino a cambiare casa e sede. Siamo cresciuti col passaparola, un trasloco dopo l'altro."
+      },
+      "summary": {
+        "it": "Studio Esempio e Trasporti è una ditta di traslochi familiare con sede a Lugano, attiva dal 1986 e oggi guidata dal titolare Patrick Studio Esempio. Ha eseguito oltre 10'000 traslochi in Ticino, in Svizzera e all'estero, lavorando solo con personale assunto e con veicoli propri."
+      }
+    },
+    {
+      "id": "mi-2-hero-image",
+      "type": "hero-image",
+      "surface": "dark",
+      "image": {
+        "src": "demo-1.jpg",
+        "alt": {
+          "it": "Patrick Studio Esempio, titolare di Studio Esempio e Trasporti a Lugano"
+        },
+        "focal": {
+          "x": 62,
+          "y": 25
+        },
+        "focalMobile": {
+          "x": 70,
+          "y": 20
+        }
+      },
+      "titleLine1": {
+        "it": "Traslochi"
+      },
+      "titleLine2": {
+        "it": "a Lugano"
+      },
+      "claim": {
+        "it": "Persone nostre, mezzi nostri.\nDa quarant'anni."
+      },
+      "badge": {
+        "ring": [
+          {
+            "it": "Preventivo gratuito"
+          },
+          {
+            "it": "Sopralluogo gratuito"
+          }
+        ],
+        "label": {
+          "it": "Richiedi un preventivo gratuito"
+        },
+        "link": {
+          "type": "page",
+          "page": "contatti"
+        }
+      }
+    },
+    {
+      "id": "mi-3-facts",
+      "type": "facts",
+      "surface": "dark",
+      "label": {
+        "it": "Studio Esempio in numeri"
+      },
+      "items": [
+        {
+          "value": {
+            "it": "1986"
+          },
+          "label": {
+            "it": "In attività dal"
+          }
+        },
+        {
+          "value": {
+            "it": "10'000+"
+          },
+          "label": {
+            "it": "Traslochi eseguiti"
+          }
+        },
+        {
+          "value": {
+            "it": "25 m"
+          },
+          "label": {
+            "it": "Lift esterno"
+          }
+        },
+        {
+          "value": {
+            "it": "Gratuito"
+          },
+          "label": {
+            "it": "Sopralluogo"
+          }
+        }
+      ]
+    },
+    {
+      "type": "marquee",
+      "surface": "brand",
+      "items": [
+        {
+          "it": "Traslochi"
+        },
+        {
+          "it": "Trasporti"
+        },
+        {
+          "it": "Deposito"
+        },
+        {
+          "it": "Imballaggi"
+        },
+        {
+          "it": "Sgomberi"
+        }
+      ],
+      "id": "mi-4-marquee"
+    },
+    {
+      "id": "mi-5-items",
+      "type": "items",
+      "surface": "brand",
+      "header": {
+        "eyebrow": {
+          "it": "I nostri valori"
+        },
+        "title": {
+          "it": "Quello che ci chiedono, e che manteniamo."
+        }
+      },
+      "layout": "points",
+      "columns": 3,
+      "numbered": true,
+      "items": [
+        {
+          "title": {
+            "it": "Affidabilità"
+          },
+          "text": {
+            "it": "Rispettiamo date e orari concordati. Personale e veicoli sono nostri: nessun subappalto."
+          }
+        },
+        {
+          "title": {
+            "it": "Trasparenza"
+          },
+          "text": {
+            "it": "Preventivo scritto dopo il sopralluogo, con tutte le voci chiare fin dall'inizio."
+          }
+        },
+        {
+          "title": {
+            "it": "Personale qualificato"
+          },
+          "text": {
+            "it": "Solo collaboratori assunti e regolari, veloci, precisi e con anni di esperienza."
+          }
+        },
+        {
+          "title": {
+            "it": "Mezzi controllati"
+          },
+          "text": {
+            "it": "Veicoli e attrezzature lavati e controllati ogni settimana dai nostri tecnici."
+          }
+        },
+        {
+          "title": {
+            "it": "Attenzione all'ambiente"
+          },
+          "text": {
+            "it": "Motori Euro 4 e 5 con filtro antiparticolato e smaltimento tramite enti autorizzati."
+          }
+        },
+        {
+          "title": {
+            "it": "Puntualità e cortesia"
+          },
+          "text": {
+            "it": "Orari flessibili e rispetto per la vostra casa e i vostri mobili."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mi-6-items",
+      "type": "items",
+      "surface": "dark",
+      "header": {
+        "eyebrow": {
+          "it": "Servizi"
+        },
+        "title": {
+          "it": "Tutto il trasloco, dall'imballaggio al deposito."
+        }
+      },
+      "layout": "rows",
+      "items": [
+        {
+          "title": {
+            "it": "Traslochi privati"
+          },
+          "link": {
+            "type": "page",
+            "page": "contatti"
+          },
+          "text": {
+            "it": "Case e appartamenti, chiavi in mano."
+          },
+          "previewImage": {
+            "src": "demo-2.jpg",
+            "alt": {
+              "it": "Traslochi privati"
+            }
+          }
+        },
+        {
+          "title": {
+            "it": "Traslochi aziendali"
+          },
+          "link": {
+            "type": "page",
+            "page": "contatti"
+          },
+          "text": {
+            "it": "Uffici e negozi, anche fuori orario."
+          },
+          "previewImage": {
+            "src": "demo-3.jpg",
+            "alt": {
+              "it": "Traslochi aziendali"
+            }
+          }
+        },
+        {
+          "title": {
+            "it": "Traslochi internazionali"
+          },
+          "link": {
+            "type": "page",
+            "page": "contatti"
+          },
+          "text": {
+            "it": "Italia, Europa e mondo."
+          },
+          "previewImage": {
+            "src": "demo-4.jpg",
+            "alt": {
+              "it": "Traslochi internazionali"
+            }
+          }
+        },
+        {
+          "title": {
+            "it": "Deposito, sgomberi e imballaggi"
+          },
+          "link": {
+            "type": "page",
+            "page": "contatti"
+          },
+          "text": {
+            "it": "Custodiamo, liberiamo, imballiamo."
+          },
+          "previewImage": {
+            "src": "demo-5.jpg",
+            "alt": {
+              "it": "Deposito, sgomberi e imballaggi"
+            }
+          }
+        },
+        {
+          "title": {
+            "it": "Noleggio lift e camion"
+          },
+          "link": {
+            "type": "page",
+            "page": "contatti"
+          },
+          "text": {
+            "it": "Sempre con il nostro operatore."
+          },
+          "previewImage": {
+            "src": "demo-6.jpg",
+            "alt": {
+              "it": "Noleggio lift e camion"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "mi-7-items",
+      "type": "items",
+      "surface": "light",
+      "header": {
+        "eyebrow": {
+          "it": "Come funziona"
+        },
+        "title": {
+          "it": "Quattro passaggi. Zero sorprese."
+        }
+      },
+      "layout": "steps",
+      "items": [
+        {
+          "title": {
+            "it": "Ci contattate"
+          },
+          "text": {
+            "it": "Modulo, telefono o WhatsApp."
+          }
+        },
+        {
+          "title": {
+            "it": "Sopralluogo"
+          },
+          "text": {
+            "it": "Gratuito, a casa vostra."
+          }
+        },
+        {
+          "title": {
+            "it": "Preventivo"
+          },
+          "text": {
+            "it": "Scritto, voce per voce."
+          }
+        },
+        {
+          "title": {
+            "it": "Trasloco"
+          },
+          "text": {
+            "it": "Nel giorno concordato."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mi-8-items",
+      "type": "items",
+      "surface": "light",
+      "layout": "cards",
+      "columns": 2,
+      "items": [
+        {
+          "title": {
+            "it": "Traslochi privati"
+          },
+          "link": {
+            "type": "page",
+            "page": "contatti"
+          },
+          "image": {
+            "src": "demo-7.jpg",
+            "alt": {
+              "it": "Camion Studio Esempio con lift esterno per un trasloco privato a Lugano"
+            }
+          },
+          "text": {
+            "it": "Case e appartamenti a Lugano, nel resto del Ticino e in Svizzera. Imballaggio, smontaggio e rimontaggio mobili, trasporto e lift esterno per i piani alti."
+          },
+          "linkLabel": {
+            "it": "Scopri il servizio"
+          }
+        },
+        {
+          "title": {
+            "it": "Traslochi aziendali"
+          },
+          "link": {
+            "type": "page",
+            "page": "contatti"
+          },
+          "image": {
+            "src": "demo-lago.jpg",
+            "alt": {
+              "it": "Traslocatori Studio Esempio caricano arredi durante il trasloco di un ufficio"
+            }
+          },
+          "text": {
+            "it": "Uffici, studi, negozi e archivi trasferiti con un piano di lavoro concordato, anche nel weekend o fuori orario."
+          },
+          "linkLabel": {
+            "it": "Scopri il servizio"
+          }
+        },
+        {
+          "title": {
+            "it": "Traslochi internazionali"
+          },
+          "link": {
+            "type": "page",
+            "page": "contatti"
+          },
+          "image": {
+            "src": "demo-neve.jpg",
+            "alt": {
+              "it": "Furgone Studio Esempio pronto per un trasloco internazionale"
+            }
+          },
+          "text": {
+            "it": "Dalla Svizzera verso Italia, Europa e resto del mondo e viceversa, via strada, mare o aereo, porta a porta."
+          },
+          "linkLabel": {
+            "it": "Scopri il servizio"
+          }
+        },
+        {
+          "title": {
+            "it": "Deposito, sgomberi e imballaggi"
+          },
+          "link": {
+            "type": "page",
+            "page": "contatti"
+          },
+          "image": {
+            "src": "demo-1.jpg",
+            "alt": {
+              "it": "Furgone Studio Esempio con scatoloni imballati"
+            }
+          },
+          "text": {
+            "it": "Deposito mobili videosorvegliato, sgombero di appartamenti, cantine e solai, scatoloni e materiale da imballaggio."
+          },
+          "linkLabel": {
+            "it": "Scopri il servizio"
+          }
+        }
+      ]
+    },
+    {
+      "id": "mi-9-split",
+      "type": "split",
+      "surface": "light",
+      "eyebrow": {
+        "it": "La nostra storia"
+      },
+      "title": {
+        "it": "Quarant'anni di traslochi in Ticino."
+      },
+      "body": {
+        "it": "<p>Studio Esempio nasce a Lugano nel 1986 come azienda di famiglia. In quarant'anni abbiamo eseguito oltre 10'000 traslochi: appartamenti nel centro di Lugano, case nelle valli, uffici, negozi e traslochi verso l'estero.</p><p>Oggi l'azienda è guidata da Patrick Studio Esempio, che ha portato nuovi mezzi e nuovi servizi mantenendo lo stesso metodo: un consulente che viene a vedere il lavoro, un preventivo chiaro e una squadra che lo esegue con cura.</p>"
+      },
+      "mediaSide": "right",
+      "mobileMedia": "bottom",
+      "media": {
+        "type": "quote",
+        "image": {
+          "src": "demo-2.jpg",
+          "alt": {
+            "it": "Collaboratore di Studio Esempio davanti al logo aziendale"
+          }
+        },
+        "quote": {
+          "it": "«Il cliente deve poter pensare alla sua nuova casa. Del trasloco ci occupiamo noi, come se fossero i nostri mobili.»"
+        },
+        "author": {
+          "it": "Patrick Studio Esempio, titolare"
+        }
+      },
+      "corners": "round-lg",
+      "padding": {
+        "top": "sm",
+        "bottom": "sm"
+      }
+    },
+    {
+      "id": "mi-10-gallery",
+      "type": "gallery",
+      "surface": "dark",
+      "label": {
+        "it": "Studio Esempio al lavoro"
+      },
+      "items": [
+        {
+          "image": {
+            "src": "demo-3.jpg",
+            "alt": {
+              "it": "Due traslocatori Studio Esempio caricano mobili sul camion"
+            }
+          },
+          "caption": {
+            "it": "Squadre di personale assunto"
+          }
+        },
+        {
+          "image": {
+            "src": "demo-4.jpg",
+            "alt": {
+              "it": "Piattaforma del lift esterno Studio Esempio vista dal basso lungo una facciata"
+            }
+          },
+          "caption": {
+            "it": "Lift esterno fino a 25 m"
+          }
+        },
+        {
+          "image": {
+            "src": "demo-5.jpg",
+            "alt": {
+              "it": "Camion Studio Esempio con lift esterno durante un trasloco nel centro di Lugano"
+            }
+          },
+          "caption": {
+            "it": "Nel centro di Lugano"
+          }
+        },
+        {
+          "image": {
+            "src": "demo-6.jpg",
+            "alt": {
+              "it": "Furgone Studio Esempio con scatoloni pronti davanti a un cancello"
+            }
+          },
+          "caption": {
+            "it": "Imballaggio e trasporto"
+          }
+        },
+        {
+          "image": {
+            "src": "demo-7.jpg",
+            "alt": {
+              "it": "Furgone Studio Esempio davanti a una villa ticinese"
+            }
+          },
+          "caption": {
+            "it": "In tutto il Ticino"
+          }
+        }
+      ]
+    },
+    {
+      "id": "mi-11-wide-image",
+      "type": "wide-image",
+      "image": {
+        "src": "demo-lago.jpg",
+        "alt": {
+          "it": "Patrick Studio Esempio, titolare di Studio Esempio e Trasporti"
+        },
+        "focal": {
+          "x": 70,
+          "y": 35
+        }
+      }
+    },
+    {
+      "id": "mi-12-zones",
+      "type": "zones",
+      "surface": "brand",
+      "header": {
+        "eyebrow": {
+          "it": "Zone servite"
+        },
+        "title": {
+          "it": "Dove lavoriamo."
+        }
+      },
+      "items": [
+        {
+          "it": "Lugano"
+        },
+        {
+          "it": "Mendrisio"
+        },
+        {
+          "it": "Chiasso"
+        },
+        {
+          "it": "Bellinzona"
+        },
+        {
+          "it": "Locarno"
+        },
+        {
+          "it": "Malcantone"
+        },
+        {
+          "it": "Svizzera"
+        },
+        {
+          "it": "Italia"
+        },
+        {
+          "it": "Europa"
+        }
+      ]
+    },
+    {
+      "id": "mi-13-spec-table",
+      "type": "spec-table",
+      "surface": "light",
+      "header": {
+        "eyebrow": {
+          "it": "Mezzi e attrezzature"
+        },
+        "title": {
+          "it": "Il nostro parco veicoli."
+        }
+      },
+      "table": {
+        "caption": {
+          "it": "Parco veicoli Studio Esempio"
+        },
+        "rows": [
+          {
+            "label": {
+              "it": "Lift esterno Paus"
+            },
+            "value": {
+              "it": "Fino a 25 m di altezza, portata 400 kg"
+            }
+          },
+          {
+            "label": {
+              "it": "Nissan Cabstar"
+            },
+            "value": {
+              "it": "Camion, anche con sponda idraulica"
+            }
+          },
+          {
+            "label": {
+              "it": "Mercedes Sprinter e VW Transporter"
+            },
+            "value": {
+              "it": "Furgoni per traslochi e trasporti"
+            }
+          },
+          {
+            "label": {
+              "it": "Renault Kangoo"
+            },
+            "value": {
+              "it": "Piccoli trasporti e consegne"
+            }
+          },
+          {
+            "label": {
+              "it": "Rimorchio Humbaur"
+            },
+            "value": {
+              "it": "24 m³"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "mi-14-cta",
+      "type": "cta",
+      "surface": "dark",
+      "title": {
+        "it": "Conosciamoci al sopralluogo."
+      },
+      "text": {
+        "it": "È gratuito, senza impegno, e vi dà un prezzo reale."
+      },
+      "buttons": [
+        {
+          "link": {
+            "type": "page",
+            "page": "contatti"
+          },
+          "style": "inverse",
+          "label": {
+            "it": "Richiedi un preventivo"
+          }
+        },
+        {
+          "link": {
+            "type": "url",
+            "url": "tel:+41000000000"
+          },
+          "style": "secondary",
+          "label": {
+            "it": "+41 00 000 00 00"
+          }
+        }
+      ],
+      "word": {
+        "it": "Traslochi"
+      }
+    },
+    {
+      "id": "mi-15-contacts",
+      "type": "contacts",
+      "surface": "light",
+      "items": [
+        {
+          "label": {
+            "it": "Ufficio (2 linee)"
+          },
+          "link": {
+            "type": "url",
+            "url": "tel:+41000000000"
+          },
+          "value": {
+            "it": "+41 00 000 00 00"
+          }
+        },
+        {
+          "label": {
+            "it": "Mobile"
+          },
+          "link": {
+            "type": "url",
+            "url": "tel:+41700000000"
+          },
+          "value": {
+            "it": "+41 70 000 00 00"
+          }
+        },
+        {
+          "label": {
+            "it": "WhatsApp"
+          },
+          "link": {
+            "type": "url",
+            "url": "https://wa.me/41700000000"
+          },
+          "value": {
+            "it": "Scriveteci su WhatsApp"
+          }
+        },
+        {
+          "label": {
+            "it": "Email"
+          },
+          "link": {
+            "type": "url",
+            "url": "mailto:info@esempio.ch"
+          },
+          "value": {
+            "it": "info@esempio.ch"
+          }
+        },
+        {
+          "label": {
+            "it": "Indirizzo"
+          },
+          "value": {
+            "it": "Via al Fiume 4, 6962 Lugano-Viganello"
+          }
+        },
+        {
+          "label": {
+            "it": "Orari"
+          },
+          "value": {
+            "it": "Lunedì–venerdì, 08:00–12:00 e 13:30–17:30"
+          }
+        }
+      ],
+      "map": {
+        "query": "Studio Esempio Lugano",
+        "title": {
+          "it": "Mappa: sede di Studio Esempio"
+        }
+      }
+    },
+    {
+      "id": "mi-16-rich-text",
+      "type": "rich-text",
+      "surface": "light",
+      "content": {
+        "it": "<h2>Che cosa sono i cookie</h2>\n<p>I cookie sono piccoli file di testo che un sito salva nel vostro browser per riconoscervi, ricordare le vostre scelte o misurare come viene usato. Alcuni sono indispensabili al funzionamento, altri servono a statistiche o pubblicità.</p>\n<h2>Che cosa usa questo sito</h2>\n<p>Questo sito è pensato per funzionare senza tracciarvi: <strong>non imposta cookie propri</strong>, non usa cookie di profilazione né strumenti di analisi statistica e non mostra pubblicità. I caratteri di testo sono serviti direttamente dal nostro sito, senza servizi esterni.</p>\n<h2>Contenuti di terzi</h2>\n<h3>Google Maps</h3>\n<p>Nella pagina <a href=\"page:contatti\">Contatti</a> c'è una mappa di Google. <strong>La mappa non si carica da sola</strong>: compare solo dopo il vostro consenso (il pulsante «Mostra la mappa»). Soltanto a quel punto Google può ricevere il vostro indirizzo IP e salvare propri cookie sul vostro dispositivo. Se preferite non caricarla, potete aprire l'indirizzo direttamente in Google Maps con il collegamento che trovate accanto. Le regole di Google sono nella sua <a href=\"https://policies.google.com/privacy\">informativa sulla privacy</a>.</p>\n<h3>WhatsApp</h3>\n<p>Il pulsante WhatsApp è un semplice collegamento: nessun dato viene inviato a WhatsApp finché non lo aprite. Da quel momento vale l'informativa di WhatsApp.</p>\n<h2>Come gestire i cookie dal browser</h2>\n<p>Potete controllare o cancellare i cookie in ogni momento dalle impostazioni del browser (Chrome, Firefox, Safari, Edge e gli altri) e bloccare quelli di terzi. Bloccarli può far funzionare male alcuni siti, ma non questo.</p>\n<h2>Modifiche</h2>\n<p>Se in futuro il sito userà altri strumenti (per esempio statistiche), aggiorneremo questa pagina e chiederemo il vostro consenso prima di attivarli.</p>\n<p><em>Ultimo aggiornamento: <strong>1 gennaio 2026</strong>.</em></p>"
+      }
+    }
+  ]
+}

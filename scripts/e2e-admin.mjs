@@ -7,6 +7,7 @@ import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { tokensToCss } from '../render/tokens.mjs';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const { E2E_URL, E2E_EMAIL, E2E_PASSWORD, E2E_SHOTS } = process.env;
@@ -43,6 +44,9 @@ const click = async (text) => {
 const frame = async () => (await (await page.$('iframe')).contentFrame());
 const cssVar = async (f, v) => f.evaluate((v) => getComputedStyle(document.documentElement).getPropertyValue(v).trim(), v);
 const setText = async (sel, value) => { await page.$eval(sel, (el) => el.select()); await page.type(sel, value); };
+// Il colore e i token di partenza sono quelli di starter.
+const STARTER_TOKENS = JSON.parse(fs.readFileSync(path.join(ROOT, 'templates/starter/tokens.json'), 'utf8'));
+const BRAND = STARTER_TOKENS.colors.brand;
 const distBrand = () => fs.readFileSync(path.join(DIST, 'assets/css/tokens.css'), 'utf8').match(/--c-brand: (#[0-9a-f]{6});/i)[1];
 
 await step('senza accesso si viene mandati al login', async () => {
@@ -55,7 +59,7 @@ await step('password errata: messaggio generico, resta al login', async () => {
   await page.type('input[name=password]', 'password-sbagliata');
   await click('Accedi');
   await page.waitForSelector('.login__error');
-  assert.match(await page.$eval('.login__error', (e) => e.textContent), /non corretti/);
+  assert.match(await page.$eval('.login__error', (e) => e.textContent), /non corrette|non corretti/);
   assert.match(page.url(), /\/admin\/login/);
 });
 await step('accesso corretto: torna alla pagina richiesta, cookie httpOnly', async () => {
@@ -73,7 +77,7 @@ await step('l\'editor carica i token e l\'anteprima mostra il sito con la bozza'
   await page.waitForSelector('iframe');
   await pause(1500);
   const f = await frame();
-  assert.equal(await cssVar(f, '--c-brand'), '#0348ad');
+  assert.equal(await cssVar(f, '--c-brand'), BRAND);
   assert.ok(await f.$('.hero__title'), 'la home deve avere il titolo');
   await shot(page, '02-editor');
 });
@@ -98,12 +102,12 @@ await step('anteprima dal vivo: effetto pulsanti e dimensione dei titoli', async
 });
 await step('anteprima: si può navigare dentro il sito senza uscire dall\'anteprima', async () => {
   const f = await frame();
-  await f.evaluate(() => document.querySelector('.nav a[href*="/admin/preview/servizi/"]').click());
+  await f.evaluate(() => document.querySelector('.site-header__nav a[href*="/admin/preview/contatti/"]').click());
   // l'anteprima è un iframe sandboxed con srcdoc: il suo indirizzo non dice nulla, si guarda il contenuto
   const until = async (sel) => { for (let i = 0; i < 100; i++) { const fr = await frame(); if (fr && await fr.$(sel)) return; await pause(150); } assert.fail(`nell'anteprima non compare ${sel}`); };
-  await until('.intro h1');
-  await (await frame()).evaluate(() => document.querySelector('.logo').click());
-  await until('.hero__title');
+  await until('form[data-form]');
+  await (await frame()).evaluate(() => document.querySelector('.brand').click());
+  await until('.hero h1');
   await pause(800);
   assert.equal(await cssVar(await frame(), '--c-brand'), '#c2185b', 'navigando, le modifiche non salvate restano applicate');
 });
@@ -123,7 +127,8 @@ await step('salvataggio: la bozza persiste dopo il ricaricamento, il sito online
   const before = distBrand();
   await click('Salva bozza');
   await page.waitForFunction(() => /salvata/.test(document.querySelector('.notice')?.textContent ?? ''));
-  await page.reload({ waitUntil: 'networkidle0' });
+  await page.reload({ waitUntil: 'load' });   // networkidle0 qui non arriva mai: l'anteprima tiene richieste di precaricamento in sospeso
+  await page.waitForSelector('[aria-label="Brand: valore"]');
   assert.equal(await page.$eval('[aria-label="Brand: valore"]', (e) => e.value), '#c2185b');
   assert.equal(distBrand(), before, 'il sito pubblicato non deve cambiare salvando la bozza');
   await pause(1500);
@@ -137,19 +142,21 @@ await step('pubblicazione: il sito online prende il nuovo colore, e la home lo u
   await shot(page, '05-pubblicato');
 });
 await step('ripristino dei valori originali e nuova pubblicazione', async () => {
-  await setText('[aria-label="Brand: valore"]', '#0348ad');
+  await setText('[aria-label="Brand: valore"]', BRAND);
   await (await page.$$('xpath/.//label[.//strong[text()="Freccia"]]//input'))[0].click();
   await setText('[aria-label="Titolo 2 (h2): desktop"]', '70.08');
   await click('Salva bozza');
   await page.waitForFunction(() => /salvata/.test(document.querySelector('.notice')?.textContent ?? ''));
   await click('Pubblica');
   await page.waitForFunction(() => /Pubblicato/.test(document.querySelector('.notice')?.textContent ?? ''), { timeout: 60000 });
-  assert.equal(distBrand(), '#0348ad');
-  assert.equal(fs.readFileSync(path.join(DIST, 'assets/css/tokens.css'), 'utf8'), fs.readFileSync(path.join(ROOT, 'templates/mammano/assets/css/tokens.css'), 'utf8'), 'il CSS pubblicato deve tornare identico all\'originale');
+  assert.equal(distBrand(), BRAND);
+  assert.equal(fs.readFileSync(path.join(DIST, 'assets/css/tokens.css'), 'utf8'), tokensToCss(STARTER_TOKENS), 'il CSS pubblicato deve tornare identico all\'originale');
 });
 await step('dashboard: contenuti e stato', async () => {
   await page.goto(`${E2E_URL}/admin`, { waitUntil: 'networkidle0' });
-  assert.equal((await page.$$('.table tbody tr')).length, fs.readdirSync(path.join(ROOT, 'templates/mammano/content/pages')).filter((f) => f.endsWith('.json')).length + 3, 'una riga per pagina + stile, dati del sito e blocchi condivisi');
+  const nPages = fs.readdirSync(path.join(ROOT, 'templates/starter/content/pages')).filter((f) => f.endsWith('.json') && !/^404/.test(f)).length;
+  const stats = await page.$$eval('.stats .stat', (els) => els.map((e) => e.querySelector('strong').textContent));
+  assert.equal(Number(stats[0]), nPages, 'il box «Pagine» conta le pagine dei contenuti (la 404 non si conta)');
   assert.match(await page.$eval('.card', (e) => e.textContent), /Nessuna modifica in attesa/);
   await shot(page, '06-dashboard');
 });
@@ -178,7 +185,7 @@ await step('account: cambio password (attuale sbagliata, nuove diverse, troppo c
   assert.equal((await page.$eval('input[name=current]', (e) => e.value)), '', 'i campi si svuotano dopo il cambio');
   await fill(NEW, E2E_PASSWORD, E2E_PASSWORD);                                     // ripristino
   await page.waitForFunction(() => /Password cambiata/.test(document.querySelector('.account [role=status]')?.textContent ?? ''), { timeout: 20000 });
-  assert.match(await page.$eval('.account', (e) => e.textContent), /Admin|Editor/);
+  assert.match(await page.$eval('.account', (e) => e.textContent), /Admin|Amministratore|Editor|Autore/);
 });
 await step('uscita: la sessione non vale più', async () => {
   await click('Esci');

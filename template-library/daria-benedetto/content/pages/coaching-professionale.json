@@ -1,0 +1,506 @@
+{
+  "key": "coaching-professionale",
+  "status": "published",
+  "slug": {
+    "it": "coaching-professionale"
+  },
+  "name": {
+    "it": "Coaching professionale"
+  },
+  "title": {
+    "it": "Coaching professionale | Daria Benedetto"
+  },
+  "description": {
+    "it": "Il coaching professionale con Daria Benedetto: uno spazio di ascolto, consapevolezza e azione per chi sta attraversando un cambiamento nel lavoro."
+  },
+  "blocks": [
+    {
+      "id": "coaching-1-hero",
+      "type": "hero-portrait",
+      "surface": "light",
+      "eyebrow": {
+        "it": "Coaching professionale"
+      },
+      "title": {
+        "it": "Per capire dove sei. E scegliere dove andare."
+      },
+      "lead": {
+        "it": "<p>Il coaching professionale è uno spazio di ascolto, consapevolezza e azione dedicato a chi sta attraversando un cambiamento nel lavoro e vuole affrontarlo con maggiore chiarezza.</p><p>Non riceverai una soluzione pronta. Costruiremo le condizioni perché tu possa vedere meglio la situazione, riconoscere le tue risorse, mettere a fuoco ciò che vuoi e trasformarlo in scelte concrete.</p>"
+      },
+      "buttons": [
+        {
+          "label": {
+            "it": "Prenota una sessione gratuita"
+          },
+          "link": {
+            "type": "anchor",
+            "anchor": "prenota"
+          },
+          "style": "primary"
+        }
+      ],
+      "image": {
+        "src": "ritratto-abito-nero.png",
+        "alt": {
+          "it": "Daria Benedetto, ritratto"
+        }
+      },
+      "shape": "arch",
+      "platform": {
+        "label": {
+          "it": "Accedi alla piattaforma"
+        },
+        "link": {
+          "type": "url",
+          "url": "https://tiaiuto.app/"
+        },
+        "logo": {
+          "src": "logo-tiaiuto.png",
+          "alt": {
+            "it": "TIAIUTO"
+          }
+        }
+      }
+    },
+    {
+      "id": "coaching-2-quando",
+      "type": "points",
+      "surface": "brand",
+      "layout": "tiles",
+      "header": {
+        "title": {
+          "it": "Quando può esserti utile"
+        }
+      },
+      "items": [
+        {
+          "title": {
+            "it": "AI e digitale"
+          },
+          "text": {
+            "it": "Ti senti disorientato davanti ai cambiamenti portati dal digitale o dall’AI."
+          },
+          "tone": "night"
+        },
+        {
+          "title": {
+            "it": "Cambio di rotta"
+          },
+          "text": {
+            "it": "Stai valutando un cambiamento di ruolo, azienda o percorso professionale."
+          }
+        },
+        {
+          "title": {
+            "it": "Nuova direzione"
+          },
+          "text": {
+            "it": "Hai raggiunto risultati importanti, ma non ti riconosci più nella direzione attuale."
+          }
+        },
+        {
+          "title": {
+            "it": "Decisioni"
+          },
+          "text": {
+            "it": "Devi prendere una decisione complessa e continui a rimandarla."
+          }
+        },
+        {
+          "title": {
+            "it": "Nuovi progetti"
+          },
+          "text": {
+            "it": "Vuoi costruire o ridefinire un progetto professionale o imprenditoriale."
+          }
+        },
+        {
+          "title": {
+            "it": "Posizionamento"
+          },
+          "text": {
+            "it": "Desideri riposizionarti e rendere più chiaro il tuo valore."
+          }
+        },
+        {
+          "title": {
+            "it": "Equilibrio"
+          },
+          "text": {
+            "it": "Vuoi integrare ambizione, sostenibilità, identità e risultati."
+          }
+        },
+        {
+          "title": {
+            "it": "Azione"
+          },
+          "text": {
+            "it": "Hai bisogno di passare dalla riflessione all’azione."
+          }
+        }
+      ],
+      "showNumbers": true,
+      "tileMin": 260
+    },
+    {
+      "id": "coaching-3-prenota",
+      "type": "booking",
+      "surface": "light",
+      "anchor": "prenota",
+      "eyebrow": {
+        "it": "Prenotazione online"
+      },
+      "title": {
+        "it": "Prenota la tua sessione, <em>direttamente dal calendario</em>"
+      },
+      "text": {
+        "it": "Scegli il tipo di sessione, apri il calendario e seleziona il giorno e l’orario che preferisci. Riceverai subito la conferma via email."
+      },
+      "items": [
+        {
+          "tone": "accent",
+          "icon": "calendar",
+          "duration": {
+            "it": "30 minuti"
+          },
+          "kicker": {
+            "it": "Primo passo"
+          },
+          "title": {
+            "it": "Sessione preliminare"
+          },
+          "highlight": {
+            "icon": "gift",
+            "label": {
+              "it": "Senza impegno"
+            },
+            "value": {
+              "it": "GRATUITA"
+            }
+          },
+          "text": {
+            "it": "Un primo confronto per conoscerci e capire se il percorso fa per te."
+          },
+          "label": {
+            "it": "Prenota gratis"
+          },
+          "link": {
+            "type": "url",
+            "url": "https://calendly.com/daria-benedetto/prenota-la-sessione-di-coaching-clone"
+          }
+        },
+        {
+          "tone": "sky",
+          "icon": "sun",
+          "duration": {
+            "it": "60 minuti"
+          },
+          "kicker": {
+            "it": "Durante il giorno"
+          },
+          "title": {
+            "it": "Sessione di Coaching"
+          },
+          "highlight": {
+            "icon": "video",
+            "label": {
+              "it": "Online · su misura"
+            },
+            "value": {
+              "it": "1:1"
+            }
+          },
+          "text": {
+            "it": "Scegli giorno e orario dal calendario e prenota la tua sessione."
+          },
+          "label": {
+            "it": "Prenota la sessione"
+          },
+          "link": {
+            "type": "url",
+            "url": "https://calendly.com/daria-benedetto/sessione-coaching"
+          }
+        },
+        {
+          "tone": "night",
+          "icon": "moon",
+          "duration": {
+            "it": "60 minuti"
+          },
+          "kicker": {
+            "it": "Sessione serale"
+          },
+          "title": {
+            "it": "Sessione di Coaching"
+          },
+          "highlight": {
+            "icon": "moon",
+            "label": {
+              "it": "Orario serale"
+            },
+            "value": {
+              "it": "20:00 – 22:00"
+            }
+          },
+          "text": {
+            "it": "Dalle 20:00 alle 22:00, per chi durante il giorno non riesce a ritagliarsi uno spazio."
+          },
+          "label": {
+            "it": "Prenota la sessione serale"
+          },
+          "link": {
+            "type": "url",
+            "url": "https://calendly.com/daria-benedetto/prenota-la-sessione-di-coaching-serale"
+          }
+        }
+      ]
+    },
+    {
+      "id": "coaching-4-ascolto",
+      "type": "steps",
+      "surface": "light",
+      "layout": "row",
+      "header": {
+        "title": {
+          "it": "Dall’ascolto al cambiamento"
+        },
+        "text": {
+          "it": "Ogni percorso parte dall’ascolto, ma non si ferma lì. Ascoltare serve a vedere con maggiore chiarezza. La chiarezza aiuta a scegliere. La scelta diventa azione. E l’azione, quando è coerente e sostenibile, produce cambiamento."
+        }
+      },
+      "items": [
+        {
+          "title": {
+            "it": "Ascolto"
+          },
+          "text": {
+            "it": "Dare spazio a ciò che stai vivendo, senza semplificarlo."
+          }
+        },
+        {
+          "title": {
+            "it": "Consapevolezza"
+          },
+          "text": {
+            "it": "Riconoscere risorse, valori, bisogni, vincoli e possibilità."
+          }
+        },
+        {
+          "title": {
+            "it": "Direzione"
+          },
+          "text": {
+            "it": "Definire ciò che vuoi costruire e le priorità che contano."
+          }
+        },
+        {
+          "title": {
+            "it": "Azione"
+          },
+          "text": {
+            "it": "Tradurre le scelte in passi concreti, realistici e verificabili."
+          }
+        },
+        {
+          "title": {
+            "it": "Cambiamento"
+          },
+          "text": {
+            "it": "Integrare un nuovo modo di lavorare senza perdere ciò che ti rende riconoscibile."
+          }
+        }
+      ],
+      "note": {
+        "it": "Questo è anche il principio che ha dato vita a TIAIUTO: dall’ascolto al cambiamento."
+      }
+    },
+    {
+      "id": "coaching-3-come",
+      "type": "columns",
+      "surface": "dark",
+      "items": [
+        {
+          "eyebrow": {
+            "it": "Come lavoriamo"
+          },
+          "title": {
+            "it": "Un percorso costruito intorno alla tua domanda"
+          },
+          "content": {
+            "it": "<p>Il percorso viene costruito intorno alla tua domanda e al momento professionale che stai vivendo. Partiamo da ciò che emerge, definiamo un obiettivo di lavoro e procediamo attraverso conversazioni strutturate, esercizi, osservazioni e azioni tra un incontro e l’altro.</p><p>Il mio ruolo non è decidere per te né dirti cosa dovresti volere. È aiutarti a formulare domande più precise, riconoscere schemi e possibilità, ampliare lo sguardo e mantenere il collegamento tra ciò che comprendi e ciò che scegli di fare.</p>"
+          }
+        },
+        {
+          "title": {
+            "it": "Il mio approccio"
+          },
+          "style": "card",
+          "steps": [
+            {
+              "title": {
+                "it": "Ascolto"
+              },
+              "text": {
+                "it": "comprendere il momento senza giudicarlo o accelerarlo artificialmente."
+              }
+            },
+            {
+              "title": {
+                "it": "Contesto"
+              },
+              "text": {
+                "it": "leggere insieme realtà professionale, vincoli, relazioni e mercato."
+              }
+            },
+            {
+              "title": {
+                "it": "Consapevolezza"
+              },
+              "text": {
+                "it": "riconoscere valori, risorse, bisogni, ostacoli e possibilità."
+              }
+            },
+            {
+              "title": {
+                "it": "Direzione"
+              },
+              "text": {
+                "it": "scegliere un obiettivo significativo e sostenibile."
+              }
+            },
+            {
+              "title": {
+                "it": "Azione"
+              },
+              "text": {
+                "it": "definire passi concreti, responsabilità e criteri di verifica."
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "coaching-5-aziende",
+      "type": "callout",
+      "surface": "dark",
+      "title": {
+        "it": "Un approccio nato nelle aziende"
+      },
+      "text": {
+        "it": "Porto nel coaching 25 anni di esperienza in strategia, marketing, comunicazione e trasformazione digitale. Questo non significa sostituire il coaching con la consulenza: significa comprendere in profondità il mondo reale in cui le tue scelte devono vivere."
+      }
+    },
+    {
+      "id": "coaching-6-differenze",
+      "type": "points",
+      "surface": "brand",
+      "layout": "cards",
+      "columns": 3,
+      "header": {
+        "title": {
+          "it": "Coaching, consulenza e mentoring: cosa cambia"
+        },
+        "text": {
+          "it": "Quando serve, chiariremo insieme quale tipo di intervento è più adatto. La trasparenza sul ruolo è parte della qualità del lavoro."
+        }
+      },
+      "items": [
+        {
+          "title": {
+            "it": "Coaching"
+          },
+          "text": {
+            "it": "Sei tu a costruire la risposta attraverso un processo che sviluppa consapevolezza, autonomia e responsabilità."
+          }
+        },
+        {
+          "title": {
+            "it": "Consulenza"
+          },
+          "text": {
+            "it": "Ricevi analisi e indicazioni specialistiche su un problema."
+          }
+        },
+        {
+          "title": {
+            "it": "Mentoring"
+          },
+          "text": {
+            "it": "Ti confronti con l’esperienza di chi ha già attraversato un determinato percorso."
+          }
+        }
+      ],
+      "note": {
+        "it": "<strong>Cosa non è.</strong> Il coaching non è psicoterapia, non formula diagnosi e non tratta condizioni cliniche. È un percorso rivolto a persone che desiderano lavorare su obiettivi, scelte, sviluppo e cambiamento in ambito professionale."
+      }
+    },
+    {
+      "id": "coaching-8-welfare",
+      "type": "partners",
+      "surface": "light",
+      "eyebrow": {
+        "it": "Welfare aziendale"
+      },
+      "icon": "heart",
+      "title": {
+        "it": "Le mie sessioni di coaching sono <em>anche nel tuo welfare aziendale</em>"
+      },
+      "text": {
+        "it": "Se la tua azienda ti offre un piano welfare, trovi i miei percorsi di coaching sulle piattaforme <strong>Jointly</strong> ed <strong>Edenred</strong>: puoi prenotarli utilizzando il tuo credito welfare."
+      },
+      "items": [
+        {
+          "image": {
+            "src": "welfare-jointly.svg",
+            "alt": {
+              "it": "Marsh Jointly"
+            }
+          },
+          "link": {
+            "type": "url",
+            "url": "https://www.jointly.pro/"
+          },
+          "height": 44
+        },
+        {
+          "image": {
+            "src": "welfare-edenred.svg",
+            "alt": {
+              "it": "Edenred"
+            }
+          },
+          "link": {
+            "type": "url",
+            "url": "https://www.edenred.it/prodotti/welfare-aziendale/"
+          },
+          "height": 60
+        }
+      ]
+    },
+    {
+      "id": "coaching-9-passo",
+      "type": "callout",
+      "surface": "light",
+      "eyebrow": {
+        "it": "Il primo passo"
+      },
+      "title": {
+        "it": "Un primo confronto, senza automatismi e senza soluzioni standard."
+      },
+      "text": {
+        "it": "Un primo confronto serve a comprendere la tua domanda, verificare se il coaching è lo spazio giusto e valutare insieme obiettivo, modalità e tempi del percorso."
+      },
+      "button": {
+        "label": {
+          "it": "Prenota un primo confronto"
+        },
+        "link": {
+          "type": "page",
+          "page": "contatti"
+        },
+        "style": "primary"
+      }
+    }
+  ]
+}

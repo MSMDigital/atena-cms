@@ -1,10 +1,12 @@
 import './admin.css';
+import { getLang } from '@/lib/i18n-server.mjs';
 
-export const metadata = { title: 'Outsmart CMS', robots: { index: false, follow: false } };
+export const metadata = { title: 'Atena CMS', robots: { index: false, follow: false } };
 
-export default function RootLayout({ children }) {
+export default async function RootLayout({ children }) {
+  const lang = await getLang().catch(() => 'it');   // senza database (installazione) resta l'italiano
   return (
-    <html lang="it">
+    <html lang={lang}>
       <body>{children}</body>
     </html>
   );

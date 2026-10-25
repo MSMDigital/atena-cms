@@ -107,7 +107,7 @@ test('impostazioni email: salvataggio, lettura, uso e invio', { skip: !hasDb && 
     assert.deepEqual(c.from, { name: 'Sito Esempio', address: 'sito@esempio.ch' });
     await S.saveMailSettings(good({ security: 'starttls', password: '', fromName: '' }), adminId);
     c = await S.resolveMailConfig();
-    assert.deepEqual([c.transport.secure, c.transport.requireTLS, c.transport.ignoreTLS, c.from], [false, true, undefined, 'sito@esempio.ch']);
+    assert.deepEqual([c.transport.secure, c.transport.requireTLS, c.transport.ignoreTLS, c.from], [false, true, undefined, { name: 'Anna Admin', address: 'sito@esempio.ch' }]);   // senza nome del mittente: il nome dell'account amministratore
     await S.saveMailSettings(good({ security: 'none', port: 25, password: '', user: '' }), adminId);
     c = await S.resolveMailConfig();
     assert.deepEqual([c.transport.secure, c.transport.ignoreTLS, c.transport.auth], [false, true, undefined]);

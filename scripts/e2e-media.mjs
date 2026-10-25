@@ -22,7 +22,7 @@ const D = await import('../lib/docs.mjs');
 const M = await import('../lib/media.mjs');
 const reset = async () => { await D.seedFromFiles({ force: true }); const r = await D.publishAll(null, { force: true }); assert.equal(r.ok, true, JSON.stringify(r)); };
 await query('DELETE FROM login_attempts WHERE email = ?', [E2E_EMAIL.toLowerCase()]);
-const KEEP_KEYS = fs.readdirSync(path.join(ROOT, 'templates/mammano/content/pages')).filter((f) => f.endsWith('.json')).map((f) => f.slice(0, -5));   // le pagine dei contenuti; le altre sono avanzi di prove
+const KEEP_KEYS = fs.readdirSync(path.join(ROOT, 'templates/starter/content/pages')).filter((f) => f.endsWith('.json')).map((f) => f.slice(0, -5));   // le pagine dei contenuti; le altre sono avanzi di prove
 await query("DELETE FROM docs WHERE kind = 'page' AND doc_key NOT IN (?)", [KEEP_KEYS]);
 await reset();
 const uploadsBefore = new Set((await M.listMedia()).filter((i) => i.source === 'upload').map((i) => i.path));   // eventuali caricamenti veri non si toccano
@@ -127,21 +127,24 @@ await step('file non valido e file troppo grande: errore chiaro, nulla di salvat
   assert.match(heavyPath, /pesante-/);
   const r = await fetch(E2E_URL + '/admin/media/upload', { method: 'POST', body: 'x', redirect: 'manual' });
   assert.ok([401, 403, 302, 307].includes(r.status), `senza sessione non si carica (${r.status})`);
-  const t = await fetch(E2E_URL + '/admin/media/thumb/hero-mammano.jpg', { redirect: 'manual' });
+  const t = await fetch(E2E_URL + '/admin/media/thumb/demo-1.jpg', { redirect: 'manual' });
   assert.ok([401, 302, 307].includes(t.status), `senza sessione niente miniature (${t.status})`);
 });
 
 await step('testo alternativo predefinito: si salva e resta dopo il ricaricamento', async () => {
+  const close = await page.$('xpath/.//dialog//button[normalize-space()="Chiudi"]');   // i dettagli stanno in una finestra: quella del passo prima è ancora aperta
+  if (close) { await close.click(); await pause(300); }
   await page.click(`.mcell[data-path="${uploadedPath}"]`);
-  await page.waitForSelector('.mdet input');
-  await page.$eval('.mdet input', (el) => el.select());
+  const ALT = 'xpath/.//div[contains(@class,"mdet")]//label[.//span[normalize-space()="Testo alternativo"]]//input';   // il primo campo è il nome del file: il testo alternativo si cerca per etichetta
+  await page.waitForSelector(ALT);
+  await (await page.$(ALT)).evaluate((el) => el.select());
   await page.keyboard.type('Il lago visto dal molo all\'alba');
-  await click('Salva testo alternativo');
-  await page.waitForFunction(() => /salvato/.test(document.querySelector('.mdet [role=status]')?.textContent ?? ''));
+  await click('Salva dettagli');
+  await page.waitForFunction(() => /salvat/.test(document.querySelector('.mdet [role=status]')?.textContent ?? ''));
   await goto('/admin/media');
   await page.click(`.mcell[data-path="${uploadedPath}"]`);
-  await page.waitForSelector('.mdet input');
-  assert.equal(await page.$eval('.mdet input', (el) => el.value), 'Il lago visto dal molo all\'alba');
+  await page.waitForSelector(ALT);
+  assert.equal(await (await page.$(ALT)).evaluate((el) => el.value), 'Il lago visto dal molo all\'alba');
   await page.waitForFunction(() => /In nessuna pagina/.test(document.querySelector('.mdet')?.textContent ?? ''), { timeout: 15000 });
 });
 
@@ -154,7 +157,7 @@ await step('libreria: la ricerca filtra', async () => {
 });
 
 await step('editor: il selettore propone l\'immagine e il testo alternativo si compila da solo', async () => {
-  await goto('/admin/pages/chi-siamo');
+  await goto('/admin/pages/moduli-interni');
   await page.waitForSelector('li.item');
   await openItem('/blocks/2');
   const sel = field('/blocks/2/image');
@@ -200,11 +203,11 @@ await step('dati del sito: il logo si sceglie dalla libreria', async () => {
 });
 
 await step('pubblicazione: l\'immagine usata va online con le sue dimensioni, quella non usata no', async () => {
-  await goto('/admin/pages/chi-siamo');
+  await goto('/admin/pages/moduli-interni');
   await page.waitForSelector('li.item');
   await publish();
   assert.ok(fs.existsSync(path.join(DIST, 'assets/img', uploadedPath)), 'il file caricato è nel sito pubblicato');
-  const html = fs.readFileSync(path.join(DIST, 'chi-siamo/index.html'), 'utf8');
+  const html = fs.readFileSync(path.join(DIST, 'moduli-interni/index.html'), 'utf8');
   assert.match(html, new RegExp(`/assets/img/${uploadedPath.replace(/[.]/g, '\\.')}"[^>]*width="2400" height="1500"`));
   const uploads = fs.readdirSync(path.join(DIST, 'assets/img/uploads'));
   assert.deepEqual(uploads, [path.basename(uploadedPath)], 'in dist/ ci sono solo i caricamenti usati');
@@ -213,7 +216,7 @@ await step('pubblicazione: l\'immagine usata va online con le sue dimensioni, qu
 await step('libreria: l\'immagine usata mostra dove, e non si può eliminare', async () => {
   await goto('/admin/media');
   await page.click(`.mcell[data-path="${uploadedPath}"]`);
-  await page.waitForFunction(() => /Pagina: chi-siamo/.test(document.querySelector('.mdet')?.textContent ?? ''));
+  await page.waitForFunction(() => /Pagina: moduli-interni/.test(document.querySelector('.mdet')?.textContent ?? ''));
   assert.match(await page.$eval('.mdet', (e) => e.textContent), /online e in bozza/);
   assert.equal(await page.$eval('.mdet .btn--danger', (b) => b.disabled), true);
   await shot(page, 'm6-in-uso');

@@ -1,0 +1,589 @@
+{
+  "key": "aziende-formazione",
+  "status": "published",
+  "slug": {
+    "it": "aziende-formazione"
+  },
+  "name": {
+    "it": "Aziende & Formazione"
+  },
+  "title": {
+    "it": "Aziende & Formazione | Daria Benedetto"
+  },
+  "description": {
+    "it": "Coaching, formazione e workshop per aziende, imprenditori e team: cambiamento, comunicazione, cultura digitale e adozione consapevole dell’Intelligenza Artificiale."
+  },
+  "blocks": [
+    {
+      "id": "aziende-1-hero",
+      "type": "hero-portrait",
+      "surface": "light",
+      "eyebrow": {
+        "it": "Aziende & Formazione"
+      },
+      "title": {
+        "it": "Ogni trasformazione aziendale diventa reale quando le persone riescono ad attraversarla."
+      },
+      "lead": {
+        "it": "<p>Strategie, tecnologie e processi possono indicare una direzione. Sono le persone, però, a darle forma ogni giorno.</p><p>Da 25 anni lavoro con aziende e imprenditori nei momenti in cui serve comprendere un cambiamento, renderlo leggibile e tradurlo in nuove competenze, comportamenti e decisioni. Oggi integro esperienza strategica, coaching e formazione per accompagnare organizzazioni e figure chiave in modo concreto e sostenibile.</p>"
+      },
+      "buttons": [
+        {
+          "label": {
+            "it": "Raccontami il cambiamento che state vivendo"
+          },
+          "link": {
+            "type": "page",
+            "page": "contatti"
+          },
+          "style": "primary"
+        }
+      ],
+      "image": {
+        "src": "giacca-rossa-sorriso.jpg",
+        "alt": {
+          "it": "Daria Benedetto con giacca rossa"
+        }
+      },
+      "shape": "rounded"
+    },
+    {
+      "id": "aziende-1b-logos",
+      "type": "logos",
+      "surface": "light",
+      "title": {
+        "it": "Aziende che hanno già lavorato con me"
+      },
+      "items": [
+        {
+          "image": {
+            "src": "cliente-abbazia.png",
+            "alt": {
+              "it": "Abbazia"
+            }
+          }
+        },
+        {
+          "image": {
+            "src": "cliente-amilon.png",
+            "alt": {
+              "it": "Amilon"
+            }
+          }
+        },
+        {
+          "image": {
+            "src": "cliente-belotti.png",
+            "alt": {
+              "it": "Belotti"
+            }
+          }
+        },
+        {
+          "image": {
+            "src": "cliente-bestwestern.png",
+            "alt": {
+              "it": "Best Western"
+            }
+          }
+        },
+        {
+          "image": {
+            "src": "cliente-binda.png",
+            "alt": {
+              "it": "G. Binda"
+            }
+          }
+        },
+        {
+          "image": {
+            "src": "cliente-bios-management.png",
+            "alt": {
+              "it": "Bios Management"
+            }
+          }
+        },
+        {
+          "image": {
+            "src": "cliente-blitz.png",
+            "alt": {
+              "it": "Blitz"
+            }
+          }
+        },
+        {
+          "image": {
+            "src": "cliente-borsaris.png",
+            "alt": {
+              "it": "Borsari"
+            }
+          }
+        },
+        {
+          "image": {
+            "src": "cliente-celeste-italia.png",
+            "alt": {
+              "it": "Celeste Italia"
+            }
+          }
+        },
+        {
+          "image": {
+            "src": "cliente-claind.png",
+            "alt": {
+              "it": "Claind"
+            }
+          }
+        },
+        {
+          "image": {
+            "src": "cliente-ctr.png",
+            "alt": {
+              "it": "CTR"
+            }
+          }
+        },
+        {
+          "image": {
+            "src": "cliente-effegilab.png",
+            "alt": {
+              "it": "Effegilab"
+            }
+          }
+        },
+        {
+          "image": {
+            "src": "cliente-estetispa.png",
+            "alt": {
+              "it": "Estetispa"
+            }
+          }
+        },
+        {
+          "image": {
+            "src": "cliente-ferrero.png",
+            "alt": {
+              "it": "Ferrero"
+            }
+          }
+        },
+        {
+          "image": {
+            "src": "cliente-gds2.png",
+            "alt": {
+              "it": "GDS2"
+            }
+          }
+        },
+        {
+          "image": {
+            "src": "cliente-gloriamed.png",
+            "alt": {
+              "it": "Gloriamed"
+            }
+          }
+        },
+        {
+          "image": {
+            "src": "cliente-greentribu.png",
+            "alt": {
+              "it": "Green Tribù"
+            }
+          }
+        },
+        {
+          "image": {
+            "src": "cliente-isostad.png",
+            "alt": {
+              "it": "Isostad"
+            }
+          }
+        },
+        {
+          "image": {
+            "src": "cliente-labor-project.png",
+            "alt": {
+              "it": "Labor Project"
+            }
+          }
+        },
+        {
+          "image": {
+            "src": "cliente-luigi-verga.png",
+            "alt": {
+              "it": "Luigi Verga"
+            }
+          }
+        },
+        {
+          "image": {
+            "src": "cliente-nutman.png",
+            "alt": {
+              "it": "Nutman"
+            }
+          }
+        },
+        {
+          "image": {
+            "src": "cliente-paracas.png",
+            "alt": {
+              "it": "Paracas"
+            }
+          }
+        },
+        {
+          "image": {
+            "src": "cliente-revitalash.png",
+            "alt": {
+              "it": "RevitaLash"
+            }
+          }
+        },
+        {
+          "image": {
+            "src": "cliente-scuola-studio-lavoro.png",
+            "alt": {
+              "it": "Scuola Studio Lavoro"
+            }
+          }
+        },
+        {
+          "image": {
+            "src": "cliente-snb-immobiliare.png",
+            "alt": {
+              "it": "SNB Immobiliare"
+            }
+          }
+        },
+        {
+          "image": {
+            "src": "cliente-spazio-lineare-for-kids.png",
+            "alt": {
+              "it": "Spazio Lineare for Kids"
+            }
+          }
+        },
+        {
+          "image": {
+            "src": "cliente-vediamoci-bene.png",
+            "alt": {
+              "it": "Vediamoci Bene"
+            }
+          }
+        },
+        {
+          "image": {
+            "src": "cliente-vitale.png",
+            "alt": {
+              "it": "Vitale"
+            }
+          }
+        },
+        {
+          "image": {
+            "src": "cliente-vocalcare.png",
+            "alt": {
+              "it": "Vocalcare"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "aziende-2-aree",
+      "type": "points",
+      "surface": "brand",
+      "layout": "tiles",
+      "header": {
+        "eyebrow": {
+          "it": "Per le aziende"
+        },
+        "title": {
+          "it": "Aree di intervento"
+        }
+      },
+      "items": [
+        {
+          "icon": "chip",
+          "title": {
+            "it": "Adozione dell’AI"
+          },
+          "text": {
+            "it": "Adozione consapevole dell’AI e sviluppo di competenze realmente utilizzabili."
+          },
+          "tone": "night",
+          "featured": true
+        },
+        {
+          "icon": "graduation",
+          "title": {
+            "it": "Formazione digitale"
+          },
+          "text": {
+            "it": "Formazione su marketing, cultura digitale e Intelligenza Artificiale."
+          },
+          "tone": "accent",
+          "featured": true
+        },
+        {
+          "icon": "compass",
+          "title": {
+            "it": "Coaching"
+          },
+          "text": {
+            "it": "Coaching per imprenditori, manager e figure chiave."
+          }
+        },
+        {
+          "icon": "flag",
+          "title": {
+            "it": "Leadership"
+          },
+          "text": {
+            "it": "Percorsi di sviluppo professionale e leadership."
+          }
+        },
+        {
+          "icon": "swap",
+          "title": {
+            "it": "Transizioni"
+          },
+          "text": {
+            "it": "Accompagnamento nei passaggi di ruolo e nelle fasi di trasformazione."
+          }
+        },
+        {
+          "icon": "people",
+          "title": {
+            "it": "Workshop"
+          },
+          "text": {
+            "it": "Workshop su cambiamento, comunicazione e collaborazione."
+          }
+        },
+        {
+          "icon": "sparkle",
+          "title": {
+            "it": "Su misura"
+          },
+          "text": {
+            "it": "Interventi personalizzati per team, academy interne ed eventi aziendali."
+          }
+        }
+      ],
+      "showNumbers": true,
+      "tileMin": 210
+    },
+    {
+      "id": "aziende-3-prenota",
+      "type": "booking",
+      "surface": "light",
+      "anchor": "prenota",
+      "eyebrow": {
+        "it": "Prenotazione online"
+      },
+      "title": {
+        "it": "Prenota una consulenza, <em>direttamente dal calendario</em>"
+      },
+      "text": {
+        "it": "Scegli il giorno e l’orario che preferisci: in 30 minuti mettiamo a fuoco la situazione della tua azienda e capiamo insieme quale intervento può essere più utile."
+      },
+      "checks": [
+        {
+          "it": "Analisi del contesto e degli obiettivi"
+        },
+        {
+          "it": "Prime indicazioni su formazione, coaching o percorso AI"
+        },
+        {
+          "it": "Nessun impegno"
+        }
+      ],
+      "items": [
+        {
+          "tone": "accent",
+          "icon": "briefcase",
+          "duration": {
+            "it": "30 minuti"
+          },
+          "kicker": {
+            "it": "Per aziende e organizzazioni"
+          },
+          "title": {
+            "it": "Consulenza"
+          },
+          "highlight": {
+            "icon": "gift",
+            "label": {
+              "it": "Senza impegno"
+            },
+            "value": {
+              "it": "GRATUITA"
+            }
+          },
+          "text": {
+            "it": "Un primo confronto per capire bisogni, priorità e possibili interventi."
+          },
+          "label": {
+            "it": "Prenota la consulenza gratuita"
+          },
+          "link": {
+            "type": "url",
+            "url": "https://calendly.com/daria-benedetto/consulenza-30-min"
+          }
+        }
+      ]
+    },
+    {
+      "id": "aziende-3-strumento",
+      "type": "callout",
+      "surface": "dark",
+      "title": {
+        "it": "Non basta introdurre uno strumento."
+      },
+      "text": {
+        "it": "L’adozione dell’AI rende evidente una dinamica che conosco da tempo: un cambiamento deciso dall’alto non coincide automaticamente con un cambiamento vissuto dalle persone. Quando manca uno spazio di comprensione, aumentano resistenza, uso superficiale, confusione e delega non consapevole. Per questo la formazione tecnica funziona meglio quando viene accompagnata da ascolto, pensiero critico, senso del ruolo e capacità di integrare il nuovo nei processi reali."
+      }
+    },
+    {
+      "id": "aziende-4-steps",
+      "type": "steps",
+      "surface": "light",
+      "layout": "row",
+      "header": {
+        "title": {
+          "it": "Come costruisco gli interventi"
+        }
+      },
+      "items": [
+        {
+          "title": {
+            "it": "Ascolto del contesto"
+          },
+          "text": {
+            "it": "Obiettivi, cultura, persone coinvolte e cambiamento in corso."
+          }
+        },
+        {
+          "title": {
+            "it": "Definizione della priorità"
+          },
+          "text": {
+            "it": "Ciò che deve cambiare davvero, oltre il titolo del progetto."
+          }
+        },
+        {
+          "title": {
+            "it": "Progettazione su misura"
+          },
+          "text": {
+            "it": "Coaching, workshop, formazione o un percorso integrato."
+          }
+        },
+        {
+          "title": {
+            "it": "Applicazione"
+          },
+          "text": {
+            "it": "Strumenti, conversazioni ed esercitazioni collegati al lavoro quotidiano."
+          }
+        },
+        {
+          "title": {
+            "it": "Consolidamento"
+          },
+          "text": {
+            "it": "Restituzione, feedback e indicazioni per sostenere il cambiamento nel tempo."
+          }
+        }
+      ]
+    },
+    {
+      "id": "aziende-5-perchi",
+      "type": "points",
+      "surface": "brand",
+      "layout": "tags",
+      "header": {
+        "title": {
+          "it": "Per chi"
+        }
+      },
+      "intro": {
+        "it": "Lavoro con realtà che stanno affrontando un’evoluzione organizzativa, digitale o professionale."
+      },
+      "items": [
+        {
+          "title": {
+            "it": "Imprenditori"
+          }
+        },
+        {
+          "title": {
+            "it": "PMI"
+          }
+        },
+        {
+          "title": {
+            "it": "Direzioni marketing e comunicazione"
+          }
+        },
+        {
+          "title": {
+            "it": "HR e People & Culture"
+          }
+        },
+        {
+          "title": {
+            "it": "Responsabili formazione"
+          }
+        },
+        {
+          "title": {
+            "it": "Manager e team"
+          }
+        }
+      ],
+      "padding": {
+        "bottom": "none"
+      }
+    },
+    {
+      "id": "aziende-6-patrimonio",
+      "type": "columns",
+      "surface": "brand",
+      "padding": {
+        "top": "sm"
+      },
+      "items": [
+        {
+          "title": {
+            "it": "Un patrimonio costruito sul campo"
+          },
+          "content": {
+            "it": "<p>La mia esperienza non nasce da un unico settore. In 25 anni ho lavorato con realtà e mercati differenti, imparando a leggere rapidamente contesti, linguaggi, obiettivi e resistenze.</p><p>Questa varietà mi permette di non applicare modelli rigidi e di costruire interventi aderenti alla cultura e alla maturità dell’organizzazione.</p>"
+          }
+        }
+      ]
+    },
+    {
+      "id": "aziende-7-cta",
+      "type": "cta",
+      "surface": "dark",
+      "text": {
+        "it": "L’esperienza strategica mi permette di leggere il sistema. <em>Il coaching di lavorare con le persone che lo rendono vivo.</em>"
+      },
+      "buttons": [
+        {
+          "label": {
+            "it": "Costruiamo un intervento su misura"
+          },
+          "link": {
+            "type": "page",
+            "page": "contatti"
+          },
+          "style": "inverse"
+        }
+      ]
+    }
+  ]
+}

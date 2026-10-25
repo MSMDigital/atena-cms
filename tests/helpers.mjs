@@ -6,7 +6,7 @@ import { migrate } from '../lib/migrate.mjs';
 
 loadEnv();
 const { DB_HOST = '127.0.0.1', DB_PORT = '3307', DB_USER, DB_PASSWORD, DB_ROOT_PASSWORD } = process.env;
-export const TEST_DB = 'outsmart_cms_test';
+export const TEST_DB = 'atena_cms_test';
 export const hasDb = !!(DB_ROOT_PASSWORD && DB_PASSWORD);
 
 export async function setupTestDb() {

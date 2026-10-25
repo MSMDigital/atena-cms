@@ -21,7 +21,7 @@ test('sessioni e accesso', { skip: !hasDb && 'database di prova non disponibile'
 
   const pw = 'una-password-lunga-e-casuale';
   await query('INSERT INTO users (email, name, password_hash, role) VALUES (?, ?, ?, ?)', ['anna@example.ch', 'Anna', await hashPassword(pw), 'admin']);
-  await query('INSERT INTO users (email, name, password_hash, role, active) VALUES (?, ?, ?, ?, 0)', ['off@example.ch', 'Off', await hashPassword(pw), 'editor']);
+  await query('INSERT INTO users (email, name, password_hash, role, active) VALUES (?, ?, ?, ?, 0)', ['off@example.ch', 'Off', await hashPassword(pw), 'author']);
 
   await t.test('accesso corretto: sessione valida, token mai salvato in chiaro', async () => {
     const r = await S.attemptLogin(' ANNA@Example.ch ', pw, { ip: '10.0.0.1', ua: 'test' });
@@ -117,7 +117,7 @@ test('sessioni e accesso', { skip: !hasDb && 'database di prova non disponibile'
 
   await t.test('senza proxy fidato, errori di altre email non bloccano chi accede', async () => {
     for (let i = 0; i < 25; i++) await S.attemptLogin(`x${i}@example.ch`, 'no', { ip: S.UNKNOWN_IP });
-    await query('INSERT INTO users (email, name, password_hash, role) VALUES (?, ?, ?, ?)', ['bruno@example.ch', 'Bruno', await hashPassword(pw), 'editor']);
+    await query('INSERT INTO users (email, name, password_hash, role) VALUES (?, ?, ?, ?)', ['bruno@example.ch', 'Bruno', await hashPassword(pw), 'author']);
     const r = await S.attemptLogin('bruno@example.ch', pw, { ip: S.UNKNOWN_IP });
     assert.equal(r.ok, true, 'il limite per indirizzo non deve valere quando l\'indirizzo non è affidabile');
   });

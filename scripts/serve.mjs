@@ -22,7 +22,12 @@ http.createServer((req, res) => {
   if (f !== base && !f.startsWith(base + path.sep)) { res.writeHead(403, { 'Content-Type': 'text/plain' }); res.end('403'); return; }   // niente uscite dalla cartella con ../
   if (f.endsWith('/') || (fs.existsSync(f) && fs.statSync(f).isDirectory())) f = path.join(f, 'index.html');
   fs.readFile(f, (err, buf) => {
-    if (err) { res.writeHead(404, { 'Content-Type': 'text/plain' }); res.end('404'); return; }
+    if (err) {   // pagina 404 della lingua dell'indirizzo, o quella principale
+      const first = new URL(req.url, 'http://x').pathname.split('/')[1];
+      const nf = [first && /^[a-z]{2,3}$/.test(first) ? path.join(base, first, '404.html') : null, path.join(base, '404.html')].find((x) => x && fs.existsSync(x));
+      if (nf) { res.writeHead(404, { 'Content-Type': 'text/html; charset=utf-8' }); res.end(fs.readFileSync(nf)); return; }
+      res.writeHead(404, { 'Content-Type': 'text/plain' }); res.end('404'); return;
+    }
     res.writeHead(200, { 'Content-Type': MIME[path.extname(f)] ?? 'application/octet-stream' });
     res.end(buf);
   });

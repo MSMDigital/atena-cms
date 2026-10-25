@@ -5,17 +5,18 @@
 export const isSafeLogical = (p) => typeof p === 'string' && p.length <= 200 && /^[a-z0-9][a-z0-9_./-]*$/i.test(p) && !p.split('/').some((s) => s === '..' || s === '' || s === '.');
 
 // Percorsi (relativi alla libreria media) delle immagini usate da dati del sito, blocchi condivisi e pagine pubblicate.
-export function collectImageRefs({ site, shared, pages }, { drafts = false } = {}) {
+export function collectImageRefs({ site, shared, pages, translations, headers, footers }, { drafts = false } = {}) {
   const refs = new Set();
   const walk = (n) => {
-    if (Array.isArray(n)) n.forEach(walk);
+    if (typeof n === 'string') { if (n.includes('<img')) for (const m of n.matchAll(/<img src="\/assets\/img\/([^"]+)"/g)) refs.add(m[1]); }   // immagini inserite nei testi ricchi
+    else if (Array.isArray(n)) n.forEach(walk);
     else if (n && typeof n === 'object') {
       if (typeof n.src === 'string' && n.src) refs.add(n.src);
       Object.values(n).forEach(walk);
     }
   };
-  walk(site); walk(shared);
-  for (const p of pages ?? []) if (drafts || p.status === 'published') walk(p);   // le bozze non vengono costruite (drafts: anche quelle, per l'anteprima)
-  for (const f of [site?.company?.logoImage, site?.company?.image, site?.seo?.favicon]) if (f) refs.add(f);
+  walk(site); walk(shared); walk(headers); walk(footers);
+  for (const p of [...(pages ?? []), ...(translations ?? [])]) if (drafts || p.status === 'published') walk(p);   // le bozze non vengono costruite (drafts: anche quelle, per l'anteprima)
+  for (const f of [site?.company?.logoImage, site?.company?.image, site?.seo?.favicon, site?.organization?.logo, site?.organization?.image, site?.brand?.sign]) if (f) refs.add(f);
   return refs;
 }

@@ -1,0 +1,68 @@
+{
+  "default": {
+    "brandName": "Studio Esempio",
+    "nav": [
+      {
+        "label": {
+          "it": "Home"
+        },
+        "link": {
+          "type": "page",
+          "page": "home"
+        }
+      },
+      {
+        "label": {
+          "it": "Moduli"
+        },
+        "link": {
+          "type": "page",
+          "page": "moduli"
+        }
+      },
+      {
+        "label": {
+          "it": "Blog"
+        },
+        "link": {
+          "type": "page",
+          "page": "blog"
+        }
+      },
+      {
+        "label": {
+          "it": "Contatti"
+        },
+        "link": {
+          "type": "page",
+          "page": "contatti"
+        }
+      }
+    ],
+    "cta": {
+      "label": {
+        "it": "Scrivici"
+      },
+      "link": {
+        "type": "page",
+        "page": "contatti"
+      },
+      "style": "primary"
+    },
+    "surface": "dark",
+    "sticky": true,
+    "mobileMenu": {
+      "mode": "breakpoint",
+      "breakpoint": 900
+    }
+  },
+  "minimale": {
+    "brandName": "Studio Esempio",
+    "nav": [],
+    "surface": "light",
+    "sticky": false,
+    "mobileMenu": {
+      "mode": "never"
+    }
+  }
+}

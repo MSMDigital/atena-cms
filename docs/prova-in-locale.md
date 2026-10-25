@@ -1,4 +1,4 @@
-# Provare Outsmart CMS in locale
+# Provare Atena CMS in locale
 
 Due modi: **A** usa l'istanza di sviluppo già installata; **B** prova l'installazione guidata da zero su una copia separata, senza toccare la A.
 
@@ -25,10 +25,10 @@ npm run db:down      # lo spegne (i dati restano nel volume)
 npm run dev          # admin su http://localhost:3000/admin
 ```
 
-Accedi con `info@out-smart.ch` e la password che hai scelto. Se non la ricordi:
+Accedi con `webdeveloper@msmdigital.it` e la password che hai scelto. Se non la ricordi:
 
 ```sh
-node scripts/create-user.mjs --email info@out-smart.ch --name Outsmart --role admin --reset
+node scripts/create-user.mjs --email webdeveloper@msmdigital.it --name Atena --role admin --reset
 ```
 
 (scrive una nuova password sul terminale, **una sola volta**; la riga da leggere è «Password (mostrata una sola volta…)»).
@@ -87,13 +87,13 @@ Usa database e cartelle temporanei, esegue tutti i passi (chiave, requisiti, dat
 2. **Database vuoto** per la prova (la password di root la legge il container, non va scritta):
 
    ```sh
-   docker exec outsmart-cms-db sh -c 'mysql -uroot -p"$MYSQL_ROOT_PASSWORD" -e "CREATE DATABASE outsmart_cms_prova CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci; GRANT ALL ON outsmart_cms_prova.* TO \"cms\"@\"%\";"'
+   docker exec atena-cms-db sh -c 'mysql -uroot -p"$MYSQL_ROOT_PASSWORD" -e "CREATE DATABASE atena_cms_prova CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci; GRANT ALL ON atena_cms_prova.* TO \"cms\"@\"%\";"'
    ```
 
-3. **Zip del template** (finisce nella cartella del progetto, es. `mammano-1.0.0.zip`):
+3. **Zip del template** (finisce nella cartella del progetto, es. `starter-1.2.0.zip`):
 
    ```sh
-   npm run template:pack -- templates/mammano
+   npm run template:pack -- templates/starter
    ```
 
 4. **Avvia una copia isolata**: cartelle a parte, e le variabili del `.env` di sviluppo svuotate, altrimenti la procedura vedrebbe il database già installato e si considererebbe già installata.
@@ -109,7 +109,7 @@ Usa database e cartelle temporanei, esegue tutti i passi (chiave, requisiti, dat
 5. Apri http://localhost:3100/install e segui i passi:
    - **Chiave**: nel terminale («Chiave di installazione…») e in `/tmp/cms-prova/data/install-token`.
    - **Requisiti**: devono essere tutti a posto.
-   - **Database**: host `127.0.0.1`, porta `3307`, nome `outsmart_cms_prova`, utente `cms` e la password `DB_PASSWORD` del tuo `.env`. La password del database non può contenere `$ ' " \ ` #`.
+   - **Database**: host `127.0.0.1`, porta `3307`, nome `atena_cms_prova`, utente `cms` e la password `DB_PASSWORD` del tuo `.env`. La password del database non può contenere `$ ' " \ ` #`.
    - **Primo admin**: nome, email, password di almeno 12 caratteri.
    - **Template**: carica lo zip del punto 3, indica l'indirizzo pubblico del sito.
 6. Finito: `/install` si chiude, accedi da http://localhost:3100/admin.
@@ -117,8 +117,8 @@ Usa database e cartelle temporanei, esegue tutti i passi (chiave, requisiti, dat
 ### Pulizia
 
 ```sh
-docker exec outsmart-cms-db sh -c 'mysql -uroot -p"$MYSQL_ROOT_PASSWORD" -e "DROP DATABASE outsmart_cms_prova"'
-rm -rf /tmp/cms-prova mammano-1.0.0.zip
+docker exec atena-cms-db sh -c 'mysql -uroot -p"$MYSQL_ROOT_PASSWORD" -e "DROP DATABASE atena_cms_prova"'
+rm -rf /tmp/cms-prova starter-1.2.0.zip
 npm run build:admin      # la copia in sviluppo ha sovrascritto .next
 ```
 
@@ -137,7 +137,7 @@ Le prove nel browser **salvano e pubblicano davvero** e poi ripristinano i conte
 ```sh
 node scripts/create-user.mjs --email e2e@esempio.test --name E2E --role admin --reset
 # ... prove ...  poi elimina l'utente dal database:
-docker exec outsmart-cms-db sh -c 'mysql -uroot -p"$MYSQL_ROOT_PASSWORD" outsmart_cms -e "DELETE FROM users WHERE email=\"e2e@esempio.test\""'
+docker exec atena-cms-db sh -c 'mysql -uroot -p"$MYSQL_ROOT_PASSWORD" atena_cms -e "DELETE FROM users WHERE email=\"e2e@esempio.test\""'
 ```
 
 Le credenziali non vanno mai scritte nei comandi o nei file del progetto: stanno nel `.env` (ignorato da git) o nelle variabili d'ambiente.

@@ -1,0 +1,39 @@
+{
+  "key": "dallascolto-alla-direzione",
+  "status": "published",
+  "slug": {
+    "it": "dallascolto-alla-direzione"
+  },
+  "title": {
+    "it": "Dall’ascolto alla direzione: cinque passi per un cambiamento sostenibile"
+  },
+  "excerpt": {
+    "it": "Ascolto, consapevolezza, direzione, azione, cambiamento: perché ogni percorso parte da lì, ma non si ferma lì. (Articolo di esempio.)"
+  },
+  "image": {
+    "src": "giacca-rossa-seduta.jpg",
+    "alt": {
+      "it": "Daria Benedetto seduta"
+    }
+  },
+  "categories": [
+    "cambiamento-professionale",
+    "dal-campo"
+  ],
+  "date": "2026-09-12",
+  "author": "Daria Benedetto",
+  "blocks": [
+    {
+      "id": "testo-1",
+      "type": "text",
+      "surface": "light",
+      "content": {
+        "it": "<p><em>Articolo di esempio: sostituiscilo con un tuo testo.</em></p><p>Ascoltare serve a vedere con maggiore chiarezza. La chiarezza aiuta a scegliere. La scelta diventa azione. E l’azione, quando è coerente e sostenibile, produce cambiamento.</p><ol><li>Ascolto</li><li>Consapevolezza</li><li>Direzione</li><li>Azione</li><li>Cambiamento</li></ol>"
+      }
+    }
+  ],
+  "tags": [
+    "ascolto",
+    "leadership"
+  ]
+}

@@ -1,0 +1,34 @@
+{
+  "key": "il-cambiamento-comincia-dallascolto",
+  "status": "published",
+  "slug": {
+    "it": "il-cambiamento-comincia-dallascolto"
+  },
+  "title": {
+    "it": "Il cambiamento comincia dall’ascolto"
+  },
+  "excerpt": {
+    "it": "Ho passato 25 anni a lavorare dentro il cambiamento. E ho imparato una cosa: le trasformazioni non cominciano dagli strumenti. Cominciano dalle persone."
+  },
+  "image": {
+    "src": "camicia-bianca.jpg",
+    "alt": {
+      "it": "Daria Benedetto"
+    }
+  },
+  "categories": [
+    "cambiamento-professionale"
+  ],
+  "date": "2026-09-20",
+  "author": "Daria Benedetto",
+  "blocks": [
+    {
+      "id": "testo-1",
+      "type": "text",
+      "surface": "light",
+      "content": {
+        "it": "<p>Ho passato 25 anni a lavorare dentro il cambiamento. E ho imparato una cosa: le trasformazioni non cominciano dagli strumenti. Cominciano dalle persone.</p><p>Credo nella tecnologia quando amplia le possibilità umane, non quando sostituisce il pensiero.</p><h2>Ciò in cui credo</h2><ul><li>Che l’esperienza non sia qualcosa da difendere, ma una base da cui evolvere.</li><li>Che le persone non vadano adattate passivamente al cambiamento.</li><li>Che tecnologia e AI abbiano valore quando amplificano consapevolezza, giudizio e possibilità.</li><li>Che ascoltare non significhi restare fermi, ma vedere meglio prima di agire.</li><li>Che una direzione autentica debba essere anche concreta e sostenibile.</li></ul>"
+      }
+    }
+  ]
+}

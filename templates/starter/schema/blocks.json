@@ -1,12 +1,12 @@
 {
   "blocks": [
     {
-      "$id": "https://outsmart.cms/schema/blocks/hero.json",
+      "$id": "https://atena.cms/schema/blocks/hero.json",
       "title": "Copertina",
       "type": "object",
       "properties": {
         "id": {
-          "$ref": "https://outsmart.cms/schema/common.json#/$defs/blockId"
+          "$ref": "https://atena.cms/schema/common.json#/$defs/blockId"
         },
         "type": {
           "const": "hero"
@@ -17,7 +17,59 @@
           "default": true
         },
         "anchor": {
-          "$ref": "https://outsmart.cms/schema/common.json#/$defs/anchor"
+          "$ref": "https://atena.cms/schema/common.json#/$defs/anchor"
+        },
+        "padding": {
+          "title": "Spaziatura della sezione (padding)",
+          "description": "Spazio interno della sezione. Sopra e sotto: \"Medio\" è il valore standard del sito (si adatta da solo allo schermo); i lati servono per stringere la sezione rispetto alla pagina.",
+          "type": "object",
+          "properties": {
+            "top": {
+              "title": "Sopra",
+              "enum": [
+                "none",
+                "xs",
+                "sm",
+                "md",
+                "lg",
+                "xl"
+              ],
+              "default": "md"
+            },
+            "bottom": {
+              "title": "Sotto",
+              "enum": [
+                "none",
+                "xs",
+                "sm",
+                "md",
+                "lg",
+                "xl"
+              ],
+              "default": "md"
+            },
+            "left": {
+              "title": "Sinistra",
+              "enum": [
+                "none",
+                "sm",
+                "md",
+                "lg"
+              ],
+              "default": "none"
+            },
+            "right": {
+              "title": "Destra",
+              "enum": [
+                "none",
+                "sm",
+                "md",
+                "lg"
+              ],
+              "default": "none"
+            }
+          },
+          "additionalProperties": false
         },
         "surface": {
           "title": "Superficie",
@@ -29,11 +81,11 @@
           "default": "dark"
         },
         "title": {
-          "$ref": "https://outsmart.cms/schema/common.json#/$defs/text",
+          "$ref": "https://atena.cms/schema/common.json#/$defs/text",
           "title": "Titolo"
         },
         "lead": {
-          "$ref": "https://outsmart.cms/schema/common.json#/$defs/richInline",
+          "$ref": "https://atena.cms/schema/common.json#/$defs/richInline",
           "title": "Testo introduttivo"
         },
         "buttons": {
@@ -44,11 +96,11 @@
             "type": "object",
             "properties": {
               "label": {
-                "$ref": "https://outsmart.cms/schema/common.json#/$defs/text",
+                "$ref": "https://atena.cms/schema/common.json#/$defs/text",
                 "title": "Etichetta"
               },
               "link": {
-                "$ref": "https://outsmart.cms/schema/common.json#/$defs/link",
+                "$ref": "https://atena.cms/schema/common.json#/$defs/link",
                 "title": "Link"
               }
             },
@@ -70,12 +122,12 @@
       "additionalProperties": false
     },
     {
-      "$id": "https://outsmart.cms/schema/blocks/text.json",
+      "$id": "https://atena.cms/schema/blocks/text.json",
       "title": "Testo",
       "type": "object",
       "properties": {
         "id": {
-          "$ref": "https://outsmart.cms/schema/common.json#/$defs/blockId"
+          "$ref": "https://atena.cms/schema/common.json#/$defs/blockId"
         },
         "type": {
           "const": "text"
@@ -86,7 +138,59 @@
           "default": true
         },
         "anchor": {
-          "$ref": "https://outsmart.cms/schema/common.json#/$defs/anchor"
+          "$ref": "https://atena.cms/schema/common.json#/$defs/anchor"
+        },
+        "padding": {
+          "title": "Spaziatura della sezione (padding)",
+          "description": "Spazio interno della sezione. Sopra e sotto: \"Medio\" è il valore standard del sito (si adatta da solo allo schermo); i lati servono per stringere la sezione rispetto alla pagina.",
+          "type": "object",
+          "properties": {
+            "top": {
+              "title": "Sopra",
+              "enum": [
+                "none",
+                "xs",
+                "sm",
+                "md",
+                "lg",
+                "xl"
+              ],
+              "default": "md"
+            },
+            "bottom": {
+              "title": "Sotto",
+              "enum": [
+                "none",
+                "xs",
+                "sm",
+                "md",
+                "lg",
+                "xl"
+              ],
+              "default": "md"
+            },
+            "left": {
+              "title": "Sinistra",
+              "enum": [
+                "none",
+                "sm",
+                "md",
+                "lg"
+              ],
+              "default": "none"
+            },
+            "right": {
+              "title": "Destra",
+              "enum": [
+                "none",
+                "sm",
+                "md",
+                "lg"
+              ],
+              "default": "none"
+            }
+          },
+          "additionalProperties": false
         },
         "surface": {
           "title": "Superficie",
@@ -98,9 +202,9 @@
           "default": "light"
         },
         "content": {
-          "$ref": "https://outsmart.cms/schema/common.json#/$defs/richBlock",
+          "$ref": "https://atena.cms/schema/common.json#/$defs/richFull",
           "title": "Contenuto",
-          "description": "Titoli, paragrafi, elenchi, link."
+          "description": "Scrivi come in un editor di testo: formattazione, colori, allineamento, elenchi, link, immagini e video."
         }
       },
       "required": [
@@ -112,12 +216,12 @@
       "additionalProperties": false
     },
     {
-      "$id": "https://outsmart.cms/schema/blocks/form.json",
+      "$id": "https://atena.cms/schema/blocks/form.json",
       "title": "Modulo di contatto",
       "type": "object",
       "properties": {
         "id": {
-          "$ref": "https://outsmart.cms/schema/common.json#/$defs/blockId"
+          "$ref": "https://atena.cms/schema/common.json#/$defs/blockId"
         },
         "type": {
           "const": "form"
@@ -128,7 +232,63 @@
           "default": true
         },
         "anchor": {
-          "$ref": "https://outsmart.cms/schema/common.json#/$defs/anchor"
+          "$ref": "https://atena.cms/schema/common.json#/$defs/anchor"
+        },
+        "padding": {
+          "title": "Spaziatura della sezione (padding)",
+          "description": "Spazio interno della sezione. Sopra e sotto: \"Medio\" è il valore standard del sito (si adatta da solo allo schermo); i lati servono per stringere la sezione rispetto alla pagina.",
+          "type": "object",
+          "properties": {
+            "top": {
+              "title": "Sopra",
+              "enum": [
+                "none",
+                "xs",
+                "sm",
+                "md",
+                "lg",
+                "xl"
+              ],
+              "default": "md"
+            },
+            "bottom": {
+              "title": "Sotto",
+              "enum": [
+                "none",
+                "xs",
+                "sm",
+                "md",
+                "lg",
+                "xl"
+              ],
+              "default": "md"
+            },
+            "left": {
+              "title": "Sinistra",
+              "enum": [
+                "none",
+                "sm",
+                "md",
+                "lg"
+              ],
+              "default": "none"
+            },
+            "right": {
+              "title": "Destra",
+              "enum": [
+                "none",
+                "sm",
+                "md",
+                "lg"
+              ],
+              "default": "none"
+            }
+          },
+          "additionalProperties": false
+        },
+        "header": {
+          "$ref": "https://atena.cms/schema/common.json#/$defs/sectionHeader",
+          "title": "Testata della sezione"
         },
         "surface": {
           "title": "Superficie",
@@ -140,7 +300,7 @@
           "default": "light"
         },
         "label": {
-          "$ref": "https://outsmart.cms/schema/common.json#/$defs/text",
+          "$ref": "https://atena.cms/schema/common.json#/$defs/text",
           "title": "Nome del modulo",
           "description": "Letto dagli screen reader (es. \"Richiesta di preventivo\")."
         },
@@ -170,12 +330,12 @@
                 ]
               },
               "label": {
-                "$ref": "https://outsmart.cms/schema/common.json#/$defs/richInline",
+                "$ref": "https://atena.cms/schema/common.json#/$defs/richInline",
                 "title": "Etichetta",
                 "description": "Per il consenso può contenere il link all'informativa privacy."
               },
               "placeholder": {
-                "$ref": "https://outsmart.cms/schema/common.json#/$defs/text",
+                "$ref": "https://atena.cms/schema/common.json#/$defs/text",
                 "title": "Segnaposto",
                 "x-when": {
                   "type": [
@@ -190,6 +350,27 @@
                 "title": "Compilazione automatica",
                 "type": "string",
                 "description": "Valore HTML autocomplete (es. given-name, tel, email)."
+              },
+              "title": {
+                "$ref": "https://atena.cms/schema/common.json#/$defs/text",
+                "title": "Titolo (tooltip)",
+                "description": "Testo che compare al passaggio del mouse sulla casella.",
+                "x-when": { "type": ["consent"] }
+              },
+              "cssClass": {
+                "type": "string",
+                "title": "Classe CSS (facoltativa)",
+                "description": "Una o più classi (separate da spazio) aggiunte alla casella. Solo lettere, numeri, trattini e underscore.",
+                "pattern": "^[A-Za-z0-9_ -]{1,120}$",
+                "maxLength": 120,
+                "x-when": { "type": ["consent"] }
+              },
+              "target": {
+                "title": "Apertura dei link dell'etichetta",
+                "enum": ["_self", "_blank"],
+                "default": "_self",
+                "description": "Dove si apre il link all'informativa: nella stessa scheda o in una nuova.",
+                "x-when": { "type": ["consent"] }
               },
               "required": {
                 "title": "Obbligatorio",
@@ -209,7 +390,7 @@
                 "type": "array",
                 "minItems": 1,
                 "items": {
-                  "$ref": "https://outsmart.cms/schema/common.json#/$defs/text",
+                  "$ref": "https://atena.cms/schema/common.json#/$defs/text",
                   "title": "Opzione"
                 },
                 "x-when": {
@@ -243,11 +424,11 @@
           }
         },
         "submitLabel": {
-          "$ref": "https://outsmart.cms/schema/common.json#/$defs/text",
+          "$ref": "https://atena.cms/schema/common.json#/$defs/text",
           "title": "Testo del pulsante"
         },
         "successMessage": {
-          "$ref": "https://outsmart.cms/schema/common.json#/$defs/text",
+          "$ref": "https://atena.cms/schema/common.json#/$defs/text",
           "title": "Messaggio di conferma"
         },
         "delivery": {
@@ -256,13 +437,13 @@
           "type": "object",
           "properties": {
             "recipients": {
-              "title": "Destinatari",
+              "title": "Destinatari (facoltativi)",
               "type": "array",
-              "minItems": 1,
               "items": {
                 "type": "string",
                 "format": "email"
-              }
+              },
+              "description": "Vuoto: le richieste vanno agli indirizzi di Impostazioni → Email (o all'email dell'amministrazione)."
             },
             "subject": {
               "title": "Oggetto dell'email",
@@ -271,8 +452,29 @@
             }
           },
           "required": [
-            "recipients",
             "subject"
+          ],
+          "additionalProperties": false
+        },
+        "note": {
+          "$ref": "https://atena.cms/schema/common.json#/$defs/richInline",
+          "title": "Nota sotto il modulo"
+        },
+        "aside": {
+          "title": "Colonna laterale",
+          "type": "object",
+          "properties": {
+            "items": {
+              "title": "Contatti",
+              "type": "array",
+              "minItems": 1,
+              "items": {
+                "$ref": "https://atena.cms/schema/common.json#/$defs/contactItem"
+              }
+            }
+          },
+          "required": [
+            "items"
           ],
           "additionalProperties": false
         }
@@ -286,6 +488,4004 @@
         "submitLabel",
         "successMessage",
         "delivery"
+      ],
+      "additionalProperties": false
+    },
+    {
+      "$id": "https://atena.cms/schema/blocks/hero-slides.json",
+      "title": "Copertina con scene (slideshow)",
+      "type": "object",
+      "properties": {
+        "id": {
+          "$ref": "https://atena.cms/schema/common.json#/$defs/blockId"
+        },
+        "type": {
+          "const": "hero-slides"
+        },
+        "visible": {
+          "title": "Visibile",
+          "type": "boolean",
+          "default": true
+        },
+        "anchor": {
+          "$ref": "https://atena.cms/schema/common.json#/$defs/anchor"
+        },
+        "surface": {
+          "title": "Superficie",
+          "enum": [
+            "dark"
+          ],
+          "default": "dark"
+        },
+        "corners": {
+          "title": "Angoli delle immagini",
+          "description": "Vale per tutte le immagini di questa sezione: ad angoli vivi, arrotondati (poco, medio, molto) oppure ad arco.",
+          "enum": [
+            "square",
+            "round-sm",
+            "round-md",
+            "round-lg",
+            "arch"
+          ],
+          "default": "square"
+        },
+        "kicker": {
+          "$ref": "https://atena.cms/schema/common.json#/$defs/text",
+          "title": "Riga sopra il titolo"
+        },
+        "titleLine1": {
+          "$ref": "https://atena.cms/schema/common.json#/$defs/text",
+          "title": "Titolo, riga 1"
+        },
+        "titleLine2": {
+          "$ref": "https://atena.cms/schema/common.json#/$defs/text",
+          "title": "Titolo, riga 2 (facoltativa)"
+        },
+        "sub": {
+          "$ref": "https://atena.cms/schema/common.json#/$defs/richInline",
+          "title": "Sottotitolo (facoltativo)"
+        },
+        "primaryButton": {
+          "$ref": "https://atena.cms/schema/common.json#/$defs/button",
+          "title": "Pulsante principale",
+          "description": "Facoltativo."
+        },
+        "secondaryLink": {
+          "title": "Link secondario",
+          "type": "object",
+          "properties": {
+            "label": {
+              "$ref": "https://atena.cms/schema/common.json#/$defs/text",
+              "title": "Etichetta"
+            },
+            "link": {
+              "$ref": "https://atena.cms/schema/common.json#/$defs/link",
+              "title": "Link"
+            }
+          },
+          "required": [
+            "label",
+            "link"
+          ],
+          "additionalProperties": false
+        },
+        "slides": {
+          "title": "Scene (slideshow)",
+          "type": "array",
+          "minItems": 2,
+          "maxItems": 6,
+          "items": {
+            "type": "object",
+            "properties": {
+              "image": {
+                "$ref": "https://atena.cms/schema/common.json#/$defs/image",
+                "title": "Immagine"
+              },
+              "caption": {
+                "$ref": "https://atena.cms/schema/common.json#/$defs/text",
+                "title": "Etichetta della scena (es. \"On piste\")"
+              }
+            },
+            "required": [
+              "image",
+              "caption"
+            ],
+            "additionalProperties": false
+          },
+          "description": "Da 2 a 6 coppie immagine + etichetta: si alternano da sole ogni 6 secondi."
+        }
+      },
+      "required": [
+        "id",
+        "type",
+        "surface",
+        "titleLine1",
+        "slides"
+      ],
+      "additionalProperties": false
+    },
+    {
+      "$id": "https://atena.cms/schema/blocks/the-need.json",
+      "title": "Intro con immagine larga e citazione",
+      "type": "object",
+      "properties": {
+        "id": {
+          "$ref": "https://atena.cms/schema/common.json#/$defs/blockId"
+        },
+        "type": {
+          "const": "the-need"
+        },
+        "visible": {
+          "title": "Visibile",
+          "type": "boolean",
+          "default": true
+        },
+        "anchor": {
+          "$ref": "https://atena.cms/schema/common.json#/$defs/anchor"
+        },
+        "padding": {
+          "title": "Spaziatura della sezione (padding)",
+          "description": "Spazio interno della sezione. Sopra e sotto: \"Medio\" è il valore standard del sito (si adatta da solo allo schermo); i lati servono per stringere la sezione rispetto alla pagina.",
+          "type": "object",
+          "properties": {
+            "top": {
+              "title": "Sopra",
+              "enum": [
+                "none",
+                "xs",
+                "sm",
+                "md",
+                "lg",
+                "xl"
+              ],
+              "default": "md"
+            },
+            "bottom": {
+              "title": "Sotto",
+              "enum": [
+                "none",
+                "xs",
+                "sm",
+                "md",
+                "lg",
+                "xl"
+              ],
+              "default": "md"
+            },
+            "left": {
+              "title": "Sinistra",
+              "enum": [
+                "none",
+                "sm",
+                "md",
+                "lg"
+              ],
+              "default": "none"
+            },
+            "right": {
+              "title": "Destra",
+              "enum": [
+                "none",
+                "sm",
+                "md",
+                "lg"
+              ],
+              "default": "none"
+            }
+          },
+          "additionalProperties": false
+        },
+        "surface": {
+          "title": "Superficie",
+          "enum": [
+            "light",
+            "dark",
+            "brand"
+          ],
+          "default": "dark"
+        },
+        "corners": {
+          "title": "Angoli delle immagini",
+          "description": "Vale per tutte le immagini di questa sezione: ad angoli vivi, arrotondati (poco, medio, molto) oppure ad arco.",
+          "enum": [
+            "square",
+            "round-sm",
+            "round-md",
+            "round-lg",
+            "arch"
+          ],
+          "default": "square"
+        },
+        "eyebrow": {
+          "$ref": "https://atena.cms/schema/common.json#/$defs/text",
+          "title": "Etichetta"
+        },
+        "title": {
+          "$ref": "https://atena.cms/schema/common.json#/$defs/text",
+          "title": "Titolo"
+        },
+        "lead": {
+          "$ref": "https://atena.cms/schema/common.json#/$defs/richInline",
+          "title": "Testo introduttivo"
+        },
+        "wideImage": {
+          "$ref": "https://atena.cms/schema/common.json#/$defs/image",
+          "title": "Immagine larga (21:9)"
+        },
+        "columns": {
+          "title": "Due colonne di testo",
+          "type": "array",
+          "minItems": 2,
+          "maxItems": 2,
+          "items": {
+            "$ref": "https://atena.cms/schema/common.json#/$defs/richInline",
+            "title": "Colonna"
+          }
+        },
+        "quoteText": {
+          "$ref": "https://atena.cms/schema/common.json#/$defs/text",
+          "title": "Citazione"
+        },
+        "quoteCite": {
+          "$ref": "https://atena.cms/schema/common.json#/$defs/text",
+          "title": "Firma della citazione"
+        }
+      },
+      "required": [
+        "id",
+        "type",
+        "surface",
+        "title",
+        "lead",
+        "wideImage",
+        "columns",
+        "quoteText",
+        "quoteCite"
+      ],
+      "additionalProperties": false
+    },
+    {
+      "$id": "https://atena.cms/schema/blocks/manifesto.json",
+      "title": "Lettera con immagine in cornice",
+      "type": "object",
+      "properties": {
+        "id": {
+          "$ref": "https://atena.cms/schema/common.json#/$defs/blockId"
+        },
+        "type": {
+          "const": "manifesto"
+        },
+        "visible": {
+          "title": "Visibile",
+          "type": "boolean",
+          "default": true
+        },
+        "anchor": {
+          "$ref": "https://atena.cms/schema/common.json#/$defs/anchor"
+        },
+        "padding": {
+          "title": "Spaziatura della sezione (padding)",
+          "description": "Spazio interno della sezione. Sopra e sotto: \"Medio\" è il valore standard del sito (si adatta da solo allo schermo); i lati servono per stringere la sezione rispetto alla pagina.",
+          "type": "object",
+          "properties": {
+            "top": {
+              "title": "Sopra",
+              "enum": [
+                "none",
+                "xs",
+                "sm",
+                "md",
+                "lg",
+                "xl"
+              ],
+              "default": "md"
+            },
+            "bottom": {
+              "title": "Sotto",
+              "enum": [
+                "none",
+                "xs",
+                "sm",
+                "md",
+                "lg",
+                "xl"
+              ],
+              "default": "md"
+            },
+            "left": {
+              "title": "Sinistra",
+              "enum": [
+                "none",
+                "sm",
+                "md",
+                "lg"
+              ],
+              "default": "none"
+            },
+            "right": {
+              "title": "Destra",
+              "enum": [
+                "none",
+                "sm",
+                "md",
+                "lg"
+              ],
+              "default": "none"
+            }
+          },
+          "additionalProperties": false
+        },
+        "surface": {
+          "title": "Superficie",
+          "enum": [
+            "light",
+            "dark",
+            "brand"
+          ],
+          "default": "light"
+        },
+        "corners": {
+          "title": "Angoli delle immagini",
+          "description": "Vale per tutte le immagini di questa sezione: ad angoli vivi, arrotondati (poco, medio, molto) oppure ad arco.",
+          "enum": [
+            "square",
+            "round-sm",
+            "round-md",
+            "round-lg",
+            "arch"
+          ],
+          "default": "square"
+        },
+        "eyebrow": {
+          "$ref": "https://atena.cms/schema/common.json#/$defs/text",
+          "title": "Etichetta"
+        },
+        "opener": {
+          "$ref": "https://atena.cms/schema/common.json#/$defs/richInline",
+          "title": "Frase di apertura, grande"
+        },
+        "paragraphs": {
+          "title": "Paragrafi della lettera",
+          "description": "Il primo riceve la lettera iniziale grande (capolettera).",
+          "type": "array",
+          "minItems": 1,
+          "maxItems": 4,
+          "items": {
+            "$ref": "https://atena.cms/schema/common.json#/$defs/richInline",
+            "title": "Paragrafo"
+          }
+        },
+        "signoff": {
+          "$ref": "https://atena.cms/schema/common.json#/$defs/text",
+          "title": "Firma (testo sotto la lettera)"
+        },
+        "image": {
+          "$ref": "https://atena.cms/schema/common.json#/$defs/image",
+          "title": "Immagine nella cornice"
+        }
+      },
+      "required": [
+        "id",
+        "type",
+        "surface",
+        "opener",
+        "paragraphs",
+        "signoff",
+        "image"
+      ],
+      "additionalProperties": false
+    },
+    {
+      "$id": "https://atena.cms/schema/blocks/services.json",
+      "title": "Schede con immagine (da 1 a 6)",
+      "type": "object",
+      "properties": {
+        "id": {
+          "$ref": "https://atena.cms/schema/common.json#/$defs/blockId"
+        },
+        "type": {
+          "const": "services"
+        },
+        "visible": {
+          "title": "Visibile",
+          "type": "boolean",
+          "default": true
+        },
+        "anchor": {
+          "$ref": "https://atena.cms/schema/common.json#/$defs/anchor"
+        },
+        "padding": {
+          "title": "Spaziatura della sezione (padding)",
+          "description": "Spazio interno della sezione. Sopra e sotto: \"Medio\" è il valore standard del sito (si adatta da solo allo schermo); i lati servono per stringere la sezione rispetto alla pagina.",
+          "type": "object",
+          "properties": {
+            "top": {
+              "title": "Sopra",
+              "enum": [
+                "none",
+                "xs",
+                "sm",
+                "md",
+                "lg",
+                "xl"
+              ],
+              "default": "md"
+            },
+            "bottom": {
+              "title": "Sotto",
+              "enum": [
+                "none",
+                "xs",
+                "sm",
+                "md",
+                "lg",
+                "xl"
+              ],
+              "default": "md"
+            },
+            "left": {
+              "title": "Sinistra",
+              "enum": [
+                "none",
+                "sm",
+                "md",
+                "lg"
+              ],
+              "default": "none"
+            },
+            "right": {
+              "title": "Destra",
+              "enum": [
+                "none",
+                "sm",
+                "md",
+                "lg"
+              ],
+              "default": "none"
+            }
+          },
+          "additionalProperties": false
+        },
+        "surface": {
+          "title": "Superficie",
+          "enum": [
+            "light",
+            "dark",
+            "brand"
+          ],
+          "default": "dark"
+        },
+        "corners": {
+          "title": "Angoli delle immagini",
+          "description": "Vale per tutte le immagini di questa sezione: ad angoli vivi, arrotondati (poco, medio, molto) oppure ad arco.",
+          "enum": [
+            "square",
+            "round-sm",
+            "round-md",
+            "round-lg",
+            "arch"
+          ],
+          "default": "arch"
+        },
+        "showSign": {
+          "title": "Mostra il segno separatore (se impostato in Dati del sito → Marchio)",
+          "type": "boolean",
+          "default": true
+        },
+        "eyebrow": {
+          "$ref": "https://atena.cms/schema/common.json#/$defs/text",
+          "title": "Etichetta"
+        },
+        "title": {
+          "$ref": "https://atena.cms/schema/common.json#/$defs/text",
+          "title": "Titolo"
+        },
+        "lead": {
+          "$ref": "https://atena.cms/schema/common.json#/$defs/richInline",
+          "title": "Testo introduttivo"
+        },
+        "items": {
+          "title": "Schede",
+          "type": "array",
+          "minItems": 1,
+          "maxItems": 6,
+          "items": {
+            "type": "object",
+            "properties": {
+              "image": {
+                "$ref": "https://atena.cms/schema/common.json#/$defs/image",
+                "title": "Immagine"
+              },
+              "title": {
+                "$ref": "https://atena.cms/schema/common.json#/$defs/text",
+                "title": "Titolo"
+              },
+              "text": {
+                "$ref": "https://atena.cms/schema/common.json#/$defs/richInline",
+                "title": "Testo"
+              }
+            },
+            "required": [
+              "image",
+              "title",
+              "text"
+            ],
+            "additionalProperties": false
+          }
+        }
+      },
+      "required": [
+        "id",
+        "type",
+        "surface",
+        "title",
+        "items"
+      ],
+      "additionalProperties": false
+    },
+    {
+      "$id": "https://atena.cms/schema/blocks/seasons.json",
+      "title": "Dittico: due metà affiancate con immagine",
+      "type": "object",
+      "properties": {
+        "id": {
+          "$ref": "https://atena.cms/schema/common.json#/$defs/blockId"
+        },
+        "type": {
+          "const": "seasons"
+        },
+        "visible": {
+          "title": "Visibile",
+          "type": "boolean",
+          "default": true
+        },
+        "anchor": {
+          "$ref": "https://atena.cms/schema/common.json#/$defs/anchor"
+        },
+        "corners": {
+          "title": "Angoli delle immagini",
+          "description": "Vale per tutte le immagini di questa sezione: ad angoli vivi, arrotondati (poco, medio, molto) oppure ad arco.",
+          "enum": [
+            "square",
+            "round-sm",
+            "round-md",
+            "round-lg",
+            "arch"
+          ],
+          "default": "square"
+        },
+        "eyebrow": {
+          "$ref": "https://atena.cms/schema/common.json#/$defs/text",
+          "title": "Etichetta"
+        },
+        "title": {
+          "$ref": "https://atena.cms/schema/common.json#/$defs/text",
+          "title": "Titolo"
+        },
+        "halves": {
+          "title": "Le due metà",
+          "type": "array",
+          "minItems": 2,
+          "maxItems": 2,
+          "items": {
+            "type": "object",
+            "properties": {
+              "tone": {
+                "title": "Colore della metà",
+                "enum": [
+                  "cool",
+                  "warm"
+                ],
+                "default": "cool",
+                "description": "\"Scuro\": tinta del fondo scuro del sito. \"Colore del marchio\": tinta del colore principale."
+              },
+              "kicker": {
+                "$ref": "https://atena.cms/schema/common.json#/$defs/text",
+                "title": "Etichetta piccola (es. \"Divisione invernale\")"
+              },
+              "title": {
+                "$ref": "https://atena.cms/schema/common.json#/$defs/text",
+                "title": "Titolo grande della metà"
+              },
+              "image": {
+                "$ref": "https://atena.cms/schema/common.json#/$defs/image",
+                "title": "Immagine"
+              },
+              "focus": {
+                "$ref": "https://atena.cms/schema/common.json#/$defs/text",
+                "title": "Riga di apertura"
+              },
+              "items": {
+                "title": "Discipline",
+                "type": "array",
+                "minItems": 1,
+                "items": {
+                  "$ref": "https://atena.cms/schema/common.json#/$defs/text",
+                  "title": "Disciplina"
+                }
+              },
+              "whereText": {
+                "$ref": "https://atena.cms/schema/common.json#/$defs/text",
+                "title": "Dove (es. \"Corviglia · Corvatsch\")"
+              }
+            },
+            "required": [
+              "image",
+              "focus",
+              "items",
+              "whereText",
+              "tone",
+              "kicker",
+              "title"
+            ],
+            "additionalProperties": false
+          }
+        },
+        "placesIntro": {
+          "$ref": "https://atena.cms/schema/common.json#/$defs/text",
+          "title": "Riga in grassetto sotto il dittico"
+        },
+        "placesList": {
+          "title": "Elenco sotto il dittico (es. luoghi)",
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "https://atena.cms/schema/common.json#/$defs/text",
+            "title": "Luogo"
+          }
+        }
+      },
+      "required": [
+        "id",
+        "type",
+        "title",
+        "halves",
+        "placesIntro",
+        "placesList"
+      ],
+      "additionalProperties": false
+    },
+    {
+      "$id": "https://atena.cms/schema/blocks/protocols.json",
+      "title": "Colonne con immagine ed elenco (da 2 a 4)",
+      "type": "object",
+      "properties": {
+        "id": {
+          "$ref": "https://atena.cms/schema/common.json#/$defs/blockId"
+        },
+        "type": {
+          "const": "protocols"
+        },
+        "visible": {
+          "title": "Visibile",
+          "type": "boolean",
+          "default": true
+        },
+        "anchor": {
+          "$ref": "https://atena.cms/schema/common.json#/$defs/anchor"
+        },
+        "padding": {
+          "title": "Spaziatura della sezione (padding)",
+          "description": "Spazio interno della sezione. Sopra e sotto: \"Medio\" è il valore standard del sito (si adatta da solo allo schermo); i lati servono per stringere la sezione rispetto alla pagina.",
+          "type": "object",
+          "properties": {
+            "top": {
+              "title": "Sopra",
+              "enum": [
+                "none",
+                "xs",
+                "sm",
+                "md",
+                "lg",
+                "xl"
+              ],
+              "default": "md"
+            },
+            "bottom": {
+              "title": "Sotto",
+              "enum": [
+                "none",
+                "xs",
+                "sm",
+                "md",
+                "lg",
+                "xl"
+              ],
+              "default": "md"
+            },
+            "left": {
+              "title": "Sinistra",
+              "enum": [
+                "none",
+                "sm",
+                "md",
+                "lg"
+              ],
+              "default": "none"
+            },
+            "right": {
+              "title": "Destra",
+              "enum": [
+                "none",
+                "sm",
+                "md",
+                "lg"
+              ],
+              "default": "none"
+            }
+          },
+          "additionalProperties": false
+        },
+        "surface": {
+          "title": "Superficie",
+          "enum": [
+            "light",
+            "dark",
+            "brand"
+          ],
+          "default": "light"
+        },
+        "corners": {
+          "title": "Angoli delle immagini",
+          "description": "Vale per tutte le immagini di questa sezione: ad angoli vivi, arrotondati (poco, medio, molto) oppure ad arco.",
+          "enum": [
+            "square",
+            "round-sm",
+            "round-md",
+            "round-lg",
+            "arch"
+          ],
+          "default": "arch"
+        },
+        "eyebrow": {
+          "$ref": "https://atena.cms/schema/common.json#/$defs/text",
+          "title": "Etichetta"
+        },
+        "title": {
+          "$ref": "https://atena.cms/schema/common.json#/$defs/text",
+          "title": "Titolo"
+        },
+        "lead": {
+          "$ref": "https://atena.cms/schema/common.json#/$defs/richInline",
+          "title": "Testo introduttivo"
+        },
+        "items": {
+          "title": "Colonne",
+          "description": "Tre box, nessuno con sfondo colorato: solo un separatore verticale tra loro.",
+          "type": "array",
+          "minItems": 2,
+          "maxItems": 4,
+          "items": {
+            "type": "object",
+            "properties": {
+              "image": {
+                "$ref": "https://atena.cms/schema/common.json#/$defs/image",
+                "title": "Immagine"
+              },
+              "tag": {
+                "$ref": "https://atena.cms/schema/common.json#/$defs/text",
+                "title": "Etichetta piccola (es. \"Default protocol\")"
+              },
+              "title": {
+                "$ref": "https://atena.cms/schema/common.json#/$defs/text",
+                "title": "Titolo"
+              },
+              "text": {
+                "$ref": "https://atena.cms/schema/common.json#/$defs/richInline",
+                "title": "Testo"
+              },
+              "points": {
+                "title": "Punti",
+                "type": "array",
+                "minItems": 1,
+                "maxItems": 4,
+                "items": {
+                  "$ref": "https://atena.cms/schema/common.json#/$defs/text",
+                  "title": "Punto"
+                }
+              }
+            },
+            "required": [
+              "image",
+              "tag",
+              "title",
+              "text",
+              "points"
+            ],
+            "additionalProperties": false
+          }
+        }
+      },
+      "required": [
+        "id",
+        "type",
+        "surface",
+        "title",
+        "items"
+      ],
+      "additionalProperties": false
+    },
+    {
+      "$id": "https://atena.cms/schema/blocks/technical-direction.json",
+      "title": "Profilo con teaser, certificazioni e pilastri",
+      "type": "object",
+      "properties": {
+        "id": {
+          "$ref": "https://atena.cms/schema/common.json#/$defs/blockId"
+        },
+        "type": {
+          "const": "technical-direction"
+        },
+        "visible": {
+          "title": "Visibile",
+          "type": "boolean",
+          "default": true
+        },
+        "anchor": {
+          "$ref": "https://atena.cms/schema/common.json#/$defs/anchor"
+        },
+        "padding": {
+          "title": "Spaziatura della sezione (padding)",
+          "description": "Spazio interno della sezione. Sopra e sotto: \"Medio\" è il valore standard del sito (si adatta da solo allo schermo); i lati servono per stringere la sezione rispetto alla pagina.",
+          "type": "object",
+          "properties": {
+            "top": {
+              "title": "Sopra",
+              "enum": [
+                "none",
+                "xs",
+                "sm",
+                "md",
+                "lg",
+                "xl"
+              ],
+              "default": "md"
+            },
+            "bottom": {
+              "title": "Sotto",
+              "enum": [
+                "none",
+                "xs",
+                "sm",
+                "md",
+                "lg",
+                "xl"
+              ],
+              "default": "md"
+            },
+            "left": {
+              "title": "Sinistra",
+              "enum": [
+                "none",
+                "sm",
+                "md",
+                "lg"
+              ],
+              "default": "none"
+            },
+            "right": {
+              "title": "Destra",
+              "enum": [
+                "none",
+                "sm",
+                "md",
+                "lg"
+              ],
+              "default": "none"
+            }
+          },
+          "additionalProperties": false
+        },
+        "surface": {
+          "title": "Superficie",
+          "enum": [
+            "light",
+            "dark",
+            "brand"
+          ],
+          "default": "dark"
+        },
+        "corners": {
+          "title": "Angoli delle immagini",
+          "description": "Vale per tutte le immagini di questa sezione: ad angoli vivi, arrotondati (poco, medio, molto) oppure ad arco.",
+          "enum": [
+            "square",
+            "round-sm",
+            "round-md",
+            "round-lg",
+            "arch"
+          ],
+          "default": "arch"
+        },
+        "lockedImage": {
+          "$ref": "https://atena.cms/schema/common.json#/$defs/image",
+          "title": "Immagine del teaser (sfocata)"
+        },
+        "lockedLabel": {
+          "$ref": "https://atena.cms/schema/common.json#/$defs/text",
+          "title": "Etichetta del teaser"
+        },
+        "lockedText": {
+          "$ref": "https://atena.cms/schema/common.json#/$defs/text",
+          "title": "Testo del teaser"
+        },
+        "lockedLinkLabel": {
+          "$ref": "https://atena.cms/schema/common.json#/$defs/text",
+          "title": "Etichetta del link del teaser",
+          "description": "Il link punta sempre alla pagina \"private\"."
+        },
+        "lockedLink": {
+          "$ref": "https://atena.cms/schema/common.json#/$defs/link",
+          "title": "Dove porta il teaser"
+        },
+        "eyebrow": {
+          "$ref": "https://atena.cms/schema/common.json#/$defs/text",
+          "title": "Etichetta"
+        },
+        "title": {
+          "$ref": "https://atena.cms/schema/common.json#/$defs/text",
+          "title": "Titolo"
+        },
+        "lead": {
+          "$ref": "https://atena.cms/schema/common.json#/$defs/richInline",
+          "title": "Testo introduttivo"
+        },
+        "bio": {
+          "$ref": "https://atena.cms/schema/common.json#/$defs/richInline",
+          "title": "Testo biografico"
+        },
+        "certifications": {
+          "title": "Certificazioni (solo titolo e descrizione, niente badge)",
+          "type": "array",
+          "minItems": 1,
+          "maxItems": 6,
+          "items": {
+            "type": "object",
+            "properties": {
+              "title": {
+                "$ref": "https://atena.cms/schema/common.json#/$defs/text",
+                "title": "Titolo"
+              },
+              "text": {
+                "$ref": "https://atena.cms/schema/common.json#/$defs/richInline",
+                "title": "Testo"
+              }
+            },
+            "required": [
+              "title",
+              "text"
+            ],
+            "additionalProperties": false
+          }
+        },
+        "pillars": {
+          "title": "Quattro pilastri",
+          "type": "array",
+          "minItems": 4,
+          "maxItems": 4,
+          "items": {
+            "type": "object",
+            "properties": {
+              "title": {
+                "$ref": "https://atena.cms/schema/common.json#/$defs/text",
+                "title": "Titolo"
+              },
+              "text": {
+                "$ref": "https://atena.cms/schema/common.json#/$defs/richInline",
+                "title": "Testo"
+              }
+            },
+            "required": [
+              "title",
+              "text"
+            ],
+            "additionalProperties": false
+          }
+        },
+        "languages": {
+          "$ref": "https://atena.cms/schema/common.json#/$defs/text",
+          "title": "Riga lingue parlate (facoltativa)",
+          "description": "Per esempio \"Italiano | English | Deutsch\"."
+        }
+      },
+      "required": [
+        "id",
+        "type",
+        "surface",
+        "lockedImage",
+        "lockedLabel",
+        "lockedText",
+        "lockedLinkLabel",
+        "title",
+        "lead",
+        "bio",
+        "certifications",
+        "pillars",
+        "lockedLink"
+      ],
+      "additionalProperties": false
+    },
+    {
+      "$id": "https://atena.cms/schema/blocks/heritage.json",
+      "title": "Fotografia con citazione e testo",
+      "type": "object",
+      "properties": {
+        "id": {
+          "$ref": "https://atena.cms/schema/common.json#/$defs/blockId"
+        },
+        "type": {
+          "const": "heritage"
+        },
+        "visible": {
+          "title": "Visibile",
+          "type": "boolean",
+          "default": true
+        },
+        "anchor": {
+          "$ref": "https://atena.cms/schema/common.json#/$defs/anchor"
+        },
+        "padding": {
+          "title": "Spaziatura della sezione (padding)",
+          "description": "Spazio interno della sezione. Sopra e sotto: \"Medio\" è il valore standard del sito (si adatta da solo allo schermo); i lati servono per stringere la sezione rispetto alla pagina.",
+          "type": "object",
+          "properties": {
+            "top": {
+              "title": "Sopra",
+              "enum": [
+                "none",
+                "xs",
+                "sm",
+                "md",
+                "lg",
+                "xl"
+              ],
+              "default": "md"
+            },
+            "bottom": {
+              "title": "Sotto",
+              "enum": [
+                "none",
+                "xs",
+                "sm",
+                "md",
+                "lg",
+                "xl"
+              ],
+              "default": "md"
+            },
+            "left": {
+              "title": "Sinistra",
+              "enum": [
+                "none",
+                "sm",
+                "md",
+                "lg"
+              ],
+              "default": "none"
+            },
+            "right": {
+              "title": "Destra",
+              "enum": [
+                "none",
+                "sm",
+                "md",
+                "lg"
+              ],
+              "default": "none"
+            }
+          },
+          "additionalProperties": false
+        },
+        "surface": {
+          "title": "Superficie",
+          "enum": [
+            "light",
+            "dark",
+            "brand"
+          ],
+          "default": "dark"
+        },
+        "corners": {
+          "title": "Angoli delle immagini",
+          "description": "Vale per tutte le immagini di questa sezione: ad angoli vivi, arrotondati (poco, medio, molto) oppure ad arco.",
+          "enum": [
+            "square",
+            "round-sm",
+            "round-md",
+            "round-lg",
+            "arch"
+          ],
+          "default": "arch"
+        },
+        "eyebrow": {
+          "$ref": "https://atena.cms/schema/common.json#/$defs/text",
+          "title": "Etichetta"
+        },
+        "image": {
+          "$ref": "https://atena.cms/schema/common.json#/$defs/image",
+          "title": "Fotografia d'archivio"
+        },
+        "caption": {
+          "$ref": "https://atena.cms/schema/common.json#/$defs/text",
+          "title": "Didascalia"
+        },
+        "quote": {
+          "$ref": "https://atena.cms/schema/common.json#/$defs/text",
+          "title": "Citazione"
+        },
+        "text": {
+          "$ref": "https://atena.cms/schema/common.json#/$defs/richInline",
+          "title": "Testo"
+        }
+      },
+      "required": [
+        "id",
+        "type",
+        "surface",
+        "image",
+        "caption",
+        "quote",
+        "text"
+      ],
+      "additionalProperties": false
+    },
+    {
+      "$id": "https://atena.cms/schema/blocks/discretion.json",
+      "title": "Frase grande con risposta e due righe",
+      "type": "object",
+      "properties": {
+        "id": {
+          "$ref": "https://atena.cms/schema/common.json#/$defs/blockId"
+        },
+        "type": {
+          "const": "discretion"
+        },
+        "visible": {
+          "title": "Visibile",
+          "type": "boolean",
+          "default": true
+        },
+        "anchor": {
+          "$ref": "https://atena.cms/schema/common.json#/$defs/anchor"
+        },
+        "padding": {
+          "title": "Spaziatura della sezione (padding)",
+          "description": "Spazio interno della sezione. Sopra e sotto: \"Medio\" è il valore standard del sito (si adatta da solo allo schermo); i lati servono per stringere la sezione rispetto alla pagina.",
+          "type": "object",
+          "properties": {
+            "top": {
+              "title": "Sopra",
+              "enum": [
+                "none",
+                "xs",
+                "sm",
+                "md",
+                "lg",
+                "xl"
+              ],
+              "default": "md"
+            },
+            "bottom": {
+              "title": "Sotto",
+              "enum": [
+                "none",
+                "xs",
+                "sm",
+                "md",
+                "lg",
+                "xl"
+              ],
+              "default": "md"
+            },
+            "left": {
+              "title": "Sinistra",
+              "enum": [
+                "none",
+                "sm",
+                "md",
+                "lg"
+              ],
+              "default": "none"
+            },
+            "right": {
+              "title": "Destra",
+              "enum": [
+                "none",
+                "sm",
+                "md",
+                "lg"
+              ],
+              "default": "none"
+            }
+          },
+          "additionalProperties": false
+        },
+        "surface": {
+          "title": "Superficie",
+          "enum": [
+            "light",
+            "dark",
+            "brand"
+          ],
+          "default": "dark"
+        },
+        "eyebrow": {
+          "$ref": "https://atena.cms/schema/common.json#/$defs/text",
+          "title": "Etichetta"
+        },
+        "lead": {
+          "$ref": "https://atena.cms/schema/common.json#/$defs/richInline",
+          "title": "Testo introduttivo"
+        },
+        "answer": {
+          "$ref": "https://atena.cms/schema/common.json#/$defs/text",
+          "title": "Risposta, grande (es. \"It is confidential.\")"
+        },
+        "lines": {
+          "title": "Due righe",
+          "type": "array",
+          "minItems": 2,
+          "maxItems": 2,
+          "items": {
+            "$ref": "https://atena.cms/schema/common.json#/$defs/richInline",
+            "title": "Riga"
+          }
+        }
+      },
+      "required": [
+        "id",
+        "type",
+        "surface",
+        "lead",
+        "answer",
+        "lines"
+      ],
+      "additionalProperties": false
+    },
+    {
+      "$id": "https://atena.cms/schema/blocks/faq.json",
+      "title": "Domande frequenti (a fisarmonica)",
+      "type": "object",
+      "properties": {
+        "id": {
+          "$ref": "https://atena.cms/schema/common.json#/$defs/blockId"
+        },
+        "type": {
+          "const": "faq"
+        },
+        "visible": {
+          "title": "Visibile",
+          "type": "boolean",
+          "default": true
+        },
+        "anchor": {
+          "$ref": "https://atena.cms/schema/common.json#/$defs/anchor"
+        },
+        "padding": {
+          "title": "Spaziatura della sezione (padding)",
+          "description": "Spazio interno della sezione. Sopra e sotto: \"Medio\" è il valore standard del sito (si adatta da solo allo schermo); i lati servono per stringere la sezione rispetto alla pagina.",
+          "type": "object",
+          "properties": {
+            "top": {
+              "title": "Sopra",
+              "enum": [
+                "none",
+                "xs",
+                "sm",
+                "md",
+                "lg",
+                "xl"
+              ],
+              "default": "md"
+            },
+            "bottom": {
+              "title": "Sotto",
+              "enum": [
+                "none",
+                "xs",
+                "sm",
+                "md",
+                "lg",
+                "xl"
+              ],
+              "default": "md"
+            },
+            "left": {
+              "title": "Sinistra",
+              "enum": [
+                "none",
+                "sm",
+                "md",
+                "lg"
+              ],
+              "default": "none"
+            },
+            "right": {
+              "title": "Destra",
+              "enum": [
+                "none",
+                "sm",
+                "md",
+                "lg"
+              ],
+              "default": "none"
+            }
+          },
+          "additionalProperties": false
+        },
+        "surface": {
+          "title": "Superficie",
+          "enum": [
+            "light",
+            "dark",
+            "brand"
+          ],
+          "default": "light"
+        },
+        "eyebrow": {
+          "$ref": "https://atena.cms/schema/common.json#/$defs/text",
+          "title": "Etichetta"
+        },
+        "title": {
+          "$ref": "https://atena.cms/schema/common.json#/$defs/text",
+          "title": "Titolo"
+        },
+        "firstOpen": {
+          "title": "Prima domanda aperta",
+          "type": "boolean",
+          "default": true
+        },
+        "items": {
+          "title": "Domande",
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "object",
+            "properties": {
+              "question": {
+                "$ref": "https://atena.cms/schema/common.json#/$defs/text",
+                "title": "Domanda"
+              },
+              "answer": {
+                "$ref": "https://atena.cms/schema/common.json#/$defs/richInline",
+                "title": "Risposta"
+              }
+            },
+            "required": [
+              "question",
+              "answer"
+            ],
+            "additionalProperties": false
+          }
+        }
+      },
+      "required": [
+        "id",
+        "type",
+        "surface",
+        "title",
+        "items"
+      ],
+      "additionalProperties": false
+    },
+    {
+      "$id": "https://atena.cms/schema/blocks/partners.json",
+      "title": "Partner o loghi (scorrevole oltre i 5)",
+      "type": "object",
+      "properties": {
+        "id": {
+          "$ref": "https://atena.cms/schema/common.json#/$defs/blockId"
+        },
+        "type": {
+          "const": "partners"
+        },
+        "visible": {
+          "title": "Visibile",
+          "type": "boolean",
+          "default": true
+        },
+        "anchor": {
+          "$ref": "https://atena.cms/schema/common.json#/$defs/anchor"
+        },
+        "padding": {
+          "title": "Spaziatura della sezione (padding)",
+          "description": "Spazio interno della sezione. Sopra e sotto: \"Medio\" è il valore standard del sito (si adatta da solo allo schermo); i lati servono per stringere la sezione rispetto alla pagina.",
+          "type": "object",
+          "properties": {
+            "top": {
+              "title": "Sopra",
+              "enum": [
+                "none",
+                "xs",
+                "sm",
+                "md",
+                "lg",
+                "xl"
+              ],
+              "default": "md"
+            },
+            "bottom": {
+              "title": "Sotto",
+              "enum": [
+                "none",
+                "xs",
+                "sm",
+                "md",
+                "lg",
+                "xl"
+              ],
+              "default": "md"
+            },
+            "left": {
+              "title": "Sinistra",
+              "enum": [
+                "none",
+                "sm",
+                "md",
+                "lg"
+              ],
+              "default": "none"
+            },
+            "right": {
+              "title": "Destra",
+              "enum": [
+                "none",
+                "sm",
+                "md",
+                "lg"
+              ],
+              "default": "none"
+            }
+          },
+          "additionalProperties": false
+        },
+        "surface": {
+          "title": "Superficie",
+          "enum": [
+            "light",
+            "dark",
+            "brand"
+          ],
+          "default": "dark"
+        },
+        "eyebrow": {
+          "$ref": "https://atena.cms/schema/common.json#/$defs/text",
+          "title": "Etichetta"
+        },
+        "title": {
+          "$ref": "https://atena.cms/schema/common.json#/$defs/text",
+          "title": "Titolo"
+        },
+        "lead": {
+          "$ref": "https://atena.cms/schema/common.json#/$defs/richInline",
+          "title": "Testo introduttivo"
+        },
+        "items": {
+          "title": "Partner",
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "object",
+            "properties": {
+              "name": {
+                "$ref": "https://atena.cms/schema/common.json#/$defs/text",
+                "title": "Nome"
+              },
+              "url": {
+                "type": "string",
+                "pattern": "^https://[^\\s\"<>]+$",
+                "title": "Sito (https://)"
+              },
+              "domainLabel": {
+                "$ref": "https://atena.cms/schema/common.json#/$defs/text",
+                "title": "Dominio mostrato (es. \"hdex.ch\")"
+              },
+              "logo": {
+                "$ref": "https://atena.cms/schema/common.json#/$defs/image",
+                "title": "Logo (facoltativo: al passaggio del mouse sostituisce il nome)"
+              }
+            },
+            "required": [
+              "name",
+              "url",
+              "domainLabel"
+            ],
+            "additionalProperties": false
+          }
+        }
+      },
+      "required": [
+        "id",
+        "type",
+        "surface",
+        "title",
+        "items"
+      ],
+      "additionalProperties": false
+    },
+    {
+      "$id": "https://atena.cms/schema/blocks/contact.json",
+      "title": "Contatto con foto di sfondo",
+      "type": "object",
+      "properties": {
+        "id": {
+          "$ref": "https://atena.cms/schema/common.json#/$defs/blockId"
+        },
+        "type": {
+          "const": "contact"
+        },
+        "visible": {
+          "title": "Visibile",
+          "type": "boolean",
+          "default": true
+        },
+        "anchor": {
+          "$ref": "https://atena.cms/schema/common.json#/$defs/anchor"
+        },
+        "corners": {
+          "title": "Angoli delle immagini",
+          "description": "Vale per tutte le immagini di questa sezione: ad angoli vivi, arrotondati (poco, medio, molto) oppure ad arco.",
+          "enum": [
+            "square",
+            "round-sm",
+            "round-md",
+            "round-lg",
+            "arch"
+          ],
+          "default": "square"
+        },
+        "showSign": {
+          "title": "Mostra il segno separatore",
+          "type": "boolean",
+          "default": true
+        },
+        "eyebrow": {
+          "$ref": "https://atena.cms/schema/common.json#/$defs/text",
+          "title": "Etichetta"
+        },
+        "title": {
+          "$ref": "https://atena.cms/schema/common.json#/$defs/text",
+          "title": "Titolo"
+        },
+        "lead": {
+          "$ref": "https://atena.cms/schema/common.json#/$defs/richInline",
+          "title": "Testo introduttivo"
+        },
+        "backgroundImage": {
+          "$ref": "https://atena.cms/schema/common.json#/$defs/image",
+          "title": "Immagine di sfondo"
+        },
+        "button": {
+          "$ref": "https://atena.cms/schema/common.json#/$defs/button",
+          "title": "Pulsante"
+        },
+        "noteLines": {
+          "title": "Righe sotto (dopo le lingue parlate)",
+          "type": "array",
+          "maxItems": 4,
+          "items": {
+            "$ref": "https://atena.cms/schema/common.json#/$defs/text",
+            "title": "Riga"
+          }
+        },
+        "languages": {
+          "$ref": "https://atena.cms/schema/common.json#/$defs/text",
+          "title": "Riga lingue parlate (facoltativa)"
+        }
+      },
+      "required": [
+        "id",
+        "type",
+        "title",
+        "lead",
+        "backgroundImage",
+        "button"
+      ],
+      "additionalProperties": false
+    },
+    {
+      "$id": "https://atena.cms/schema/blocks/founder.json",
+      "title": "Profilo: ritratto, nome e credenziali",
+      "type": "object",
+      "properties": {
+        "id": {
+          "$ref": "https://atena.cms/schema/common.json#/$defs/blockId"
+        },
+        "type": {
+          "const": "founder"
+        },
+        "visible": {
+          "title": "Visibile",
+          "type": "boolean",
+          "default": true
+        },
+        "anchor": {
+          "$ref": "https://atena.cms/schema/common.json#/$defs/anchor"
+        },
+        "surface": {
+          "title": "Superficie",
+          "enum": [
+            "light",
+            "dark",
+            "brand"
+          ],
+          "default": "dark"
+        },
+        "corners": {
+          "title": "Angoli delle immagini",
+          "description": "Vale per tutte le immagini di questa sezione: ad angoli vivi, arrotondati (poco, medio, molto) oppure ad arco.",
+          "enum": [
+            "square",
+            "round-sm",
+            "round-md",
+            "round-lg",
+            "arch"
+          ],
+          "default": "arch"
+        },
+        "portraitImage": {
+          "$ref": "https://atena.cms/schema/common.json#/$defs/image",
+          "title": "Ritratto"
+        },
+        "eyebrow": {
+          "$ref": "https://atena.cms/schema/common.json#/$defs/text",
+          "title": "Etichetta"
+        },
+        "name": {
+          "$ref": "https://atena.cms/schema/common.json#/$defs/text",
+          "title": "Nome (titolo h1 della pagina)"
+        },
+        "role": {
+          "$ref": "https://atena.cms/schema/common.json#/$defs/text",
+          "title": "Ruolo"
+        },
+        "credentials": {
+          "title": "Credenziali, in breve",
+          "type": "array",
+          "minItems": 1,
+          "maxItems": 6,
+          "items": {
+            "$ref": "https://atena.cms/schema/common.json#/$defs/text",
+            "title": "Credenziale"
+          }
+        }
+      },
+      "required": [
+        "id",
+        "type",
+        "surface",
+        "portraitImage",
+        "name",
+        "role",
+        "credentials"
+      ],
+      "additionalProperties": false
+    },
+    {
+      "$id": "https://atena.cms/schema/blocks/story.json",
+      "title": "Storia con linea del tempo",
+      "type": "object",
+      "properties": {
+        "id": {
+          "$ref": "https://atena.cms/schema/common.json#/$defs/blockId"
+        },
+        "type": {
+          "const": "story"
+        },
+        "visible": {
+          "title": "Visibile",
+          "type": "boolean",
+          "default": true
+        },
+        "anchor": {
+          "$ref": "https://atena.cms/schema/common.json#/$defs/anchor"
+        },
+        "padding": {
+          "title": "Spaziatura della sezione (padding)",
+          "description": "Spazio interno della sezione. Sopra e sotto: \"Medio\" è il valore standard del sito (si adatta da solo allo schermo); i lati servono per stringere la sezione rispetto alla pagina.",
+          "type": "object",
+          "properties": {
+            "top": {
+              "title": "Sopra",
+              "enum": [
+                "none",
+                "xs",
+                "sm",
+                "md",
+                "lg",
+                "xl"
+              ],
+              "default": "md"
+            },
+            "bottom": {
+              "title": "Sotto",
+              "enum": [
+                "none",
+                "xs",
+                "sm",
+                "md",
+                "lg",
+                "xl"
+              ],
+              "default": "md"
+            },
+            "left": {
+              "title": "Sinistra",
+              "enum": [
+                "none",
+                "sm",
+                "md",
+                "lg"
+              ],
+              "default": "none"
+            },
+            "right": {
+              "title": "Destra",
+              "enum": [
+                "none",
+                "sm",
+                "md",
+                "lg"
+              ],
+              "default": "none"
+            }
+          },
+          "additionalProperties": false
+        },
+        "surface": {
+          "title": "Superficie",
+          "enum": [
+            "light",
+            "dark",
+            "brand"
+          ],
+          "default": "light"
+        },
+        "eyebrow": {
+          "$ref": "https://atena.cms/schema/common.json#/$defs/text",
+          "title": "Etichetta"
+        },
+        "title": {
+          "$ref": "https://atena.cms/schema/common.json#/$defs/text",
+          "title": "Titolo"
+        },
+        "paragraphs": {
+          "title": "Paragrafi",
+          "type": "array",
+          "minItems": 1,
+          "maxItems": 4,
+          "items": {
+            "$ref": "https://atena.cms/schema/common.json#/$defs/richInline",
+            "title": "Paragrafo"
+          }
+        },
+        "timeline": {
+          "title": "Linea del tempo",
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "object",
+            "properties": {
+              "label": {
+                "$ref": "https://atena.cms/schema/common.json#/$defs/text",
+                "title": "Etichetta (es. anno o luogo)"
+              },
+              "text": {
+                "$ref": "https://atena.cms/schema/common.json#/$defs/text",
+                "title": "Testo"
+              }
+            },
+            "required": [
+              "label",
+              "text"
+            ],
+            "additionalProperties": false
+          }
+        }
+      },
+      "required": [
+        "id",
+        "type",
+        "surface",
+        "title",
+        "paragraphs",
+        "timeline"
+      ],
+      "additionalProperties": false
+    },
+    {
+      "$id": "https://atena.cms/schema/blocks/certifications-full.json",
+      "title": "Elenco di certificazioni con link",
+      "type": "object",
+      "properties": {
+        "id": {
+          "$ref": "https://atena.cms/schema/common.json#/$defs/blockId"
+        },
+        "type": {
+          "const": "certifications-full"
+        },
+        "visible": {
+          "title": "Visibile",
+          "type": "boolean",
+          "default": true
+        },
+        "anchor": {
+          "$ref": "https://atena.cms/schema/common.json#/$defs/anchor"
+        },
+        "padding": {
+          "title": "Spaziatura della sezione (padding)",
+          "description": "Spazio interno della sezione. Sopra e sotto: \"Medio\" è il valore standard del sito (si adatta da solo allo schermo); i lati servono per stringere la sezione rispetto alla pagina.",
+          "type": "object",
+          "properties": {
+            "top": {
+              "title": "Sopra",
+              "enum": [
+                "none",
+                "xs",
+                "sm",
+                "md",
+                "lg",
+                "xl"
+              ],
+              "default": "md"
+            },
+            "bottom": {
+              "title": "Sotto",
+              "enum": [
+                "none",
+                "xs",
+                "sm",
+                "md",
+                "lg",
+                "xl"
+              ],
+              "default": "md"
+            },
+            "left": {
+              "title": "Sinistra",
+              "enum": [
+                "none",
+                "sm",
+                "md",
+                "lg"
+              ],
+              "default": "none"
+            },
+            "right": {
+              "title": "Destra",
+              "enum": [
+                "none",
+                "sm",
+                "md",
+                "lg"
+              ],
+              "default": "none"
+            }
+          },
+          "additionalProperties": false
+        },
+        "surface": {
+          "title": "Superficie",
+          "enum": [
+            "light",
+            "dark",
+            "brand"
+          ],
+          "default": "dark"
+        },
+        "eyebrow": {
+          "$ref": "https://atena.cms/schema/common.json#/$defs/text",
+          "title": "Etichetta"
+        },
+        "title": {
+          "$ref": "https://atena.cms/schema/common.json#/$defs/text",
+          "title": "Titolo"
+        },
+        "lead": {
+          "$ref": "https://atena.cms/schema/common.json#/$defs/richInline",
+          "title": "Testo introduttivo"
+        },
+        "items": {
+          "title": "Certificazioni",
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "object",
+            "properties": {
+              "title": {
+                "$ref": "https://atena.cms/schema/common.json#/$defs/text",
+                "title": "Titolo"
+              },
+              "text": {
+                "$ref": "https://atena.cms/schema/common.json#/$defs/richInline",
+                "title": "Testo"
+              },
+              "linkLabel": {
+                "$ref": "https://atena.cms/schema/common.json#/$defs/text",
+                "title": "Etichetta del link (es. \"Certificate\")"
+              },
+              "link": {
+                "$ref": "https://atena.cms/schema/common.json#/$defs/link",
+                "title": "Link al documento",
+                "description": "Lasciare vuoto finché il PDF del certificato non è disponibile: il link resta un segnaposto."
+              }
+            },
+            "required": [
+              "title",
+              "text"
+            ],
+            "additionalProperties": false
+          }
+        }
+      },
+      "required": [
+        "id",
+        "type",
+        "surface",
+        "title",
+        "lead",
+        "items"
+      ],
+      "additionalProperties": false
+    },
+    {
+      "$id": "https://atena.cms/schema/blocks/bespoke-services.json",
+      "title": "Griglia di servizi con scheda regalo",
+      "type": "object",
+      "properties": {
+        "id": {
+          "$ref": "https://atena.cms/schema/common.json#/$defs/blockId"
+        },
+        "type": {
+          "const": "bespoke-services"
+        },
+        "visible": {
+          "title": "Visibile",
+          "type": "boolean",
+          "default": true
+        },
+        "anchor": {
+          "$ref": "https://atena.cms/schema/common.json#/$defs/anchor"
+        },
+        "padding": {
+          "title": "Spaziatura della sezione (padding)",
+          "description": "Spazio interno della sezione. Sopra e sotto: \"Medio\" è il valore standard del sito (si adatta da solo allo schermo); i lati servono per stringere la sezione rispetto alla pagina.",
+          "type": "object",
+          "properties": {
+            "top": {
+              "title": "Sopra",
+              "enum": [
+                "none",
+                "xs",
+                "sm",
+                "md",
+                "lg",
+                "xl"
+              ],
+              "default": "md"
+            },
+            "bottom": {
+              "title": "Sotto",
+              "enum": [
+                "none",
+                "xs",
+                "sm",
+                "md",
+                "lg",
+                "xl"
+              ],
+              "default": "md"
+            },
+            "left": {
+              "title": "Sinistra",
+              "enum": [
+                "none",
+                "sm",
+                "md",
+                "lg"
+              ],
+              "default": "none"
+            },
+            "right": {
+              "title": "Destra",
+              "enum": [
+                "none",
+                "sm",
+                "md",
+                "lg"
+              ],
+              "default": "none"
+            }
+          },
+          "additionalProperties": false
+        },
+        "surface": {
+          "title": "Superficie",
+          "enum": [
+            "light",
+            "dark",
+            "brand"
+          ],
+          "default": "light"
+        },
+        "eyebrow": {
+          "$ref": "https://atena.cms/schema/common.json#/$defs/text",
+          "title": "Etichetta"
+        },
+        "title": {
+          "$ref": "https://atena.cms/schema/common.json#/$defs/text",
+          "title": "Titolo"
+        },
+        "items": {
+          "title": "Servizi",
+          "type": "array",
+          "minItems": 1,
+          "maxItems": 9,
+          "items": {
+            "type": "object",
+            "properties": {
+              "title": {
+                "$ref": "https://atena.cms/schema/common.json#/$defs/text",
+                "title": "Titolo"
+              },
+              "text": {
+                "$ref": "https://atena.cms/schema/common.json#/$defs/richInline",
+                "title": "Testo"
+              }
+            },
+            "required": [
+              "title",
+              "text"
+            ],
+            "additionalProperties": false
+          }
+        },
+        "darkItem": {
+          "title": "Sesta casella, scura (es. \"Shadow Experiences\")",
+          "type": "object",
+          "properties": {
+            "visible": {
+              "title": "Visibile",
+              "type": "boolean",
+              "default": true
+            },
+            "title": {
+              "$ref": "https://atena.cms/schema/common.json#/$defs/text",
+              "title": "Titolo"
+            },
+            "text": {
+              "$ref": "https://atena.cms/schema/common.json#/$defs/richInline",
+              "title": "Testo"
+            }
+          },
+          "required": [
+            "title",
+            "text"
+          ],
+          "additionalProperties": false
+        },
+        "giftFrom": {
+          "$ref": "https://atena.cms/schema/common.json#/$defs/text",
+          "title": "Riga \"From ... to ...\" della gift card"
+        },
+        "giftSeason": {
+          "$ref": "https://atena.cms/schema/common.json#/$defs/text",
+          "title": "Riga stagione della gift card"
+        }
+      },
+      "required": [
+        "id",
+        "type",
+        "surface",
+        "title",
+        "items",
+        "darkItem",
+        "giftFrom",
+        "giftSeason"
+      ],
+      "additionalProperties": false
+    },
+    {
+      "$id": "https://atena.cms/schema/blocks/direct-line.json",
+      "title": "Contatto diretto (senza foto)",
+      "type": "object",
+      "properties": {
+        "id": {
+          "$ref": "https://atena.cms/schema/common.json#/$defs/blockId"
+        },
+        "type": {
+          "const": "direct-line"
+        },
+        "visible": {
+          "title": "Visibile",
+          "type": "boolean",
+          "default": true
+        },
+        "anchor": {
+          "$ref": "https://atena.cms/schema/common.json#/$defs/anchor"
+        },
+        "showSign": {
+          "title": "Mostra il segno separatore",
+          "type": "boolean",
+          "default": true
+        },
+        "eyebrow": {
+          "$ref": "https://atena.cms/schema/common.json#/$defs/text",
+          "title": "Etichetta"
+        },
+        "title": {
+          "$ref": "https://atena.cms/schema/common.json#/$defs/text",
+          "title": "Titolo"
+        },
+        "lead": {
+          "$ref": "https://atena.cms/schema/common.json#/$defs/richInline",
+          "title": "Testo introduttivo"
+        },
+        "button": {
+          "$ref": "https://atena.cms/schema/common.json#/$defs/button",
+          "title": "Pulsante"
+        },
+        "email": {
+          "type": "string",
+          "format": "email",
+          "title": "Email personale"
+        }
+      },
+      "required": [
+        "id",
+        "type",
+        "title",
+        "lead",
+        "button",
+        "email"
+      ],
+      "additionalProperties": false
+    },
+    {
+      "$id": "https://atena.cms/schema/blocks/slider.json",
+      "title": "Slider di immagini (scorrevole)",
+      "type": "object",
+      "properties": {
+        "id": {
+          "$ref": "https://atena.cms/schema/common.json#/$defs/blockId"
+        },
+        "type": {
+          "const": "slider"
+        },
+        "visible": {
+          "title": "Visibile",
+          "type": "boolean",
+          "default": true
+        },
+        "anchor": {
+          "$ref": "https://atena.cms/schema/common.json#/$defs/anchor"
+        },
+        "padding": {
+          "title": "Spaziatura della sezione (padding)",
+          "description": "Spazio interno della sezione. Sopra e sotto: \"Medio\" è il valore standard del sito (si adatta da solo allo schermo); i lati servono per stringere la sezione rispetto alla pagina.",
+          "type": "object",
+          "properties": {
+            "top": {
+              "title": "Sopra",
+              "enum": [
+                "none",
+                "xs",
+                "sm",
+                "md",
+                "lg",
+                "xl"
+              ],
+              "default": "md"
+            },
+            "bottom": {
+              "title": "Sotto",
+              "enum": [
+                "none",
+                "xs",
+                "sm",
+                "md",
+                "lg",
+                "xl"
+              ],
+              "default": "md"
+            },
+            "left": {
+              "title": "Sinistra",
+              "enum": [
+                "none",
+                "sm",
+                "md",
+                "lg"
+              ],
+              "default": "none"
+            },
+            "right": {
+              "title": "Destra",
+              "enum": [
+                "none",
+                "sm",
+                "md",
+                "lg"
+              ],
+              "default": "none"
+            }
+          },
+          "additionalProperties": false
+        },
+        "surface": {
+          "title": "Superficie",
+          "enum": [
+            "light",
+            "dark",
+            "brand"
+          ],
+          "default": "light"
+        },
+        "eyebrow": {
+          "$ref": "https://atena.cms/schema/common.json#/$defs/text",
+          "title": "Etichetta (facoltativa)"
+        },
+        "title": {
+          "$ref": "https://atena.cms/schema/common.json#/$defs/text",
+          "title": "Titolo (facoltativo)"
+        },
+        "lead": {
+          "$ref": "https://atena.cms/schema/common.json#/$defs/richInline",
+          "title": "Testo introduttivo (facoltativo)"
+        },
+        "perView": {
+          "title": "Immagini visibili insieme",
+          "description": "Quante immagini si vedono contemporaneamente: desktop (larghezza da 1024 px), tablet (da 700 a 1023 px), mobile (sotto i 700 px).",
+          "type": "object",
+          "properties": {
+            "desktop": {
+              "title": "Desktop",
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 6,
+              "default": 3
+            },
+            "tablet": {
+              "title": "Tablet",
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 6,
+              "default": 2
+            },
+            "mobile": {
+              "title": "Mobile",
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 6,
+              "default": 1
+            }
+          },
+          "required": [
+            "desktop",
+            "tablet",
+            "mobile"
+          ],
+          "additionalProperties": false
+        },
+        "gap": {
+          "title": "Spazio tra le immagini",
+          "enum": [
+            "none",
+            "sm",
+            "md",
+            "lg"
+          ],
+          "default": "md"
+        },
+        "aspect": {
+          "title": "Proporzioni delle immagini",
+          "enum": [
+            "1/1",
+            "4/3",
+            "3/2",
+            "16/9",
+            "3/4",
+            "4/5",
+            "auto"
+          ],
+          "default": "3/4",
+          "description": "\"auto\" lascia ogni immagine alle sue proporzioni naturali."
+        },
+        "corners": {
+          "title": "Angoli delle immagini",
+          "description": "Vale per tutte le immagini di questa sezione: ad angoli vivi, arrotondati (poco, medio, molto) oppure ad arco.",
+          "enum": [
+            "square",
+            "round-sm",
+            "round-md",
+            "round-lg",
+            "arch"
+          ],
+          "default": "square"
+        },
+        "arrows": {
+          "title": "Mostra le frecce",
+          "type": "boolean",
+          "default": true
+        },
+        "dots": {
+          "title": "Mostra i puntini",
+          "type": "boolean",
+          "default": true
+        },
+        "autoplay": {
+          "title": "Scorrimento automatico",
+          "type": "boolean",
+          "default": false
+        },
+        "interval": {
+          "title": "Secondi tra uno scorrimento e il successivo",
+          "type": "integer",
+          "minimum": 2,
+          "maximum": 20,
+          "default": 5,
+          "description": "Vale solo con lo scorrimento automatico."
+        },
+        "items": {
+          "title": "Immagini",
+          "type": "array",
+          "minItems": 1,
+          "maxItems": 30,
+          "items": {
+            "type": "object",
+            "properties": {
+              "image": {
+                "$ref": "https://atena.cms/schema/common.json#/$defs/image",
+                "title": "Immagine"
+              },
+              "caption": {
+                "$ref": "https://atena.cms/schema/common.json#/$defs/text",
+                "title": "Didascalia (facoltativa)"
+              },
+              "link": {
+                "$ref": "https://atena.cms/schema/common.json#/$defs/link",
+                "title": "Link (facoltativo)",
+                "description": "Se presente, l'immagine diventa cliccabile."
+              }
+            },
+            "required": [
+              "image"
+            ],
+            "additionalProperties": false
+          }
+        }
+      },
+      "required": [
+        "id",
+        "type",
+        "items"
+      ],
+      "additionalProperties": false
+    },
+    {
+      "$id": "https://atena.cms/schema/blocks/hero-image.json",
+      "title": "Copertina con immagine e badge",
+      "type": "object",
+      "properties": {
+        "id": {
+          "$ref": "https://atena.cms/schema/common.json#/$defs/blockId"
+        },
+        "type": {
+          "const": "hero-image"
+        },
+        "visible": {
+          "title": "Visibile",
+          "type": "boolean",
+          "default": true
+        },
+        "anchor": {
+          "$ref": "https://atena.cms/schema/common.json#/$defs/anchor"
+        },
+        "corners": {
+          "title": "Angoli delle immagini",
+          "description": "Vale per tutte le immagini di questa sezione: ad angoli vivi, arrotondati (poco, medio, molto) oppure ad arco.",
+          "enum": [
+            "square",
+            "round-sm",
+            "round-md",
+            "round-lg",
+            "arch"
+          ],
+          "default": "square"
+        },
+        "surface": {
+          "title": "Superficie",
+          "enum": [
+            "dark"
+          ],
+          "default": "dark"
+        },
+        "image": {
+          "$ref": "https://atena.cms/schema/common.json#/$defs/image",
+          "title": "Immagine"
+        },
+        "titleLine1": {
+          "$ref": "https://atena.cms/schema/common.json#/$defs/text",
+          "title": "Titolo, riga 1"
+        },
+        "titleLine2": {
+          "$ref": "https://atena.cms/schema/common.json#/$defs/text",
+          "title": "Titolo, riga 2",
+          "description": "Colore accento, allineata a destra."
+        },
+        "claim": {
+          "$ref": "https://atena.cms/schema/common.json#/$defs/textLong",
+          "title": "Claim",
+          "description": "Una riga per a capo."
+        },
+        "badge": {
+          "title": "Badge circolare",
+          "type": "object",
+          "properties": {
+            "ring": {
+              "title": "Testi attorno al badge",
+              "type": "array",
+              "minItems": 1,
+              "maxItems": 4,
+              "items": {
+                "$ref": "https://atena.cms/schema/common.json#/$defs/text",
+                "title": "Testo"
+              }
+            },
+            "label": {
+              "$ref": "https://atena.cms/schema/common.json#/$defs/text",
+              "title": "Etichetta accessibile",
+              "description": "Letta dagli screen reader (es. \"Richiedi un preventivo gratuito\")."
+            },
+            "link": {
+              "$ref": "https://atena.cms/schema/common.json#/$defs/link",
+              "title": "Link"
+            }
+          },
+          "required": [
+            "ring",
+            "label",
+            "link"
+          ],
+          "additionalProperties": false
+        }
+      },
+      "required": [
+        "id",
+        "type",
+        "surface",
+        "image",
+        "titleLine1",
+        "titleLine2",
+        "claim"
+      ],
+      "additionalProperties": false
+    },
+    {
+      "$id": "https://atena.cms/schema/blocks/page-intro.json",
+      "title": "Intestazione pagina",
+      "type": "object",
+      "properties": {
+        "id": {
+          "$ref": "https://atena.cms/schema/common.json#/$defs/blockId"
+        },
+        "type": {
+          "const": "page-intro"
+        },
+        "visible": {
+          "title": "Visibile",
+          "type": "boolean",
+          "default": true
+        },
+        "anchor": {
+          "$ref": "https://atena.cms/schema/common.json#/$defs/anchor"
+        },
+        "surface": {
+          "title": "Superficie",
+          "enum": [
+            "dark",
+            "light"
+          ],
+          "default": "dark"
+        },
+        "title": {
+          "$ref": "https://atena.cms/schema/common.json#/$defs/text",
+          "title": "Titolo (h1)"
+        },
+        "lead": {
+          "$ref": "https://atena.cms/schema/common.json#/$defs/richInline",
+          "title": "Testo introduttivo"
+        },
+        "summary": {
+          "$ref": "https://atena.cms/schema/common.json#/$defs/richInline",
+          "title": "In breve",
+          "description": "Risposta diretta, pensata anche per i motori di ricerca AI. Consigliata su ogni pagina di servizio."
+        },
+        "buttons": {
+          "title": "Pulsanti",
+          "type": "array",
+          "minItems": 0,
+          "maxItems": 2,
+          "items": {
+            "$ref": "https://atena.cms/schema/common.json#/$defs/button"
+          }
+        }
+      },
+      "required": [
+        "id",
+        "type",
+        "surface",
+        "title",
+        "lead"
+      ],
+      "additionalProperties": false
+    },
+    {
+      "$id": "https://atena.cms/schema/blocks/marquee.json",
+      "title": "Nastro scorrevole",
+      "type": "object",
+      "properties": {
+        "id": {
+          "$ref": "https://atena.cms/schema/common.json#/$defs/blockId"
+        },
+        "type": {
+          "const": "marquee"
+        },
+        "visible": {
+          "title": "Visibile",
+          "type": "boolean",
+          "default": true
+        },
+        "anchor": {
+          "$ref": "https://atena.cms/schema/common.json#/$defs/anchor"
+        },
+        "surface": {
+          "title": "Superficie",
+          "enum": [
+            "brand",
+            "dark"
+          ],
+          "default": "brand"
+        },
+        "items": {
+          "title": "Voci",
+          "type": "array",
+          "minItems": 3,
+          "maxItems": 24,
+          "items": {
+            "$ref": "https://atena.cms/schema/common.json#/$defs/text",
+            "title": "Voce"
+          }
+        }
+      },
+      "required": [
+        "id",
+        "type",
+        "surface",
+        "items"
+      ],
+      "additionalProperties": false
+    },
+    {
+      "$id": "https://atena.cms/schema/blocks/facts.json",
+      "title": "Numeri",
+      "type": "object",
+      "properties": {
+        "id": {
+          "$ref": "https://atena.cms/schema/common.json#/$defs/blockId"
+        },
+        "type": {
+          "const": "facts"
+        },
+        "visible": {
+          "title": "Visibile",
+          "type": "boolean",
+          "default": true
+        },
+        "anchor": {
+          "$ref": "https://atena.cms/schema/common.json#/$defs/anchor"
+        },
+        "surface": {
+          "title": "Superficie",
+          "enum": [
+            "dark",
+            "light"
+          ],
+          "default": "dark"
+        },
+        "label": {
+          "$ref": "https://atena.cms/schema/common.json#/$defs/text",
+          "title": "Etichetta accessibile",
+          "description": "Letta dagli screen reader (es. \"Starter in numeri\")."
+        },
+        "items": {
+          "title": "Numeri",
+          "type": "array",
+          "minItems": 4,
+          "maxItems": 4,
+          "items": {
+            "type": "object",
+            "properties": {
+              "value": {
+                "$ref": "https://atena.cms/schema/common.json#/$defs/text",
+                "title": "Valore",
+                "description": "Se inizia con una cifra parte il conteggio animato (es. 10'000+)."
+              },
+              "label": {
+                "$ref": "https://atena.cms/schema/common.json#/$defs/text",
+                "title": "Etichetta"
+              }
+            },
+            "required": [
+              "value",
+              "label"
+            ],
+            "additionalProperties": false
+          }
+        }
+      },
+      "required": [
+        "id",
+        "type",
+        "surface",
+        "label",
+        "items"
+      ],
+      "additionalProperties": false
+    },
+    {
+      "$id": "https://atena.cms/schema/blocks/wide-image.json",
+      "title": "Immagine larga",
+      "type": "object",
+      "properties": {
+        "id": {
+          "$ref": "https://atena.cms/schema/common.json#/$defs/blockId"
+        },
+        "type": {
+          "const": "wide-image"
+        },
+        "visible": {
+          "title": "Visibile",
+          "type": "boolean",
+          "default": true
+        },
+        "anchor": {
+          "$ref": "https://atena.cms/schema/common.json#/$defs/anchor"
+        },
+        "corners": {
+          "title": "Angoli delle immagini",
+          "description": "Vale per tutte le immagini di questa sezione: ad angoli vivi, arrotondati (poco, medio, molto) oppure ad arco.",
+          "enum": [
+            "square",
+            "round-sm",
+            "round-md",
+            "round-lg",
+            "arch"
+          ],
+          "default": "square"
+        },
+        "image": {
+          "$ref": "https://atena.cms/schema/common.json#/$defs/image",
+          "title": "Immagine",
+          "description": "Formato 21:9, ritagliata sul punto focale."
+        }
+      },
+      "required": [
+        "id",
+        "type",
+        "image"
+      ],
+      "additionalProperties": false
+    },
+    {
+      "$id": "https://atena.cms/schema/blocks/gallery.json",
+      "title": "Galleria",
+      "type": "object",
+      "properties": {
+        "id": {
+          "$ref": "https://atena.cms/schema/common.json#/$defs/blockId"
+        },
+        "type": {
+          "const": "gallery"
+        },
+        "visible": {
+          "title": "Visibile",
+          "type": "boolean",
+          "default": true
+        },
+        "anchor": {
+          "$ref": "https://atena.cms/schema/common.json#/$defs/anchor"
+        },
+        "corners": {
+          "title": "Angoli delle immagini",
+          "description": "Vale per tutte le immagini di questa sezione: ad angoli vivi, arrotondati (poco, medio, molto) oppure ad arco.",
+          "enum": [
+            "square",
+            "round-sm",
+            "round-md",
+            "round-lg",
+            "arch"
+          ],
+          "default": "square"
+        },
+        "surface": {
+          "title": "Superficie",
+          "enum": [
+            "dark"
+          ],
+          "default": "dark"
+        },
+        "label": {
+          "$ref": "https://atena.cms/schema/common.json#/$defs/text",
+          "title": "Etichetta verticale"
+        },
+        "items": {
+          "title": "Immagini",
+          "type": "array",
+          "minItems": 3,
+          "maxItems": 8,
+          "items": {
+            "type": "object",
+            "properties": {
+              "image": {
+                "$ref": "https://atena.cms/schema/common.json#/$defs/image",
+                "title": "Immagine"
+              },
+              "caption": {
+                "$ref": "https://atena.cms/schema/common.json#/$defs/text",
+                "title": "Didascalia"
+              }
+            },
+            "required": [
+              "image",
+              "caption"
+            ],
+            "additionalProperties": false
+          }
+        }
+      },
+      "required": [
+        "id",
+        "type",
+        "surface",
+        "label",
+        "items"
+      ],
+      "additionalProperties": false
+    },
+    {
+      "$id": "https://atena.cms/schema/blocks/cta.json",
+      "title": "CTA finale",
+      "type": "object",
+      "properties": {
+        "id": {
+          "$ref": "https://atena.cms/schema/common.json#/$defs/blockId"
+        },
+        "type": {
+          "const": "cta"
+        },
+        "visible": {
+          "title": "Visibile",
+          "type": "boolean",
+          "default": true
+        },
+        "anchor": {
+          "$ref": "https://atena.cms/schema/common.json#/$defs/anchor"
+        },
+        "surface": {
+          "title": "Superficie",
+          "enum": [
+            "dark",
+            "brand"
+          ],
+          "default": "dark"
+        },
+        "title": {
+          "$ref": "https://atena.cms/schema/common.json#/$defs/text",
+          "title": "Titolo"
+        },
+        "text": {
+          "$ref": "https://atena.cms/schema/common.json#/$defs/richInline",
+          "title": "Testo"
+        },
+        "buttons": {
+          "title": "Pulsanti",
+          "type": "array",
+          "minItems": 1,
+          "maxItems": 2,
+          "items": {
+            "$ref": "https://atena.cms/schema/common.json#/$defs/button"
+          }
+        },
+        "word": {
+          "$ref": "https://atena.cms/schema/common.json#/$defs/text",
+          "title": "Parola verticale",
+          "description": "Parola grande sullo sfondo, solo desktop."
+        }
+      },
+      "required": [
+        "id",
+        "type",
+        "surface",
+        "title",
+        "buttons"
+      ],
+      "additionalProperties": false
+    },
+    {
+      "$id": "https://atena.cms/schema/blocks/items.json",
+      "title": "Voci",
+      "type": "object",
+      "properties": {
+        "id": {
+          "$ref": "https://atena.cms/schema/common.json#/$defs/blockId"
+        },
+        "type": {
+          "const": "items"
+        },
+        "visible": {
+          "title": "Visibile",
+          "type": "boolean",
+          "default": true
+        },
+        "anchor": {
+          "$ref": "https://atena.cms/schema/common.json#/$defs/anchor"
+        },
+        "padding": {
+          "title": "Spaziatura della sezione (padding)",
+          "description": "Spazio interno della sezione. Sopra e sotto: \"Medio\" è il valore standard del sito (si adatta da solo allo schermo); i lati servono per stringere la sezione rispetto alla pagina.",
+          "type": "object",
+          "properties": {
+            "top": {
+              "title": "Sopra",
+              "enum": [
+                "none",
+                "xs",
+                "sm",
+                "md",
+                "lg",
+                "xl"
+              ],
+              "default": "md"
+            },
+            "bottom": {
+              "title": "Sotto",
+              "enum": [
+                "none",
+                "xs",
+                "sm",
+                "md",
+                "lg",
+                "xl"
+              ],
+              "default": "md"
+            },
+            "left": {
+              "title": "Sinistra",
+              "enum": [
+                "none",
+                "sm",
+                "md",
+                "lg"
+              ],
+              "default": "none"
+            },
+            "right": {
+              "title": "Destra",
+              "enum": [
+                "none",
+                "sm",
+                "md",
+                "lg"
+              ],
+              "default": "none"
+            }
+          },
+          "additionalProperties": false
+        },
+        "corners": {
+          "title": "Angoli delle immagini",
+          "description": "Vale per tutte le immagini di questa sezione: ad angoli vivi, arrotondati (poco, medio, molto) oppure ad arco.",
+          "enum": [
+            "square",
+            "round-sm",
+            "round-md",
+            "round-lg",
+            "arch"
+          ],
+          "default": "square"
+        },
+        "surface": {
+          "title": "Superficie",
+          "enum": [
+            "light",
+            "dark",
+            "brand"
+          ],
+          "default": "light"
+        },
+        "header": {
+          "$ref": "https://atena.cms/schema/common.json#/$defs/sectionHeader",
+          "title": "Testata della sezione"
+        },
+        "layout": {
+          "title": "Aspetto",
+          "enum": [
+            "points",
+            "steps",
+            "cards",
+            "rows"
+          ],
+          "default": "points",
+          "description": "points: punti numerati. steps: passi che si accendono. cards: card con immagine. rows: righe con anteprima."
+        },
+        "columns": {
+          "title": "Colonne",
+          "enum": [
+            2,
+            3,
+            4
+          ],
+          "default": 3,
+          "description": "Per points 2-4, per cards 2-3.",
+          "x-when": {
+            "layout": [
+              "points",
+              "cards"
+            ]
+          }
+        },
+        "numbered": {
+          "title": "Numerazione automatica",
+          "type": "boolean",
+          "default": true,
+          "x-when": {
+            "layout": [
+              "points"
+            ]
+          }
+        },
+        "items": {
+          "title": "Voci",
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "object",
+            "properties": {
+              "title": {
+                "$ref": "https://atena.cms/schema/common.json#/$defs/text",
+                "title": "Titolo",
+                "description": "Il livello si deduce da quello della testata (o h2 se manca)."
+              },
+              "text": {
+                "$ref": "https://atena.cms/schema/common.json#/$defs/richInline",
+                "title": "Testo"
+              },
+              "link": {
+                "$ref": "https://atena.cms/schema/common.json#/$defs/link",
+                "title": "Link",
+                "description": "Obbligatorio per cards e rows.",
+                "x-when": {
+                  "layout": [
+                    "cards",
+                    "rows"
+                  ]
+                }
+              },
+              "linkLabel": {
+                "$ref": "https://atena.cms/schema/common.json#/$defs/text",
+                "title": "Etichetta del link",
+                "description": "Es. \"Scopri il servizio\".",
+                "x-when": {
+                  "layout": [
+                    "cards"
+                  ]
+                }
+              },
+              "image": {
+                "$ref": "https://atena.cms/schema/common.json#/$defs/image",
+                "title": "Immagine",
+                "description": "Obbligatoria per cards.",
+                "x-when": {
+                  "layout": [
+                    "cards"
+                  ]
+                }
+              },
+              "previewImage": {
+                "$ref": "https://atena.cms/schema/common.json#/$defs/image",
+                "title": "Anteprima",
+                "description": "Segue il cursore su desktop.",
+                "x-when": {
+                  "layout": [
+                    "rows"
+                  ]
+                }
+              }
+            },
+            "required": [
+              "title"
+            ],
+            "additionalProperties": false
+          }
+        }
+      },
+      "required": [
+        "id",
+        "type",
+        "surface",
+        "layout",
+        "items"
+      ],
+      "additionalProperties": false,
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "layout": {
+                "const": "cards"
+              }
+            },
+            "required": [
+              "layout"
+            ]
+          },
+          "then": {
+            "properties": {
+              "items": {
+                "items": {
+                  "required": [
+                    "image",
+                    "link"
+                  ]
+                }
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "layout": {
+                "const": "rows"
+              }
+            },
+            "required": [
+              "layout"
+            ]
+          },
+          "then": {
+            "properties": {
+              "items": {
+                "items": {
+                  "required": [
+                    "link"
+                  ]
+                }
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "layout": {
+                "const": "cards"
+              }
+            },
+            "required": [
+              "layout"
+            ]
+          },
+          "then": {
+            "properties": {
+              "columns": {
+                "enum": [
+                  2,
+                  3
+                ]
+              }
+            }
+          }
+        }
+      ]
+    },
+    {
+      "$id": "https://atena.cms/schema/blocks/split.json",
+      "title": "Testo + immagine",
+      "type": "object",
+      "properties": {
+        "id": {
+          "$ref": "https://atena.cms/schema/common.json#/$defs/blockId"
+        },
+        "type": {
+          "const": "split"
+        },
+        "visible": {
+          "title": "Visibile",
+          "type": "boolean",
+          "default": true
+        },
+        "anchor": {
+          "$ref": "https://atena.cms/schema/common.json#/$defs/anchor"
+        },
+        "padding": {
+          "title": "Spaziatura della sezione (padding)",
+          "description": "Spazio interno della sezione. Sopra e sotto: \"Medio\" è il valore standard del sito (si adatta da solo allo schermo); i lati servono per stringere la sezione rispetto alla pagina.",
+          "type": "object",
+          "properties": {
+            "top": {
+              "title": "Sopra",
+              "enum": [
+                "none",
+                "xs",
+                "sm",
+                "md",
+                "lg",
+                "xl"
+              ],
+              "default": "md"
+            },
+            "bottom": {
+              "title": "Sotto",
+              "enum": [
+                "none",
+                "xs",
+                "sm",
+                "md",
+                "lg",
+                "xl"
+              ],
+              "default": "md"
+            },
+            "left": {
+              "title": "Sinistra",
+              "enum": [
+                "none",
+                "sm",
+                "md",
+                "lg"
+              ],
+              "default": "none"
+            },
+            "right": {
+              "title": "Destra",
+              "enum": [
+                "none",
+                "sm",
+                "md",
+                "lg"
+              ],
+              "default": "none"
+            }
+          },
+          "additionalProperties": false
+        },
+        "corners": {
+          "title": "Angoli delle immagini",
+          "description": "Vale per tutte le immagini di questa sezione: ad angoli vivi, arrotondati (poco, medio, molto) oppure ad arco.",
+          "enum": [
+            "square",
+            "round-sm",
+            "round-md",
+            "round-lg",
+            "arch"
+          ],
+          "default": "square"
+        },
+        "surface": {
+          "title": "Superficie",
+          "enum": [
+            "light",
+            "dark",
+            "brand"
+          ],
+          "default": "light"
+        },
+        "eyebrow": {
+          "$ref": "https://atena.cms/schema/common.json#/$defs/text",
+          "title": "Etichetta"
+        },
+        "title": {
+          "$ref": "https://atena.cms/schema/common.json#/$defs/text",
+          "title": "Titolo"
+        },
+        "level": {
+          "title": "Livello del titolo",
+          "enum": [
+            "h2",
+            "h3",
+            "h4"
+          ],
+          "default": "h2"
+        },
+        "body": {
+          "$ref": "https://atena.cms/schema/common.json#/$defs/richBlock",
+          "title": "Testo",
+          "description": "Uno o più paragrafi."
+        },
+        "mediaSide": {
+          "title": "Lato dell'immagine",
+          "enum": [
+            "left",
+            "right"
+          ],
+          "default": "left"
+        },
+        "mobileMedia": {
+          "title": "Immagine su mobile",
+          "enum": [
+            "top",
+            "bottom"
+          ],
+          "default": "top",
+          "description": "Sopra o sotto il testo quando le colonne si impilano."
+        },
+        "media": {
+          "title": "Immagine",
+          "discriminator": {
+            "propertyName": "type"
+          },
+          "oneOf": [
+            {
+              "type": "object",
+              "properties": {
+                "type": {
+                  "const": "image"
+                },
+                "image": {
+                  "$ref": "https://atena.cms/schema/common.json#/$defs/image",
+                  "title": "Immagine"
+                }
+              },
+              "required": [
+                "type",
+                "image"
+              ],
+              "additionalProperties": false
+            },
+            {
+              "type": "object",
+              "properties": {
+                "type": {
+                  "const": "quote"
+                },
+                "image": {
+                  "$ref": "https://atena.cms/schema/common.json#/$defs/image",
+                  "title": "Immagine"
+                },
+                "quote": {
+                  "$ref": "https://atena.cms/schema/common.json#/$defs/text",
+                  "title": "Citazione"
+                },
+                "author": {
+                  "$ref": "https://atena.cms/schema/common.json#/$defs/text",
+                  "title": "Autore"
+                }
+              },
+              "required": [
+                "type",
+                "image",
+                "quote",
+                "author"
+              ],
+              "additionalProperties": false
+            }
+          ]
+        },
+        "extra": {
+          "title": "Contenuto aggiuntivo",
+          "discriminator": {
+            "propertyName": "type"
+          },
+          "oneOf": [
+            {
+              "type": "object",
+              "properties": {
+                "type": {
+                  "const": "list"
+                },
+                "items": {
+                  "title": "Voci",
+                  "type": "array",
+                  "minItems": 1,
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "label": {
+                        "$ref": "https://atena.cms/schema/common.json#/$defs/text",
+                        "title": "Etichetta in grassetto"
+                      },
+                      "text": {
+                        "$ref": "https://atena.cms/schema/common.json#/$defs/richInline",
+                        "title": "Testo"
+                      }
+                    },
+                    "anyOf": [
+                      {
+                        "required": [
+                          "label"
+                        ]
+                      },
+                      {
+                        "required": [
+                          "text"
+                        ]
+                      }
+                    ],
+                    "additionalProperties": false
+                  }
+                }
+              },
+              "required": [
+                "type",
+                "items"
+              ],
+              "additionalProperties": false
+            },
+            {
+              "type": "object",
+              "properties": {
+                "type": {
+                  "const": "table"
+                },
+                "table": {
+                  "$ref": "https://atena.cms/schema/common.json#/$defs/specTable"
+                }
+              },
+              "required": [
+                "type",
+                "table"
+              ],
+              "additionalProperties": false
+            }
+          ]
+        },
+        "action": {
+          "title": "Link con freccia",
+          "description": "Sotto il testo e l'elenco (es. \"Noleggio mezzi\").",
+          "type": "object",
+          "properties": {
+            "label": {
+              "$ref": "https://atena.cms/schema/common.json#/$defs/text",
+              "title": "Etichetta"
+            },
+            "link": {
+              "$ref": "https://atena.cms/schema/common.json#/$defs/link",
+              "title": "Link"
+            }
+          },
+          "required": [
+            "label",
+            "link"
+          ],
+          "additionalProperties": false
+        }
+      },
+      "required": [
+        "id",
+        "type",
+        "surface",
+        "title",
+        "media"
+      ],
+      "additionalProperties": false
+    },
+    {
+      "$id": "https://atena.cms/schema/blocks/zones.json",
+      "title": "Zone servite",
+      "type": "object",
+      "properties": {
+        "id": {
+          "$ref": "https://atena.cms/schema/common.json#/$defs/blockId"
+        },
+        "type": {
+          "const": "zones"
+        },
+        "visible": {
+          "title": "Visibile",
+          "type": "boolean",
+          "default": true
+        },
+        "anchor": {
+          "$ref": "https://atena.cms/schema/common.json#/$defs/anchor"
+        },
+        "padding": {
+          "title": "Spaziatura della sezione (padding)",
+          "description": "Spazio interno della sezione. Sopra e sotto: \"Medio\" è il valore standard del sito (si adatta da solo allo schermo); i lati servono per stringere la sezione rispetto alla pagina.",
+          "type": "object",
+          "properties": {
+            "top": {
+              "title": "Sopra",
+              "enum": [
+                "none",
+                "xs",
+                "sm",
+                "md",
+                "lg",
+                "xl"
+              ],
+              "default": "md"
+            },
+            "bottom": {
+              "title": "Sotto",
+              "enum": [
+                "none",
+                "xs",
+                "sm",
+                "md",
+                "lg",
+                "xl"
+              ],
+              "default": "md"
+            },
+            "left": {
+              "title": "Sinistra",
+              "enum": [
+                "none",
+                "sm",
+                "md",
+                "lg"
+              ],
+              "default": "none"
+            },
+            "right": {
+              "title": "Destra",
+              "enum": [
+                "none",
+                "sm",
+                "md",
+                "lg"
+              ],
+              "default": "none"
+            }
+          },
+          "additionalProperties": false
+        },
+        "surface": {
+          "title": "Superficie",
+          "enum": [
+            "light",
+            "dark",
+            "brand"
+          ],
+          "default": "light"
+        },
+        "header": {
+          "$ref": "https://atena.cms/schema/common.json#/$defs/sectionHeader",
+          "title": "Testata della sezione"
+        },
+        "items": {
+          "title": "Zone",
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "https://atena.cms/schema/common.json#/$defs/text",
+            "title": "Zona"
+          }
+        }
+      },
+      "required": [
+        "id",
+        "type",
+        "surface",
+        "items"
+      ],
+      "additionalProperties": false,
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "source": {
+                "const": "custom"
+              }
+            },
+            "required": [
+              "source"
+            ]
+          },
+          "then": {
+            "required": [
+              "items"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "$id": "https://atena.cms/schema/blocks/spec-table.json",
+      "title": "Tabella dati",
+      "type": "object",
+      "properties": {
+        "id": {
+          "$ref": "https://atena.cms/schema/common.json#/$defs/blockId"
+        },
+        "type": {
+          "const": "spec-table"
+        },
+        "visible": {
+          "title": "Visibile",
+          "type": "boolean",
+          "default": true
+        },
+        "anchor": {
+          "$ref": "https://atena.cms/schema/common.json#/$defs/anchor"
+        },
+        "padding": {
+          "title": "Spaziatura della sezione (padding)",
+          "description": "Spazio interno della sezione. Sopra e sotto: \"Medio\" è il valore standard del sito (si adatta da solo allo schermo); i lati servono per stringere la sezione rispetto alla pagina.",
+          "type": "object",
+          "properties": {
+            "top": {
+              "title": "Sopra",
+              "enum": [
+                "none",
+                "xs",
+                "sm",
+                "md",
+                "lg",
+                "xl"
+              ],
+              "default": "md"
+            },
+            "bottom": {
+              "title": "Sotto",
+              "enum": [
+                "none",
+                "xs",
+                "sm",
+                "md",
+                "lg",
+                "xl"
+              ],
+              "default": "md"
+            },
+            "left": {
+              "title": "Sinistra",
+              "enum": [
+                "none",
+                "sm",
+                "md",
+                "lg"
+              ],
+              "default": "none"
+            },
+            "right": {
+              "title": "Destra",
+              "enum": [
+                "none",
+                "sm",
+                "md",
+                "lg"
+              ],
+              "default": "none"
+            }
+          },
+          "additionalProperties": false
+        },
+        "surface": {
+          "title": "Superficie",
+          "enum": [
+            "light",
+            "dark",
+            "brand"
+          ],
+          "default": "light"
+        },
+        "header": {
+          "$ref": "https://atena.cms/schema/common.json#/$defs/sectionHeader",
+          "title": "Testata della sezione"
+        },
+        "table": {
+          "$ref": "https://atena.cms/schema/common.json#/$defs/specTable",
+          "title": "Tabella"
+        }
+      },
+      "required": [
+        "id",
+        "type",
+        "surface",
+        "table"
+      ],
+      "additionalProperties": false
+    },
+    {
+      "$id": "https://atena.cms/schema/blocks/contacts.json",
+      "title": "Contatti",
+      "type": "object",
+      "properties": {
+        "id": {
+          "$ref": "https://atena.cms/schema/common.json#/$defs/blockId"
+        },
+        "type": {
+          "const": "contacts"
+        },
+        "visible": {
+          "title": "Visibile",
+          "type": "boolean",
+          "default": true
+        },
+        "anchor": {
+          "$ref": "https://atena.cms/schema/common.json#/$defs/anchor"
+        },
+        "padding": {
+          "title": "Spaziatura della sezione (padding)",
+          "description": "Spazio interno della sezione. Sopra e sotto: \"Medio\" è il valore standard del sito (si adatta da solo allo schermo); i lati servono per stringere la sezione rispetto alla pagina.",
+          "type": "object",
+          "properties": {
+            "top": {
+              "title": "Sopra",
+              "enum": [
+                "none",
+                "xs",
+                "sm",
+                "md",
+                "lg",
+                "xl"
+              ],
+              "default": "md"
+            },
+            "bottom": {
+              "title": "Sotto",
+              "enum": [
+                "none",
+                "xs",
+                "sm",
+                "md",
+                "lg",
+                "xl"
+              ],
+              "default": "md"
+            },
+            "left": {
+              "title": "Sinistra",
+              "enum": [
+                "none",
+                "sm",
+                "md",
+                "lg"
+              ],
+              "default": "none"
+            },
+            "right": {
+              "title": "Destra",
+              "enum": [
+                "none",
+                "sm",
+                "md",
+                "lg"
+              ],
+              "default": "none"
+            }
+          },
+          "additionalProperties": false
+        },
+        "surface": {
+          "title": "Superficie",
+          "enum": [
+            "light",
+            "dark",
+            "brand"
+          ],
+          "default": "light"
+        },
+        "header": {
+          "$ref": "https://atena.cms/schema/common.json#/$defs/sectionHeader",
+          "title": "Testata della sezione"
+        },
+        "items": {
+          "title": "Contatti",
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "https://atena.cms/schema/common.json#/$defs/contactItem"
+          }
+        },
+        "map": {
+          "title": "Mappa",
+          "type": "object",
+          "properties": {
+            "query": {
+              "title": "Indirizzo o luogo",
+              "type": "string",
+              "minLength": 1
+            },
+            "title": {
+              "$ref": "https://atena.cms/schema/common.json#/$defs/text",
+              "title": "Titolo accessibile"
+            }
+          },
+          "required": [
+            "query",
+            "title"
+          ],
+          "additionalProperties": false
+        }
+      },
+      "required": [
+        "id",
+        "type",
+        "surface",
+        "items"
+      ],
+      "additionalProperties": false
+    },
+    {
+      "$id": "https://atena.cms/schema/blocks/rich-text.json",
+      "title": "Testo ricco",
+      "type": "object",
+      "properties": {
+        "id": {
+          "$ref": "https://atena.cms/schema/common.json#/$defs/blockId"
+        },
+        "type": {
+          "const": "rich-text"
+        },
+        "visible": {
+          "title": "Visibile",
+          "type": "boolean",
+          "default": true
+        },
+        "anchor": {
+          "$ref": "https://atena.cms/schema/common.json#/$defs/anchor"
+        },
+        "padding": {
+          "title": "Spaziatura della sezione (padding)",
+          "description": "Spazio interno della sezione. Sopra e sotto: \"Medio\" è il valore standard del sito (si adatta da solo allo schermo); i lati servono per stringere la sezione rispetto alla pagina.",
+          "type": "object",
+          "properties": {
+            "top": {
+              "title": "Sopra",
+              "enum": [
+                "none",
+                "xs",
+                "sm",
+                "md",
+                "lg",
+                "xl"
+              ],
+              "default": "md"
+            },
+            "bottom": {
+              "title": "Sotto",
+              "enum": [
+                "none",
+                "xs",
+                "sm",
+                "md",
+                "lg",
+                "xl"
+              ],
+              "default": "md"
+            },
+            "left": {
+              "title": "Sinistra",
+              "enum": [
+                "none",
+                "sm",
+                "md",
+                "lg"
+              ],
+              "default": "none"
+            },
+            "right": {
+              "title": "Destra",
+              "enum": [
+                "none",
+                "sm",
+                "md",
+                "lg"
+              ],
+              "default": "none"
+            }
+          },
+          "additionalProperties": false
+        },
+        "surface": {
+          "title": "Superficie",
+          "enum": [
+            "light",
+            "dark",
+            "brand"
+          ],
+          "default": "light"
+        },
+        "content": {
+          "$ref": "https://atena.cms/schema/common.json#/$defs/richBlock",
+          "title": "Contenuto",
+          "description": "Titoli h2-h6, paragrafi, elenchi, citazioni, link."
+        },
+        "width": {
+          "title": "Larghezza",
+          "enum": [
+            "narrow",
+            "wide"
+          ],
+          "default": "narrow"
+        }
+      },
+      "required": [
+        "id",
+        "type",
+        "surface",
+        "content"
+      ],
+      "additionalProperties": false
+    },
+    {
+      "$id": "https://atena.cms/schema/blocks/posts-list.json",
+      "title": "Elenco di articoli (blog)",
+      "type": "object",
+      "properties": {
+        "id": {
+          "$ref": "https://atena.cms/schema/common.json#/$defs/blockId"
+        },
+        "type": {
+          "const": "posts-list"
+        },
+        "visible": {
+          "title": "Visibile",
+          "type": "boolean",
+          "default": true
+        },
+        "anchor": {
+          "$ref": "https://atena.cms/schema/common.json#/$defs/anchor"
+        },
+        "padding": {
+          "title": "Spaziatura della sezione (padding)",
+          "description": "Spazio interno della sezione. Sopra e sotto: \"Medio\" è il valore standard del sito (si adatta da solo allo schermo); i lati servono per stringere la sezione rispetto alla pagina.",
+          "type": "object",
+          "properties": {
+            "top": {
+              "title": "Sopra",
+              "enum": [
+                "none",
+                "xs",
+                "sm",
+                "md",
+                "lg",
+                "xl"
+              ],
+              "default": "md"
+            },
+            "bottom": {
+              "title": "Sotto",
+              "enum": [
+                "none",
+                "xs",
+                "sm",
+                "md",
+                "lg",
+                "xl"
+              ],
+              "default": "md"
+            },
+            "left": {
+              "title": "Sinistra",
+              "enum": [
+                "none",
+                "sm",
+                "md",
+                "lg"
+              ],
+              "default": "none"
+            },
+            "right": {
+              "title": "Destra",
+              "enum": [
+                "none",
+                "sm",
+                "md",
+                "lg"
+              ],
+              "default": "none"
+            }
+          },
+          "additionalProperties": false
+        },
+        "surface": {
+          "title": "Superficie",
+          "enum": [
+            "light",
+            "dark",
+            "brand"
+          ],
+          "default": "light"
+        },
+        "corners": {
+          "title": "Angoli delle immagini",
+          "enum": [
+            "square",
+            "round-sm",
+            "round-md",
+            "round-lg",
+            "arch"
+          ],
+          "default": "square"
+        },
+        "eyebrow": {
+          "$ref": "https://atena.cms/schema/common.json#/$defs/text",
+          "title": "Etichetta (facoltativa)"
+        },
+        "title": {
+          "$ref": "https://atena.cms/schema/common.json#/$defs/text",
+          "title": "Titolo (facoltativo)"
+        },
+        "category": {
+          "type": "string",
+          "title": "Solo una categoria (facoltativo)",
+          "pattern": "^[a-z0-9][a-z0-9-]*$",
+          "x-widget": "category",
+          "description": "Vuoto: tutti gli articoli."
+        },
+        "tag": {
+          "type": "string",
+          "title": "Solo un tag (facoltativo)",
+          "pattern": "^[a-z0-9][a-z0-9-]*$",
+          "x-widget": "tag",
+          "description": "Vuoto: tutti gli articoli."
+        },
+        "author": {
+          "type": "string",
+          "title": "Solo un autore (facoltativo)",
+          "pattern": "^[a-z0-9][a-z0-9._-]*$",
+          "x-widget": "authorKey",
+          "description": "Vuoto: tutti gli articoli."
+        },
+        "limit": {
+          "title": "Quanti articoli",
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 100,
+          "default": 12
+        },
+        "layout": {
+          "title": "Aspetto",
+          "enum": [
+            "cards",
+            "list"
+          ],
+          "default": "cards",
+          "description": "Schede con immagine, oppure elenco semplice."
+        },
+        "showImage": {
+          "title": "Mostra l'immagine",
+          "type": "boolean",
+          "default": true
+        },
+        "showExcerpt": {
+          "title": "Mostra il riassunto",
+          "type": "boolean",
+          "default": true
+        },
+        "showDate": {
+          "title": "Mostra la data",
+          "type": "boolean",
+          "default": true
+        },
+        "showCategories": {
+          "title": "Mostra le categorie",
+          "type": "boolean",
+          "default": true
+        },
+        "showTags": {
+          "title": "Mostra i tag",
+          "type": "boolean",
+          "default": false
+        },
+        "showCategoryNav": {
+          "title": "Mostra l'elenco delle categorie sopra",
+          "type": "boolean",
+          "default": false
+        },
+        "readMore": {
+          "$ref": "https://atena.cms/schema/common.json#/$defs/text",
+          "title": "Testo del link «Leggi» (facoltativo)"
+        }
+      },
+      "required": [
+        "id",
+        "type"
       ],
       "additionalProperties": false
     }

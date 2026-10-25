@@ -2,7 +2,7 @@
 <html lang="it">
 <head>
 <meta charset="utf-8">
-<title>Outsmart CMS — Prova in locale</title>
+<title>Atena CMS — Prova in locale</title>
 <style>
   @import url('https://api.fontshare.com/v2/css?f[]=satoshi@300,400,500,700,900,400i,700i&f[]=gambarino@400&display=swap');
   @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@1,400;1,500;1,600;1,700&family=IBM+Plex+Mono:wght@400;500&display=swap');
@@ -97,15 +97,15 @@
 
 <!-- ============ COPERTINA ============ -->
 <section class="page dark">
-  <div class="cover-top"><img src="{{LOGO_DARK}}" alt="Outsmart"><span class="mono">Guida · v1.0</span></div>
+  <div class="cover-top"><img src="{{LOGO_DARK}}" alt="Atena"><span class="mono">Guida · v1.0</span></div>
   <div class="cover-mid">
-    <span class="mono">Outsmart CMS — Documentazione interna</span>
+    <span class="mono">Atena CMS — Documentazione interna</span>
     <h1><span class="brace">{</span>Prova in locale<span class="brace">}</span></h1>
     <p>Installa il motore. Carica il template. Provalo tutto prima di pubblicare.</p>
   </div>
   <div class="cover-bottom">
     <div class="bar"></div>
-    <div class="row"><span class="mono">Lugano · Settembre 2026</span><span class="mono">Outsmart Sagl</span></div>
+    <div class="row"><span class="mono">Lugano · Settembre 2026</span><span class="mono">MSM Digital</span></div>
   </div>
 </section>
 
@@ -119,7 +119,7 @@
     <tr><th>Cosa</th><th>Perché</th></tr>
     <tr><td>Node.js 22.12+</td><td>Il Mac usa di default una versione più vecchia. In ogni terminale nuovo: <code>. ~/.nvm/nvm.sh &amp;&amp; nvm use 22</code></td></tr>
     <tr><td>Docker Desktop</td><td>Acceso. Ospita MySQL, sulla porta <code>3307</code>.</td></tr>
-    <tr><td>Cartella del progetto</td><td><code>outsmart-cms</code>. Ogni comando di questa guida parte da lì.</td></tr>
+    <tr><td>Cartella del progetto</td><td><code>atena-cms</code>. Ogni comando di questa guida parte da lì.</td></tr>
   </table>
 
   <h3>Il database</h3>
@@ -134,7 +134,7 @@
 
   <div class="note sky"><span class="mono">Regola</span><p>Le credenziali non si scrivono mai nei comandi né nei file del progetto. Stanno nel <code>.env</code> (ignorato da git) o nelle variabili d'ambiente.</p></div>
 
-  <div class="foot"><span class="mono">Outsmart CMS · Prova in locale</span><span class="mono n">02 / 07</span></div>
+  <div class="foot"><span class="mono">Atena CMS · Prova in locale</span><span class="mono n">02 / 07</span></div>
 </section>
 
 <!-- ============ 02 ============ -->
@@ -148,9 +148,9 @@
       <pre><b>npm run</b> dev</pre>
     </li>
     <li>
-      <p><strong>Accedi</strong> con <code>info@out-smart.ch</code> e la password che hai scelto. Se non la ricordi, se ne genera una nuova. Compare <em>una sola volta</em>, alla riga «Password (mostrata una sola volta…)».</p>
-      <pre>node scripts/create-user.mjs <b>--email</b> info@out-smart.ch \
-  <b>--name</b> Outsmart <b>--role</b> admin <b>--reset</b></pre>
+      <p><strong>Accedi</strong> con <code>webdeveloper@msmdigital.it</code> e la password che hai scelto. Se non la ricordi, se ne genera una nuova. Compare <em>una sola volta</em>, alla riga «Password (mostrata una sola volta…)».</p>
+      <pre>node scripts/create-user.mjs <b>--email</b> webdeveloper@msmdigital.it \
+  <b>--name</b> Atena <b>--role</b> admin <b>--reset</b></pre>
     </li>
     <li>
       <p><strong>Vedi il sito pubblico</strong>, in un secondo terminale. I moduli arrivano all'app sulla porta 3000, quindi l'invio funziona. Dopo ogni modifica ai contenuti usa <em>Pubblica</em> nell'admin: rigenera il sito.</p>
@@ -174,7 +174,7 @@
 
   <div class="note"><span class="mono">Attenzione a .next</span><p><code>npm run dev</code> e <code>npm start</code> usano la stessa cartella <code>.next</code>. Se passi dall'uno all'altro l'admin si rompe: fermalo e rifai <code>npm run build:admin</code>.</p></div>
 
-  <div class="foot"><span class="mono">Outsmart CMS · Prova in locale</span><span class="mono n">03 / 07</span></div>
+  <div class="foot"><span class="mono">Atena CMS · Prova in locale</span><span class="mono n">03 / 07</span></div>
 </section>
 
 <!-- ============ 03 ============ -->
@@ -191,14 +191,14 @@
     <li><p><strong>Ferma la A</strong> con Ctrl+C. Due copie in sviluppo nella stessa cartella non convivono.</p></li>
     <li>
       <p><strong>Crea un database vuoto.</strong> La password di root la legge il container: non va scritta.</p>
-      <pre>docker exec outsmart-cms-db sh -c 'mysql -uroot -p"$MYSQL_ROOT_PASSWORD" \
-  -e "CREATE DATABASE outsmart_cms_prova \
+      <pre>docker exec atena-cms-db sh -c 'mysql -uroot -p"$MYSQL_ROOT_PASSWORD" \
+  -e "CREATE DATABASE atena_cms_prova \
       CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci; \
-      GRANT ALL ON outsmart_cms_prova.* TO \"cms\"@\"%\";"'</pre>
+      GRANT ALL ON atena_cms_prova.* TO \"cms\"@\"%\";"'</pre>
     </li>
     <li>
-      <p><strong>Prepara lo zip del template.</strong> Finisce nella cartella del progetto, per esempio <code>mammano-1.0.0.zip</code>.</p>
-      <pre><b>npm run</b> template:pack -- templates/mammano</pre>
+      <p><strong>Prepara lo zip del template.</strong> Finisce nella cartella del progetto, per esempio <code>starter-1.2.0.zip</code>.</p>
+      <pre><b>npm run</b> template:pack -- templates/starter</pre>
     </li>
     <li>
       <p><strong>Avvia una copia isolata.</strong> Cartelle a parte e variabili del <code>.env</code> di sviluppo svuotate: altrimenti la procedura vede il database già installato e si crede installata.</p>
@@ -212,7 +212,7 @@ env DB_HOST= DB_PORT= DB_NAME= DB_USER= DB_PASSWORD= DB_ROOT_PASSWORD= \
     </li>
   </ol>
 
-  <div class="foot"><span class="mono">Outsmart CMS · Prova in locale</span><span class="mono n">04 / 07</span></div>
+  <div class="foot"><span class="mono">Atena CMS · Prova in locale</span><span class="mono n">04 / 07</span></div>
 </section>
 
 <!-- ============ 03 bis ============ -->
@@ -225,7 +225,7 @@ env DB_HOST= DB_PORT= DB_NAME= DB_USER= DB_PASSWORD= DB_ROOT_PASSWORD= \
     <tr><th>Passo</th><th>Cosa fai</th></tr>
     <tr><td>Chiave</td><td>La trovi nel terminale, alla riga «Chiave di installazione…», e in <code>/tmp/cms-prova/data/install-token</code>.</td></tr>
     <tr><td>Requisiti</td><td>Devono essere tutti a posto: Node, immagini, permessi, cartelle scrivibili.</td></tr>
-    <tr><td>Database</td><td>Host <code>127.0.0.1</code>, porta <code>3307</code>, nome <code>outsmart_cms_prova</code>, utente <code>cms</code> e la <code>DB_PASSWORD</code> del tuo <code>.env</code>.</td></tr>
+    <tr><td>Database</td><td>Host <code>127.0.0.1</code>, porta <code>3307</code>, nome <code>atena_cms_prova</code>, utente <code>cms</code> e la <code>DB_PASSWORD</code> del tuo <code>.env</code>.</td></tr>
     <tr><td>Primo admin</td><td>Nome, email, password di almeno 12 caratteri.</td></tr>
     <tr><td>Template</td><td>Carica lo zip del passo 3 e indica l'indirizzo pubblico del sito. Si installano i contenuti di esempio e il sito viene pubblicato subito.</td></tr>
   </table>
@@ -235,12 +235,12 @@ env DB_HOST= DB_PORT= DB_NAME= DB_USER= DB_PASSWORD= DB_ROOT_PASSWORD= \
   <div class="note"><span class="mono">Password del database</span><p>Non può contenere <code>$ ' " \ ` #</code>: il file <code>.env</code> non li conserva in modo affidabile.</p></div>
 
   <h3>Pulizia</h3>
-  <pre>docker exec outsmart-cms-db sh -c 'mysql -uroot -p"$MYSQL_ROOT_PASSWORD" \
-  -e "DROP DATABASE outsmart_cms_prova"'
-rm -rf /tmp/cms-prova mammano-1.0.0.zip
+  <pre>docker exec atena-cms-db sh -c 'mysql -uroot -p"$MYSQL_ROOT_PASSWORD" \
+  -e "DROP DATABASE atena_cms_prova"'
+rm -rf /tmp/cms-prova starter-1.2.0.zip
 <b>npm run</b> build:admin   <i># la copia in sviluppo ha sovrascritto .next</i></pre>
 
-  <div class="foot"><span class="mono">Outsmart CMS · Prova in locale</span><span class="mono n">05 / 07</span></div>
+  <div class="foot"><span class="mono">Atena CMS · Prova in locale</span><span class="mono n">05 / 07</span></div>
 </section>
 
 <!-- ============ 04 ============ -->
@@ -264,10 +264,10 @@ rm -rf /tmp/cms-prova mammano-1.0.0.zip
   <pre>node scripts/create-user.mjs <b>--email</b> e2e@esempio.test \
   <b>--name</b> E2E <b>--role</b> admin <b>--reset</b>
 <i># … prove …  poi lo elimini dal database:</i>
-docker exec outsmart-cms-db sh -c 'mysql -uroot -p"$MYSQL_ROOT_PASSWORD" outsmart_cms \
+docker exec atena-cms-db sh -c 'mysql -uroot -p"$MYSQL_ROOT_PASSWORD" atena_cms \
   -e "DELETE FROM users WHERE email=\"e2e@esempio.test\""'</pre>
 
-  <div class="foot"><span class="mono">Outsmart CMS · Prova in locale</span><span class="mono n">06 / 07</span></div>
+  <div class="foot"><span class="mono">Atena CMS · Prova in locale</span><span class="mono n">06 / 07</span></div>
 </section>
 
 <!-- ============ 05 ============ -->
@@ -293,19 +293,19 @@ docker exec outsmart-cms-db sh -c 'mysql -uroot -p"$MYSQL_ROOT_PASSWORD" outsmar
 
   <div class="note sky"><span class="mono">Sicurezza dei template</span><p>Un template è codice. Il suo isolamento ha limiti dichiarati (rete e segnali non sono limitati da Node; il JavaScript del template gira nel sito pubblico). Prima di installare template di terzi leggi «Template e sicurezza» in <code>docs/architettura.md</code>.</p></div>
 
-  <div class="foot"><span class="mono">Outsmart CMS · Prova in locale</span><span class="mono n">07 / 07</span></div>
+  <div class="foot"><span class="mono">Atena CMS · Prova in locale</span><span class="mono n">07 / 07</span></div>
 </section>
 
 <!-- ============ RETRO ============ -->
 <section class="page dark">
-  <img class="back-logo" src="{{LOGO_DARK}}" alt="Outsmart">
+  <img class="back-logo" src="{{LOGO_DARK}}" alt="Atena">
   <div class="back-mid">
     <div class="claim">Tu pensi in grande.<br><span>Noi mettiamo le mani.</span></div>
   </div>
   <div class="back-bottom">
     <div class="bar"></div>
-    <span class="mono">Outsmart Sagl · Lugano, Svizzera</span>
-    <span class="mono">out-smart.ch · gabriele.marelli@out-smart.ch</span>
+    <span class="mono">MSM Digital · Lugano, Svizzera</span>
+    <span class="mono">msmdigital.it · webdeveloper@msmdigital.it</span>
   </div>
 </section>
 

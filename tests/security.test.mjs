@@ -5,16 +5,17 @@ import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import os from 'node:os';
 import path from 'node:path';
+import { fileURLToPath } from 'node:url';
 import { sanitizeRich, HREF_OK } from '../render/sanitize.mjs';
-import { unsafeText, deliveryProblem } from '../lib/content-guard.mjs';
+import { unsafeText, deliveryProblem, allowedCode } from '../lib/content-guard.mjs';
 import { validateData } from '../schema/validate.mjs';
 import { buildSite, BuildError } from '../render/build.mjs';
 import { createContext, loadData } from '../render/context.mjs';
 import { validateSubmission } from '../lib/forms.mjs';
 import { toPreviewHtml } from '../lib/preview.mjs';
 
-const ROOT = path.resolve(new URL('..', import.meta.url).pathname);
-const TPL = path.join(ROOT, 'templates/mammano');
+const ROOT = path.resolve(fileURLToPath(new URL('..', import.meta.url)));
+const TPL = path.join(ROOT, 'templates/starter');
 const read = (f) => fs.readFileSync(path.join(ROOT, f), 'utf8');
 const base = () => structuredClone(loadData(TPL));
 const tmp = () => fs.mkdtempSync(path.join(os.tmpdir(), 'cms-sec-'));
@@ -41,7 +42,7 @@ test('sanificazione: tag e indirizzi pericolosi spariscono, il testo resta', () 
     ['<a>x</a>', 'x'],
     ['<a href="page:privacy" onmouseover="alert(3)" class="x">x</a>', '<a href="page:privacy">x</a>'],
     ['<a href="https://ok.example/a?b=1&c=2">x</a>', '<a href="https://ok.example/a?b=1&amp;c=2">x</a>'],
-    ['<a href="mailto:info@mammano.ch">m</a> <a href="tel:+41919225024">t</a> <a href="channel:email">c</a> <a href="#noleggio">n</a>', '<a href="mailto:info@mammano.ch">m</a> <a href="tel:+41919225024">t</a> <a href="channel:email">c</a> <a href="#noleggio">n</a>'],
+    ['<a href="mailto:info@esempio.ch">m</a> <a href="tel:+41919225024">t</a> <a href="channel:email">c</a> <a href="#noleggio">n</a>', '<a href="mailto:info@esempio.ch">m</a> <a href="tel:+41919225024">t</a> <a href="channel:email">c</a> <a href="#noleggio">n</a>'],
     ['<a href="tel:+41 91 922 50 24">t</a>', 't'],
     ['<p style="x" class="y" id="z">a</p>', '<p>a</p>'],
     ['<iframe src="https://evil.example"></iframe><style>*{}</style><svg onload=alert(1)><math>', '*{}'],
@@ -77,8 +78,17 @@ test('sanificazione (fuzz): mai un "<" fuori dai tag ammessi, mai javascript: in
 
 test('sanificazione: i contenuti veri del sito passano invariati (stesso DOM)', () => {
   const strings = [];
-  const walk = (n) => { if (typeof n === 'string') { if (n.includes('<')) strings.push(n); } else if (Array.isArray(n)) n.forEach(walk); else if (n && typeof n === 'object') Object.values(n).forEach(walk); };
-  const d = base(); walk(d.site); walk(d.shared); d.pages.forEach(walk);
+  // Il codice del motore (tracciamento, llms.txt, blocco "Codice HTML") NON passa da sanitizeRich (esce con raw()): non conta qui,
+  // stessa regola di lib/content-guard.mjs.
+  const walk = (n, path, parent, key, skip) => {
+    if (typeof n === 'string') { if (n.includes('<') && !(skip && skip(path, parent, key))) strings.push(n); }
+    else if (Array.isArray(n)) n.forEach((v, i) => walk(v, `${path}/${i}`, n, i, skip));
+    else if (n && typeof n === 'object') Object.entries(n).forEach(([k, v]) => walk(v, `${path}/${k}`, n, k, skip));
+  };
+  const d = base();
+  walk(d.site, '', null, null, allowedCode('site'));
+  walk(d.shared, '', null, null, allowedCode('shared'));
+  d.pages.forEach((p) => walk(p, '', null, null, allowedCode('page')));
   assert.ok(strings.length >= 8, `testi con markup: ${strings.length}`);
   const norm = (s) => s.replace(/<br ?\/?>/g, '<br>');
   for (const s of strings) assert.equal(sanitizeRich(s), norm(s), s.slice(0, 80));
@@ -92,7 +102,10 @@ test('sanificazione: tempi lineari su input ostili', () => {
 
 // ---- schema e controlli sul server -----------------------------------------------------------------------------------------------
 
-const withBlock = (block) => { const d = base(); d.pages.find((p) => p.key === 'privacy').blocks[1] = { id: 'privacy-2-rich-text', type: 'rich-text', surface: 'light', ...block }; return d; };
+// Una pagina PUBBLICATA di starter (le bozze danno solo avvisi): le prove aggiungono in fondo un blocco di testo ricco.
+const PAGE = 'contatti';
+const pageOf = (d) => d.pages.find((p) => p.key === PAGE);
+const withBlock = (block) => { const d = base(); pageOf(d).blocks.push({ id: `${PAGE}-9-rich-text`, type: 'rich-text', surface: 'light', ...block }); return d; };
 const errorsOf = (d) => validateData(d).errors;
 
 test('schema: link javascript: e attributi extra nei testi ricchi sono errori', () => {
@@ -103,25 +116,25 @@ test('schema: link javascript: e attributi extra nei testi ricchi sono errori', 
 });
 
 test('schema: indirizzi dei link, percorsi delle immagini e indirizzo del sito', () => {
-  const linkPage = (url) => { const d = base(); d.pages[0].blocks.find((b) => b.type === 'cta' || b.buttons).buttons = [{ label: { it: 'x' }, link: { type: 'url', url }, style: 'primary' }]; return d; };
   const cta = base().pages.flatMap((p) => p.blocks).find((b) => b.type === 'cta');
   assert.ok(cta, 'serve un blocco con pulsanti per la prova');
   const withUrl = (url) => { const d = base(); const b = d.pages.flatMap((p) => p.blocks).find((x) => x.type === 'cta'); b.buttons = [{ label: { it: 'x' }, link: { type: 'url', url }, style: 'primary' }]; return d; };
   assert.deepEqual(errorsOf(withUrl('https://www.google.com/maps')), []);
   for (const bad of ['javascript:alert(1)', 'JAVASCRIPT:alert(1)', 'data:text/html;base64,AAAA', 'vbscript:x', '//evil.example', 'ftp://x.example', 'https://a b.example']) assert.ok(errorsOf(withUrl(bad)).length, bad);
   for (const bad of ['../../etc/passwd', '/etc/passwd', 'a/../../b.jpg', 'a//b.jpg', '.hidden', 'uploads/../../x.webp']) {
-    const d = base(); d.pages[0].blocks.find((b) => b.image).image.src = bad;
+    const d = base(); d.pages.flatMap((p) => p.blocks).find((b) => b.type === 'hero-image').image.src = bad;
     assert.ok(errorsOf(d).length, bad);
   }
   for (const bad of ['javascript:alert(1)', 'https://x.example/', 'https://x.example/"><script>', 'ftp://x.example', 'https://a b.example']) {
     const d = base(); d.site.siteUrl = bad; assert.ok(errorsOf(d).length, bad);
   }
-  for (const key of ['logoImage', 'image']) { const d = base(); d.site.company[key] = '../../.env'; assert.ok(errorsOf(d).length, key); }
+  { const d = base(); d.site.organization.logo = '../../.env'; assert.ok(errorsOf(d).length, 'logo'); }
+  { const d = base(); d.site.seo.defaultOgImage = { src: '../../.env', alt: { it: 'x' } }; assert.ok(errorsOf(d).length, 'immagine di condivisione'); }
   const d = base(); d.site.seo.favicon = '../x.png'; assert.ok(errorsOf(d).length, 'favicon');
 });
 
 test('validazione: la ricerca dei segnaposto non è quadratica', () => {
-  const d = base(); d.pages.find((p) => p.key === 'privacy').blocks[1].content.it = '[DA COMPLETARE '.repeat(12_000);
+  const d = withBlock({ content: { it: '[DA COMPLETARE '.repeat(12_000) } });
   const t0 = Date.now(); validateData(d);
   assert.ok(Date.now() - t0 < 1500, `${Date.now() - t0} ms`);
 });
@@ -159,7 +172,7 @@ test('build: nessuno slug o percorso può far scrivere fuori dalla cartella del 
   const d = base();
   d.pages.push({ key: 'genitore', status: 'draft', slug: { it: '../../../../evil' }, name: { it: 'G' }, title: { it: 'G' }, description: { it: 'G' }, blocks: [] });
   d.pages.find((p) => p.key === 'privacy').parent = 'genitore';
-  d.pages.find((p) => p.key === 'cookie').slug = { it: '..' };
+  d.pages.find((p) => p.key === 'moduli').slug = { it: '..' };
   const ctx = createContext({ ...d, root: ROOT, meta: null }, 'it');
   for (const p of d.pages) assert.doesNotMatch(ctx.pathOf(p.key), /\.\./, `${p.key}: ${ctx.pathOf(p.key)}`);
   try { await buildSite(d, { outDir: out, assetsDir: path.join(TPL, 'assets') }); } catch (e) { assert.ok(e instanceof BuildError, e.message); }
@@ -169,17 +182,17 @@ test('build: nessuno slug o percorso può far scrivere fuori dalla cartella del 
 
 test('build: un riferimento a un blocco condiviso inesistente (o "constructor") è un errore, non un crollo', async () => {
   for (const ref of ['constructor', '__proto__', 'toString', 'non-esiste']) {
-    const d = base(); d.pages.find((p) => p.key === 'privacy').blocks.push({ id: 'x-shared', type: 'shared', ref });
+    const d = base(); pageOf(d).blocks.push({ id: 'x-shared', type: 'shared', ref });
     await assert.rejects(buildSite(d, { outDir: path.join(tmp(), 'dist'), assetsDir: path.join(TPL, 'assets') }), (e) => e instanceof BuildError, ref);
   }
 });
 
 test('render: canale sconosciuto o link javascript: non fanno crollare la pagina né producono indirizzi pericolosi', async () => {
   const d = base();
-  d.pages.find((p) => p.key === 'privacy').blocks[1].content.it = '<p><a href="channel:sconosciuto">x</a> <a href="page:non-esiste">y</a></p>';
+  pageOf(d).blocks.push({ id: 'contatti-9-rich-text', type: 'rich-text', surface: 'light', content: { it: '<p><a href="channel:sconosciuto">x</a> <a href="page:non-esiste">y</a></p>' } });
   const out = path.join(tmp(), 'dist');
   await buildSite(d, { outDir: out, assetsDir: path.join(TPL, 'assets') });
-  const html = fs.readFileSync(path.join(out, 'privacy/index.html'), 'utf8');
+  const html = fs.readFileSync(path.join(out, `${PAGE}/index.html`), 'utf8');
   assert.doesNotMatch(html, /javascript:/i);
   const ctx = createContext({ ...base(), root: ROOT, meta: null }, 'it');
   assert.equal(ctx.link({ type: 'url', url: 'javascript:alert(1)' }), '#');
@@ -188,7 +201,7 @@ test('render: canale sconosciuto o link javascript: non fanno crollare la pagina
 });
 
 test('sitemap: gli indirizzi sono escapati per XML', async () => {
-  const d = base(); d.site.siteUrl = 'https://www.mammano.ch/?a=1&b=2';
+  const d = base(); d.site.siteUrl = 'https://www.esempio.ch/?a=1&b=2';
   const out = path.join(tmp(), 'dist');
   await buildSite(d, { outDir: out, assetsDir: path.join(TPL, 'assets') });
   const xml = fs.readFileSync(path.join(out, 'sitemap.xml'), 'utf8');
@@ -222,10 +235,14 @@ test('anteprima: nessuno script inline (la CSP dell\'admin li vieta), il codice 
   assert.match(read('app/admin/(shell)/_editor/DocEditor.jsx'), /e\.source !== frame\.current\.contentWindow/);
 });
 
-test('sito pubblico: fx.js non trasforma testo del contenuto in markup (innerHTML con dati)', () => {
-  const js = read('templates/mammano/assets/js/fx.js');
-  const dynamic = [...js.matchAll(/innerHTML\s*=\s*([^;]+);/g)].map((m) => m[1]).filter((v) => /\$\{|\+/.test(v));
-  assert.deepEqual(dynamic, [], 'innerHTML con valori interpolati');
+test('sito pubblico: gli script del template non trasformano testo del contenuto in markup (innerHTML con dati)', () => {
+  const files = fs.readdirSync(path.join(TPL, 'assets/js')).filter((f) => f.endsWith('.js'));
+  assert.ok(files.length, 'il template ha degli script da controllare');
+  for (const f of files) {
+    const js = read(`templates/starter/assets/js/${f}`);
+    const dynamic = [...js.matchAll(/innerHTML\s*=\s*([^;]+);/g)].map((m) => m[1]).filter((v) => /\$\{|\+/.test(v));
+    assert.deepEqual(dynamic, [], `${f}: innerHTML con valori interpolati`);
+  }
 });
 
 test('CSP dell\'admin: nonce per richiesta, niente unsafe-eval né unsafe-inline negli script, niente frame di altri siti', () => {
@@ -264,9 +281,75 @@ test('server locale: non serve file fuori dalla cartella del sito', () => {
 test('anteprima isolata: il documento ha il sandbox anche se aperto da solo, i file del template sono pubblici e le immagini caricate hanno un token', () => {
   const mw = read('middleware.js');
   assert.match(mw, /sandbox allow-scripts/);
-  assert.match(mw, /pathname\.startsWith\('\/admin\/preview-assets\/'\)\) return withPolicy/);
+  assert.match(mw, /pathname\.startsWith\('\/admin\/preview-assets\/'\) \|\| pathname\.startsWith\('\/admin\/preview-fonts\/'\)\) return withPolicy/);
   assert.match(mw, /ADMIN_HOSTS/);
   const route = read('app/admin/preview-assets/[...path]/route.js');
   assert.match(route, /verifyPreviewToken/);
   assert.match(route, /if \(parts\[0\] === 'img'\)/);
+});
+
+// ---- testo ricco «completo» (editor visuale del blocco testo) ----------------------------------------------------------------
+
+import { FULL } from '../schema/common.mjs';
+import { videoEmbed } from '../render/sanitize.mjs';
+const FULL_RE = new RegExp(FULL, 'u');
+
+test('sanificazione: stili, immagini della libreria e video ammessi, riscritti in forma canonica', () => {
+  const cases = [
+    ['<p style="text-align: center; color: rgb(255, 0, 0); font-family: Arial; position: fixed">x</p>', '<p style="color:#ff0000;text-align:center;">x</p>'],
+    ['<span style="font-size: x-large; background: #FFF">a</span>', '<span style="background-color:#ffffff;font-size:1.5rem;">a</span>'],
+    ['<span style="font-size:16px">a</span><span style="color:red">b</span><span>c</span>', 'abc'],
+    ['<span style="text-align:center;color:#abc">a</span>', '<span style="color:#aabbcc;">a</span>'],
+    ['<p style="background-image:url(javascript:alert(1));color:expression(alert(1))">a</p>', '<p>a</p>'],
+    ['<img src="/assets/img/uploads/foto-1.webp" alt="Una &amp; due" onerror="x()" width="9999">', '<img src="/assets/img/uploads/foto-1.webp" alt="Una &amp; due">'],
+    ['<img src="https://evil.example/x.png"><img src="/assets/img/../secret"><img src="//x/y"><img src=x onerror=alert(1)><img src="javascript:alert(1)">', ''],
+    ['<iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ?autoplay=1" onload="x()">fallback</iframe>', '<iframe src="https://www.youtube-nocookie.com/embed/dQw4w9WgXcQ" title="Video" loading="lazy" allowfullscreen></iframe>'],
+    ['<iframe src="https://player.vimeo.com/video/12345" title="Il mio &quot;video&quot;"></iframe>', '<iframe src="https://player.vimeo.com/video/12345" title="Il mio &quot;video&quot;" loading="lazy" allowfullscreen></iframe>'],
+    ['<iframe src="https://evil.example/embed/dQw4w9WgXcQ"></iframe><iframe src="javascript:alert(1)"></iframe><iframe srcdoc="<script>1</script>"></iframe>', ''],
+    ['<u>a</u><s>b</s><sub>1</sub><sup>2</sup><hr><pre><code>x &lt; y</code></pre>', '<u>a</u><s>b</s><sub>1</sub><sup>2</sup><hr><pre><code>x &lt; y</code></pre>'],
+    ['<b>a</b><i>b</i><div>c</div><font color="red">d</font>', 'abcd'],
+  ];
+  for (const [input, expected] of cases) {
+    const out = sanitizeRich(input);
+    assert.equal(out, expected, input);
+    assert.match(out, FULL_RE, `l'uscita deve superare il controllo dello schema: ${out}`);
+    assert.equal(sanitizeRich(out), out, `non idempotente: ${input}`);
+  }
+  assert.equal(videoEmbed('https://youtu.be/dQw4w9WgXcQ?t=3'), 'https://www.youtube-nocookie.com/embed/dQw4w9WgXcQ');
+  assert.equal(videoEmbed('https://www.youtube.com/watch?v=dQw4w9WgXcQ&list=x'), 'https://www.youtube-nocookie.com/embed/dQw4w9WgXcQ');
+  assert.equal(videoEmbed('https://vimeo.com/76979871'), 'https://player.vimeo.com/video/76979871');
+  assert.equal(videoEmbed('https://evil.example/watch?v=dQw4w9WgXcQ'), null);
+});
+
+test('sanificazione (fuzz sul testo completo): l\'uscita supera sempre lo schema FULL, senza script né gestori di eventi, ed è idempotente', () => {
+  const parts = ['<', '>', '"', "'", '=', ' ', 'a', '<p ', '<span ', '<img ', '<iframe ', '</iframe>', '</span>', '</p>', 'style=', 'color:red;', 'color:#fff;', 'font-size:2em;', 'font-size:x-large;', 'text-align:center;', 'src=', '/assets/img/a.webp', '/assets/img/../a', 'https://www.youtube.com/embed/dQw4w9WgXcQ', 'alt=', 'onerror=', 'javascript:', 'url(', 'expression(', '<hr>', '<pre>', '</pre>', '<u>', '</u>', '&quot;', '&#x', ';', '\n', 'x'];
+  let seed = 424242; const rnd = () => (seed = (seed * 1103515245 + 12345) & 0x7fffffff) / 0x7fffffff;
+  for (let i = 0; i < 8000; i++) {
+    let s = ''; const n = 1 + Math.floor(rnd() * 26);
+    for (let k = 0; k < n; k++) s += parts[Math.floor(rnd() * parts.length)];
+    const out = sanitizeRich(s);
+    assert.match(out, FULL_RE, `${JSON.stringify(s)} -> ${JSON.stringify(out)}`);
+    assert.doesNotMatch(out, /<[^>]*(?:\son[a-z]+=|javascript:|expression\(|url\()|<script/i, `${JSON.stringify(s)} -> ${JSON.stringify(out)}`);
+    assert.equal(sanitizeRich(out), out, `non idempotente: ${JSON.stringify(s)} -> ${JSON.stringify(out)}`);
+  }
+});
+
+test('sanificazione: tempi lineari anche con tanti iframe e span', () => {
+  const t0 = Date.now();
+  for (const s of ['<iframe '.repeat(40_000), '<iframe src="x"></iframe>'.repeat(20_000), '<span style="color:red">'.repeat(40_000), '<iframe>'.repeat(20_000) + '</iframe>'.repeat(20_000)]) sanitizeRich(s);
+  assert.ok(Date.now() - t0 < 3000, `troppo lento: ${Date.now() - t0} ms`);
+});
+
+test('caricamenti grandi: le route di upload non passano dal middleware (Next ne taglia il corpo) e controllano da sé indirizzo ammesso, origine e accesso', () => {
+  const routes = ['app/admin/media/upload/route.js', 'app/admin/templates/upload/route.js', 'app/admin/backup/upload/route.js', 'app/install/template-upload/route.js', 'app/install/restore-upload/route.js'];
+  const mw = read('middleware.js');
+  for (const r of routes) {
+    const path = r.replace(/^app\//, '').replace(/\/route\.js$/, '');
+    assert.ok(mw.includes(path), `${path} deve essere escluso dal matcher del middleware`);
+    const src = read(r);
+    assert.match(src, /isAdminHost\(req\.headers\)/, `${r}: serve il controllo ADMIN_HOSTS`);
+    assert.match(src, /isSameOrigin\(req\.headers\)/, `${r}: serve il controllo dell'origine`);
+    assert.match(src, /currentUser\(\)|checkInstallToken/, `${r}: serve l'accesso (sessione o chiave di installazione)`);
+  }
+  assert.match(mw, /matcher: \['\/\(\(\?!/, 'il matcher esclude le route di upload');
 });

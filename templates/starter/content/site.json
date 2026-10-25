@@ -17,32 +17,6 @@
       "it": "Un sito semplice, fatto bene."
     }
   },
-  "nav": [
-    {
-      "label": {
-        "it": "Home"
-      },
-      "link": {
-        "type": "page",
-        "page": "home"
-      }
-    },
-    {
-      "label": {
-        "it": "Contatti"
-      },
-      "link": {
-        "type": "page",
-        "page": "contatti"
-      }
-    }
-  ],
-  "footer": {
-    "text": {
-      "it": "© 2026 Studio Esempio"
-    },
-    "legal": []
-  },
   "consent": {
     "provider": "builtin"
   },
@@ -76,10 +50,90 @@
     },
     "formError": {
       "it": "Non siamo riusciti a inviare la richiesta. Riprovate tra poco."
+    },
+    "breadcrumbHome": {
+      "it": "Home"
+    },
+    "breadcrumbLabel": {
+      "it": "Percorso"
+    },
+    "summaryTitle": {
+      "it": "In breve"
     }
   },
   "seo": {
     "siteName": "Studio Esempio",
     "favicon": "favicon.png"
+  },
+  "organization": {
+    "type": "ProfessionalService",
+    "name": "Studio Esempio",
+    "description": {
+      "it": "Studio di esempio che mostra come compilare i dati dell'organizzazione: chi siamo, dove siamo, quando siamo aperti."
+    },
+    "foundingYear": 2010,
+    "email": "info@esempio.ch",
+    "phone": "+41 91 000 00 00",
+    "address": {
+      "street": "Via Esempio 1",
+      "zip": "6900",
+      "city": "Lugano",
+      "region": "TI",
+      "country": "CH"
+    },
+    "hours": [
+      {
+        "days": [
+          "Mo",
+          "Tu",
+          "We",
+          "Th",
+          "Fr"
+        ],
+        "opens": "09:00",
+        "closes": "17:30"
+      }
+    ],
+    "areaServed": [
+      "Lugano",
+      "Ticino"
+    ],
+    "languages": [
+      "it",
+      "en"
+    ],
+    "social": [
+      "https://www.linkedin.com/company/esempio"
+    ]
+  },
+  "geo": {
+    "summary": {
+      "it": "Studio Esempio è uno studio di esempio con sede a Lugano: una base per costruire siti nuovi."
+    },
+    "facts": [
+      {
+        "label": {
+          "it": "Sede"
+        },
+        "value": {
+          "it": "Lugano, Svizzera"
+        }
+      },
+      {
+        "label": {
+          "it": "Attivi dal"
+        },
+        "value": {
+          "it": "2010"
+        }
+      }
+    ]
+  },
+  "crawling": {
+    "mode": "open",
+    "aiTraining": "allow",
+    "aiSearch": "allow",
+    "aiUser": "allow",
+    "honorNoai": true
   }
 }

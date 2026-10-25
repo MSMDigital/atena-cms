@@ -1,6 +1,6 @@
 // Prova end-to-end dell'installazione guidata e della gestione dei template, partendo da ZERO: un'istanza nuova dell'app (cartelle e database vuoti, nessun .env),
 // la procedura /install nel browser (chiave, requisiti, database, admin, caricamento del template da zip), poi accesso e sito pubblicato.
-// Non tocca il database né le cartelle di sviluppo: usa un database "outsmart_cms_e2e_install" (creato e poi eliminato con le credenziali
+// Non tocca il database né le cartelle di sviluppo: usa un database "atena_cms_e2e_install" (creato e poi eliminato con le credenziali
 // root del .env di sviluppo) e una cartella temporanea. Serve l'app compilata (npx next build). Uso: node scripts/e2e-install.mjs
 import puppeteer from 'puppeteer-core';
 import mysql from 'mysql2/promise';
@@ -17,7 +17,7 @@ const { loadEnv, assertLocalDatabase } = await import('../lib/env.mjs'); loadEnv
 const { packTemplate } = await import('../lib/template-install.mjs');
 const { DB_HOST = '127.0.0.1', DB_PORT = '3307', DB_USER, DB_PASSWORD, DB_ROOT_PASSWORD } = process.env;
 if (!DB_ROOT_PASSWORD || !DB_PASSWORD) { console.error('servono DB_PASSWORD e DB_ROOT_PASSWORD nel .env di sviluppo'); process.exit(1); }
-const E2E_DB = 'outsmart_cms_e2e_install';
+const E2E_DB = 'atena_cms_e2e_install';
 const PORT = 3100; const URL_ = `http://localhost:${PORT}`;
 const pause = (ms) => new Promise((r) => setTimeout(r, ms));
 const ADMIN = { name: 'Prima Persona', email: 'prima@esempio.test', password: 'una-password-molto-lunga-2026' };
@@ -29,8 +29,28 @@ await resetDb();
 // Istanza nuova: tutte le cartelle vuote e nessuna variabile ereditata dal .env di sviluppo (variabili definite ma vuote: Next non le riempie).
 const T = fs.mkdtempSync(path.join(os.tmpdir(), 'cms-e2e-install-'));
 const dirs = { data: path.join(T, 'data'), templates: path.join(T, 'templates'), out: path.join(T, 'dist'), media: path.join(T, 'media'), env: path.join(T, '.env') };
-const zipFile = path.join(T, 'mammano.zip');
-fs.writeFileSync(zipFile, packTemplate(path.join(ROOT, 'templates/mammano')).zip);
+const STARTER_DIR = path.join(ROOT, 'templates/starter');
+const STARTER_MANIFEST = JSON.parse(fs.readFileSync(path.join(STARTER_DIR, 'template.json'), 'utf8'));
+const zipFile = path.join(T, 'starter.zip');
+// «Minimo»: un secondo template, ridotto, ricavato da starter (solo copertina, testo e modulo; home, contatti, privacy e 404). Serve a provare il cambio di template.
+const MINIMO_DIR = path.join(T, 'minimo-src');
+{
+  fs.cpSync(STARTER_DIR, MINIMO_DIR, { recursive: true });
+  const rw = (f, fn) => { const file = path.join(MINIMO_DIR, f); const o = JSON.parse(fs.readFileSync(file, 'utf8')); fn(o); fs.writeFileSync(file, JSON.stringify(o)); };
+  const KEEP = ['hero', 'text', 'form'];
+  rw('template.json', (m) => { m.id = 'minimo'; m.name = 'Minimo'; m.version = '1.0.0'; m.description = 'Copertina, testo e modulo di contatto.'; });
+  rw('schema/blocks.json', (b) => { b.blocks = b.blocks.filter((x) => KEEP.includes(x.properties.type.const)); });
+  const pagesDir = path.join(MINIMO_DIR, 'content/pages');
+  for (const f of fs.readdirSync(pagesDir)) {
+    if (!['home', 'contatti', 'privacy', '404'].includes(f.slice(0, -5))) { fs.rmSync(path.join(pagesDir, f)); continue; }
+    rw(`content/pages/${f}`, (o) => { o.blocks = o.blocks.filter((b) => KEEP.includes(b.type)); if (f === 'home.json') o.title = { it: 'Minimo' }; });
+  }
+  for (const rm of ['content/posts', 'content/categories.json', 'content/tags.json']) fs.rmSync(path.join(MINIMO_DIR, rm), { recursive: true, force: true });
+  rw('content/headers.json', (o) => { for (const h of Object.values(o)) h.nav = (h.nav ?? []).filter((n) => ['home', 'contatti'].includes(n.link?.page)); });
+  rw('content/shared.json', (o) => { for (const [k, v] of Object.entries(o)) if (!KEEP.includes(v?.type)) delete o[k]; });
+}
+const MINIMO_DOCS = 3 + 2 + 4;   // stile, dati del sito, blocchi condivisi + header e footer + le 4 pagine
+fs.writeFileSync(zipFile, packTemplate(STARTER_DIR).zip);
 const blank = Object.fromEntries(['DB_HOST', 'DB_PORT', 'DB_NAME', 'DB_USER', 'DB_PASSWORD', 'DB_ROOT_PASSWORD', 'SETTINGS_SECRET', 'IP_HASH_SECRET', 'APP_ORIGIN', 'TRUST_PROXY', 'INSTALL_TOKEN', 'CMS_TEMPLATE', 'CMS_TEMPLATE_DIR', 'SMTP_HOST', 'MAIL_FROM'].map((k) => [k, '']));
 const server = spawn(process.execPath, [path.join(ROOT, 'node_modules/next/dist/bin/next'), 'start', '-p', String(PORT)], {
   cwd: ROOT, stdio: ['ignore', 'pipe', 'pipe'],
@@ -127,6 +147,8 @@ await step('admin e template: password corta rifiutata; nessun template installa
   await typeIn('Nome', ADMIN.name); await typeIn('Email', ADMIN.email);
   await typeIn('Password', 'corta'); await typeIn('Ripeti la password', 'corta');
   await click('Continua');
+  await page.waitForFunction(() => /^Impostazioni generali/.test(document.querySelector('.install h2')?.textContent ?? ''));   // dopo l'admin: lingua, fuso e formati (si lasciano i valori proposti)
+  await click('Continua');
   await page.waitForFunction(() => /^Template/.test(document.querySelector('.install h2')?.textContent ?? ''));
   assert.match(await bodyText(), /Nessun template installato/);
   await typeIn('Indirizzo pubblico del sito', 'https://www.esempio.test');
@@ -137,8 +159,8 @@ await step('admin e template: password corta rifiutata; nessun template installa
   const input = await page.$('.install__upload input[type=file]');
   await input.uploadFile(zipFile);
   await click('Carica');
-  await waitFor(async () => /Installato: Mammano Traslochi 1\.0\.0/.test(await bodyText()), 'template installato dallo zip', 60000);
-  assert.ok(fs.existsSync(path.join(dirs.templates, 'mammano/template.json')));
+  await waitFor(async () => new RegExp(`Installato: ${STARTER_MANIFEST.name} ${STARTER_MANIFEST.version.replaceAll('.', '\\.')}`).test(await bodyText()), 'template installato dallo zip', 60000);
+  assert.ok(fs.existsSync(path.join(dirs.templates, 'starter/template.json')));
   assert.equal(await page.$$eval('.install__tpl.on', (l) => l.length), 1, 'il template caricato è selezionato');
   await shot('i4-template');
 });
@@ -148,6 +170,8 @@ await step('installazione: la password corta viene respinta con il campo indicat
   await waitFor(async () => /almeno 12 caratteri/.test(await bodyText()) || /Primo admin/.test(await page.$eval('.install h2', (e) => e.textContent)), 'errore sulla password');
   assert.match(await page.$eval('.install h2', (e) => e.textContent), /Primo admin/, 'torna al passo dell\'admin');
   await typeIn('Password', ADMIN.password); await typeIn('Ripeti la password', ADMIN.password);
+  await click('Continua');
+  await page.waitForFunction(() => /^Impostazioni generali/.test(document.querySelector('.install h2')?.textContent ?? ''));
   await click('Continua');
   await page.waitForFunction(() => /^Template/.test(document.querySelector('.install h2')?.textContent ?? ''));
   await typeIn('Indirizzo pubblico del sito', 'https://www.esempio.test/percorso');
@@ -163,14 +187,14 @@ await step('installazione: la password corta viene respinta con il campo indicat
 
 await step('dopo l\'installazione: /install e il caricamento sono chiusi, il sito è pubblicato con l\'indirizzo scelto', async () => {
   assert.ok(fs.existsSync(path.join(dirs.data, 'installed.json')));
-  assert.equal(JSON.parse(fs.readFileSync(path.join(dirs.data, 'active-template.json'), 'utf8')).id, 'mammano');
+  assert.equal(JSON.parse(fs.readFileSync(path.join(dirs.data, 'active-template.json'), 'utf8')).id, 'starter');
   const r = await fetch(URL_ + '/install', { redirect: 'manual' });
   assert.ok([307, 308].includes(r.status) && /\/admin\/login/.test(r.headers.get('location')), `/install → ${r.status} ${r.headers.get('location')}`);
   const up = await fetch(URL_ + '/install/template-upload', { method: 'POST', body: 'x', headers: { Origin: URL_ } });
   assert.equal(up.status, 404);
   const html = fs.readFileSync(path.join(dirs.out, 'index.html'), 'utf8');
   assert.match(html, /<link rel="canonical" href="https:\/\/www\.esempio\.test\/">/);
-  assert.ok(fs.existsSync(path.join(dirs.out, 'assets/cms/cms.js')) && fs.existsSync(path.join(dirs.out, 'servizi/index.html')));
+  assert.ok(fs.existsSync(path.join(dirs.out, 'assets/cms/cms.js')) && fs.existsSync(path.join(dirs.out, 'moduli/index.html')));
   const [[u]] = await root.query(`SELECT COUNT(*) AS n, MIN(role) AS role, MIN(email) AS email FROM \`${E2E_DB}\`.users`);
   assert.deepEqual([u.n, u.role, u.email], [1, 'admin', ADMIN.email]);
   const [[d]] = await root.query(`SELECT COUNT(*) AS n FROM \`${E2E_DB}\`.docs`);
@@ -182,12 +206,12 @@ await step('accesso con il primo admin: dashboard, template attivo, anteprima ch
   await page.type('input[name=email]', ADMIN.email); await page.type('input[name=password]', ADMIN.password);
   await click('Accedi');
   await page.waitForFunction(() => location.pathname === '/admin', { timeout: 30000 });
-  assert.ok((await page.$$('.table tbody tr')).length >= 15);
+  assert.ok((await page.$$('.stat')).length >= 2, 'la dashboard mostra i box di pagine e articoli');
   await page.goto(`${URL_}/admin/templates`, { waitUntil: 'networkidle0' });
-  assert.match(await page.$eval('.tpl__item--on', (e) => e.textContent), /Mammano Traslochi[\s\S]*Attivo/);
+  assert.match(await page.$eval('.tpl__item--on', (e) => e.textContent), /Starter[\s\S]*Attivo/);
   await page.goto(`${URL_}/admin/pages/home`, { waitUntil: 'networkidle0' });
   await page.waitForSelector('li.item');
-  await waitFor(async () => { const f = await (await page.$('iframe'))?.contentFrame(); return !!(f && await f.evaluate(() => !!document.querySelector('.header'))); }, 'anteprima non comparsa');
+  await waitFor(async () => { const f = await (await page.$('iframe'))?.contentFrame(); return !!(f && await f.evaluate(() => !!document.querySelector('.site-header'))); }, 'anteprima non comparsa');
   await shot('i6-anteprima');
   // L'anteprima gira in un iframe senza "allow-same-origin": il JavaScript del template non tocca l'admin né i suoi cookie.
   const sb = await page.$eval('iframe', (f) => f.getAttribute('sandbox'));
@@ -205,11 +229,11 @@ await step('ADMIN_HOSTS: da un altro indirizzo /admin e /install non esistono (4
 });
 
 // ---- parte 2: gestione dei template dall'admin (stessa istanza, appena installata) ----------------------------------------------
-const starterZip = path.join(T, 'starter.zip');
-fs.writeFileSync(starterZip, packTemplate(path.join(ROOT, 'templates/starter')).zip);
+const minimoZip = path.join(T, 'minimo.zip');
+fs.writeFileSync(minimoZip, packTemplate(MINIMO_DIR).zip);
 const { zipSync, unzipSync, strToU8 } = await import('fflate');
 const evilZip = path.join(T, 'evil.zip');
-fs.writeFileSync(evilZip, Buffer.from(zipSync({ ...Object.fromEntries(Object.entries(unzipSync(fs.readFileSync(starterZip)))), '../evil.txt': strToU8('x'), 'assets/run.sh': strToU8('#!/bin/sh') })));
+fs.writeFileSync(evilZip, Buffer.from(zipSync({ ...Object.fromEntries(Object.entries(unzipSync(fs.readFileSync(minimoZip)))), '../evil.txt': strToU8('x'), 'assets/run.sh': strToU8('#!/bin/sh') })));
 const ask = async (fn) => { page.once('dialog', (d) => d.accept(ADMIN.password)); await fn(); };
 const tplText = () => page.$eval('.tpl', (e) => e.textContent);
 const uploadTemplate = async (file, password) => {
@@ -226,30 +250,30 @@ const serveSite = async () => {
 };
 
 await step('template dall\'admin: password sbagliata e zip malevolo respinti, nulla di installato', async () => {
-  await uploadTemplate(starterZip, 'password-sbagliata');
+  await uploadTemplate(minimoZip, 'password-sbagliata');
   await waitFor(async () => /Password non corretta/.test(await tplText()), 'password errata non segnalata');
   await uploadTemplate(evilZip, ADMIN.password);
   await waitFor(async () => /file non ammessi/.test(await tplText()), 'zip malevolo non respinto');
   const t = await tplText();
   assert.match(t, /percorso non ammesso/); assert.match(t, /assets\/run\.sh/);
-  assert.equal(fs.existsSync(path.join(dirs.templates, 'starter')), false);
+  assert.equal(fs.existsSync(path.join(dirs.templates, 'minimo')), false);
   assert.equal(fs.existsSync(path.join(T, 'evil.txt')), false);
   await shot('t1-respinto');
 });
 
 await step('template dall\'admin: lo zip buono si installa (con la prova di esecuzione) e compare in elenco', async () => {
-  await uploadTemplate(starterZip, ADMIN.password);
-  await waitFor(async () => /Installato: Starter 1\.0\.0/.test(await tplText()), 'starter non installato', 60000);
+  await uploadTemplate(minimoZip, ADMIN.password);
+  await waitFor(async () => /Installato: Minimo 1\.0\.0/.test(await tplText()), 'minimo non installato', 60000);
   assert.match(await tplText(), /Prova di esecuzione: \d+ pagine rese/);
   await page.goto(`${URL_}/admin/templates`, { waitUntil: 'networkidle0' });
   assert.equal((await page.$$('.tpl__item')).length, 2);
-  assert.match(await page.$eval('.tpl__item--on', (e) => e.textContent), /Mammano/);
-  assert.match(await page.$eval('.tpl__item[data-id=starter]', (e) => e.textContent), /Starter/);
+  assert.match(await page.$eval('.tpl__item--on', (e) => e.textContent), /Starter/);
+  assert.match(await page.$eval('.tpl__item[data-id=minimo]', (e) => e.textContent), /Minimo/);
   await shot('t2-installato');
 });
 
-await step('attivazione: i contenuti di Mammano non sono compatibili con Starter; si sostituiscono con quelli di esempio (con copia di sicurezza)', async () => {
-  await click('Attiva…');                                             // il primo pulsante è quello di Starter (l'unico non attivo)
+await step('attivazione: i contenuti di Starter non sono compatibili con Minimo; si sostituiscono con quelli di esempio (con copia di sicurezza)', async () => {
+  await click('Attiva…');                                             // il primo pulsante è quello di Minimo (l'unico non attivo)
   await page.waitForSelector('.tpl__confirm fieldset');
   assert.match(await page.$eval('.tpl__confirm', (e) => e.textContent), /non compatibili: \d+ problemi/);
   assert.equal(await page.$eval('.tpl__confirm .btn--primary', (b) => b.disabled), true, 'con "tenere" e contenuti incompatibili non si può procedere');
@@ -259,18 +283,18 @@ await step('attivazione: i contenuti di Mammano non sono compatibili con Starter
   await click('Attiva e pubblica il sito');
   await waitFor(async () => /Template attivato: sito pubblicato/.test(await tplText()), 'attivazione non riuscita', 120000);
   assert.match(await tplText(), /Copia dei contenuti precedenti salvata/);
-  assert.equal(JSON.parse(fs.readFileSync(path.join(dirs.data, 'active-template.json'), 'utf8')).id, 'starter');
+  assert.equal(JSON.parse(fs.readFileSync(path.join(dirs.data, 'active-template.json'), 'utf8')).id, 'minimo');
   const backups = fs.readdirSync(path.join(dirs.data, 'backups'));
   assert.equal(backups.length, 1);
   assert.equal(fs.statSync(path.join(dirs.data, 'backups', backups[0])).mode & 0o777, 0o600);
   const html = fs.readFileSync(path.join(dirs.out, 'index.html'), 'utf8');
-  assert.match(html, /class="site-header"/); assert.doesNotMatch(html, /Mammano/);
+  assert.match(html, /<title>Minimo<\/title>/); assert.doesNotMatch(html, /<title>Studio Esempio<\/title>/);
   const [[d]] = await root.query(`SELECT COUNT(*) AS n FROM \`${E2E_DB}\`.docs`);
-  assert.equal(d.n, 6, 'tokens + site + shared + 3 pagine di Starter');
+  assert.equal(d.n, MINIMO_DOCS, 'stile, dati del sito, blocchi condivisi, header, footer e le pagine di Minimo');
   await shot('t3-attivato');
 });
 
-await step('con Starter attivo l\'editor mostra i SUOI blocchi e i suoi testi', async () => {
+await step('con Minimo attivo l\'editor mostra i SUOI blocchi e i suoi testi', async () => {
   await page.goto(`${URL_}/admin/pages/home`, { waitUntil: 'networkidle0' });
   await page.waitForSelector('li.item');
   const items = await page.$$eval('li.item .item__head', (e) => e.map((x) => x.textContent));
@@ -278,21 +302,20 @@ await step('con Starter attivo l\'editor mostra i SUOI blocchi e i suoi testi', 
   await page.click('.blocks button.add, .blocks summary');
   const menu = await page.$eval('.blocks', (e) => e.textContent);
   assert.match(menu, /Copertina/); assert.match(menu, /Modulo di contatto/);
-  assert.doesNotMatch(menu, /Nastro scorrevole|Testo \+ immagine|Domande frequenti/, 'i blocchi di Mammano non ci sono più');
-  await waitFor(async () => { const f = await (await page.$('iframe'))?.contentFrame(); return !!(f && await f.evaluate(() => !!document.querySelector('.site-header'))); }, 'anteprima di Starter');
+  assert.doesNotMatch(menu, /Nastro scorrevole|Testo \+ immagine|Domande frequenti/, 'i blocchi di Starter non ci sono più');
+  await waitFor(async () => { const f = await (await page.$('iframe'))?.contentFrame(); return !!(f && await f.evaluate(() => !!document.querySelector('.site-header'))); }, 'anteprima di Minimo');
   await page.goto(`${URL_}/admin/site`, { waitUntil: 'networkidle0' });
   const sections = await page.$$eval('details.sec > summary', (e) => e.map((x) => x.textContent.trim()));
   assert.ok(sections.includes('Marchio') && sections.includes('Menu'), sections.join(','));
-  assert.ok(!sections.includes('Azienda'), 'i campi di Mammano non ci sono');
-  await shot('t4-editor-starter');
+  await shot('t4-editor-minimo');
 });
 
-await step('il modulo del sito Starter funziona con il motore: invio dal sito pubblicato, richiesta salvata e visibile', async () => {
+await step('il modulo del sito Minimo funziona con il motore: invio dal sito pubblicato, richiesta salvata e visibile', async () => {
   const site = await serveSite();
   try {
     const p = await browser.newPage();
     await p.goto('http://localhost:4174/contatti/', { waitUntil: 'networkidle0' });
-    await p.type('input[name=nome]', 'Carla'); await p.type('input[name=email]', 'carla@esempio.test'); await p.type('textarea[name=messaggio]', 'Ciao dal template Starter.');
+    await p.type('input[name=nome]', 'Carla'); await p.type('input[name=email]', 'carla@esempio.test'); await p.type('textarea[name=messaggio]', 'Ciao dal template Minimo.');
     await p.click('input[name=privacy]');
     await pause(1600);
     await p.click('button[type=submit]');
@@ -306,21 +329,21 @@ await step('il modulo del sito Starter funziona con il motore: invio dal sito pu
   assert.match(await page.$eval('main', (e) => e.textContent), /Carla/);
 });
 
-await step('si torna a Mammano (contenuti di esempio) e Starter, non più attivo, si toglie con conferma', async () => {
+await step('si torna a Starter (contenuti di esempio) e Minimo, non più attivo, si toglie con conferma', async () => {
   await page.goto(`${URL_}/admin/templates`, { waitUntil: 'networkidle0' });
-  await page.evaluate(() => { [...document.querySelectorAll('.tpl__item')].find((li) => li.dataset.id === 'mammano').querySelector('.btn').click(); });
+  await page.evaluate(() => { [...document.querySelectorAll('.tpl__item')].find((li) => li.dataset.id === 'starter').querySelector('.btn').click(); });
   await page.waitForSelector('.tpl__confirm fieldset');
   const radios = await page.$$('.tpl__confirm input[type=radio]'); await radios[1].click();
   await page.type('.tpl__confirm input[type=password]', ADMIN.password);
   await click('Attiva e pubblica il sito');
-  await waitFor(async () => /Template attivato/.test(await tplText()), 'ritorno a Mammano', 120000);
-  assert.match(fs.readFileSync(path.join(dirs.out, 'index.html'), 'utf8'), /Mammano/);
-  // il messaggio compare prima che l'elenco si aggiorni: si aspetta che Starter risulti non più attivo (e quindi rimovibile)
-  await waitFor(() => page.evaluate(() => !!document.querySelector('.tpl__item[data-id="starter"] .btn--danger')), 'pulsante di rimozione di Starter');
-  await ask(async () => { await page.evaluate(() => { document.querySelector('.tpl__item[data-id="starter"] .btn--danger').click(); }); });
-  await waitFor(async () => /Template tolto/.test(await tplText()), 'rimozione di Starter');
-  assert.equal(fs.existsSync(path.join(dirs.templates, 'starter')), false);
-  assert.ok(fs.readdirSync(path.join(dirs.templates, '.trash')).some((n) => n.startsWith('starter-1.0.0-')));
+  await waitFor(async () => /Template attivato/.test(await tplText()), 'ritorno a Starter', 120000);
+  assert.match(fs.readFileSync(path.join(dirs.out, 'index.html'), 'utf8'), /<title>Studio Esempio<\/title>/);
+  // il messaggio compare prima che l'elenco si aggiorni: si aspetta che Minimo risulti non più attivo (e quindi rimovibile)
+  await waitFor(() => page.evaluate(() => !!document.querySelector('.tpl__item[data-id="minimo"] .btn--danger')), 'pulsante di rimozione di Minimo');
+  await ask(async () => { await page.evaluate(() => { document.querySelector('.tpl__item[data-id="minimo"] .btn--danger').click(); }); });
+  await waitFor(async () => /Template tolto/.test(await tplText()), 'rimozione di Minimo');
+  assert.equal(fs.existsSync(path.join(dirs.templates, 'minimo')), false);
+  assert.ok(fs.readdirSync(path.join(dirs.templates, '.trash')).some((n) => n.startsWith('minimo-1.0.0-')));
   const [[log]] = await root.query(`SELECT COUNT(*) AS n FROM \`${E2E_DB}\`.audit_log WHERE action LIKE 'template.%'`);
   assert.ok(log.n >= 5, `voci nel registro: ${log.n}`);
 });

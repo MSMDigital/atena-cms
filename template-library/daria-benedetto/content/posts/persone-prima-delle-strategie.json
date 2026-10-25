@@ -1,0 +1,35 @@
+{
+  "key": "persone-prima-delle-strategie",
+  "status": "published",
+  "slug": {
+    "it": "persone-prima-delle-strategie"
+  },
+  "title": {
+    "it": "Prima delle strategie, le persone"
+  },
+  "excerpt": {
+    "it": "Nessuna strategia prende vita da sola: dietro ogni decisione c’è una persona. (Articolo di esempio.)"
+  },
+  "image": {
+    "src": "giacca-rossa-sorriso.jpg",
+    "alt": {
+      "it": "Daria Benedetto"
+    }
+  },
+  "categories": [
+    "persone-organizzazioni",
+    "strategia-comunicazione"
+  ],
+  "date": "2026-08-14",
+  "author": "Daria Benedetto",
+  "blocks": [
+    {
+      "id": "testo-1",
+      "type": "text",
+      "surface": "light",
+      "content": {
+        "it": "<p><em>Articolo di esempio: sostituiscilo con un tuo testo.</em></p><p>Per molto tempo il mio lavoro è stato tradurre complessità in strategie. Poi ho riconosciuto qualcosa che era sempre stato davanti a me: nessuna strategia prende vita da sola. Dietro ogni decisione c’è una persona.</p>"
+      }
+    }
+  ]
+}

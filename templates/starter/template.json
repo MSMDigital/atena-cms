@@ -1,9 +1,9 @@
 {
   "id": "starter",
   "name": "Starter",
-  "version": "1.0.0",
+  "version": "1.2.0",
   "engine": 1,
-  "description": "Template minimo e commentato: copertina, testo e modulo di contatto. Serve da punto di partenza per creare un template nuovo.",
-  "author": "Outsmart",
+  "description": "Template standard: copertina, testo, modulo di contatto e una libreria di moduli (copertine, schede, dittico, galleria, numeri, passi, zone, CTA, contatti con mappa...), con slider, spaziatura e angoli delle immagini regolabili.",
+  "author": "Atena",
   "license": "MIT"
 }

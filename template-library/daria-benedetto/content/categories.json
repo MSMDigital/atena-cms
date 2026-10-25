@@ -1,0 +1,42 @@
+{
+  "cambiamento-professionale": {
+    "name": {
+      "it": "Cambiamento professionale"
+    },
+    "description": {
+      "it": "Transizioni, scelte, identità e direzione."
+    }
+  },
+  "persone-organizzazioni": {
+    "name": {
+      "it": "Persone e organizzazioni"
+    },
+    "description": {
+      "it": "Leadership, cultura, collaborazione e sviluppo."
+    }
+  },
+  "ai-lavoro": {
+    "name": {
+      "it": "AI e lavoro"
+    },
+    "description": {
+      "it": "Adozione consapevole, competenze, pensiero critico e valore umano."
+    }
+  },
+  "strategia-comunicazione": {
+    "name": {
+      "it": "Strategia e comunicazione"
+    },
+    "description": {
+      "it": "Posizionamento, mercati, brand e comportamenti."
+    }
+  },
+  "dal-campo": {
+    "name": {
+      "it": "Dal campo"
+    },
+    "description": {
+      "it": "Lezioni, casi, osservazioni e domande nate dall’esperienza."
+    }
+  }
+}

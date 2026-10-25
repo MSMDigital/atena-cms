@@ -1,0 +1,18 @@
+{
+  "novita": {
+    "name": {
+      "it": "Novità"
+    },
+    "description": {
+      "it": "Gli aggiornamenti del sito e dello studio."
+    }
+  },
+  "guide": {
+    "name": {
+      "it": "Guide"
+    },
+    "description": {
+      "it": "Come usare il sito e i suoi moduli."
+    }
+  }
+}

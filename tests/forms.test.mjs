@@ -2,15 +2,16 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import path from 'node:path';
+import { fileURLToPath } from 'node:url';
 import nodemailer from 'nodemailer';
 import { hasDb, setupTestDb, dropTestDb } from './helpers.mjs';
 import { collectForms, validateSubmission, isAllowedOrigin, ipFrom, readBodyLimited } from '../lib/forms.mjs';
 import { buildMessage } from '../lib/mail.mjs';
+import { preventivo } from './fixtures/preventivo-page.mjs';   // starter ha solo un modulo semplice: qui ce n'è uno con ogni tipo di campo
 
-const ROOT = path.resolve(new URL('..', import.meta.url).pathname);
-const TPL = path.join(ROOT, 'templates/mammano');
+const ROOT = path.resolve(fileURLToPath(new URL('..', import.meta.url)));
+const TPL = path.join(ROOT, 'templates/starter');
 const readJson = (f) => JSON.parse(fs.readFileSync(path.join(ROOT, f), 'utf8'));
-const preventivo = readJson('templates/mammano/content/pages/preventivo.json');
 const FORM = preventivo.blocks.find((b) => b.type === 'form');
 const good = () => ({ nome: 'Anna', cognome: 'Bianchi', telefono: '+41 79 123 45 67', email: 'anna@example.ch', citta: 'Lugano', servizio: 'Trasloco privato', data: '2026-11-03', messaggio: 'Appartamento al 4° piano.\nSenza ascensore.', privacy: true });
 
@@ -72,9 +73,9 @@ test('validazione: i facoltativi possono mancare; caratteri di controllo e a cap
 
 test('email: oggetto e destinatari vengono dal modulo, il mittente è quello configurato, chi scrive va in Reply-To', () => {
   const values = validateSubmission(FORM, good()).values;
-  const m = buildMessage({ block: { ...FORM, delivery: { recipients: ['info@mammano.ch', 'ufficio@mammano.ch'], subject: 'Richiesta\r\nBcc: x@example.com' } }, values, submission: { id: 7, page_key: 'preventivo', created_at: new Date('2026-09-19T10:00:00Z') }, from: 'sito@mammano.ch', adminUrl: 'https://admin.example/admin/requests/7' });
-  assert.deepEqual(m.to, ['info@mammano.ch', 'ufficio@mammano.ch']);
-  assert.equal(m.from, 'sito@mammano.ch');
+  const m = buildMessage({ block: { ...FORM, delivery: { recipients: ['info@esempio.ch', 'ufficio@esempio.ch'], subject: 'Richiesta\r\nBcc: x@example.com' } }, values, submission: { id: 7, page_key: 'preventivo', created_at: new Date('2026-09-19T10:00:00Z') }, from: 'sito@esempio.ch', adminUrl: 'https://admin.example/admin/requests/7' });
+  assert.deepEqual(m.to, ['info@esempio.ch', 'ufficio@esempio.ch']);
+  assert.equal(m.from, 'sito@esempio.ch');
   assert.equal(m.replyTo, 'anna@example.ch');
   assert.doesNotMatch(m.subject, /[\r\n]/);
   assert.equal(m.subject, 'Richiesta Bcc: x@example.com');
@@ -88,16 +89,16 @@ test('email: oggetto e destinatari vengono dal modulo, il mittente è quello con
 
 test('origine: stesso host, APP_ORIGIN e FORM_ALLOWED_ORIGINS sì; altri siti no', () => {
   const keep = { a: process.env.APP_ORIGIN, f: process.env.FORM_ALLOWED_ORIGINS };
-  process.env.APP_ORIGIN = 'https://admin.mammano.example'; process.env.FORM_ALLOWED_ORIGINS = 'https://www.mammano.example, non-un-url';
+  process.env.APP_ORIGIN = 'https://admin.esempio.example'; process.env.FORM_ALLOWED_ORIGINS = 'https://www.esempio.example, non-un-url';
   try {
     assert.equal(isAllowedOrigin(null, 'x'), true, 'senza Origin (non è un browser)');
-    assert.equal(isAllowedOrigin('https://www.mammano.example', 'app.internal:3000'), true);
-    assert.equal(isAllowedOrigin('https://admin.mammano.example', 'app.internal:3000'), true);
+    assert.equal(isAllowedOrigin('https://www.esempio.example', 'app.internal:3000'), true);
+    assert.equal(isAllowedOrigin('https://admin.esempio.example', 'app.internal:3000'), true);
     assert.equal(isAllowedOrigin('https://sito.example:8443', 'sito.example:8443'), true, 'stesso host della richiesta (proxy)');
     assert.equal(isAllowedOrigin('https://evil.example', 'app.internal:3000'), false);
-    assert.equal(isAllowedOrigin('https://www.mammano.example.evil.example', 'app.internal:3000'), false);
+    assert.equal(isAllowedOrigin('https://www.esempio.example.evil.example', 'app.internal:3000'), false);
     assert.equal(isAllowedOrigin('null', 'app.internal:3000'), false);
-    assert.equal(isAllowedOrigin('http://www.mammano.example', 'app.internal:3000'), false, 'anche lo schema conta');
+    assert.equal(isAllowedOrigin('http://www.esempio.example', 'app.internal:3000'), false, 'anche lo schema conta');
   } finally { for (const [k, v] of [['APP_ORIGIN', keep.a], ['FORM_ALLOWED_ORIGINS', keep.f]]) { if (v === undefined) delete process.env[k]; else process.env[k] = v; } }
 });
 
@@ -136,7 +137,7 @@ test('moduli: ricezione, salvataggio, email, limiti e gestione', { skip: !hasDb 
     await query('INSERT INTO docs (kind, doc_key, draft, published) VALUES (?, ?, ?, ?) ON DUPLICATE KEY UPDATE draft = VALUES(draft), published = VALUES(published)', [kind, key, json, published ? json : null]);
     F.resetFormsCache();
   };
-  await put('site', 'main', readJson('templates/mammano/content/site.json'));
+  await put('site', 'main', readJson('templates/starter/content/site.json'));
   await put('page', 'preventivo', preventivo);
 
   const post = (body, { id = FORM.id, headers = {}, raw } = {}) => F.handleSubmission({
@@ -152,7 +153,7 @@ test('moduli: ricezione, salvataggio, email, limiti e gestione', { skip: !hasDb 
     assert.deepEqual([r.status, r.json], [200, { ok: true }]);
     const row = await one('SELECT * FROM form_submissions ORDER BY id DESC LIMIT 1');
     assert.deepEqual([row.block_id, row.page_key, row.locale, row.consent, row.status, row.mail_status], [FORM.id, 'preventivo', 'it', 1, 'new', 'pending']);
-    assert.equal(row.recipients, 'info@mammano.ch');
+    assert.equal(row.recipients, 'info@esempio.ch');
     assert.equal(JSON.parse(row.data).nome, 'Prima');
     assert.equal(row.ip_hash, null, 'senza proxy fidato non si registra nessun indirizzo');
     assert.equal(row.user_agent, null);
@@ -162,7 +163,7 @@ test('moduli: ricezione, salvataggio, email, limiti e gestione', { skip: !hasDb 
     const r = await post({ ...payload({ nome: 'Seconda', destinatari: ['ladro@example.com'] }), recipients: ['ladro@example.com'], subject: 'rubato', block: { delivery: { recipients: ['ladro@example.com'] } } });
     assert.equal(r.status, 200);
     const row = await one('SELECT * FROM form_submissions ORDER BY id DESC LIMIT 1');
-    assert.equal(row.recipients, 'info@mammano.ch');
+    assert.equal(row.recipients, 'info@esempio.ch');
     assert.equal(JSON.parse(row.data).destinatari, undefined);
     assert.doesNotMatch(row.data, /ladro/);
   });
@@ -241,8 +242,8 @@ test('moduli: ricezione, salvataggio, email, limiti e gestione', { skip: !hasDb 
   });
 
   await t.test('email: parte con mittente configurato, Reply-To di chi scrive e destinatari del modulo; l\'esito si registra', async () => {
-    const id = Number((await query("INSERT INTO form_submissions (block_id, page_key, locale, data, consent, recipients) VALUES (?, 'preventivo', 'it', ?, 1, 'info@mammano.ch')", [FORM.id, JSON.stringify(validateSubmission(FORM, good()).values)])).insertId);
-    process.env.MAIL_FROM = 'sito@mammano.ch';
+    const id = Number((await query("INSERT INTO form_submissions (block_id, page_key, locale, data, consent, recipients) VALUES (?, 'preventivo', 'it', ?, 1, 'info@esempio.ch')", [FORM.id, JSON.stringify(validateSubmission(FORM, good()).values)])).insertId);
+    process.env.MAIL_FROM = 'sito@esempio.ch';
     const transport = nodemailer.createTransport({ jsonTransport: true });
     const r = await F.notifySubmission(id, transport);
     assert.deepEqual([r.ok, r.status], [true, 'sent']);
@@ -252,11 +253,11 @@ test('moduli: ricezione, salvataggio, email, limiti e gestione', { skip: !hasDb 
   });
 
   await t.test('email: contenuto del messaggio inviato', async () => {
-    const id = Number((await query("INSERT INTO form_submissions (block_id, page_key, locale, data, consent, recipients) VALUES (?, 'preventivo', 'it', ?, 1, 'info@mammano.ch')", [FORM.id, JSON.stringify(validateSubmission(FORM, good()).values)])).insertId);
+    const id = Number((await query("INSERT INTO form_submissions (block_id, page_key, locale, data, consent, recipients) VALUES (?, 'preventivo', 'it', ?, 1, 'info@esempio.ch')", [FORM.id, JSON.stringify(validateSubmission(FORM, good()).values)])).insertId);
     const captured = [];
     await F.notifySubmission(id, { sendMail: async (m) => { captured.push(m); } });
     assert.equal(captured.length, 1);
-    assert.deepEqual([captured[0].to, captured[0].subject, captured[0].replyTo, captured[0].from], [['info@mammano.ch'], 'Richiesta di preventivo', 'anna@example.ch', 'sito@mammano.ch']);
+    assert.deepEqual([captured[0].to, captured[0].subject, captured[0].replyTo, captured[0].from], [['info@esempio.ch'], 'Richiesta di preventivo', 'anna@example.ch', 'sito@esempio.ch']);
   });
 
   await t.test('email: se il server rifiuta, la richiesta resta con l\'errore e si può rinviare', async () => {

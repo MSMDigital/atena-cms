@@ -39,7 +39,7 @@ export const blocks = [
   }, { required: ['items'], surfaces: ['brand', 'dark'] }),
 
   block('facts', 'Numeri', {
-    label: text('Etichetta accessibile', { description: 'Letta dagli screen reader (es. "Mammano in numeri").' }),
+    label: text('Etichetta accessibile', { description: 'Letta dagli screen reader (es. "Starter in numeri").' }),
     items: {
       title: 'Numeri', type: 'array', minItems: 4, maxItems: 4,
       items: { type: 'object', properties: { value: text('Valore', { description: 'Se inizia con una cifra parte il conteggio animato (es. 10\'000+).' }), label: text('Etichetta') }, required: ['value', 'label'], additionalProperties: false },
@@ -162,6 +162,9 @@ export const blocks = [
           label: richInline('Etichetta', { description: 'Per il consenso può contenere il link all\'informativa privacy.' }),
           placeholder: text('Segnaposto', { 'x-when': { type: ['text', 'email', 'tel', 'textarea'] } }),
           autocomplete: { title: 'Compilazione automatica', type: 'string', description: 'Valore HTML autocomplete (es. given-name, tel, email).' },
+          title: text('Titolo (tooltip)', { 'x-when': { type: ['consent'] }, description: 'Testo che compare al passaggio del mouse sulla casella.' }),
+          cssClass: { title: 'Classe CSS (facoltativa)', type: 'string', pattern: '^[A-Za-z0-9_ -]{1,120}$', maxLength: 120, 'x-when': { type: ['consent'] }, description: 'Una o più classi (separate da spazio) aggiunte alla casella. Solo lettere, numeri, trattini e underscore.' },
+          target: { title: 'Apertura dei link dell\'etichetta', enum: ['_self', '_blank'], default: '_self', 'x-when': { type: ['consent'] }, description: 'Dove si apre il link all\'informativa: nella stessa scheda o in una nuova.' },
           required: { title: 'Obbligatorio', type: 'boolean', default: false },
           width: { title: 'Larghezza', enum: ['half', 'full'], default: 'half' },
           options: { title: 'Opzioni', type: 'array', minItems: 1, items: text('Opzione'), 'x-when': { type: ['select'] } },
@@ -187,10 +190,10 @@ export const blocks = [
       description: 'Le richieste vengono sempre salvate nel database e inviate per email.',
       type: 'object',
       properties: {
-        recipients: { title: 'Destinatari', type: 'array', minItems: 1, items: { type: 'string', format: 'email' } },
+        recipients: { title: 'Destinatari (facoltativi)', description: 'Vuoto: le richieste vanno agli indirizzi di Impostazioni → Email (o all\'email dell\'amministrazione).', type: 'array', items: { type: 'string', format: 'email' } },
         subject: { title: 'Oggetto dell\'email', type: 'string', minLength: 1 },
       },
-      required: ['recipients', 'subject'],
+      required: ['subject'],
       additionalProperties: false,
     },
   }, { required: ['label', 'fields', 'submitLabel', 'successMessage', 'delivery'] }),

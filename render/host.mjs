@@ -42,10 +42,11 @@ function stampOf(tpl) {
   return `${tpl.manifest.version}:${latest}`;
 }
 
-const workers = new Map();   // dir del template → { proc, stamp, pending, ready }
+// Su globalThis: con la ricarica a caldo di Next in sviluppo questo modulo si rivaluta, e una mappa nuova lascerebbe accesi i processi isolati precedenti.
+const workers = (globalThis.__atenaWorkers ??= new Map());   // dir del template → { proc, stamp, pending, ready }
 
 function start(tpl) {
-  const kitDir = ensureKit();
+  const kitDir = ensureKit(tpl.dir);   // il @cms/kit sta accanto al template (templates/ oppure template-library/)
   const flags = [
     permissionFlag(),
     `--allow-fs-read=${real(path.join(ROOT, 'render'))}`,
@@ -112,18 +113,18 @@ let importSeq = 0;
 // jobs: [{ locale, keys: [chiavi delle pagine] }] → [{ locale, key, html }]
 export async function renderPages(tpl, { data, jobs, images }, { timeoutMs = 120_000 } = {}) {
   if (renderMode() === 'inline') {
-    ensureKit();
+    ensureKit(tpl.dir);
     const { createContext } = await import('./context.mjs');
     const mod = await import(`${pathToFileURL(tpl.renderEntry).href}?v=${stampOf(tpl)}`);   // il ?v ricarica il modulo se il template cambia
     const out = [];
     for (const job of jobs) {
       const ctx = createContext(data, job.locale, { images: images ?? {} });
-      for (const key of job.keys) out.push({ locale: job.locale, key, html: mod.default.renderPage(ctx, data.pages.find((p) => p.key === key)) });
+      for (const key of job.keys) out.push({ locale: job.locale, key, html: mod.default.renderPage(ctx, ctx.pageOf(key)) });
     }
     return out;
   }
   const w = await workerFor(tpl);
-  const slim = { site: data.site, shared: data.shared, tokens: data.tokens, meta: data.meta ?? null, pages: data.pages };
+  const slim = { site: data.site, shared: data.shared, headers: data.headers, footers: data.footers, blog: data.blog, tokens: data.tokens, meta: data.meta ?? null, pages: data.pages, translations: data.translations ?? [] };
   return (await call(w, { op: 'render', data: slim, jobs, images }, timeoutMs)).out;
 }
 

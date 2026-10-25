@@ -1,28 +1,30 @@
-# Outsmart CMS
+# Atena CMS
 
-CMS interno Outsmart, **installabile in autonomia** e separato dai siti: il CMS è il **motore** (admin, database, login, immagini, moduli, pubblicazione) e ogni sito è un **template** che si installa a parte.
+CMS interno Atena, **installabile in autonomia** e separato dai siti: il CMS è il **motore** (admin, database, login, immagini, moduli, pubblicazione) e ogni sito è un **template** che si installa a parte.
 
-- **Installare il CMS**: [INSTALL.md](INSTALL.md) (procedura guidata nel browser: database, primo admin, template).
-- **Provare in locale** (istanza di sviluppo, installazione da zero, prove automatiche): [docs/prova-in-locale.md](docs/prova-in-locale.md) · PDF con il brand Outsmart: [docs/guida/Outsmart-CMS-Prova-in-locale.pdf](docs/guida/Outsmart-CMS-Prova-in-locale.pdf) (si rigenera con `node docs/guida/build.mjs`).
+- **Documentazione tecnica** (server, Node, database, configurazione, sicurezza, backup, manutenzione): [docs/documentazione-tecnica.md](docs/documentazione-tecnica.md).
+- **Guida per chi installa e gestisce i contenuti**: [docs/guida-utente.md](docs/guida-utente.md).
+- **Installare il CMS**: [INSTALL.md](INSTALL.md) (procedura guidata nel browser: database, primo admin, template; note sull'hosting condiviso).
+- **Provare in locale** (istanza di sviluppo, installazione da zero, prove automatiche): [docs/prova-in-locale.md](docs/prova-in-locale.md) · PDF con il brand Atena: [docs/guida/Atena-CMS-Prova-in-locale.pdf](docs/guida/Atena-CMS-Prova-in-locale.pdf) (si rigenera con `node docs/guida/build.mjs`).
 - **Motore e template, contratto e sicurezza**: [docs/architettura.md](docs/architettura.md).
-- **Creare un template**: [templates/starter/docs/template.md](templates/starter/docs/template.md) (`templates/starter` è il punto di partenza; `templates/mammano` è il sito Mammano Traslochi, con 15 blocchi).
+- **Creare un template**: [templates/starter/docs/template.md](templates/starter/docs/template.md) (`templates/starter` è il punto di partenza).
 
 Struttura del progetto:
 
 ```
-app/ lib/ schema/ render/ migrations/ scripts/ tests/   il motore
-templates/mammano/   template: sito Mammano Traslochi (assets, content, blocchi, HTML; tools/ = strumenti di sviluppo, non entrano nello zip)
-templates/starter/   template minimo e commentato
-data/                stato dell'installazione (template attivo, chiave, copie di sicurezza): fuori da git
+app/ lib/ schema/ render/ migrations/ scripts/ tests/   il motore (l'installer)
+templates/starter/       l'unico template che viaggia con l'installer: punto di partenza di ogni sito nuovo
+template-library/        template dei clienti, FUORI dall'installer (oggi: daria-benedetto/); si usano come zip
+data/                    stato dell'installazione (template attivo, chiave, copie di sicurezza): fuori da git
 ```
 
-Comandi dei template: `npm run template:pack -- templates/<id>` (controllo completo + zip), e con `--template <id>` gli script `validate`, `build`, `tokens`.
+Comandi dei template: `npm run template:pack -- template-library/<id>` (controllo completo + zip da caricare in Admin → Aspetto → Template), e con `--template <id>` gli script `validate`, `build`, `tokens`.
 
-> Le sezioni seguenti descrivono il sito di esempio **Mammano**. I file che nominano (`assets/`, `content/`, `tokens.json`, `reference/`, `docs/catalogo-componenti.md`, `render/blocks.mjs`...) stanno ora in `templates/mammano/` (i blocchi in `schema/blocks.json` come JSON, l'HTML in `render/`); gli strumenti di confronto con il prototipo (`import`, `compare`, `shots`, `diff`) in `templates/mammano/tools/`. Il motore ne usa le parti generiche: `render/html.mjs`, `context.mjs`, `sanitize.mjs`, `consent.mjs`, `build.mjs`, `host.mjs`.
+> Le sezioni seguenti sono note di progetto nate con il primo sito di prova; i percorsi di file che nominano (`assets/`, `content/`, `tokens.json`…) stanno ora dentro il template (`templates/starter/`).
 
 ## Stato
 
-Fatto: motore e template separati (template a pacchetto, HTML eseguito in un processo isolato, installazione da zip dall'admin, procedura guidata di installazione), contratto dei token + CSS + font in locale, schemi, renderer e build del sito statico, database, accesso ed editor di stile, pagine e blocchi, libreria immagini, moduli e richieste, email, consenso alla mappa (integrato e iubenda), revisione di sicurezza.
+Fatto: motore e template separati (template a pacchetto, HTML eseguito in un processo isolato, installazione da zip dall'admin, procedura guidata di installazione), contratto dei token + CSS + font in locale, schemi, renderer e build del sito statico, database, accesso ed editor di stile, pagine e blocchi, libreria immagini, moduli e richieste, email, consenso alla mappa (integrato e iubenda), tag SEO/GEO per pagina, analytics/script esterni e llms.txt (Dati del sito, solo admin), blocco "Codice HTML" nei blocchi condivisi e nelle pagine, revisione di sicurezza.
 
 ## Come funziona lo stile
 
@@ -67,10 +69,12 @@ npm run dev             # http://localhost:3000/admin
 
 - **Bozza e pubblicato.** Ogni documento (token, dati del sito, blocchi condivisi, pagine) ha una bozza e una versione pubblicata. Salvare non cambia il sito; "Pubblica" costruisce tutto in una cartella temporanea e la mette online solo se la costruzione riesce, altrimenti non cambia nulla e l'errore è registrato in `publications`. Ogni salvataggio e pubblicazione lascia una revisione in `doc_revisions`.
 - **Anteprima.** `/admin/preview/...` rende le pagine con le bozze; l'editor invia i valori correnti (anche non salvati) all'iframe con `postMessage`. Le famiglie di font nuove si vedono in anteprima da Google Fonts e vengono scaricate in locale alla pubblicazione (cache in `.cache/fonts`).
-- **Ruoli.** `admin` fa tutto; `editor` non vede stile e dati del sito.
+- **Ruoli.** `admin` fa tutto; `author` (Autore) modifica i propri contenuti come bozze; `normal` non ha privilegi sui contenuti (vedi `lib/permissions.mjs`).
 - **Database.** Schema in `migrations/`. I JSON stanno in colonne `LONGTEXT` (non `JSON`), così il comportamento è identico su MySQL e MariaDB (su Infomaniak i database sono in genere MariaDB).
 - **Sicurezza.** Password con scrypt e sale; nel cookie c'è il token, nel database solo il suo SHA-256; cookie `httpOnly`, `SameSite=Lax`, `Secure` se `APP_ORIGIN` è https; limite di 5 errori in 15 minuti per email (e 20 per indirizzo solo con `TRUST_PROXY=1`); stesso messaggio e stesso tempo per email inesistente e password errata; redirect solo verso `/admin`; i token vengono validati con forme sicure prima di finire nel CSS; gli asset dell'anteprima non escono da `assets/`.
-- **Test.** `npm test` (184 test: token, password, sessioni, documenti, pubblicazione, validazione, form generati dagli schemi, permessi delle azioni, libreria immagini, moduli, impostazioni email, consenso, sicurezza, installazione e cambio di template con ripristino; usa un database `outsmart_cms_test` separato, creato e distrutto ogni volta). `scripts/e2e-admin.mjs` (accesso, stile) e `scripts/e2e-editor.mjs` (pagine, blocchi, conflitti, pubblicazione, ruolo editor) e `scripts/e2e-media.mjs` (libreria immagini) `scripts/e2e-install.mjs` (installazione da zero, gestione dei template, anteprima isolata e ADMIN_HOSTS: 17 passi, database e cartelle temporanei), `scripts/e2e-consent.mjs` (consenso alla mappa: solo sito statico, non servono app né database; prova che Google non riceva richieste prima del consenso) `scripts/probe-security.mjs` (`npm run probe:security`: attacca l'app in esecuzione, 55 controlli) e `scripts/e2e-forms.mjs` (moduli: sito statico, salvataggio, email su un server SMTP di prova, elenco nell'admin; serve l'app avviata con `SMTP_HOST=127.0.0.1 SMTP_PORT=2525 MAIL_FROM=...`) sono prove end-to-end con un browser vero: servono un server attivo e un utente admin; salvano e pubblicano davvero e alla fine ripristinano il database ai file originali (`db:seed -- --force`).
+- **Indirizzo di accesso personalizzato.** Admin → Impostazioni → Accesso: scegli un indirizzo tuo (es. `/entrata-7k2x/login`); `/admin/login` risponde «non trovato» a chi non ha una sessione. Se lo perdi: `npm run admin:path -- --show` o `--reset`.
+
+- **Test.** `npm test` (184 test: token, password, sessioni, documenti, pubblicazione, validazione, form generati dagli schemi, permessi delle azioni, libreria immagini, moduli, impostazioni email, consenso, sicurezza, installazione e cambio di template con ripristino; usa un database `atena_cms_test` separato, creato e distrutto ogni volta). `scripts/e2e-admin.mjs` (accesso, stile) e `scripts/e2e-editor.mjs` (pagine, blocchi, conflitti, pubblicazione, ruolo editor) e `scripts/e2e-media.mjs` (libreria immagini) `scripts/e2e-install.mjs` (installazione da zero, gestione dei template, anteprima isolata e ADMIN_HOSTS: 17 passi, database e cartelle temporanei), `scripts/e2e-consent.mjs` (consenso alla mappa: solo sito statico, non servono app né database; prova che Google non riceva richieste prima del consenso) `scripts/probe-security.mjs` (`npm run probe:security`: attacca l'app in esecuzione, 55 controlli) e `scripts/e2e-forms.mjs` (moduli: sito statico, salvataggio, email su un server SMTP di prova, elenco nell'admin; serve l'app avviata con `SMTP_HOST=127.0.0.1 SMTP_PORT=2525 MAIL_FROM=...`) sono prove end-to-end con un browser vero: servono un server attivo e un utente admin; salvano e pubblicano davvero e alla fine ripristinano il database ai file originali (`db:seed -- --force`).
 - **Non ancora provato:** deploy su Infomaniak (Node.js Hosting): servono le variabili di `.env.example`, `TRUST_PROXY=1` dietro il proxy, e `SITE_OUT_DIR` puntato alla cartella servita.
 
 ### Editor di pagine e blocchi
@@ -85,7 +89,7 @@ npm run dev             # http://localhost:3000/admin
 
 ### Libreria immagini
 
-- **Dove stanno.** Le immagini del progetto sono in `assets/img/` (nel repository); i caricamenti in `MEDIA_DIR` (default `media/`, fuori da git e da `dist/`), sotto `uploads/`. Per il resto del sistema sono un'unica libreria con percorsi logici (`hero-mammano.jpg`, `uploads/foto-1a2b3c4d5e.webp`); la tabella `media` si allinea ai file a ogni apertura (`syncMedia`). I file spariti restano in tabella come "mancanti": se una pagina li usa si vede.
+- **Dove stanno.** Le immagini del progetto sono in `assets/img/` (nel repository); i caricamenti in `MEDIA_DIR` (default `media/`, fuori da git e da `dist/`), sotto `uploads/`. Per il resto del sistema sono un'unica libreria con percorsi logici (`hero.jpg`, `uploads/foto-1a2b3c4d5e.webp`); la tabella `media` si allinea ai file a ogni apertura (`syncMedia`). I file spariti restano in tabella come "mancanti": se una pagina li usa si vede.
 - **Caricamento** (`/admin/media`, e dal selettore dentro l'editor). Il tipo si riconosce dai byte iniziali, non da nome o Content-Type; libvips può usare solo i decodificatori JPEG, PNG e WebP (niente SVG, TIFF, HEIF, GIF); oltre 50 megapixel si rifiuta (una PNG di colore uniforme pesa poco ma occupa gigabyte da decodificare); il file viene sempre ricodificato in WebP (massimo 2400 px, orientamento EXIF applicato, **metadati e posizione GPS tolti**); il nome lo decide il server (`slug-hash.webp`), quello originale resta solo come informazione. Limite `MAX_UPLOAD_MB` (default 10). La route controlla sessione e `Origin` (contro le richieste da altri siti).
 - **Pubblicazione.** In `dist/` finiscono solo le immagini usate da pagine pubblicate, dati del sito e blocchi condivisi: un caricamento non ancora inserito non diventa pubblico. Se una pagina pubblicata usa un'immagine che non esiste, la pubblicazione si ferma **prima** di toccare il sito online. Larghezza e altezza (`width`/`height` nell'HTML) si leggono anche dai WebP.
 - **Eliminazione.** Solo per i caricamenti, e solo se nessuna bozza né versione online li usa; le immagini del progetto non si eliminano dall'admin. Il testo alternativo predefinito dell'immagine viene proposto quando la si inserisce in una pagina e si può cambiare caso per caso.
@@ -110,7 +114,7 @@ npm run dev             # http://localhost:3000/admin
 
 ### Pagine legali
 
-- `privacy`, `note-legali` e `cookie` (in `content/pages/`, blocchi Intestazione + Testo ricco) sono **testi dimostrativi** costruiti sui dati di Mammano e su come il sito funziona oggi (modulo di preventivo, nessun cookie proprio, mappa Google). Non sono un parere legale: vanno riletti e completati dal titolare o da un consulente.
+- `privacy`, `note-legali` e `cookie` (in `content/pages/`, blocchi Intestazione + Testo ricco) sono **testi dimostrativi** costruiti sui dati del sito di prova e su come il sito funziona oggi (modulo di preventivo, nessun cookie proprio, mappa Google). Non sono un parere legale: vanno riletti e completati dal titolare o da un consulente.
 - Le parti da completare sono in grassetto tra parentesi quadre (`[DA COMPLETARE: ...]`, `[DA CONFERMARE: ...]`, `[DA VERIFICARE: ...]`). Il controllo dei contenuti (`npm run validate` e la pubblicazione) le elenca come **avvisi**: non bloccano, ma finché ci sono, il testo non è pronto per il pubblico.
 - Il testo sui cookie descrive la mappa come caricata solo dopo il consenso: ora è vero (vedi sotto). Se si passa a iubenda va riletto, perché iubenda salva un proprio cookie tecnico con la scelta.
 
@@ -136,6 +140,7 @@ Revisione del 19 settembre 2026: tre controlli statici indipendenti del codice (
 - **Upload.** `Content-Length` obbligatorio (senza, `formData()` metterebbe tutto in memoria), al massimo 2 elaborazioni insieme, tetto di spazio `MEDIA_QUOTA_MB`.
 - **Pubblicazione.** Una alla volta (lock nel database, anche tra processi), cartella temporanea con nome unico, scambio con due `rename` (il sito non resta senza pagine).
 - **Configurazione.** `ajv` era tra le dipendenze di sviluppo ma serve a runtime (con `--omit=dev` l'admin non partiva): corretto. Intestazioni su admin e API (`Permissions-Policy`, `Cross-Origin-Opener-Policy`, HSTS solo se `APP_ORIGIN` è https, `nosniff`, `Referrer-Policy`, `no-store`). `.gitignore` copre ogni variante di `.env`. Gli script che cancellano dati (prove end-to-end, sonda, `db:seed --force`) **rifiutano di partire se `DB_HOST` non è locale**. Il server locale `npm run serve` ascolta solo su 127.0.0.1 e non esce dalla cartella.
+- **Articoli pianificati.** `npm run publish:due` (cron, una volta all'ora: `0 * * * *`) rifà il sito per gli articoli arrivati all'ora di uscita, pubblicando solo quelli. Se l'admin resta acceso lo fa da solo ogni ora (`instrumentation.js`).
 - **Pulizia dei dati.** `npm run purge` (da mettere in cron): elimina le richieste oltre `FORM_RETENTION_MONTHS`, le sessioni scadute, i vecchi tentativi di accesso e le versioni intermedie oltre le ultime 100 per documento.
 
 **Rischi noti che restano (decisioni da prendere):**
@@ -147,21 +152,6 @@ Revisione del 19 settembre 2026: tre controlli statici indipendenti del codice (
 - Il cookie di sessione non ha il prefisso `__Host-` (richiede https anche in sviluppo).
 - La cifratura della password SMTP deriva la chiave con un SHA-256 semplice di `SETTINGS_SECRET`: va bene per un segreto casuale generato da `env:init`, non per una frase scelta a mano.
 
-## Regressione visiva
-
-`reference/` contiene le pagine statiche del prototipo (senza note interne) con i loro asset, congelate: sono l'oracolo del renderer. Non si modificano.
-
-```sh
-npm run compare                                       # DOM: reference/ contro dist/ (con --head anche titolo, meta, JSON-LD)
-node scripts/shots.mjs reference <output>             # 9 pagine x (1440, 390) in modalità ?shot
-node scripts/shots.mjs dist <output>                  # idem sul sito generato (server locale automatico)
-node scripts/diff.mjs <prima> <dopo> --tol 10         # diff pixel, per fasce di 200 px
-```
-
-`assets/css/dev-shot.css` è solo per i test e viene iniettato dall'harness.
-
-Stato: 9/9 pagine con DOM identico; pixel identici su mobile e entro lo 0,06% su desktop, solo nella fascia dell'header (il selettore lingua non compare con una sola lingua online).
-
 ## Decisioni (18 set 2026)
 
 - Stack: Next.js. **Database: MySQL** (incluso in Infomaniak), una istanza per sito. Il multi-tenant può venire dopo.
@@ -171,7 +161,3 @@ Stato: 9/9 pagine con DOM identico; pixel identici su mobile e entro lo 0,06% su
 - Niente note interne nei blocchi.
 - Il sito pubblico è HTML statico generato da funzioni pure, non un'app React. Next.js serve per l'admin.
 - Database MySQL 8.4 in sviluppo (Docker), portabile su MariaDB (provato su 11.4).
-
-## Note
-
-- `assets/js/*.js` (effetti di scroll, contatori, anteprima cursore) è ancora quello del prototipo e dipende dai nomi delle classi.

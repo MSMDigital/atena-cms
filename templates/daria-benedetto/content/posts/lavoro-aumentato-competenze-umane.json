@@ -1,0 +1,34 @@
+{
+  "key": "lavoro-aumentato-competenze-umane",
+  "status": "published",
+  "slug": {
+    "it": "lavoro-aumentato-competenze-umane"
+  },
+  "title": {
+    "it": "Il lavoro aumentato dalla tecnologia: quali competenze umane contano"
+  },
+  "excerpt": {
+    "it": "Pensiero critico, giudizio e senso del ruolo: ciò che l’adozione dell’AI mette davvero al centro. (Articolo di esempio.)"
+  },
+  "image": {
+    "src": "giacca-rossa-ritratto.jpg",
+    "alt": {
+      "it": "Daria Benedetto sul palco"
+    }
+  },
+  "categories": [
+    "ai-lavoro"
+  ],
+  "date": "2026-08-30",
+  "author": "Daria Benedetto",
+  "blocks": [
+    {
+      "id": "testo-1",
+      "type": "text",
+      "surface": "light",
+      "content": {
+        "it": "<p><em>Articolo di esempio: sostituiscilo con un tuo testo.</em></p><p>Quando manca uno spazio di comprensione, aumentano resistenza, uso superficiale, confusione e delega non consapevole. La formazione tecnica funziona meglio quando viene accompagnata da ascolto, pensiero critico e capacità di integrare il nuovo nei processi reali.</p>"
+      }
+    }
+  ]
+}

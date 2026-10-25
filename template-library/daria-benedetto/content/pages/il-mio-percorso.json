@@ -1,0 +1,473 @@
+{
+  "key": "il-mio-percorso",
+  "status": "published",
+  "slug": {
+    "it": "il-mio-percorso"
+  },
+  "name": {
+    "it": "Il mio percorso"
+  },
+  "title": {
+    "it": "Il mio percorso | Daria Benedetto"
+  },
+  "description": {
+    "it": "Venticinque anni di comunicazione, marketing e trasformazione digitale, fino al coaching professionale: il percorso di Daria Benedetto, CEO di MSM Digital e Founder di TIAIUTO."
+  },
+  "blocks": [
+    {
+      "id": "percorso-1-hero",
+      "type": "hero-portrait",
+      "surface": "light",
+      "eyebrow": {
+        "it": "Il mio percorso"
+      },
+      "title": {
+        "it": "Sono arrivata al coaching attraversando 25 anni di cambiamento."
+      },
+      "lead": {
+        "it": "<p>Il mio percorso professionale nasce nella comunicazione e nel marketing, cresce dentro le aziende e attraversa la trasformazione digitale fino all’Intelligenza Artificiale.</p><p>Per 25 anni ho lavorato accanto a imprenditori, manager, team e professionisti mentre costruivano progetti, affrontavano crisi, ridefinivano strategie e cercavano il modo giusto per evolvere senza perdere la propria identità.</p>"
+      },
+      "brands": {
+        "label": {
+          "it": "CEO e Founder di"
+        },
+        "items": [
+          {
+            "image": {
+              "src": "logo-msm-digital.png",
+              "alt": {
+                "it": "MSM Digital"
+              }
+            },
+            "link": {
+              "type": "anchor",
+              "anchor": "msm"
+            }
+          },
+          {
+            "image": {
+              "src": "logo-tiaiuto.png",
+              "alt": {
+                "it": "TIAIUTO"
+              }
+            },
+            "link": {
+              "type": "anchor",
+              "anchor": "tiaiuto"
+            }
+          }
+        ]
+      },
+      "image": {
+        "src": "ritratto-percorso-abito-bianco.png",
+        "alt": {
+          "it": "Daria Benedetto in abito bianco"
+        }
+      },
+      "shape": "arch"
+    },
+    {
+      "id": "percorso-2-timeline",
+      "type": "timeline",
+      "surface": "brand",
+      "lead": {
+        "it": "Sono cambiati gli strumenti, i canali e le tecnologie. Il filo conduttore è rimasto lo stesso: le persone."
+      },
+      "items": [
+        {
+          "label": {
+            "it": "01"
+          },
+          "text": {
+            "it": "Comunicazione"
+          }
+        },
+        {
+          "label": {
+            "it": "02"
+          },
+          "text": {
+            "it": "Marketing e strategia"
+          }
+        },
+        {
+          "label": {
+            "it": "03"
+          },
+          "text": {
+            "it": "Trasformazione digitale"
+          }
+        },
+        {
+          "label": {
+            "it": "04"
+          },
+          "text": {
+            "it": "Intelligenza Artificiale"
+          }
+        },
+        {
+          "label": {
+            "it": "Oggi"
+          },
+          "text": {
+            "it": "Coaching professionale"
+          }
+        }
+      ]
+    },
+    {
+      "id": "percorso-3-cols",
+      "type": "columns",
+      "surface": "light",
+      "items": [
+        {
+          "title": {
+            "it": "Prima delle strategie, le persone"
+          },
+          "content": {
+            "it": "<p>Per molto tempo il mio lavoro è stato tradurre complessità in strategie. Analizzare un mercato, comprendere un pubblico, costruire un posizionamento, scegliere priorità e trasformare idee in progetti sostenibili.</p><p>Poi ho riconosciuto qualcosa che era sempre stato davanti a me: nessuna strategia prende vita da sola. Dietro ogni decisione c’è una persona. Con le sue risorse, le sue paure, il suo modo di interpretare ciò che sta accadendo e la responsabilità di scegliere cosa fare dopo.</p><p>Questa consapevolezza non ha cancellato il mio percorso. Gli ha dato un significato più profondo.</p>"
+          }
+        },
+        {
+          "title": {
+            "it": "Perché il coaching"
+          },
+          "content": {
+            "it": "<p>Il coaching è diventato l’evoluzione naturale del mio modo di lavorare. Mi consente di mettere al centro non soltanto il progetto o il risultato, ma la persona che deve renderli possibili.</p><p>Oggi accompagno professionisti e imprenditori nei momenti in cui sentono che il lavoro sta cambiando: quando serve scegliere, ridefinirsi, far emergere il proprio valore, attraversare un passaggio o costruire una direzione nuova.</p><p>Non porto nel coaching risposte standard. Porto domande, metodo, ascolto e la capacità di leggere il contesto professionale maturata in 25 anni di esperienza sul campo.</p>"
+          }
+        }
+      ]
+    },
+    {
+      "id": "percorso-4-competenze",
+      "type": "points",
+      "surface": "brand",
+      "layout": "tiles",
+      "header": {
+        "eyebrow": {
+          "it": "Competenze"
+        },
+        "title": {
+          "it": "Le competenze che porto con me"
+        }
+      },
+      "items": [
+        {
+          "icon": "target",
+          "title": {
+            "it": "Strategia"
+          },
+          "text": {
+            "it": "Strategia di business, marketing e comunicazione"
+          }
+        },
+        {
+          "icon": "sparkle",
+          "title": {
+            "it": "Brand e progetti"
+          },
+          "text": {
+            "it": "Costruzione e riposizionamento di brand e progetti"
+          }
+        },
+        {
+          "icon": "chip",
+          "title": {
+            "it": "Digitale e AI"
+          },
+          "text": {
+            "it": "Trasformazione digitale e adozione dell’Intelligenza Artificiale"
+          }
+        },
+        {
+          "icon": "graduation",
+          "title": {
+            "it": "Formazione"
+          },
+          "text": {
+            "it": "Formazione e sviluppo delle competenze"
+          }
+        },
+        {
+          "icon": "people",
+          "title": {
+            "it": "Organizzazioni"
+          },
+          "text": {
+            "it": "Lettura dei contesti organizzativi e delle dinamiche del cambiamento"
+          }
+        },
+        {
+          "icon": "compass",
+          "title": {
+            "it": "Coaching"
+          },
+          "text": {
+            "it": "Coaching professionale orientato a consapevolezza, scelta e azione"
+          },
+          "tone": "peach"
+        }
+      ],
+      "showNumbers": false,
+      "tileMin": 240,
+      "aside": {
+        "figure": {
+          "it": "25"
+        },
+        "text": {
+          "it": "anni di esperienza con aziende, imprenditori e professionisti"
+        }
+      }
+    },
+    {
+      "id": "percorso-5-progetti",
+      "type": "callout",
+      "surface": "light",
+      "eyebrow": {
+        "it": "I miei progetti"
+      },
+      "title": {
+        "it": "Due realtà, una stessa visione: il cambiamento parte dalle persone."
+      }
+    },
+    {
+      "id": "percorso-6-msm",
+      "type": "feature",
+      "surface": "brand",
+      "side": "right",
+      "anchor": "msm",
+      "kicker": {
+        "it": "CEO e Founder · Consulenza strategica e digitale"
+      },
+      "logo": {
+        "src": "logo-msm-digital.png",
+        "alt": {
+          "it": "MSM Digital"
+        }
+      },
+      "title": {
+        "it": "Strategia, comunicazione e trasformazione digitale."
+      },
+      "level": "h2",
+      "body": {
+        "it": "<p>MSM Digital è la realtà attraverso cui da anni affianco aziende e imprenditori nella strategia, nella comunicazione e nella trasformazione digitale.</p><p>È il luogo in cui la mia esperienza consulenziale continua a misurarsi con mercati, obiettivi, risultati e cambiamenti concreti.</p>"
+      },
+      "tags": [
+        {
+          "it": "Strategia"
+        },
+        {
+          "it": "Marketing"
+        },
+        {
+          "it": "Comunicazione"
+        },
+        {
+          "it": "Digitale e AI"
+        }
+      ],
+      "button": {
+        "label": {
+          "it": "Scopri MSM Digital"
+        },
+        "link": {
+          "type": "url",
+          "url": "https://msmdigital.it/"
+        },
+        "style": "primary"
+      },
+      "image": {
+        "src": "ritratto-msm-digital.png",
+        "alt": {
+          "it": "Daria Benedetto, CEO di MSM Digital"
+        }
+      },
+      "shape": "arch"
+    },
+    {
+      "id": "percorso-7-tiaiuto",
+      "type": "feature",
+      "surface": "light",
+      "side": "left",
+      "anchor": "tiaiuto",
+      "kicker": {
+        "it": "Founder · Coaching e formazione"
+      },
+      "logo": {
+        "src": "logo-tiaiuto-payoff.png",
+        "alt": {
+          "it": "TIAIUTO — Coaching per la tua vita lavorativa"
+        }
+      },
+      "title": {
+        "it": "Chiarezza personale. Direzione professionale."
+      },
+      "level": "h2",
+      "body": {
+        "it": "<p>Ho fondato TIAIUTO quando ho compreso che il cambiamento professionale aveva bisogno di uno spazio nuovo: capace di unire ascolto, coaching, formazione e conoscenza del mondo del lavoro.</p><p>TIAIUTO non nasce per dire alle persone chi devono diventare. Nasce per aiutarle a riconoscere ciò che stanno vivendo, dare un nome al cambiamento e costruire il proprio modo di attraversarlo.</p>"
+      },
+      "tags": [
+        {
+          "it": "Coaching"
+        },
+        {
+          "it": "Formazione"
+        },
+        {
+          "it": "Persone"
+        },
+        {
+          "it": "Organizzazioni"
+        }
+      ],
+      "button": {
+        "label": {
+          "it": "Scopri TIAIUTO"
+        },
+        "link": {
+          "type": "url",
+          "url": "https://tiaiuto.app/"
+        },
+        "style": "primary"
+      },
+      "image": {
+        "src": "ritratto-tiaiuto.png",
+        "alt": {
+          "it": "Daria Benedetto, Founder di TIAIUTO"
+        }
+      },
+      "shape": "arch"
+    },
+    {
+      "id": "percorso-8-credo",
+      "type": "points",
+      "surface": "dark",
+      "layout": "numbered",
+      "columns": 1,
+      "header": {
+        "title": {
+          "it": "Ciò in cui credo"
+        }
+      },
+      "items": [
+        {
+          "title": {
+            "it": "Che l’esperienza non sia qualcosa da difendere, ma una base da cui evolvere."
+          }
+        },
+        {
+          "title": {
+            "it": "Che le persone non vadano adattate passivamente al cambiamento."
+          }
+        },
+        {
+          "title": {
+            "it": "Che tecnologia e AI abbiano valore quando amplificano consapevolezza, giudizio e possibilità."
+          }
+        },
+        {
+          "title": {
+            "it": "Che ascoltare non significhi restare fermi, ma vedere meglio prima di agire."
+          }
+        },
+        {
+          "title": {
+            "it": "Che una direzione autentica debba essere anche concreta e sostenibile."
+          }
+        }
+      ]
+    },
+    {
+      "id": "percorso-9-cta",
+      "type": "cta",
+      "surface": "brand",
+      "text": {
+        "it": "Non porto risposte standard. <em>Porto domande, metodo e ascolto.</em>"
+      },
+      "buttons": [
+        {
+          "label": {
+            "it": "Scopri come lavoro"
+          },
+          "link": {
+            "type": "page",
+            "page": "coaching-professionale"
+          },
+          "style": "primary"
+        },
+        {
+          "label": {
+            "it": "Parliamone"
+          },
+          "link": {
+            "type": "page",
+            "page": "contatti"
+          },
+          "style": "secondary"
+        }
+      ]
+    },
+    {
+      "id": "percorso-10-reviews",
+      "type": "reviews",
+      "surface": "light",
+      "header": {
+        "eyebrow": {
+          "it": "Recensioni Google"
+        },
+        "title": {
+          "it": "Dicono di me"
+        }
+      },
+      "rating": {
+        "it": "[5,0] · [N] recensioni su Google"
+      },
+      "items": [
+        {
+          "quote": {
+            "it": "[Testo della recensione Google: due o tre frasi che raccontano l’esperienza di lavoro con Daria.]"
+          },
+          "name": {
+            "it": "[Nome Cognome]"
+          },
+          "role": {
+            "it": "[Ruolo / Azienda] · Recensione Google"
+          }
+        },
+        {
+          "quote": {
+            "it": "[Testo della recensione Google: due o tre frasi che raccontano l’esperienza di lavoro con Daria.]"
+          },
+          "name": {
+            "it": "[Nome Cognome]"
+          },
+          "role": {
+            "it": "[Ruolo / Azienda] · Recensione Google"
+          }
+        },
+        {
+          "quote": {
+            "it": "[Testo della recensione Google: due o tre frasi che raccontano l’esperienza di lavoro con Daria.]"
+          },
+          "name": {
+            "it": "[Nome Cognome]"
+          },
+          "role": {
+            "it": "[Ruolo / Azienda] · Recensione Google"
+          }
+        }
+      ],
+      "button": {
+        "label": {
+          "it": "Leggi tutte le recensioni su Google"
+        },
+        "link": {
+          "type": "url",
+          "url": "https://www.google.com/search?q=msm+digital+srl+-+daria+benedetto"
+        },
+        "style": "secondary"
+      }
+    }
+  ]
+}

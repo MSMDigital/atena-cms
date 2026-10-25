@@ -1,0 +1,44 @@
+{
+  "default": {
+    "surface": "dark",
+    "text": {
+      "it": "© 2026 Studio Esempio"
+    },
+    "columns": [
+      {
+        "title": {
+          "it": "Pagine"
+        },
+        "links": [
+          {
+            "label": {
+              "it": "Home"
+            },
+            "link": {
+              "type": "page",
+              "page": "home"
+            }
+          },
+          {
+            "label": {
+              "it": "Contatti"
+            },
+            "link": {
+              "type": "page",
+              "page": "contatti"
+            }
+          }
+        ]
+      }
+    ],
+    "legal": [],
+    "showCookiePreferences": true
+  },
+  "minimale": {
+    "surface": "light",
+    "text": {
+      "it": "© 2026 Studio Esempio"
+    },
+    "showCookiePreferences": true
+  }
+}

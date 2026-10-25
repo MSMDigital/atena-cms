@@ -20,7 +20,7 @@ const { query, closeDb } = await import('../lib/db.mjs');
 const D = await import('../lib/docs.mjs');
 const reset = async () => { await D.seedFromFiles({ force: true }); const r = await D.publishAll(null, { force: true }); assert.equal(r.ok, true, JSON.stringify(r)); };
 await query('DELETE FROM login_attempts WHERE email = ?', [E2E_EMAIL.toLowerCase()]);
-const KEEP_KEYS = fs.readdirSync(path.join(ROOT, 'templates/mammano/content/pages')).filter((f) => f.endsWith('.json')).map((f) => f.slice(0, -5));   // le pagine dei contenuti; le altre sono avanzi di prove
+const KEEP_KEYS = fs.readdirSync(path.join(ROOT, 'templates/starter/content/pages')).filter((f) => f.endsWith('.json')).map((f) => f.slice(0, -5));   // le pagine dei contenuti; le altre sono avanzi di prove
 await query("DELETE FROM docs WHERE kind = 'page' AND doc_key NOT IN (?)", [KEEP_KEYS]);
 await reset();
 
@@ -71,16 +71,16 @@ await step('elenco pagine: tutte le pagine dei contenuti, con indirizzo e stato'
   await goto('/admin/pages');
   assert.equal((await page.$$('.table tbody tr')).length, KEEP_KEYS.length);
   const text = await page.$eval('.table', (t) => t.textContent);
-  assert.match(text, /\/servizi\/traslochi-privati\//);
-  assert.match(text, /Chi siamo/);
+  assert.match(text, /\/moduli-interni\//);
+  assert.match(text, /Moduli/);
   await shot(page, '01-elenco-pagine');
 });
 
 await step('editor di pagina: blocchi in elenco e anteprima della pagina', async () => {
-  await goto('/admin/pages/chi-siamo');
+  await goto('/admin/pages/moduli-interni');
   await page.waitForSelector('li.item');
   const types = await page.$$eval('.blocks > .fld > ol.items > li.item .item__type', (els) => els.map((e) => e.textContent));
-  assert.deepEqual(types, ['Intestazione pagina', 'Blocco condiviso', 'Immagine larga', 'Testo + immagine', 'Voci', 'Tabella dati', 'CTA finale']);
+  assert.deepEqual(types, ['Intestazione pagina', 'Copertina con immagine e badge', 'Numeri', 'Nastro scorrevole', 'Voci', 'Voci', 'Voci', 'Voci', 'Testo + immagine', 'Galleria', 'Immagine larga', 'Zone servite', 'Tabella dati', 'CTA finale', 'Contatti', 'Testo ricco']);
   await previewUntil(() => !!document.querySelector('.intro h1'), null, 'manca il titolo della pagina');
   await shot(page, '02-editor-pagina');
 });
@@ -167,18 +167,18 @@ await step('immagine: cambia file e imposta il punto focale con un clic', async 
 });
 
 await step('salvataggio: la bozza persiste, il sito online non cambia', async () => {
-  const before = distHtml('chi-siamo');
+  const before = distHtml('moduli-interni');
   await save();
-  await goto('/admin/pages/chi-siamo');
+  await goto('/admin/pages/moduli-interni');
   await page.waitForSelector('li.item');
-  assert.equal((await page.$$('.blocks > .fld > ol.items > li.item')).length, 8, 'i blocchi salvati: i 7 originali + la FAQ');
-  assert.equal(distHtml('chi-siamo'), before, 'il sito pubblicato non deve cambiare');
+  assert.equal((await page.$$('.blocks > .fld > ol.items > li.item')).length, 17, 'i blocchi salvati: i 16 originali + la FAQ');
+  assert.equal(distHtml('moduli-interni'), before, 'il sito pubblicato non deve cambiare');
 });
 
 await step('modifiche concorrenti: due schede sulla stessa pagina, la seconda riceve un conflitto', async () => {
   const other = await browser.newPage();
   await other.setViewport({ width: 1700, height: 1000 });
-  await other.goto(E2E_URL + '/admin/pages/chi-siamo', { waitUntil: 'networkidle0' });
+  await other.goto(E2E_URL + '/admin/pages/moduli-interni', { waitUntil: 'networkidle0' });
   // scheda B modifica e salva
   await other.click('li.item[data-path="/blocks/0"] > .item__head .item__toggle');
   await other.waitForSelector('.fld[data-path="/blocks/0/title"] input');
@@ -194,23 +194,23 @@ await step('modifiche concorrenti: due schede sulla stessa pagina, la seconda ri
   await page.waitForFunction(() => /nel frattempo/.test(document.querySelector('.notice')?.textContent ?? ''), { timeout: 15000 });
   await shot(page, '06-conflitto');
   assert.equal(await page.$eval('xpath/.//button[normalize-space()="Salva bozza"]', (b) => b.disabled), true, 'con un conflitto il salvataggio resta bloccato');
-  assert.match(JSON.stringify((await D.getDoc('page', 'chi-siamo')).draft.blocks[0].title), /Scheda B/);
+  assert.match(JSON.stringify((await D.getDoc('page', 'moduli-interni')).draft.blocks[0].title), /Scheda B/);
 });
 
 await step('pubblicazione dalla pagina: FAQ e nuovo ordine arrivano sul sito', async () => {
-  await goto('/admin/pages/chi-siamo');
+  await goto('/admin/pages/moduli-interni');
   await page.waitForSelector('li.item');
   await publish();
-  const html = distHtml('chi-siamo');
+  const html = distHtml('moduli-interni');
   assert.match(html, /Domanda aggiunta dal test\?/);
   assert.match(html, /Scheda B/);
 });
 
 await step('nuova pagina: nasce in bozza, incompleta non blocca la pubblicazione', async () => {
-  await goto('/admin/pages');
-  await click('Nuova pagina');
+  await goto('/admin/pages/new');   // «Aggiungi pagina» apre la pagina con il modulo già aperto
+  await page.waitForSelector('.newpage input');
   await page.type('.newpage input', 'Pagina di prova');
-  await page.select('.newpage select', 'servizi');
+  await page.select('.newpage select', 'moduli');
   await click('Crea la pagina');
   await page.waitForFunction(() => location.pathname === '/admin/pages/pagina-di-prova', { timeout: 20000 });
   await page.waitForSelector('.editor__title');
@@ -221,34 +221,37 @@ await step('nuova pagina: nasce in bozza, incompleta non blocca la pubblicazione
   await page.evaluate(() => 1);
   const r = await D.publishAll(null);
   assert.equal(r.ok, true, JSON.stringify(r));
-  assert.equal(fs.existsSync(path.join(DIST, 'servizi/pagina-di-prova/index.html')), false);
+  assert.equal(fs.existsSync(path.join(DIST, 'moduli/pagina-di-prova/index.html')), false);
 });
 
 await step('completare e pubblicare la nuova pagina', async () => {
   await openItemSafe();
   async function openItemSafe() { await page.waitForSelector('.sec'); const open = await page.$eval('.sec', (d) => d.open); if (!open) await page.click('.sec > summary'); }
   await page.select(`${field('/status')} select`, 'published');
-  await setInput(`${field('/title')} input`, 'Pagina di prova | Mammano');
+  await setInput(`${field('/title')} input`, 'Pagina di prova | Studio Esempio');
   await setInput(`${field('/description')} textarea`, 'Una pagina creata dal test end-to-end.');
   await page.click('.blocks > .fld > .menu > button.add'); await page.waitForSelector('.menu__list');
   const [b] = await page.$$('xpath/.//ul[contains(@class,"menu__list")]//button[.//strong[text()="Testo ricco"]]');
   await b.click();
   await page.waitForSelector('li.item[data-path="/blocks/0"] > .item__body');
-  await setInput(`${field('/blocks/0/content')} textarea`, '<h2>Un titolo</h2><p>Un paragrafo con un <a href="page:contatti">link ai contatti</a>.</p>');
+  await page.click(`${field('/blocks/0/content')} button[aria-pressed]`);   // il testo ricco ha l'editor visuale: il codice si scrive nella vista «Codice»
+  await page.waitForSelector(`${field('/blocks/0/content')} textarea.rf__code`);
+  await setInput(`${field('/blocks/0/content')} textarea.rf__code`, '<h2>Un titolo</h2><p>Un paragrafo con un <a href="page:contatti">link ai contatti</a>.</p>');
+  await page.click('.editor__title');   // il codice si applica quando il campo perde il fuoco
   await previewUntil(() => !!document.querySelector('.prose h2') && !!document.querySelector('.prose a'), null, 'il testo ricco non compare');
-  await page.waitForFunction(() => !document.querySelector('.summary .bad'), { timeout: 10000 });
+  await page.waitForFunction(() => !document.querySelector('.summary .bad'), { timeout: 10000 }).catch(async () => { throw new Error(`ci sono ancora errori nel riepilogo: ${await page.$eval('.summary', (e) => e.textContent).catch(() => '(nessun riepilogo)')}`); });
   await save();
   await publish();
-  const html = distHtml('servizi/pagina-di-prova');
+  const html = distHtml('moduli/pagina-di-prova');
   assert.match(html, /<h2>Un titolo<\/h2>/);
   assert.match(html, /href="\/contatti\/"/, 'il link a pagina diventa l\'indirizzo vero');
-  assert.match(html, /<title>Pagina di prova \| Mammano<\/title>/);
-  assert.match(distHtml('servizi'), /<html/);
+  assert.match(html, /<title>Pagina di prova \| Studio Esempio<\/title>/);
+  assert.match(distHtml('moduli'), /<html/);
   await shot(page, '08-pagina-pubblicata');
 });
 
 await step('eliminare: le pagine usate sono protette, quella di prova sparisce dal sito', async () => {
-  await goto('/admin/pages/servizi');
+  await goto('/admin/pages/moduli');
   await page.waitForSelector('.mini--danger');
   await page.click('.mini--danger');
   await page.waitForFunction(() => /ancora usata/.test(document.querySelector('.notice')?.textContent ?? ''), { timeout: 15000 });
@@ -259,10 +262,10 @@ await step('eliminare: le pagine usate sono protette, quella di prova sparisce d
   await page.waitForFunction(() => location.pathname === '/admin/pages', { timeout: 20000 });
   await pause(500);
   assert.equal((await D.listDocs()).find((d) => d.key === 'pagina-di-prova').state, 'deleted');
-  assert.equal(fs.existsSync(path.join(DIST, 'servizi/pagina-di-prova/index.html')), true, 'online finché non si pubblica');
+  assert.equal(fs.existsSync(path.join(DIST, 'moduli/pagina-di-prova/index.html')), true, 'online finché non si pubblica');
   const r = await D.publishAll(null);
   assert.equal(r.ok, true, JSON.stringify(r));
-  assert.equal(fs.existsSync(path.join(DIST, 'servizi/pagina-di-prova/index.html')), false, 'sparita dal sito');
+  assert.equal(fs.existsSync(path.join(DIST, 'moduli/pagina-di-prova/index.html')), false, 'sparita dal sito');
 });
 
 await step('dati del sito e blocchi condivisi: l\'anteprima cambia per tutte le pagine', async () => {
@@ -307,7 +310,7 @@ await step('consenso ai contenuti di terzi: da "Dati del sito" si passa a iubend
 });
 
 await step('CSP: uno script o un onerror aggiunto alla pagina admin o all\'anteprima non viene eseguito', async () => {
-  await goto('/admin/pages/chi-siamo');
+  await goto('/admin/pages/moduli-interni');
   await page.waitForSelector('li.item');
   await previewUntil(() => !!document.querySelector('.footer'), null, 'l\'anteprima non compare');
   const before = consoleErrors.length;
@@ -325,7 +328,7 @@ await step('CSP: uno script o un onerror aggiunto alla pagina admin o all\'antep
 await step('sicurezza: le azioni dell\'editor chiedono l\'accesso e rispettano i ruoli', async () => {
   const anon = await browser.createBrowserContext();
   const p = await anon.newPage();
-  const res = await p.goto(E2E_URL + '/admin/pages/chi-siamo', { waitUntil: 'networkidle0' });
+  const res = await p.goto(E2E_URL + '/admin/pages/moduli-interni', { waitUntil: 'networkidle0' });
   assert.match(p.url(), /\/admin\/login/);
   await anon.close();
 });
@@ -334,7 +337,9 @@ await step('ruolo editor: modifica pagine e blocchi condivisi, non vede stile, d
   const { hashPassword } = await import('../lib/password.mjs');
   const pw = 'editor-di-prova-' + Math.random().toString(36).slice(2, 10);
   await query('DELETE FROM users WHERE email = ?', ['editor.e2e@example.ch']);
-  await query("INSERT INTO users (email, name, password_hash, role) VALUES ('editor.e2e@example.ch', 'Editor di prova', ?, 'editor')", [await hashPassword(pw)]);
+  await query("INSERT INTO users (email, name, password_hash, role) VALUES ('editor.e2e@example.ch', 'Autore di prova', ?, 'author')", [await hashPassword(pw)]);
+  const authorId = (await query("SELECT id FROM users WHERE email = 'editor.e2e@example.ch'"))[0].id;
+  await query("UPDATE docs SET created_by = ? WHERE kind = 'page' AND doc_key = 'contatti'", [authorId]);   // un autore modifica solo i propri contenuti
   const ctx2 = await browser.createBrowserContext();
   const p = await ctx2.newPage();
   await p.setViewport({ width: 1700, height: 1000 });
@@ -344,12 +349,13 @@ await step('ruolo editor: modifica pagine e blocchi condivisi, non vede stile, d
     await p.type('input[name=email]', 'editor.e2e@example.ch'); await p.type('input[name=password]', pw);
     await p.click('button.btn--primary');
     await p.waitForFunction(() => location.pathname === '/admin', { timeout: 30000 });
-    const nav = await p.$$eval('.topbar__nav a', (as) => as.map((a) => a.childNodes[0].textContent));   // senza il numero delle richieste nuove
-    assert.deepEqual(nav, ['Panoramica', 'Pagine', 'Condivisi', 'Immagini', 'Richieste'], "l'editor non vede Sito e Stile, ma usa immagini e richieste");
+    const nav = await p.$$eval('.sidebar a', (as) => as.map((a) => a.textContent.trim()));
+    for (const yes of ['Bacheca', 'Media', 'Pagine']) assert.ok(nav.includes(yes), `l'autore vede «${yes}»`);
+    for (const no of ['Richieste', 'Utenti', 'Aspetto', 'Impostazioni']) assert.ok(!nav.includes(no), `l'autore non vede «${no}»`);
     await p.goto(E2E_URL + '/admin/requests', { waitUntil: 'networkidle0' });
-    assert.equal(await p.$eval('h1', (e) => e.textContent), 'Richieste', "l'editor vede le richieste");
+    assert.match(p.url(), /\/admin\?negato=1/, "l'autore non vede le richieste");
     await p.goto(E2E_URL + '/admin/media', { waitUntil: 'networkidle0' });
-    assert.ok((await p.$$('.mcell')).length >= 36, "l'editor vede la libreria immagini");
+    assert.ok((await p.$$('.mcell')).length >= 1, "l'autore vede la libreria immagini");
     for (const denied of ['/admin/site', '/admin/style']) {
       await p.goto(E2E_URL + denied, { waitUntil: 'networkidle0' });
       assert.match(p.url(), /\/admin\?negato=1/, `${denied} deve respingere l'editor`);
@@ -367,8 +373,10 @@ await step('ruolo editor: modifica pagine e blocchi condivisi, non vede stile, d
     await p.click('xpath/.//button[normalize-space()="Salva bozza"]');
     await p.waitForFunction(() => /salvata/.test(document.querySelector('.notice')?.textContent ?? ''), { timeout: 15000 });
     assert.match(JSON.stringify((await D.getDoc('page', 'contatti')).draft.blocks[0].title), /scritto da un editor/);
+    await p.goto(E2E_URL + '/admin/pages/privacy', { waitUntil: 'networkidle0' });
+    assert.match(p.url(), /\/admin\?negato=1/, "l'autore non apre le pagine degli altri");
     await p.goto(E2E_URL + '/admin', { waitUntil: 'networkidle0' });
-    assert.equal((await p.$$('xpath/.//button[normalize-space()="Pubblica le modifiche"]')).length, 0, "l'editor non pubblica");
+    assert.equal((await p.$$('xpath/.//button[normalize-space()="Pubblica le modifiche"]')).length, 0, "l'autore non pubblica");
     await shot(p, '10-editor-panoramica');
   } finally {
     await ctx2.close();

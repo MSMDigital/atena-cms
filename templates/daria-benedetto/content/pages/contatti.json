@@ -1,0 +1,201 @@
+{
+  "key": "contatti",
+  "status": "published",
+  "slug": {
+    "it": "contatti"
+  },
+  "name": {
+    "it": "Contatti"
+  },
+  "title": {
+    "it": "Contatti | Daria Benedetto"
+  },
+  "description": {
+    "it": "Raccontami da dove parti: un percorso di coaching, un intervento in azienda o un invito a un evento. Ti risponderò per capire se e come posso esserti utile."
+  },
+  "blocks": [
+    {
+      "id": "contatti-1-form",
+      "type": "form",
+      "surface": "light",
+      "profile": {
+        "title": {
+          "it": "Ogni cambiamento comincia da una conversazione."
+        },
+        "lead": {
+          "it": "<p>Se stai attraversando un passaggio professionale, vuoi portare un percorso nella tua azienda o desideri invitarmi a un evento, raccontami da dove parti e che cosa vorresti comprendere o costruire.</p><p>Ti risponderò per capire se e come posso esserti utile.</p>"
+        },
+        "image": {
+          "src": "ritratto-contatti.jpg",
+          "alt": {
+            "it": "Daria Benedetto"
+          }
+        },
+        "name": {
+          "it": "Daria Benedetto"
+        },
+        "role": {
+          "it": "Business Strategist · Coach professionale\nCEO MSM Digital e Founder di TIAIUTO"
+        },
+        "socials": [
+          {
+            "label": {
+              "it": "LinkedIn"
+            },
+            "network": "linkedin",
+            "link": {
+              "type": "url",
+              "url": "https://www.linkedin.com/in/dariabenedetto/"
+            }
+          },
+          {
+            "label": {
+              "it": "Instagram"
+            },
+            "network": "instagram",
+            "link": {
+              "type": "url",
+              "url": "https://www.instagram.com/daria_benedetto/"
+            }
+          },
+          {
+            "label": {
+              "it": "TikTok"
+            },
+            "network": "tiktok",
+            "link": {
+              "type": "url",
+              "url": "https://www.tiktok.com/@daria_benedetto"
+            }
+          },
+          {
+            "label": {
+              "it": "YouTube"
+            },
+            "network": "youtube",
+            "link": {
+              "type": "url",
+              "url": "https://www.youtube.com/@dariabenedetto"
+            }
+          },
+          {
+            "label": {
+              "it": "Profilo Amazon"
+            },
+            "network": "amazon",
+            "link": {
+              "type": "url",
+              "url": "https://www.amazon.it/shop/daria_benedetto"
+            }
+          }
+        ]
+      },
+      "header": {
+        "title": {
+          "it": "Di cosa vorresti parlare?"
+        },
+        "level": "h2"
+      },
+      "label": {
+        "it": "Richiesta di contatto"
+      },
+      "fields": [
+        {
+          "name": "argomento",
+          "type": "select",
+          "label": {
+            "it": "Di cosa vorresti parlare?"
+          },
+          "required": true,
+          "width": "full",
+          "options": [
+            {
+              "it": "Vorrei informazioni su un percorso di coaching professionale."
+            },
+            {
+              "it": "Rappresento un’azienda e vorrei progettare un intervento."
+            },
+            {
+              "it": "Vorrei invitarti come speaker o formatrice."
+            },
+            {
+              "it": "Ho una proposta di collaborazione."
+            },
+            {
+              "it": "Altro."
+            }
+          ]
+        },
+        {
+          "name": "nome",
+          "type": "text",
+          "label": {
+            "it": "Nome e cognome"
+          },
+          "required": true,
+          "autocomplete": "name",
+          "width": "half"
+        },
+        {
+          "name": "email",
+          "type": "email",
+          "label": {
+            "it": "Email"
+          },
+          "required": true,
+          "autocomplete": "email",
+          "width": "half"
+        },
+        {
+          "name": "ruolo",
+          "type": "text",
+          "label": {
+            "it": "Ruolo / Azienda"
+          },
+          "required": false,
+          "autocomplete": "organization-title",
+          "width": "full"
+        },
+        {
+          "name": "situazione",
+          "type": "textarea",
+          "label": {
+            "it": "Che cosa stai vivendo o cercando?"
+          },
+          "required": true,
+          "width": "full"
+        },
+        {
+          "name": "aiuto",
+          "type": "textarea",
+          "label": {
+            "it": "In che modo pensi che potrei esserti utile?"
+          },
+          "required": false,
+          "width": "full"
+        },
+        {
+          "name": "privacy",
+          "type": "consent",
+          "label": {
+            "it": "Userò i tuoi dati esclusivamente per rispondere alla richiesta, secondo l’<a href=\"page:privacy\">informativa privacy</a>."
+          },
+          "required": true,
+          "width": "full"
+        }
+      ],
+      "submitLabel": {
+        "it": "Invia il messaggio"
+      },
+      "successMessage": {
+        "it": "Grazie! Ho ricevuto il tuo messaggio e ti risponderò appena possibile."
+      },
+      "delivery": {
+        "recipients": [
+          "info@dariabenedetto.it"
+        ],
+        "subject": "Nuovo messaggio dal sito"
+      }
+    }
+  ]
+}

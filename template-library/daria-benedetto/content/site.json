@@ -1,0 +1,151 @@
+{
+  "siteUrl": "https://www.dariabenedetto.it",
+  "locales": {
+    "default": "it",
+    "enabled": [
+      "it"
+    ],
+    "tags": {
+      "it": "it-IT",
+      "de": "de-CH",
+      "fr": "fr-CH"
+    }
+  },
+  "brand": {
+    "name": "Daria Benedetto",
+    "tagline": {
+      "it": "Business Strategist · Coach professionista"
+    }
+  },
+  "consent": {
+    "provider": "builtin"
+  },
+  "strings": {
+    "mapConsentText": {
+      "it": "Per vedere la mappa serve il vostro consenso: caricandola, Google riceve il vostro indirizzo IP e può salvare propri cookie."
+    },
+    "mapShowButton": {
+      "it": "Mostra la mappa"
+    },
+    "mapManageButton": {
+      "it": "Gestisci le preferenze"
+    },
+    "mapOpenLink": {
+      "it": "Apri in Google Maps"
+    },
+    "cookiePreferences": {
+      "it": "Preferenze cookie"
+    },
+    "skipLink": {
+      "it": "Vai al contenuto"
+    },
+    "navLabel": {
+      "it": "Principale"
+    },
+    "optionalSuffix": {
+      "it": "(facoltativo)"
+    },
+    "selectPlaceholder": {
+      "it": "Seleziona"
+    },
+    "formError": {
+      "it": "Non siamo riusciti a inviare la richiesta. Riprovate tra poco."
+    },
+    "breadcrumbHome": {
+      "it": "Home"
+    },
+    "breadcrumbLabel": {
+      "it": "Percorso"
+    },
+    "summaryTitle": {
+      "it": "In breve"
+    }
+  },
+  "seo": {
+    "siteName": "Daria Benedetto",
+    "favicon": "favicon.png"
+  },
+  "organization": {
+    "type": "ProfessionalService",
+    "name": "Daria Benedetto",
+    "description": {
+      "it": "Daria Benedetto, Business Strategist e Coach professionista, CEO di MSM Digital e Founder di TIAIUTO. Da 25 anni accompagna persone e aziende nei momenti in cui è necessario cambiare."
+    },
+    "foundingYear": 2020,
+    "email": "info@dariabenedetto.it",
+    "address": {
+      "street": "Via Esempio 1",
+      "zip": "22100",
+      "city": "Como",
+      "region": "CO",
+      "country": "IT"
+    },
+    "hours": [
+      {
+        "days": [
+          "Mo",
+          "Tu",
+          "We",
+          "Th",
+          "Fr"
+        ],
+        "opens": "09:00",
+        "closes": "18:00"
+      }
+    ],
+    "areaServed": [
+      "Como",
+      "Lombardia",
+      "Italia"
+    ],
+    "languages": [
+      "it"
+    ],
+    "social": [
+      "https://www.linkedin.com/in/dariabenedetto/",
+      "https://www.instagram.com/daria_benedetto/",
+      "https://www.tiktok.com/@daria_benedetto",
+      "https://www.youtube.com/@dariabenedetto",
+      "https://www.amazon.it/shop/daria_benedetto",
+      "https://www.google.com/search?q=msm+digital+srl+-+daria+benedetto"
+    ]
+  },
+  "geo": {
+    "summary": {
+      "it": "Daria Benedetto è Business Strategist e Coach professionista, Founder di TIAIUTO e CEO di MSM Digital. Da 25 anni accompagna persone, professionisti e aziende nei processi di cambiamento: coaching professionale e formazione."
+    },
+    "facts": [
+      {
+        "label": {
+          "it": "Ruolo"
+        },
+        "value": {
+          "it": "Business Strategist e Coach professionista"
+        }
+      },
+      {
+        "label": {
+          "it": "Esperienza"
+        },
+        "value": {
+          "it": "25 anni con aziende e professionisti"
+        }
+      },
+      {
+        "label": {
+          "it": "Sede"
+        },
+        "value": {
+          "it": "Como"
+        }
+      }
+    ]
+  },
+  "crawling": {
+    "mode": "open",
+    "aiTraining": "allow",
+    "aiSearch": "allow",
+    "aiUser": "allow",
+    "honorNoai": true
+  }
+}

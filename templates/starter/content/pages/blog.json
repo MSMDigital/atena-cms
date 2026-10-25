@@ -1,0 +1,40 @@
+{
+  "key": "blog",
+  "status": "published",
+  "slug": {
+    "it": "blog"
+  },
+  "name": {
+    "it": "Blog"
+  },
+  "title": {
+    "it": "Blog | Studio Esempio"
+  },
+  "description": {
+    "it": "Gli articoli di Studio Esempio, per categoria."
+  },
+  "contentType": "collection",
+  "blocks": [
+    {
+      "id": "blog-1-posts",
+      "type": "posts-list",
+      "surface": "light",
+      "eyebrow": {
+        "it": "Blog"
+      },
+      "title": {
+        "it": "Tutti gli articoli"
+      },
+      "limit": 12,
+      "layout": "cards",
+      "showImage": true,
+      "showExcerpt": true,
+      "showDate": true,
+      "showCategories": true,
+      "showCategoryNav": true,
+      "readMore": {
+        "it": "Leggi"
+      }
+    }
+  ]
+}

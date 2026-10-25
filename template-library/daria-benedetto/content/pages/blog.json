@@ -1,0 +1,232 @@
+{
+  "key": "blog",
+  "status": "published",
+  "slug": {
+    "it": "pensiero"
+  },
+  "name": {
+    "it": "Pensiero"
+  },
+  "title": {
+    "it": "Pensiero | Daria Benedetto"
+  },
+  "description": {
+    "it": "Articoli, video e riflessioni su cambiamento professionale, leadership, comunicazione, competenze, digitale e Intelligenza Artificiale."
+  },
+  "contentType": "collection",
+  "blocks": [
+    {
+      "id": "pensiero-1-hero",
+      "type": "hero-portrait",
+      "surface": "light",
+      "eyebrow": {
+        "it": "Pensiero"
+      },
+      "title": {
+        "it": "Idee per comprendere il lavoro che cambia."
+      },
+      "lead": {
+        "it": "<p>Uno spazio dedicato a ciò che osservo, studio e imparo lavorando con persone e aziende: cambiamento professionale, identità, leadership, marketing, comunicazione, competenze, digitale e Intelligenza Artificiale.</p><p>Non cerco risposte facili a fenomeni complessi. Cerco connessioni utili, domande capaci di aprire possibilità e strumenti che possano entrare nel lavoro reale.</p>"
+      }
+    },
+    {
+      "id": "pensiero-2-manifesto",
+      "type": "feature",
+      "surface": "brand",
+      "side": "left",
+      "eyebrow": {
+        "it": "In evidenza · Manifesto"
+      },
+      "title": {
+        "it": "Il cambiamento comincia dall’ascolto."
+      },
+      "level": "h2",
+      "body": {
+        "it": "<p>Ho passato 25 anni a lavorare dentro il cambiamento. E ho imparato una cosa: le trasformazioni non cominciano dagli strumenti. Cominciano dalle persone.</p><p>Credo nella tecnologia quando amplia le possibilità umane, non quando sostituisce il pensiero.</p>"
+      },
+      "button": {
+        "label": {
+          "it": "Leggi il manifesto"
+        },
+        "link": {
+          "type": "page",
+          "page": "post-il-cambiamento-comincia-dallascolto"
+        },
+        "style": "primary"
+      },
+      "image": {
+        "src": "camicia-bianca.jpg",
+        "alt": {
+          "it": "Daria Benedetto"
+        }
+      },
+      "shape": "rounded"
+    },
+    {
+      "id": "pensiero-3-posts",
+      "type": "posts-list",
+      "surface": "light",
+      "title": {
+        "it": "Articoli, video e riflessioni"
+      },
+      "limit": 12,
+      "layout": "cards",
+      "showImage": true,
+      "showExcerpt": true,
+      "showDate": true,
+      "showCategories": true,
+      "showCategoryNav": true,
+      "readMore": {
+        "it": "Leggi"
+      }
+    },
+    {
+      "id": "pensiero-4-dove",
+      "type": "points",
+      "surface": "brand",
+      "layout": "links",
+      "columns": 3,
+      "header": {
+        "eyebrow": {
+          "it": "Dove pubblico"
+        },
+        "title": {
+          "it": "Il pensiero continua sui miei canali."
+        }
+      },
+      "items": [
+        {
+          "title": {
+            "it": "LinkedIn"
+          },
+          "text": {
+            "it": "Articoli e riflessioni"
+          },
+          "link": {
+            "type": "url",
+            "url": "https://www.linkedin.com/in/dariabenedetto/"
+          }
+        },
+        {
+          "title": {
+            "it": "YouTube"
+          },
+          "text": {
+            "it": "Video e interventi"
+          },
+          "link": {
+            "type": "url",
+            "url": "https://www.youtube.com/@dariabenedetto"
+          }
+        },
+        {
+          "title": {
+            "it": "Instagram"
+          },
+          "text": {
+            "it": "Spunti quotidiani"
+          },
+          "link": {
+            "type": "url",
+            "url": "https://www.instagram.com/daria_benedetto/"
+          }
+        },
+        {
+          "title": {
+            "it": "TikTok"
+          },
+          "text": {
+            "it": "Pillole brevi"
+          },
+          "link": {
+            "type": "url",
+            "url": "https://www.tiktok.com/@daria_benedetto"
+          }
+        },
+        {
+          "title": {
+            "it": "Amazon"
+          },
+          "text": {
+            "it": "Libri su leadership, AI e molto altro"
+          },
+          "link": {
+            "type": "url",
+            "url": "https://www.amazon.it/shop/daria_benedetto"
+          }
+        },
+        {
+          "title": {
+            "it": "Google Business Profile"
+          },
+          "text": {
+            "it": "Recensioni"
+          },
+          "link": {
+            "type": "url",
+            "url": "https://www.google.com/search?q=msm+digital+srl+-+daria+benedetto"
+          }
+        }
+      ]
+    },
+    {
+      "id": "pensiero-5-newsletter",
+      "type": "form",
+      "surface": "dark",
+      "header": {
+        "eyebrow": {
+          "it": "Newsletter"
+        },
+        "title": {
+          "it": "Ricevi riflessioni, strumenti e domande utili per attraversare il cambiamento con maggiore consapevolezza."
+        }
+      },
+      "label": {
+        "it": "Iscrizione alla newsletter"
+      },
+      "fields": [
+        {
+          "name": "nome",
+          "type": "text",
+          "label": {
+            "it": "Nome"
+          },
+          "required": true,
+          "autocomplete": "given-name",
+          "width": "half"
+        },
+        {
+          "name": "email",
+          "type": "email",
+          "label": {
+            "it": "Email"
+          },
+          "required": true,
+          "autocomplete": "email",
+          "width": "half"
+        },
+        {
+          "name": "privacy",
+          "type": "consent",
+          "label": {
+            "it": "Userò i tuoi dati esclusivamente per inviarti la newsletter, secondo l’<a href=\"page:privacy\">informativa privacy</a>."
+          },
+          "required": true,
+          "width": "full"
+        }
+      ],
+      "submitLabel": {
+        "it": "Iscriviti alla newsletter"
+      },
+      "successMessage": {
+        "it": "Grazie! Ti ho iscritto: riceverai le prossime riflessioni."
+      },
+      "delivery": {
+        "recipients": [
+          "info@dariabenedetto.it"
+        ],
+        "subject": "Nuova iscrizione alla newsletter"
+      }
+    }
+  ]
+}

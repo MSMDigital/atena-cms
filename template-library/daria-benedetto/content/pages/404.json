@@ -1,0 +1,113 @@
+{
+  "key": "404",
+  "status": "published",
+  "noindex": true,
+  "slug": {
+    "it": "404"
+  },
+  "name": {
+    "it": "Pagina non trovata"
+  },
+  "title": {
+    "it": "Pagina non trovata (404) | Daria Benedetto"
+  },
+  "description": {
+    "it": "La pagina che cerchi non esiste o è stata spostata."
+  },
+  "blocks": [
+    {
+      "id": "404-1-callout",
+      "type": "callout",
+      "surface": "brand",
+      "eyebrow": {
+        "it": "Errore 404"
+      },
+      "title": {
+        "it": "Questa pagina non c’è (più)."
+      },
+      "text": {
+        "it": "L’indirizzo che hai aperto non esiste, oppure è stato spostato. Torna alla home o scegli da dove ripartire."
+      },
+      "button": {
+        "label": {
+          "it": "Torna alla home"
+        },
+        "link": {
+          "type": "page",
+          "page": "home"
+        },
+        "style": "primary"
+      },
+      "padding": {
+        "top": "lg",
+        "bottom": "sm"
+      }
+    },
+    {
+      "id": "404-2-points",
+      "type": "points",
+      "surface": "brand",
+      "layout": "links",
+      "columns": 2,
+      "header": {
+        "title": {
+          "it": "Da dove vuoi ripartire?"
+        },
+        "level": "h3"
+      },
+      "items": [
+        {
+          "title": {
+            "it": "Il mio percorso"
+          },
+          "text": {
+            "it": "25 anni di cambiamento, fino al coaching."
+          },
+          "link": {
+            "type": "page",
+            "page": "il-mio-percorso"
+          }
+        },
+        {
+          "title": {
+            "it": "Coaching professionale"
+          },
+          "text": {
+            "it": "Uno spazio di ascolto, consapevolezza e azione."
+          },
+          "link": {
+            "type": "page",
+            "page": "coaching-professionale"
+          }
+        },
+        {
+          "title": {
+            "it": "Pensiero"
+          },
+          "text": {
+            "it": "Articoli e riflessioni sul lavoro che cambia."
+          },
+          "link": {
+            "type": "page",
+            "page": "blog"
+          }
+        },
+        {
+          "title": {
+            "it": "Contatti"
+          },
+          "text": {
+            "it": "Raccontami da dove parti."
+          },
+          "link": {
+            "type": "page",
+            "page": "contatti"
+          }
+        }
+      ],
+      "padding": {
+        "top": "none"
+      }
+    }
+  ]
+}

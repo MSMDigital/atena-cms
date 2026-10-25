@@ -1,0 +1,199 @@
+{
+  "default": {
+    "surface": "light",
+    "brandTitle": {
+      "it": "Daria Benedetto"
+    },
+    "intro": {
+      "it": "Daria Benedetto è Business Strategist e Coach professionale, Founder di TIAIUTO. Da 25 anni accompagna aziende, imprenditori e professionisti nei processi di cambiamento."
+    },
+    "logos": [
+      {
+        "image": {
+          "src": "logo-tiaiuto.png",
+          "alt": {
+            "it": "TIAIUTO"
+          }
+        },
+        "link": {
+          "type": "url",
+          "url": "https://tiaiuto.app/"
+        }
+      },
+      {
+        "image": {
+          "src": "logo-msm-digital.png",
+          "alt": {
+            "it": "MSM Digital"
+          }
+        },
+        "link": {
+          "type": "url",
+          "url": "https://msmdigital.it/"
+        }
+      }
+    ],
+    "tagline": {
+      "it": "TIAIUTO — Coaching per il lavoro che cambia."
+    },
+    "columns": [
+      {
+        "links": [
+          {
+            "label": {
+              "it": "Home"
+            },
+            "link": {
+              "type": "page",
+              "page": "home"
+            }
+          },
+          {
+            "label": {
+              "it": "Il mio percorso"
+            },
+            "link": {
+              "type": "page",
+              "page": "il-mio-percorso"
+            }
+          },
+          {
+            "label": {
+              "it": "Coaching professionale"
+            },
+            "link": {
+              "type": "page",
+              "page": "coaching-professionale"
+            }
+          },
+          {
+            "label": {
+              "it": "Aziende & Formazione"
+            },
+            "link": {
+              "type": "page",
+              "page": "aziende-formazione"
+            }
+          },
+          {
+            "label": {
+              "it": "TIAIUTO"
+            },
+            "link": {
+              "type": "url",
+              "url": "https://tiaiuto.app/"
+            }
+          },
+          {
+            "label": {
+              "it": "Pensiero"
+            },
+            "link": {
+              "type": "page",
+              "page": "blog"
+            }
+          },
+          {
+            "label": {
+              "it": "Contatti"
+            },
+            "link": {
+              "type": "page",
+              "page": "contatti"
+            }
+          }
+        ]
+      }
+    ],
+    "socialTitle": {
+      "it": "Seguimi"
+    },
+    "socials": [
+      {
+        "label": {
+          "it": "LinkedIn"
+        },
+        "network": "linkedin",
+        "link": {
+          "type": "url",
+          "url": "https://www.linkedin.com/in/dariabenedetto/"
+        }
+      },
+      {
+        "label": {
+          "it": "Instagram"
+        },
+        "network": "instagram",
+        "link": {
+          "type": "url",
+          "url": "https://www.instagram.com/daria_benedetto/"
+        }
+      },
+      {
+        "label": {
+          "it": "TikTok"
+        },
+        "network": "tiktok",
+        "link": {
+          "type": "url",
+          "url": "https://www.tiktok.com/@daria_benedetto"
+        }
+      },
+      {
+        "label": {
+          "it": "YouTube"
+        },
+        "network": "youtube",
+        "link": {
+          "type": "url",
+          "url": "https://www.youtube.com/@dariabenedetto"
+        }
+      },
+      {
+        "label": {
+          "it": "Profilo Amazon"
+        },
+        "network": "amazon",
+        "link": {
+          "type": "url",
+          "url": "https://www.amazon.it/shop/daria_benedetto"
+        }
+      },
+      {
+        "label": {
+          "it": "Google Business Profile"
+        },
+        "network": "google",
+        "link": {
+          "type": "url",
+          "url": "https://www.google.com/search?q=msm+digital+srl+-+daria+benedetto"
+        }
+      }
+    ],
+    "signature": {
+      "it": "Daria Benedetto\nBusiness Strategist · Coach professionale\nCEO MSM Digital e Founder di TIAIUTO"
+    },
+    "text": {
+      "it": "© 2026 Daria Benedetto · MSM Digital S.r.l. · Como"
+    },
+    "legal": [
+      {
+        "label": {
+          "it": "Privacy"
+        },
+        "link": {
+          "type": "page",
+          "page": "privacy"
+        }
+      }
+    ],
+    "showCookiePreferences": true
+  },
+  "minimale": {
+    "surface": "light",
+    "text": {
+      "it": "© 2026 Daria Benedetto"
+    },
+    "showCookiePreferences": true
+  }
+}

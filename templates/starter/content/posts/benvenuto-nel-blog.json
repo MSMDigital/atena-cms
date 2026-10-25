@@ -1,0 +1,38 @@
+{
+  "key": "benvenuto-nel-blog",
+  "status": "published",
+  "slug": {
+    "it": "benvenuto-nel-blog"
+  },
+  "title": {
+    "it": "Benvenuto nel blog"
+  },
+  "excerpt": {
+    "it": "Il blog del template Starter: articoli con categorie, immagine, data e autore."
+  },
+  "image": {
+    "src": "demo-lago.jpg",
+    "alt": {
+      "it": "Benvenuto nel blog"
+    }
+  },
+  "categories": [
+    "novita"
+  ],
+  "tags": [
+    "novita",
+    "smart-working"
+  ],
+  "date": "2026-10-01",
+  "author": "Studio Esempio",
+  "blocks": [
+    {
+      "id": "testo-1",
+      "type": "text",
+      "surface": "light",
+      "content": {
+        "it": "<p>Questo è un articolo di esempio. Si scrive da <strong>Articoli</strong> nell'admin: titolo, riassunto, immagine, categorie e il contenuto fatto con gli stessi blocchi delle pagine.</p><p>Le categorie hanno una pagina propria, creata da sola.</p>"
+      }
+    }
+  ]
+}
