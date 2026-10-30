@@ -4,6 +4,7 @@ import { submissionCounts } from '@/lib/requests.mjs';
 import { logoutAction } from '../login/actions';
 import { Suspense } from 'react';
 import SideNav from './SideNav';
+import { siteBrand } from '@/lib/site-brand.mjs';
 import { trashCounts } from '@/lib/docs.mjs';
 import { activeTemplate } from '@/lib/template.mjs';
 import { canWrite, ROLE_LABEL, ownsDoc } from '@/lib/permissions.mjs';
@@ -73,7 +74,7 @@ export default async function Shell({ children }) {
     <I18nProvider lang={lang}>
     <div className="shell">
       <aside className="sidebar">
-        <Link href="/admin" className="sidebar__brand"><img src="/brand/atena-mark.svg" alt="" width="32" height="32" />Atena</Link>
+        <Link href="/admin" className="sidebar__brand" title={brand.name ?? undefined}><img src="/brand/atena-mark.svg" alt="" width="32" height="32" /><span>{brand.name ?? 'Atena'}</span></Link>
         <Suspense fallback={null}><SideNav items={translate(items)} /></Suspense>
         {writer && <SidebarPublish pending={pending} canPublish={admin} label={T('Pubblica')} />}
         <div className="sidebar__user">

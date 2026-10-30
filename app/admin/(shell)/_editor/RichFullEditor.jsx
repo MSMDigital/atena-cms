@@ -43,7 +43,7 @@ export default function RichFullEditor({ value, onChange, label, pages = [], med
   const [code, setCode] = useState(null);       // testo del codice HTML se la vista codice è aperta
   const [note, setNote] = useState(null);
   const [panel, setPanel] = useState(null);     // 'link' | 'video'
-  const [link, setLink] = useState({ type: 'page', page: pages[0]?.key ?? 'home', url: 'https://', channel: 'phone' });
+  const [link, setLink] = useState({ type: 'page', page: pages[0]?.key ?? 'home', url: 'https://', channel: 'phone', title: '', class: '', blank: false });
   const [video, setVideo] = useState('');
   const [picker, setPicker] = useState(false);
 
@@ -84,8 +84,24 @@ export default function RichFullEditor({ value, onChange, label, pages = [], med
     const href = link.type === 'page' ? `page:${link.page}` : link.type === 'channel' ? `channel:${link.channel}` : link.url.trim();
     if (!href || href === 'page:') return;
     const name = link.type === 'page' ? (pages.find((p) => p.key === link.page)?.name ?? link.page) : link.type === 'channel' ? link.channel : link.url;
+    const title = (link.title ?? '').trim();
+    const cls = (link.class ?? '').trim();
     restore();
-    if (document.getSelection().isCollapsed) html(`<a href="${esc(href)}">${esc(name)}</a>`); else exec('createLink', href);
+    if (document.getSelection().isCollapsed) {
+      const attrs = `${title ? ` title="${esc(title)}"` : ''}${cls ? ` class="${esc(cls)}"` : ''}${link.blank ? ' target="_blank" rel="noopener noreferrer"' : ''}`;
+      html(`<a href="${esc(href)}"${attrs}>${esc(name)}</a>`);
+    } else {
+      document.execCommand('styleWithCSS', false, false);
+      document.execCommand('createLink', false, href);
+      // Title, class e target vanno sul tag appena creato (createLink li ignora): è quello intorno al testo ancora selezionato.
+      const a = document.getSelection().anchorNode?.parentElement?.closest('a');
+      if (a) {
+        if (title) a.setAttribute('title', title); else a.removeAttribute('title');
+        if (cls) a.setAttribute('class', cls); else a.removeAttribute('class');
+        if (link.blank) { a.setAttribute('target', '_blank'); a.setAttribute('rel', 'noopener noreferrer'); } else { a.removeAttribute('target'); a.removeAttribute('rel'); }
+      }
+      emit();
+    }
     setPanel(null);
   };
   const applyVideo = () => {
@@ -162,6 +178,9 @@ export default function RichFullEditor({ value, onChange, label, pages = [], med
           {link.type === 'page' && <select aria-label={t('Pagina')} value={link.page} onChange={(e) => setLink({ ...link, page: e.target.value })}>{pages.map((p) => <option key={p.key} value={p.key}>{p.name}</option>)}</select>}
           {link.type === 'url' && <input aria-label={t('Indirizzo')} value={link.url} onChange={(e) => setLink({ ...link, url: e.target.value })} />}
           {link.type === 'channel' && <select aria-label={t('Contatto')} value={link.channel} onChange={(e) => setLink({ ...link, channel: e.target.value })}>{[['phone', 'Telefono'], ['mobile', 'Mobile'], ['whatsapp', 'WhatsApp'], ['email', 'Email']].map(([c, n]) => <option key={c} value={c}>{t(n)}</option>)}</select>}
+          <input aria-label={t('Title (facoltativo)')} placeholder={t('Title (facoltativo)')} value={link.title ?? ''} onChange={(e) => setLink({ ...link, title: e.target.value })} />
+          <input aria-label={t('Classe (facoltativa)')} placeholder={t('Classe (facoltativa)')} value={link.class ?? ''} onChange={(e) => setLink({ ...link, class: e.target.value })} />
+          <label className="rich__blank"><input type="checkbox" checked={!!link.blank} onChange={(e) => setLink({ ...link, blank: e.target.checked })} /> {t('Nuova scheda')}</label>
           <button type="button" className="mini mini--primary" onClick={applyLink}>{t('Inserisci')}</button>
           <span className="fld__help">{t('sul testo selezionato')}</span>
         </div>

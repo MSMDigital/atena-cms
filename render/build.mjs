@@ -35,6 +35,7 @@ export async function buildSite(rawData, { outDir, assetsDir, mediaDir, template
   const data = withBlog(rawData);   // articoli e categorie → pagine virtuali (dopo la validazione: non fanno parte dei dati salvati)
 
   // Un file d'immagine mancante blocca la pubblicazione (una pagina con un'immagine rotta non deve andare online), prima di toccare nulla.
+  const protSet = new Set(data.protectedMedia ?? []);   // file «protetti»: non vanno tra i file pubblici, li serve l'app (/api/files/...) a chi viene da una pagina del sito
   const imageRefs = collectImageRefs(data);
   const missing = [...imageRefs].filter((ref) => !isSafeLogical(ref) || (!fs.existsSync(path.join(assetsDir, 'img', ref)) && !(mediaDir && isInside(mediaDir, path.join(mediaDir, ref)) && fs.existsSync(path.join(mediaDir, ref)))));   // un percorso non sicuro conta come mancante
   if (missing.length) throw new BuildError('Immagini mancanti', missing.map((m) => `file non trovato: ${m}`));
@@ -42,12 +43,17 @@ export async function buildSite(rawData, { outDir, assetsDir, mediaDir, template
   fs.rmSync(outDir, { recursive: true, force: true });
   fs.mkdirSync(outDir, { recursive: true });
   const out = path.join(outDir, 'assets');
-  fs.cpSync(assetsDir, out, { recursive: true, filter: (src) => !/dev-shot\.css$|tokens\.meta\.json$|\.DS_Store$/.test(src) });
+  fs.cpSync(assetsDir, out, { recursive: true, filter: (src) => {
+    if (/dev-shot\.css$|tokens\.meta\.json$|\.DS_Store$/.test(src)) return false;
+    const rel = path.relative(assetsDir, src).split(path.sep).join('/');
+    return !(rel.startsWith('img/') && protSet.has(rel.slice(4)));   // un'immagine del progetto marcata protetta non si pubblica come file statico
+  } });
   fs.mkdirSync(path.join(out, 'cms'), { recursive: true });
   fs.copyFileSync(path.join(ROOT, 'render/client/cms.js'), path.join(out, 'cms/cms.js'));   // lo script del motore (moduli, consenso)
 
   // Le immagini caricate si copiano solo se usate.
   for (const ref of imageRefs) {
+    if (protSet.has(ref)) continue;
     if (fs.existsSync(path.join(assetsDir, 'img', ref))) continue;
     fs.mkdirSync(path.dirname(path.join(out, 'img', ref)), { recursive: true });
     fs.copyFileSync(path.join(mediaDir, ref), path.join(out, 'img', ref));
@@ -77,7 +83,7 @@ export async function buildSite(rawData, { outDir, assetsDir, mediaDir, template
       entries.push({
         loc: ctx.urlOf(page.key, job.locale), lastmod: page.dateModified,
         alternates: live.length > 1 ? [...live.map((l) => ({ lang: tags[l], href: ctx.urlOf(page.key, l) })), { lang: 'x-default', href: ctx.urlOf(page.key, ctx.def) }] : [],
-        image: (page.ogImage ?? data.site.seo?.defaultOgImage)?.src ? `${data.site.siteUrl}${ctx.assetImg((page.ogImage ?? data.site.seo.defaultOgImage).src)}` : undefined,
+        image: (page.ogImage ?? data.site.seo?.defaultOgImage)?.src && !protSet.has((page.ogImage ?? data.site.seo.defaultOgImage).src) ? `${data.site.siteUrl}${ctx.assetImg((page.ogImage ?? data.site.seo.defaultOgImage).src)}` : undefined,
       });
     }
   }
@@ -104,7 +110,7 @@ export async function buildSite(rawData, { outDir, assetsDir, mediaDir, template
   // GEO: guida in markdown per i motori di intelligenza artificiale, scritta a mano in Dati del sito → GEO. Vuoto: nessun file (non uno vuoto).
   const llmsText = data.site.geo?.llmsText;
   if (llmsText) fs.writeFileSync(path.join(outDir, 'llms.txt'), llmsText.endsWith('\n') ? llmsText : `${llmsText}\n`);
-  return { pages: count, warnings, fontNote: fonts.note };
+  return { pages: count, warnings, fontNote: fonts.note, protectedRefs: [...imageRefs].filter((r) => protSet.has(r)) };
 }
 
 // Larghezza e altezza di ogni immagine usata (anche in bozza): il processo isolato non legge file, quindi si calcolano qui.

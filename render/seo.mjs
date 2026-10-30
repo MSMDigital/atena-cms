@@ -73,7 +73,8 @@ export function jsonLdNodes(ctx, page, opts = {}) {
   if (isHome) nodes.push({ '@type': 'WebSite', '@id': `${base}/#website`, url: `${base}/`, name: site.seo?.siteName, inLanguage: ctx.tag, publisher: org ? { '@id': orgId } : undefined });
 
   const type = page.contentType ?? 'page';
-  const imgSrc = page.ogImage?.src ?? site.seo?.defaultOgImage?.src;
+  const imgSrc0 = page.ogImage?.src ?? site.seo?.defaultOgImage?.src;
+  const imgSrc = imgSrc0 && !ctx.isProtected?.(imgSrc0) ? imgSrc0 : undefined;
   const crumbs = crumbsOf(ctx, page);
   const facts = propertyValues(ctx, page.facts);
   const node = {
@@ -120,7 +121,8 @@ export function seoHead(ctx, page, opts = {}) {
   out.push(html`<meta property="og:locale" content="${ctx.tag.replace('-', '_')}">`);
   const live = ctx.enabled.filter((l) => ctx.isLive(page, l));
   for (const l of live) if (l !== ctx.locale) out.push(html`<meta property="og:locale:alternate" content="${site.locales.tags[l].replace('-', '_')}">`);
-  const im = page.ogImage ?? site.seo?.defaultOgImage;
+  let im = page.ogImage ?? site.seo?.defaultOgImage;
+  if (im?.src && ctx.isProtected?.(im.src)) im = null;   // un file protetto non si può mostrare nelle anteprime dei social: meglio nessuna immagine che un indirizzo che dà errore
   const title = ctx.t(page.title);
   const desc = textOf(ctx, page.description);
   if (im?.src) {
@@ -157,7 +159,7 @@ const AI_LABEL = { aiTraining: 'addestramento', aiSearch: 'ricerca e citazioni',
 export function robotsTxt(site, { noaiPaths = [] } = {}) {
   const c = site.crawling ?? {};
   const closed = c.mode === 'closed';
-  const dis = c.disallowPaths ?? [];
+  const dis = ['/api/files/', ...(c.disallowPaths ?? [])];   // i file protetti (immagini e PDF) non si scansionano mai
   const delay = c.crawlDelay ? [`Crawl-delay: ${c.crawlDelay}`] : [];
   const L = ['# Generato dal CMS (Dati del sito → Crawling). Non si modifica a mano: si cambia da lì.', '', 'User-agent: *'];
   if (closed) L.push('Disallow: /');

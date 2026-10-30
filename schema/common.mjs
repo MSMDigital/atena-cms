@@ -34,8 +34,12 @@ const i18n = (value) => ({
 
 // Solo questi tag in linea. Il salvataggio rifiuta il resto (lib/content-guard.mjs) e ogni uscita sanifica comunque (render/sanitize.mjs).
 // I link interni usano href="page:<chiave>" o href="channel:<canale>", risolti dal renderer.
-const HREF = '(?:page:[a-z0-9-]+(?:#[a-z][a-z0-9-]*)?|channel:[a-z0-9_]+|https?:\\/\\/[^\\s\\x22\\x27<>]+|mailto:[^\\s\\x22\\x27<>]+|tel:[+0-9().-]+|#[a-z][a-z0-9-]*)';   // niente javascript:, data:... (\x22 e \x27 sono le virgolette: scritte così per non dipendere dal modo in cui il codice viene impacchettato)
-const A = `<a href="${HREF}">|<\\/a>`;
+const HREF = '(?:page:[a-z0-9-]+(?:#[a-z][a-z0-9-]*)?|channel:[a-z0-9_]+|file:uploads\\/[a-z0-9][a-z0-9_.-]*\\.pdf|https?:\\/\\/[^\\s\\x22\\x27<>]+|mailto:[^\\s\\x22\\x27<>]+|tel:[+0-9().-]+|#[a-z][a-z0-9-]*)';   // niente javascript:, data:... (\x22 e \x27 sono le virgolette: scritte così per non dipendere dal modo in cui il codice viene impacchettato)
+// title (testo libero), class (1-5 nomi) e target (solo _blank, sempre con rel="noopener noreferrer" per sicurezza, mai da solo).
+const A_TITLE = ' title="[^"<>]{0,200}"';
+const A_CLASS = ' class="[a-zA-Z][a-zA-Z0-9_-]*(?: [a-zA-Z][a-zA-Z0-9_-]*){0,4}"';
+const A_TARGET = ' target="_blank" rel="noopener noreferrer"';
+const A = `<a href="${HREF}"(?:${A_TITLE})?(?:${A_CLASS})?(?:${A_TARGET})?>|<\\/a>`;
 export const INLINE = `^(?:[^<]|<br ?\\/?>|<\\/?(?:strong|em)>|${A})*$`;
 export const BLOCK = `^(?:[^<]|<br ?\\/?>|<\\/?(?:strong|em|p|ul|ol|li|blockquote|h[2-6])>|${A})*$`;
 
@@ -86,6 +90,8 @@ export const common = {
         { type: 'object', properties: { type: { const: 'url' }, url: { type: 'string', pattern: '^(?:https?:\\/\\/|mailto:|tel:)[^\\s\\x22<>]+$' } }, required: ['type', 'url'], additionalProperties: false },
         { type: 'object', properties: { type: { const: 'anchor' }, anchor: ref('anchor') }, required: ['type', 'anchor'], additionalProperties: false },
         { type: 'object', properties: { type: { const: 'channel' }, channel }, required: ['type', 'channel'], additionalProperties: false },
+        // File della libreria (oggi i PDF): il sito li pubblica solo se usati qui o in un testo (render/images.mjs)
+        { type: 'object', properties: { type: { const: 'file' }, file: { type: 'string', pattern: '^uploads/[a-z0-9][a-z0-9_.-]*\\.pdf$', maxLength: 200 } }, required: ['type', 'file'], additionalProperties: false },
       ],
     },
 
@@ -94,7 +100,7 @@ export const common = {
       properties: {
         label: text('Etichetta', { description: 'Se il link è un canale (telefono, WhatsApp...) e l\'etichetta è vuota, si usa il valore del canale.' }),
         link: link('Link'),
-        style: { title: 'Stile', enum: ['primary', 'secondary', 'inverse', 'whatsapp'], default: 'primary' },
+        style: { title: 'Stile', enum: ['primary', 'secondary', 'inverse', 'whatsapp', 'tertiary'], default: 'primary' },
       },
       required: ['link', 'style'],
       additionalProperties: false,

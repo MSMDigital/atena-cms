@@ -122,6 +122,7 @@ test('documenti: bozza, cronologia, pubblicazione', { skip: !hasDb && 'database 
     Object.assign(d, { status: 'published', title: { it: 'Nuova pagina' }, description: { it: 'Una pagina di prova.' } });
     await D.saveDraft('page', 'nuova', d, uid);
     assert.equal((await D.publishAll(uid)).pages, LIVE + 1);
+    assert.deepEqual(JSON.parse((await query("SELECT value FROM settings WHERE name = 'protected_published'"))[0].value), [], 'ogni pubblicazione salva l\'elenco dei file protetti usati (qui nessuno)');
     assert.ok(fs.existsSync(path.join(out, 'moduli/nuova/index.html')));
 
     const del = await D.deletePage('nuova', uid);

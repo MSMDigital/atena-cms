@@ -19,7 +19,7 @@ const site = (crawling) => ({ siteUrl: 'https://x.ch', crawling });
 
 test('robots.txt: di base apre tutto e indica la sitemap', () => {
   const r = robotsTxt(site(undefined));
-  assert.match(r, /User-agent: \*\nAllow: \/\n/);
+  assert.match(r, /User-agent: \*\nDisallow: \/api\/files\/\n/, 'i file protetti non si scansionano mai');
   assert.match(r, /Sitemap: https:\/\/x\.ch\/sitemap\.xml/);
   assert.doesNotMatch(r, /GPTBot/);
 });
@@ -32,7 +32,7 @@ test('robots.txt: sito chiuso vieta tutto e non nomina i crawler AI', () => {
 
 test('robots.txt: percorsi esclusi e pausa valgono per tutti, anche nei gruppi AI', () => {
   const r = robotsTxt(site({ disallowPaths: ['/riservato/'], crawlDelay: 5, aiTraining: 'block' }));
-  assert.match(r, /User-agent: \*\nDisallow: \/riservato\/\nCrawl-delay: 5\n/);
+  assert.match(r, /User-agent: \*\nDisallow: \/api\/files\/\nDisallow: \/riservato\/\nCrawl-delay: 5\n/);
   for (const b of AI_BOTS.aiTraining) assert.match(r, new RegExp(`User-agent: ${b}\\n`));
   assert.match(r, /User-agent: cohere-ai\nDisallow: \/\n/);
 });

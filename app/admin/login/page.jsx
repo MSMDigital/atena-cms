@@ -1,6 +1,7 @@
 import { redirect } from 'next/navigation';
 import { currentUser } from '@/lib/auth.mjs';
 import { isInstalled } from '@/lib/install.mjs';
+import { siteBrand } from '@/lib/site-brand.mjs';
 import LoginForm from './LoginForm';
 import { getT, getLang } from '@/lib/i18n-server.mjs';
 import { I18nProvider } from '@/app/admin/_i18n/I18nProvider';
@@ -14,11 +15,14 @@ export default async function LoginPage({ searchParams }) {
   const { next } = await searchParams;
   const t = await getT();
   const lang = await getLang();
+  const { favicon, name } = await siteBrand();
   return (
     <main className="login">
       <div className="login__card">
-        <img className="brand-mark" src="/brand/atena-mark.svg" alt="" width="48" height="48" />
-        <h1>Atena</h1>
+        <div className="login__brand">
+          <img className="brand-mark" src={favicon ?? '/brand/atena-mark.svg'} alt="" width="48" height="48" />
+          <h1>{name ?? 'Atena'}</h1>
+        </div>
         <p className="muted">{t('Accedi per gestire il sito.')}</p>
         <I18nProvider lang={lang}><LoginForm next={next} /></I18nProvider>
       </div>

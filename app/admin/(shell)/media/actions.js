@@ -5,7 +5,7 @@ import { requireUser } from '@/lib/auth.mjs';
 import { getT, loc } from '@/lib/i18n-server.mjs';
 import { one } from '@/lib/db.mjs';
 import { ownsMedia } from '@/lib/permissions.mjs';
-import { listMedia, updateAlt, updateMeta, editImage, renameMedia, UploadError, deleteMedia, mediaUsage, isSafeLogical } from '@/lib/media.mjs';
+import { listMedia, setProtected, updateAlt, updateMeta, editImage, renameMedia, UploadError, deleteMedia, mediaUsage, isSafeLogical } from '@/lib/media.mjs';
 
 const valid = (t, p) => { if (!isSafeLogical(p)) throw new Error(t('Immagine non valida')); };
 // Un autore modifica solo le immagini che ha caricato lui; un admin tutte.
@@ -85,4 +85,15 @@ export async function renameMediaAction(path, name) {
     console.error('rinomina immagine', e);
     return { ok: false, error: t('Errore imprevisto durante la rinomina.') };
   }
+}
+
+// Protetto: non si apre da un indirizzo diretto e non si indicizza; si vede solo da dentro il sito. Vale dalla prossima pubblicazione.
+export async function setProtectedAction(path, on) {
+  const user = await requireUser('author');
+  const t = await getT();
+  valid(t, path);
+  await mine(t, user, path);
+  const r = { ok: await setProtected(path, !!on) };
+  revalidatePath('/admin/media');
+  return r;
 }

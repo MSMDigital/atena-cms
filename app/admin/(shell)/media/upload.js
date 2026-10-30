@@ -12,7 +12,8 @@ export async function uploadFile(file, { replace, t = (s) => s } = {}) {
   return { ok: false, error: json?.error ?? (res.status === 413 ? t('Il file è troppo grande.') : t('Caricamento non riuscito.')) };
 }
 
-export const ACCEPT = 'image/jpeg,image/png,image/webp,image/svg+xml';
+export const ACCEPT = 'image/jpeg,image/png,image/webp,image/svg+xml,application/pdf';
+export const ACCEPT_PDF = 'application/pdf';
 
 // Carica più file in sequenza. onItem(item) a ogni file riuscito; restituisce gli errori "nome: messaggio".
 export async function uploadMany(files, onItem, t = (s) => s) {

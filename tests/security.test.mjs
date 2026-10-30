@@ -40,7 +40,16 @@ test('sanificazione: tag e indirizzi pericolosi spariscono, il testo resta', () 
     ['<a href="//evil.example">x</a>', 'x'],
     ['<a href="">x</a>', 'x'],
     ['<a>x</a>', 'x'],
-    ['<a href="page:privacy" onmouseover="alert(3)" class="x">x</a>', '<a href="page:privacy">x</a>'],
+    // class ammessa (nomi semplici): resta; gestori di evento e attributi non previsti spariscono comunque.
+    ['<a href="page:privacy" onmouseover="alert(3)" class="x">x</a>', '<a href="page:privacy" class="x">x</a>'],
+    // class non ammessa (non è un semplice elenco di nomi: CSS vero, possibile veicolo di iniezione) sparisce, il link resta.
+    ['<a href="page:privacy" class="x;background:url(javascript:alert(1))">x</a>', '<a href="page:privacy">x</a>'],
+    // title: testo libero, scappato come gli altri attributi testuali (mai eseguibile, niente tag che esce dall'attributo).
+    ['<a href="page:privacy" title="a & <script>b">x</a>', '<a href="page:privacy" title="a &amp; &lt;script&gt;b">x</a>'],
+    // target: solo _blank, e sempre con rel="noopener noreferrer" anche se non richiesto (mai una finestra aperta che tocca la pagina d'origine).
+    ['<a href="https://ok.example" target="_blank">x</a>', '<a href="https://ok.example" target="_blank" rel="noopener noreferrer">x</a>'],
+    ['<a href="https://ok.example" target="_self">x</a>', '<a href="https://ok.example">x</a>'],
+    ['<a href="https://ok.example" rel="opener">x</a>', '<a href="https://ok.example">x</a>'],
     ['<a href="https://ok.example/a?b=1&c=2">x</a>', '<a href="https://ok.example/a?b=1&amp;c=2">x</a>'],
     ['<a href="mailto:info@esempio.ch">m</a> <a href="tel:+41919225024">t</a> <a href="channel:email">c</a> <a href="#noleggio">n</a>', '<a href="mailto:info@esempio.ch">m</a> <a href="tel:+41919225024">t</a> <a href="channel:email">c</a> <a href="#noleggio">n</a>'],
     ['<a href="tel:+41 91 922 50 24">t</a>', 't'],

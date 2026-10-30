@@ -48,6 +48,7 @@ export function createContext(data, locale, opts = {}) {
     return own.status === 'published' && (l === (own.lang ?? base) || !!own.title?.[l]);
   };
 
+  const prot = new Set(data.protectedMedia ?? []);
   const t = (v) => (v == null ? '' : typeof v === 'string' ? v : v[locale] ?? v[def] ?? v[base] ?? '');
   // Lo slug finisce in un percorso di file e in un indirizzo: solo minuscole, cifre e trattini (mai ../). Uno slug non valido è come vuoto.
   const slugOf = (p, l) => { const s = p.slug?.[l] ?? p.slug?.[def] ?? p.slug?.[base] ?? ''; return typeof s === 'string' && /^[a-z0-9-]*$/.test(s) ? s : ''; };
@@ -77,16 +78,19 @@ export function createContext(data, locale, opts = {}) {
     if (l.type === 'page') { const p = pathOf(l.page); return p ? p + (l.anchor ? `#${l.anchor}` : '') : '#'; }   // pagina non ancora creata
     if (l.type === 'anchor') return `#${l.anchor}`;
     if (l.type === 'channel') return channel(l.channel).href;
+    if (l.type === 'file') return /^uploads\/[a-z0-9][a-z0-9_.-]*\.pdf$/.test(l.file ?? '') ? (prot.has(l.file) ? `/api/files/${l.file}` : `/assets/img/${l.file}`) : '#';   // un file della libreria: si pubblica accanto alle immagini
     return /^(?:https?:|mailto:|tel:)/i.test(l.url ?? '') ? l.url : '#';   // mai javascript: o data: da un indirizzo scritto a mano
   };
 
   // href="page:chiave#ancora" e href="channel:canale" nei testi ricchi diventano indirizzi veri.
   const resolveHref = (h) => {
     const pg = h.match(/^page:([a-z0-9-]+)(?:#([a-z][a-z0-9-]*))?$/); if (pg) return link({ type: 'page', page: pg[1], anchor: pg[2] });
+    const fl = h.match(/^file:(uploads\/[a-z0-9][a-z0-9_.-]*\.pdf)$/); if (fl) return link({ type: 'file', file: fl[1] });
     const chn = h.match(/^channel:(\w+)$/); if (chn && ['phone', 'mobile', 'whatsapp', 'email'].includes(chn[1])) return link({ type: 'channel', channel: chn[1] });
     return null;
   };
-  const richStr = (s) => sanitizeRich(s).replace(/href="([^"]*)"/g, (m, h) => { const r = resolveHref(h); return r ? `href="${r}"` : m; });
+  const protect = (s) => (prot.size ? s.replace(/(["'])\/assets\/img\/([^"'\s)]+)/g, (m, q, p) => (prot.has(p) ? `${q}/api/files/${p}` : m)) : s);   // immagini protette dentro i testi ricchi
+  const richStr = (s) => protect(sanitizeRich(s).replace(/href="([^"]*)"/g, (m, h) => { const r = resolveHref(h); return r ? `href="${r}"` : m; }));
 
   return {
     data, site, tokens: data.tokens, meta: data.meta, shared: data.shared, pages, byKey, locale, def, imgDirs,
@@ -133,7 +137,9 @@ export function createContext(data, locale, opts = {}) {
     hasVersion: (key, l) => !!trBy[key]?.[l] || (!!byKey[key] && (l === (byKey[key].lang ?? base) || !!byKey[key].title?.[l])),
     pageIn,
     pageOf: (key) => pageIn(key, locale),
-    assetImg: (src) => `/assets/img/${src}`,
+    // File «protetti» (campo del file nella libreria): non stanno tra i file pubblici ma si servono dall'app, solo a chi viene da una pagina del sito.
+    assetImg: (src) => (prot.has(src) ? `/api/files/${src}` : `/assets/img/${src}`),
+    isProtected: (src) => prot.has(src),
     // Dimensioni di un'immagine (per width/height): dalla mappa già calcolata dal motore (nel processo isolato non si leggono file) o dalle cartelle.
     imageSize: (src) => (opts.images ? opts.images[src] ?? null : imgDirs.map((d) => imageSize(path.join(d, src))).find(Boolean) ?? null),
     interp: (s, vars) => s.replace(/\{(\w+)\}/g, (m, k) => vars[k] ?? m),

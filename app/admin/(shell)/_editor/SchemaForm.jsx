@@ -113,9 +113,12 @@ function RichEditor({ value, onChange, mode, label }) {
     return [v.slice(0, a) + ins + v.slice(b), a, a + ins.length];
   });
   const insertLink = () => {
-    const href = link.type === 'page' ? `page:${link.page}` : link.type === 'channel' ? `channel:${link.channel}` : link.url.replace(/"/g, '%22');
+    const href = link.type === 'page' ? `page:${link.page}` : link.type === 'channel' ? `channel:${link.channel}` : link.type === 'file' ? (link.file ? `file:${link.file}` : '') : link.url.replace(/"/g, '%22');
     if (!href || href === 'page:' || href === 'channel:') return;
-    wrap(`<a href="${href}">`, '</a>');
+    const title = (link.title ?? '').trim();
+    const cls = (link.class ?? '').trim();
+    const tag = `<a href="${href}"${title ? ` title="${title.replace(/"/g, '%22')}"` : ''}${cls ? ` class="${cls}"` : ''}${link.blank ? ' target="_blank" rel="noopener noreferrer"' : ''}>`;
+    wrap(tag, '</a>');
     setLink(null);
   };
 
@@ -124,7 +127,7 @@ function RichEditor({ value, onChange, mode, label }) {
       <div className="rich__bar" role="toolbar" aria-label={t('Formattazione: {label}', { label: label ? t(label) : '' })}>
         <button type="button" onClick={() => wrap('<strong>', '</strong>')} title={t('Grassetto')}><b>{t('Grassetto').charAt(0).toUpperCase()}</b></button>
         <button type="button" onClick={() => wrap('<em>', '</em>')} title={t('Corsivo')}><i>{t('Corsivo').charAt(0).toUpperCase()}</i></button>
-        <button type="button" onClick={() => setLink(link ? null : { type: 'page', page: pages[0]?.key ?? 'home', url: 'https://' })} title={t('Link')} aria-expanded={!!link}>{t('Link')}</button>
+        <button type="button" onClick={() => setLink(link ? null : { type: 'page', page: pages[0]?.key ?? 'home', url: 'https://', title: '', class: '', blank: false })} title={t('Link')} aria-expanded={!!link}>{t('Link')}</button>
         <button type="button" onClick={() => edit((v, a, b) => [v.slice(0, a) + '<br>' + v.slice(b), a + 4, a + 4])} title={t('A capo')}>↵</button>
         {block && (
           <>
@@ -143,11 +146,15 @@ function RichEditor({ value, onChange, mode, label }) {
       {link && (
         <div className="rich__link">
           <select aria-label={t('Tipo di link')} value={link.type} onChange={(e) => setLink({ ...link, type: e.target.value })}>
-            <option value="page">{t('Pagina del sito')}</option><option value="url">{t('Indirizzo esterno')}</option><option value="channel">{t('Contatto')}</option>
+            <option value="page">{t('Pagina del sito')}</option><option value="url">{t('Indirizzo esterno')}</option><option value="channel">{t('Contatto')}</option><option value="file">{t('File (PDF)')}</option>
           </select>
           {link.type === 'page' && <select aria-label={t('Pagina')} value={link.page} onChange={(e) => setLink({ ...link, page: e.target.value })}>{pages.map((p) => <option key={p.key} value={p.key}>{p.name}</option>)}</select>}
+          {link.type === 'file' && <PickButton only="pdf" current={link.file} label={t('Scegli un PDF')} onPick={(item) => setLink({ ...link, file: item.path })}>{link.file ? link.file.replace(/^uploads\//, '') : t('Scegli un PDF')}</PickButton>}
           {link.type === 'url' && <input aria-label={t('Indirizzo')} value={link.url} onChange={(e) => setLink({ ...link, url: e.target.value })} />}
           {link.type === 'channel' && <select aria-label={t('Contatto')} value={link.channel ?? 'phone'} onChange={(e) => setLink({ ...link, channel: e.target.value })}>{['phone', 'mobile', 'whatsapp', 'email'].map((c) => <option key={c} value={c}>{t(labelFor(c))}</option>)}</select>}
+          <input aria-label={t('Title (facoltativo)')} placeholder={t('Title (facoltativo)')} value={link.title ?? ''} onChange={(e) => setLink({ ...link, title: e.target.value })} />
+          <input aria-label={t('Classe (facoltativa)')} placeholder={t('Classe (facoltativa)')} value={link.class ?? ''} onChange={(e) => setLink({ ...link, class: e.target.value })} />
+          <label className="rich__blank"><input type="checkbox" checked={!!link.blank} onChange={(e) => setLink({ ...link, blank: e.target.checked })} /> {t('Nuova scheda')}</label>
           <button type="button" className="mini mini--primary" onClick={insertLink}>{t('Inserisci')}</button>
           <span className="fld__help">{t('sul testo selezionato')}</span>
         </div>
@@ -214,13 +221,13 @@ function FocalPicker({ src, focal, onPick }) {
 }
 
 // Pulsante che apre il selettore della libreria. onPick riceve l'elemento scelto (percorso, testo alternativo predefinito, ...).
-function PickButton({ current, label, onPick, children }) {
+function PickButton({ current, label, onPick, children, only }) {
   const { media, addMedia, maxUploadMb } = useForm();
   const [open, setOpen] = useState(false);
   return (
     <>
       <button type="button" className="btn" aria-label={label} onClick={() => setOpen(true)}>{children}</button>
-      {open && <MediaPicker media={media} current={current} maxMb={maxUploadMb} onUploaded={addMedia} onClose={() => setOpen(false)} onPick={(item) => { onPick(item); setOpen(false); }} />}
+      {open && <MediaPicker only={only} media={media} current={current} maxMb={maxUploadMb} onUploaded={addMedia} onClose={() => setOpen(false)} onPick={(item) => { onPick(item); setOpen(false); }} />}
     </>
   );
 }
@@ -304,12 +311,12 @@ function LinkField({ value, onChange, path, label, help, onRemove }) {
   const lk = t(label ?? 'Link');
   const { pages } = useForm();
   const v = value ?? { type: 'page', page: pages[0]?.key ?? 'home' };
-  const change = (type) => onChange({ page: { type: 'page', page: pages[0]?.key ?? 'home' }, url: { type: 'url', url: '' }, anchor: { type: 'anchor', anchor: '' }, channel: { type: 'channel', channel: 'phone' } }[type]);
+  const change = (type) => onChange({ page: { type: 'page', page: pages[0]?.key ?? 'home' }, url: { type: 'url', url: '' }, anchor: { type: 'anchor', anchor: '' }, channel: { type: 'channel', channel: 'phone' }, file: { type: 'file', file: '' } }[type]);
   return (
     <Labeled label={label} help={help} path={path} deep onRemove={onRemove}>
       <div className="linkfield">
         <select value={v.type} aria-label={t('{label}: tipo', { label: lk })} onChange={(e) => change(e.target.value)}>
-          {['page', 'url', 'anchor', 'channel'].map((x) => <option key={x} value={x}>{t(labelFor(x))}</option>)}
+          {['page', 'url', 'anchor', 'channel', 'file'].map((x) => <option key={x} value={x}>{t(labelFor(x))}</option>)}
         </select>
         {v.type === 'page' && (
           <>
@@ -327,6 +334,7 @@ function LinkField({ value, onChange, path, label, help, onRemove }) {
             {['phone', 'mobile', 'whatsapp', 'email'].map((c) => <option key={c} value={c}>{t(labelFor(c))}</option>)}
           </select>
         )}
+        {v.type === 'file' && <PickButton only="pdf" current={v.file} label={t('{label}: scegli un PDF', { label: lk })} onPick={(item) => onChange({ type: 'file', file: item.path })}>{v.file ? v.file.replace(/^uploads\//, '') : t('Scegli un PDF')}</PickButton>}
       </div>
     </Labeled>
   );

@@ -4,7 +4,8 @@
 // È indipendente dalla regex dello schema (che serve a dare errori chiari all'editor): anche un dato entrato da un'altra strada è innocuo.
 //
 // Ammessi (editor «a blocchi» del testo): strong em u s sub sup p ul ol li blockquote h2-h6 br hr pre code a span img iframe.
-//  - a: solo href (indirizzi di tipo noto, mai javascript:/data:...).
+//  - a: href (indirizzi di tipo noto, mai javascript:/data:...), title e class facoltativi, target solo "_blank" (sempre con rel="noopener
+//    noreferrer": una finestra aperta così non deve poter toccare la pagina che l'ha aperta).
 //  - style (su p, h2-h6, li, blockquote, span): solo color e background-color (esadecimali), font-size (in rem, 0.5-4) e text-align (non su span);
 //    il resto del CSS cade. Si accettano le forme che scrive il browser (rgb(), parole chiave, px) e si riscrivono in forma canonica.
 //  - img: solo immagini della libreria media (/assets/img/<percorso>, dove le pubblica il build), con alt.
@@ -15,7 +16,9 @@ const TAGS = new Set(['strong', 'em', 'u', 's', 'sub', 'sup', 'p', 'ul', 'ol', '
 const VOID = new Set(['br', 'hr', 'img']);
 const STYLED_BLOCK = new Set(['p', 'h2', 'h3', 'h4', 'h5', 'h6', 'li', 'blockquote']);
 // page:<chiave>[#ancora] e channel:<canale> li risolve il renderer; il resto sono indirizzi veri. Mai javascript:, data:, vbscript:...
-export const HREF_OK = /^(?:page:[a-z0-9-]+(?:#[a-z][a-z0-9-]*)?|channel:[a-z0-9_]+|https?:\/\/[^\s"'<>]+|mailto:[^\s"'<>]+|tel:[+0-9().-]+|#[a-z][a-z0-9-]*)$/i;
+export const HREF_OK = /^(?:page:[a-z0-9-]+(?:#[a-z][a-z0-9-]*)?|channel:[a-z0-9_]+|file:uploads\/[a-z0-9][a-z0-9_.-]*\.pdf|https?:\/\/[^\s"'<>]+|mailto:[^\s"'<>]+|tel:[+0-9().-]+|#[a-z][a-z0-9-]*)$/i;
+// class di un link: da 1 a 5 nomi separati da spazio, niente CSS vero e proprio (solo nomi che il foglio di stile del sito già conosce).
+const CLASS_OK = /^[a-zA-Z][a-zA-Z0-9_-]*(?: [a-zA-Z][a-zA-Z0-9_-]*){0,4}$/;
 
 // Un tag ben formato: <nome attributi> o </nome>. Attributi: nome[=valore] con valore tra virgolette o senza spazi.
 const TAG = /<(\/?)([a-zA-Z][a-zA-Z0-9]*)((?:\s+[^\s"'<>/=]+(?:\s*=\s*(?:"[^"]*"|'[^']*'|[^\s"'=<>`]+))?)*)\s*\/?>/y;
@@ -118,12 +121,17 @@ export function sanitizeRich(input) {
       continue;
     }
     if (name === 'a') {
-      const h = parseAttrs(attrs).get('href');
-      const href = (h ?? '').trim();
+      const a = parseAttrs(attrs);
+      const href = (a.get('href') ?? '').trim();
       // L'indirizzo deve essere già valido così com'è e anche dopo aver decodificato le entità: niente scorciatoie con &#..; o spazi/controlli.
       const ok = href && !hasControlOrSpace(href) && HREF_OK.test(href) && HREF_OK.test(decodeForCheck(href).trim());
       open.push({ name, emitted: !!ok });
-      if (ok) out += `<a href="${escAttr(href)}">`;
+      if (ok) {
+        const title = plainAttr(decodeText(a.get('title') ?? ''), 200);
+        const cls = CLASS_OK.test((a.get('class') ?? '').trim()) ? a.get('class').trim() : '';
+        const blank = (a.get('target') ?? '').trim() === '_blank';   // unico valore ammesso: sempre con rel, mai senza (apre finestre fidate)
+        out += `<a href="${escAttr(href)}"${title ? ` title="${escAttr(title)}"` : ''}${cls ? ` class="${escAttr(cls)}"` : ''}${blank ? ' target="_blank" rel="noopener noreferrer"' : ''}>`;
+      }
       continue;                                                // senza indirizzo valido il tag <a> non compare, il testo resta
     }
     if (name === 'span') {

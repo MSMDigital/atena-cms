@@ -8,10 +8,14 @@ export const isSafeLogical = (p) => typeof p === 'string' && p.length <= 200 && 
 export function collectImageRefs({ site, shared, pages, translations, headers, footers }, { drafts = false } = {}) {
   const refs = new Set();
   const walk = (n) => {
-    if (typeof n === 'string') { if (n.includes('<img')) for (const m of n.matchAll(/<img src="\/assets\/img\/([^"]+)"/g)) refs.add(m[1]); }   // immagini inserite nei testi ricchi
+    if (typeof n === 'string') {
+      if (n.includes('<img')) for (const m of n.matchAll(/<img src="\/assets\/img\/([^"]+)"/g)) refs.add(m[1]);   // immagini inserite nei testi ricchi
+      if (n.includes('href="file:')) for (const m of n.matchAll(/href="file:(uploads\/[a-z0-9][a-z0-9_.-]*\.pdf)"/g)) refs.add(m[1]);   // link a un PDF nei testi ricchi
+    }
     else if (Array.isArray(n)) n.forEach(walk);
     else if (n && typeof n === 'object') {
       if (typeof n.src === 'string' && n.src) refs.add(n.src);
+      if (n.type === 'file' && typeof n.file === 'string' && n.file) refs.add(n.file);   // link di tipo «file» (pulsanti, menu...)
       Object.values(n).forEach(walk);
     }
   };

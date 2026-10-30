@@ -124,7 +124,7 @@ export async function renderPages(tpl, { data, jobs, images }, { timeoutMs = 120
     return out;
   }
   const w = await workerFor(tpl);
-  const slim = { site: data.site, shared: data.shared, headers: data.headers, footers: data.footers, blog: data.blog, tokens: data.tokens, meta: data.meta ?? null, pages: data.pages, translations: data.translations ?? [] };
+  const slim = { site: data.site, shared: data.shared, headers: data.headers, footers: data.footers, blog: data.blog, protectedMedia: data.protectedMedia, tokens: data.tokens, meta: data.meta ?? null, pages: data.pages, translations: data.translations ?? [] };
   return (await call(w, { op: 'render', data: slim, jobs, images }, timeoutMs)).out;
 }
 

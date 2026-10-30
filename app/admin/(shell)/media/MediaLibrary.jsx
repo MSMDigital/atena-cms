@@ -7,7 +7,7 @@ import ImageEditor from './ImageEditor';
 import { uploadFile } from './upload';
 import { useT, useLang } from '@/app/admin/_i18n/I18nProvider';
 import { langName } from '@/render/locales.mjs';
-import { updateMetaAction, editImageAction, renameMediaAction, deleteMediaAction, usageAction } from './actions';
+import { setProtectedAction, updateMetaAction, editImageAction, renameMediaAction, deleteMediaAction, usageAction } from './actions';
 
 const kb = (b) => (b >= 1048576 ? `${(b / 1048576).toFixed(1)} MB` : `${Math.max(1, Math.round(b / 1024))} KB`);
 const DOC_LABEL = { page: 'Pagina', shared: 'Blocchi condivisi', post: 'Articolo', categories: 'Categorie', tags: 'Tag', headers: 'Header', footers: 'Footer', site: 'Dati del sito' };
@@ -60,9 +60,10 @@ export default function MediaLibrary({ initial, maxMb, siteUrl = '', userId = nu
           {shown.map((i) => (
             <li key={i.path}>
               <button type="button" className={`mcell${sel === i.path ? ' mcell--sel' : ''}`} onClick={() => setSel(i.path)} aria-haspopup="dialog" data-path={i.path} title={t('Apri i dettagli')}>
-                {i.missing ? <span className="mcell__missing">{t('File mancante')}</span> : /* eslint-disable-next-line @next/next/no-img-element */ <img src={thumb(i)} alt="" loading="lazy" />}
+                {i.missing ? <span className="mcell__missing">{t('File mancante')}</span> : i.kind === 'pdf' ? <span className="mcell__pdf" aria-hidden="true">PDF</span> : /* eslint-disable-next-line @next/next/no-img-element */ <img src={thumb(i)} alt="" loading="lazy" />}
                 <span className="mcell__name">{i.title || i.name}</span>
                 {i.source === 'upload' && <span className="tag">{t('Caricata')}</span>}
+                {i.protected && <span className="tag tag--warn mcell__prot">{t('Protetto')}</span>}
               </button>
             </li>
           ))}
@@ -99,8 +100,9 @@ function Detail({ item, canEdit, siteUrl, maxMb, langs, baseLang, onPatch, onNew
   const [busy, setBusy] = useState(false);
   const upload = item.source === 'upload' && canEdit;   // chi non l'ha caricata (e non è admin) può solo usarla; di una copia modificata invece sì
   const svg = item.path.toLowerCase().endsWith('.svg');
+  const pdf = item.kind === 'pdf';
   const dirty = langs.some((l) => FIELDS.some((k) => fs[l][k].trim() !== metaOf(item, l, baseLang)[k]));
-  const rel = `/assets/img/${item.path}`;
+  const rel = item.protected ? `/api/files/${item.path}` : `/assets/img/${item.path}`;
   const full = `${siteUrl.replace(/\/$/, '')}${rel}`;
 
   useEffect(() => {
@@ -163,7 +165,7 @@ function Detail({ item, canEdit, siteUrl, maxMb, langs, baseLang, onPatch, onNew
   return (
     <div className="mdet mdet--modal">
       <div className="mdet__left">
-      {item.missing ? <p className="mdet__missing">{t('Il file non si trova più sul server.')}</p> : /* eslint-disable-next-line @next/next/no-img-element */ <img className="mdet__img" src={thumb(item)} alt="" />}
+      {item.missing ? <p className="mdet__missing">{t('Il file non si trova più sul server.')}</p> : pdf ? <p className="mdet__pdf"><span className="mcell__pdf" aria-hidden="true">PDF</span> <a href={`/admin/preview-assets/img/${item.path}`} target="_blank" rel="noopener">{t('Apri il PDF')}</a></p> : /* eslint-disable-next-line @next/next/no-img-element */ <img className="mdet__img" src={thumb(item)} alt="" />}
       <p className="mdet__name muted">{item.name}</p>
       <dl className="mdet__meta">
         <dt>{t('Percorso')}</dt><dd><code>{item.path}</code></dd>
@@ -224,6 +226,19 @@ function Detail({ item, canEdit, siteUrl, maxMb, langs, baseLang, onPatch, onNew
       {canEdit ? <button type="button" className="btn btn--primary" disabled={!dirty} onClick={save}>{t('Salva dettagli')}</button> : <span className="fld__help">{t('Questa immagine non l\'hai caricata tu: puoi usarla e salvarne una copia ritagliata, ma non modificarne i dati.')}</span>}
 
       <div className="mdet__sec">
+        <h3>{t('Accesso al file')}</h3>
+        <label className="check">
+          <input type="checkbox" checked={!!item.protected} disabled={!canEdit || busy} onChange={async (e) => {
+            setBusy(true); setMsg(null);
+            const r = await setProtectedAction(item.path, e.target.checked);
+            setBusy(false);
+            if (r.ok) { onPatch({ protected: e.target.checked }); setMsg({ ok: true, text: e.target.checked ? t('File protetto: vale dalla prossima pubblicazione.') : t('File di nuovo pubblico: vale dalla prossima pubblicazione.') }); } else setMsg({ ok: false, text: t('Non è stato possibile salvarlo.') });
+          }} /> {t('Protetto')}
+        </label>
+        <span className="fld__help">{t('Non si apre da un indirizzo diretto e non viene indicizzato: si vede solo dentro le pagine del sito (un\'immagine nella pagina, un link interno come per le certificazioni). Non protegge documenti riservati: per quelli serve una pagina con password.')}</span>
+      </div>
+
+      <div className="mdet__sec">
         <h3>{t('Indirizzo (URL)')}</h3>
         <button type="button" className="btn" aria-expanded={showUrl} onClick={() => setShowUrl(!showUrl)}>{showUrl ? t('Nascondi URL') : t('Mostra URL')}</button>
         {showUrl && (
@@ -239,7 +254,7 @@ function Detail({ item, canEdit, siteUrl, maxMb, langs, baseLang, onPatch, onNew
         <h3>{t('Sostituisci l\'immagine')}</h3>
         {upload ? (
           <>
-            <input type="file" accept={svg ? 'image/svg+xml' : 'image/jpeg,image/png,image/webp'} disabled={busy} aria-label={t('Scegli il nuovo file')} onChange={(e) => { replaceWith(e.target.files?.[0]); e.target.value = ''; }} />
+            <input type="file" accept={pdf ? 'application/pdf' : svg ? 'image/svg+xml' : 'image/jpeg,image/png,image/webp'} disabled={busy} aria-label={t('Scegli il nuovo file')} onChange={(e) => { replaceWith(e.target.files?.[0]); e.target.value = ''; }} />
             <span className="fld__help">{t('Il file nuovo prende il posto di questo e mantiene lo stesso indirizzo: le pagine che lo usano si aggiornano da sole. Massimo {maxMb} MB.', { maxMb })}</span>
           </>
         ) : <span className="fld__help">{item.source === 'upload' ? t('Questa immagine l\'ha caricata un altro utente: non la puoi sostituire.') : t('Le immagini del progetto stanno nel repository del template: si sostituiscono lì.')} {t('Puoi però salvarne una copia ritagliata.')}</span>}
@@ -247,7 +262,7 @@ function Detail({ item, canEdit, siteUrl, maxMb, langs, baseLang, onPatch, onNew
 
       <div className="mdet__sec">
         <h3>{t('Modifica l\'immagine')}</h3>
-        {svg ? <span className="fld__help">{t('Gli SVG sono vettoriali: non si ritagliano né si ridimensionano.')}</span> : item.missing || !item.width || !item.height ? <span className="fld__help">{t('Non disponibile: manca il file o le dimensioni.')}</span> : (
+        {pdf ? <span className="fld__help">{t('I PDF non si modificano: per cambiarlo, sostituiscilo con un altro PDF.')}</span> : svg ? <span className="fld__help">{t('Gli SVG sono vettoriali: non si ritagliano né si ridimensionano.')}</span> : item.missing || !item.width || !item.height ? <span className="fld__help">{t('Non disponibile: manca il file o le dimensioni.')}</span> : (
           <>
             <button type="button" className="btn" onClick={() => { setMsg(null); setView('edit'); }}>{t('Ritaglia o ridimensiona…')}</button>
           </>
