@@ -2,7 +2,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { raw } from './html.mjs';
-import { sanitizeRich } from './sanitize.mjs';
+import { sanitizeRich, sanitizeInlineHtml } from './sanitize.mjs';
 import { imageSize } from './image-size.mjs';
 import { formatDate } from './format.mjs';
 import { indexTranslations, asPage } from './translations.mjs';
@@ -92,12 +92,15 @@ export function createContext(data, locale, opts = {}) {
   const protect = (s) => (prot.size ? s.replace(/(["'])\/assets\/img\/([^"'\s)]+)/g, (m, q, p) => (prot.has(p) ? `${q}/api/files/${p}` : m)) : s);   // immagini protette dentro i testi ricchi
   const richStr = (s) => protect(sanitizeRich(s).replace(/href="([^"]*)"/g, (m, h) => { const r = resolveHref(h); return r ? `href="${r}"` : m; }));
 
+  // HTML libero in linea (classi, title, target...) per l'etichetta del consenso: sanificato da sanitizeInlineHtml, link risolti come in richStr.
+  const htmlStr = (s) => protect(sanitizeInlineHtml(s).replace(/href="([^"]*)"/g, (m, h) => { const r = resolveHref(h); return r ? `href="${r}"` : m; }));
+
   return {
     data, site, tokens: data.tokens, meta: data.meta, shared: data.shared, pages, byKey, locale, def, imgDirs,
     tag: site.locales.tags[locale],
     t,
     rich: (v) => raw(richStr(t(v))),
-    richStr,
+    richStr, htmlStr,
     pathOf, urlOf, link, channel,
     // Impostazioni generali (fuso, formati) e una data scritta secondo il formato scelto in Impostazioni → Generale (senza scelta: «3 novembre 2026»).
     settings: data.settings ?? {},

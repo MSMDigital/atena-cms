@@ -165,3 +165,56 @@ export function sanitizeRich(input) {
   }
   return out;
 }
+
+// ---- HTML libero per brevi testi in linea (etichetta della casella di consenso dei moduli) ---------------------------------------
+// A differenza di sanitizeRich, qui ogni tag ammesso conserva class, title, lang e aria-label (oltre a href/target nei link):
+// per scrivere a mano markup come <a href="page:privacy" class="privacy" title="Informativa" target="_blank">…</a> o <span class="req">*</span>.
+// Ammessi: a span strong b em i u s small mark abbr sub sup code br. Mai style, id, on*, data-*: tutto il resto cade, come in sanitizeRich.
+const INLINE_TAGS = new Set(['a', 'span', 'strong', 'b', 'em', 'i', 'u', 's', 'small', 'mark', 'abbr', 'sub', 'sup', 'code', 'br']);
+const LANG_OK = /^[a-zA-Z]{2,3}(?:-[a-zA-Z0-9]{2,8}){0,2}$/;
+
+export function sanitizeInlineHtml(input) {
+  const s = String(input ?? '');
+  let out = ''; let i = 0;
+  const open = [];   // tag aperti: true se scritti (altrimenti sparisce anche la chiusura)
+  while (i < s.length) {
+    const lt = s.indexOf('<', i);
+    if (lt === -1) { out += s.slice(i); break; }
+    out += s.slice(i, lt);
+    TAG.lastIndex = lt;
+    const m = TAG.exec(s);
+    if (!m) { out += '&lt;'; i = lt + 1; continue; }
+    i = lt + m[0].length;
+    const [, closing, rawName, attrs] = m;
+    const name = rawName.toLowerCase();
+    if (!INLINE_TAGS.has(name)) continue;
+    if (closing) {
+      if (name === 'br') continue;
+      for (let k = open.length - 1; k >= 0; k--) if (open[k].name === name) { const [o] = open.splice(k, 1); if (o.emitted) out += `</${name}>`; break; }
+      continue;
+    }
+    if (name === 'br') { out += '<br>'; continue; }
+    const a = parseAttrs(attrs);
+    let extra = '';
+    if (name === 'a') {
+      const href = (a.get('href') ?? '').trim();
+      const ok = href && !hasControlOrSpace(href) && HREF_OK.test(href) && HREF_OK.test(decodeForCheck(href).trim());
+      open.push({ name, emitted: !!ok });
+      if (!ok) continue;
+      extra += ` href="${escAttr(href)}"`;
+    } else open.push({ name, emitted: true });
+    const cls = (a.get('class') ?? '').trim();
+    if (CLASS_OK.test(cls)) extra += ` class="${escAttr(cls)}"`;
+    const title = plainAttr(decodeText(a.get('title') ?? ''), 200);
+    if (title) extra += ` title="${escAttr(title)}"`;
+    const lang = (a.get('lang') ?? '').trim();
+    if (LANG_OK.test(lang)) extra += ` lang="${escAttr(lang)}"`;
+    const aria = plainAttr(decodeText(a.get('aria-label') ?? ''), 200);
+    if (aria) extra += ` aria-label="${escAttr(aria)}"`;
+    if (name === 'a' && (a.get('target') ?? '').trim() === '_blank') extra += ' target="_blank" rel="noopener noreferrer"';
+    out += `<${name}${extra}>`;
+  }
+  // chiude i tag rimasti aperti, così il markup non "scappa" fuori dall'etichetta
+  for (let k = open.length - 1; k >= 0; k--) if (open[k].emitted) out += `</${open[k].name}>`;
+  return out;
+}

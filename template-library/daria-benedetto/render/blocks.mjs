@@ -274,7 +274,7 @@ const form = (ctx, b) => {
     <form data-form="${b.id}" data-endpoint="${ctx.site.formsEndpoint ?? '/api/forms'}" data-locale="${ctx.locale}" aria-label="${ctx.t(b.label)}">
       <div class="form-grid">
         ${b.fields.map((f) => (f.type === 'consent'
-          ? html`<div class="full"><label class="check${f.cssClass ? ` ${f.cssClass}` : ''}"${attr('title', f.title ? ctx.t(f.title) : null)}><input type="checkbox"${attr('name', f.name)}${attr('required', f.required)}> <span>${raw(f.target === '_blank' ? ctx.richStr(ctx.t(f.label)).replace(/<a /g, '<a target="_blank" rel="noopener noreferrer" ') : ctx.richStr(ctx.t(f.label)))}</span></label></div>`
+          ? html`<div class="full"><label class="check${f.cssClass ? ` ${f.cssClass}` : ''}"${attr('title', f.title ? ctx.t(f.title) : null)}><input type="checkbox"${attr('name', f.name)}${attr('required', f.required)}> <span>${raw(f.html ? ctx.htmlStr(ctx.t(f.html)) : f.target === '_blank' ? ctx.richStr(ctx.t(f.label)).replace(/<a /g, '<a target="_blank" rel="noopener noreferrer" ') : ctx.richStr(ctx.t(f.label)))}</span></label></div>`
           : cell(f)))}
         <div class="full"><button class="btn btn--primary" type="submit">${ctx.t(b.submitLabel)}</button></div>
       </div>

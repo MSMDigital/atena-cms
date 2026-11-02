@@ -334,6 +334,16 @@
                 "title": "Etichetta",
                 "description": "Per il consenso può contenere il link all'informativa privacy."
               },
+              "html": {
+                "$ref": "https://atena.cms/schema/common.json#/$defs/textLong",
+                "title": "Etichetta in HTML (facoltativa)",
+                "description": "Solo per il consenso: se compilata sostituisce l'etichetta e permette HTML completo con classi, title e target (es. <a href=\"page:privacy\" class=\"privacy\" title=\"Informativa\" target=\"_blank\">privacy</a>). Tag ammessi: a, span, strong, b, em, i, u, s, small, mark, abbr, sub, sup, code, br; attributi: class, title, lang, aria-label (e href/target sui link). Il resto viene rimosso.",
+                "x-when": {
+                  "type": [
+                    "consent"
+                  ]
+                }
+              },
               "placeholder": {
                 "$ref": "https://atena.cms/schema/common.json#/$defs/text",
                 "title": "Segnaposto",

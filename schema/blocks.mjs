@@ -160,6 +160,7 @@ export const blocks = [
           name: { title: 'Nome interno', type: 'string', pattern: '^[a-z][a-z0-9_]*$', description: 'Chiave con cui il dato viene salvato.' },
           type: { title: 'Tipo', enum: ['text', 'email', 'tel', 'date', 'select', 'textarea', 'consent'] },
           label: richInline('Etichetta', { description: 'Per il consenso può contenere il link all\'informativa privacy.' }),
+          html: textLong('Etichetta in HTML (facoltativa)', { 'x-when': { type: ['consent'] }, description: "Solo per il consenso: se compilata sostituisce l'etichetta e permette HTML completo con classi, title e target (es. <a href=\"page:privacy\" class=\"privacy\" title=\"Informativa\" target=\"_blank\">privacy</a>). Tag ammessi: a, span, strong, b, em, i, u, s, small, mark, abbr, sub, sup, code, br; attributi: class, title, lang, aria-label (e href/target sui link). Il resto viene rimosso." }),
           placeholder: text('Segnaposto', { 'x-when': { type: ['text', 'email', 'tel', 'textarea'] } }),
           autocomplete: { title: 'Compilazione automatica', type: 'string', description: 'Valore HTML autocomplete (es. given-name, tel, email).' },
           title: text('Titolo (tooltip)', { 'x-when': { type: ['consent'] }, description: 'Testo che compare al passaggio del mouse sulla casella.' }),
